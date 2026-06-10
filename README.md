@@ -1,76 +1,84 @@
 # GMDSOFT Design System
 
-[DESIGN.md](디자인시스템_공유용/v1.0/DESIGN.md) extracted from the internal GMDSOFT Design System v2.12 (Figma collection `01_GMD_Theme_v2.12`). This documents the design language for GMDSOFT's Windows desktop application products (MD-VIDEO, MD-SCANNER, MD-PLATFORM, etc.).
+GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로토타입을 만들 때 참고 기준으로 쓴다. 내부 디자인 시스템 v2.12(Figma 변수 컬렉션 `01_GMD_Theme_v2.12`)에서 추출한 디자인 언어를 문서·토큰·컴포넌트 카탈로그로 제공한다.
 
-## Files
+## 빠른 시작
 
-| File | Description |
-|------|-------------|
-| `DESIGN.md` | Complete design system documentation (9 sections) |
-| `COLOR_TOKENS.md` | Full color token reference with token path + HEX (Light/Dark), CSS variables included |
-| `color-chart.html` | Visual color token chart for Figma transfer (WinUI style, Light + Dark) |
-| `preview.html` | Interactive design token catalog (Light mode) |
-| `preview-dark.html` | Interactive design token catalog (Dark mode) |
-| `TAB_DESIGN.md` | Tab component design system specification (Underline + Pills) |
+| 하려는 일 | 여는 파일 |
+|-----------|-----------|
+| 디자인 시스템을 눈으로 확인 | **`index.html`** — 28개 컴포넌트 카탈로그, 라이트/다크 토글 내장 |
+| AI 도구(Claude·Cursor·Codex)로 UI 생성 | `DESIGN.md` 를 참조 문서로 지정 |
+| 색상 값 찾기 | `COLOR_TOKENS.md` (토큰 경로 + HEX, Light/Dark) |
+| 컴포넌트 구현 스펙 확인 | `COMPONENT_SPECS.md` + `tokens.json` |
+| Claude Code 프로젝트에 규칙 자동 적용 | `skill/` 패키지를 프로젝트에 복사 |
 
-Use [DESIGN.md](디자인시스템_공유용/v1.0/DESIGN.md) as a reference for AI agents (Claude, Cursor, Codex) to generate UI that follows the GMDSOFT design language.
+## 토큰 체계
 
-## Google DESIGN.md Alpha Format
+모든 CSS 토큰은 `--gmd-` 접두사로 통일돼 있다. 파일은 용도별 두 세트다.
 
-`DESIGN.md` includes Google `DESIGN.md` alpha front matter at the top:
-- YAML front matter: machine-readable tokens for colors, typography, spacing, radius, and common components
-- Markdown body: human-readable design rationale and detailed GMDSOFT usage rules
+| 세트 | 파일 | 네이밍 | 용도 |
+|------|------|--------|------|
+| 카탈로그 | `tokens.css` | 플랫 (`--gmd-primary-default`) | `index.html` 전용 단일 출처, 변수 179개 |
+| 구현 export | `tokens-light.css` / `tokens-dark.css` | 도메인 구조 (`--gmd-color-foundation-primary-base`) | HTML 프로토타입·웹 산출물 |
 
-This makes the same file usable in three ways:
-1. Stitch can import or reference the design rules as a project design-system source.
-2. CLI coding agents can read the file before generating HTML prototypes.
-3. The Google CLI can validate, diff, or export the structured tokens.
+값의 플랫폼 무관 정본은 `tokens.json`과 `COLOR_TOKENS.md`다.
 
-Recommended local commands:
+- **Windows 네이티브 앱 (WPF/WinUI)**: CSS·레퍼런스 구현 파일은 직접 사용할 수 없고 스타일 참고용이다. 실제 적용 시에는 `tokens.json`/`COLOR_TOKENS.md` 값을 XAML 리소스(ResourceDictionary) 등 플랫폼 형식으로 옮긴다.
+- **HTML 프로토타입·웹 검토 산출물**: CSS export를 그대로 링크한다.
 
-```bash
-env npm_config_cache=/tmp/design-md-npm-cache npx --yes @google/design.md lint DESIGN.md
-env npm_config_cache=/tmp/design-md-npm-cache npx --yes @google/design.md diff DESIGN.md DESIGN-vNEXT.md
-env npm_config_cache=/tmp/design-md-npm-cache npx --yes @google/design.md export --format tailwind DESIGN.md > tailwind.theme.json
-env npm_config_cache=/tmp/design-md-npm-cache npx --yes @google/design.md export --format dtcg DESIGN.md > tokens.json
+```html
+<link rel="stylesheet" href="./tokens-light.css">
+<link rel="stylesheet" href="./tokens-dark.css">
+<link rel="stylesheet" href="./button.css">
+<link rel="stylesheet" href="./input.css">
+<link rel="stylesheet" href="./table.css">
 ```
 
-Use the `/tmp` npm cache because the user-level npm cache may contain root-owned files on this machine.
+다크 모드는 `<html data-theme="dark">` 로 전환한다. 색상 토큰만 교체되고 간격·구조 값은 동일하다.
 
-## Key Characteristics
+## 파일 구성
 
-- **Platform**: Windows desktop application (1920x1080 FHD, min 1280x720)
-- **App Shell**: Title Bar (32px) + Side Navigation (240px/56px) + Content Area
-- **Seed Color**: `#4681DB` — generates the entire blue-gray palette
-- **Spacing**: Strict 4px grid (no exceptions)
-- **Typography**: 8 sizes only — 10, 12, 14, 16, 18, 20, 22, 28px
-- **Font**: Inter (primary), Pretendard (fallback)
-- **Weights**: Regular (400) and Bold (700) only
-- **Dual Mode**: Light (default) + Dark (monitoring environments)
+| 파일 | 설명 |
+|------|------|
+| `index.html` | **통합 컴포넌트 카탈로그 (기본 프리뷰)** — 28개 컴포넌트, 라이트/다크 토글, Figma v2.12 Docs/* 1:1 미러링 |
+| `tokens.css` | `index.html` 단일 토큰 출처 — 색상·타이포·간격·그리드·아이콘 크기 |
+| `DESIGN.md` | 디자인 시스템 전체 문서 (9개 섹션, Google DESIGN.md alpha front matter 포함) |
+| `COLOR_TOKENS.md` | 색상 토큰 전체 레퍼런스 — 토큰 경로 + HEX (Light/Dark) |
+| `COMPONENT_SPECS.md` | Button·Input·Table 구현 스펙 — 변형/사이즈/상태 규칙과 토큰 바인딩 |
+| `tokens.json` | 기계 판독용 토큰 정본 export (색상·타이포·간격·라운드·엘리베이션) |
+| `tokens-light.css` / `tokens-dark.css` | 구현용 CSS 변수 (Light 기본 + Dark override) |
+| `button.css` / `input.css` / `table.css` | 토큰 기반 레퍼런스 구현 (HTML 프로토타입용) |
+| `color-chart.html` | Figma 전사용 색상 토큰 차트 (WinUI 스타일) |
+| `preview.html` / `preview-dark.html` | 토큰 export 검증용 보조 카탈로그 (모드별 분리, 토글 없음) |
+| `gmd-logo-*.png`, `assets/` | `index.html` 렌더링 자산 |
+| `skill/` | Claude Code 프로젝트 skill 배포 패키지 |
 
-## Preview
+## 핵심 특성
 
-### Light Mode
+- **플랫폼**: Windows 데스크톱 애플리케이션 (1920x1080 FHD 기준, 최소 1280x720)
+- **앱 셸**: Title Bar (32px) + Side Navigation (240px/56px) + Content Area
+- **Seed 색상**: `#4681DB` — 블루-그레이 팔레트 전체의 기준
+- **간격**: 엄격한 4px 그리드 (예외 없음)
+- **타이포**: 8개 크기만 사용 — 10, 12, 14, 16, 18, 20, 22, 28px
+- **폰트**: Inter (기본), Pretendard (폴백)
+- **굵기**: Regular (400), Bold (700) 두 가지만
+- **듀얼 모드**: Light (기본·작업 기준) + Dark (모니터링 환경, 색상만 override)
 
-Open `preview.html` in a browser to see all design tokens visualized:
-- Color palette (Seed, Primary, Gray, Semantic)
-- Typography scale (h1–caption)
-- Button variants (Primary, Seed, Outline, Ghost, Danger, Disabled)
-- Data table with status badges
-- Form elements with all states
-- Side navigation component
-- Modal dialog
-- Spacing, radius, and elevation scales
+## Google DESIGN.md Alpha 포맷
 
-### Dark Mode
+`DESIGN.md` 상단의 YAML front matter는 기계 판독용 토큰, Markdown 본문은 설계 의도와 상세 규칙이다. Stitch의 디자인 시스템 소스, CLI 에이전트의 선독 규칙, Google CLI 검증·export 입력으로 모두 쓸 수 있다.
 
-Open `preview-dark.html` for the Dark mode variant with all dark tokens applied.
+```bash
+npx --yes @google/design.md lint DESIGN.md
+npx --yes @google/design.md export --format tailwind DESIGN.md > tailwind.theme.json
+npx --yes @google/design.md export --format dtcg DESIGN.md > tokens.json
+```
 
-## Token Sources
+## 토큰 출처
 
-| Token Type | Source |
-|-----------|--------|
-| Light Colors | `01_GMD_Theme_v2.12/Light.tokens.json` |
-| Dark Colors | `01_GMD_Theme_v2.12/Dark.tokens.json` |
-| Spacing | `00_GMD Foundations/light.tokens.json` |
-| Typography | `desktop.tokens.json` |
+| 토큰 종류 | 출처 |
+|-----------|------|
+| Light 색상 | `01_GMD_Theme_v2.12/Light.tokens.json` |
+| Dark 색상 | `01_GMD_Theme_v2.12/Dark.tokens.json` |
+| 간격 | `00_GMD Foundations/light.tokens.json` |
+| 타이포 | `desktop.tokens.json` |

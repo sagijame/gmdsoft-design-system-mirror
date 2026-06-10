@@ -1,0 +1,91 @@
+.gmd-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--gmd-color-border-divider);
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-color-background-slot-active);
+}
+
+.gmd-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+  font-family: var(--gmd-font-family-primary);
+  font-size: var(--gmd-font-size-body-md);
+  line-height: var(--gmd-line-height-body-md);
+}
+
+.gmd-table thead th {
+  padding: var(--gmd-space-12) var(--gmd-space-16);
+  background: var(--gmd-color-foundation-gray-scale-100);
+  color: var(--gmd-color-text-primary);
+  font-weight: var(--gmd-font-weight-bold);
+  text-align: left;
+  border-bottom: 1px solid var(--gmd-color-border-divider);
+  white-space: nowrap;
+}
+
+.gmd-table tbody td {
+  min-height: 44px;
+  height: 44px;
+  padding: var(--gmd-space-12) var(--gmd-space-16);
+  color: var(--gmd-color-text-primary);
+  font-weight: var(--gmd-font-weight-regular);
+  border-bottom: 1px solid var(--gmd-color-border-divider);
+  background: var(--gmd-color-background-slot-active);
+}
+
+.gmd-table tbody tr:hover td {
+  background: var(--gmd-color-foundation-primary-subtle);
+}
+
+.gmd-table tbody tr.is-selected td,
+.gmd-table tbody tr[aria-selected="true"] td {
+  background: var(--gmd-color-foundation-primary-scale-100);
+}
+
+.gmd-table tbody tr.is-selected td:first-child,
+.gmd-table tbody tr[aria-selected="true"] td:first-child {
+  box-shadow: inset 3px 0 0 var(--gmd-color-foundation-primary-base);
+}
+
+.gmd-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.gmd-table--dense tbody td,
+.gmd-table--dense thead th {
+  padding-top: var(--gmd-space-8);
+  padding-bottom: var(--gmd-space-8);
+}
+
+.gmd-table-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 2px var(--gmd-space-8);
+  border-radius: var(--gmd-radius-sm);
+  font-size: var(--gmd-font-size-body-sm);
+  line-height: var(--gmd-line-height-body-sm);
+  font-weight: var(--gmd-font-weight-bold);
+  white-space: nowrap;
+}
+
+.gmd-table-status--success {
+  background: var(--gmd-color-semantic-success-background);
+  color: var(--gmd-color-semantic-success-base);
+}
+
+.gmd-table-status--warning {
+  background: var(--gmd-color-semantic-warning-background);
+  color: var(--gmd-color-semantic-warning-base);
+}
+
+.gmd-table-status--error {
+  background: var(--gmd-color-semantic-error-background);
+  color: var(--gmd-color-semantic-error-base);
+}
+
+.gmd-table-status--info {
+  background: var(--gmd-color-semantic-info-background);
+  color: var(--gmd-color-semantic-info-base);
+}

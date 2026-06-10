@@ -1,0 +1,103 @@
+:root[data-theme="dark"],
+[data-theme="dark"] {
+  --gmd-color-seed: #75A3E8;
+
+  --gmd-color-foundation-primary-base: #4F94D4;
+  --gmd-color-foundation-primary-hover: #6EB4E0;
+  --gmd-color-foundation-primary-pressed: #428AB5;
+  --gmd-color-foundation-primary-disabled: #506B7D;
+  --gmd-color-foundation-primary-subtle: #1E3242;
+
+  --gmd-color-foundation-secondary-base: #FFA94D;
+  --gmd-color-foundation-secondary-hover: #FFB966;
+  --gmd-color-foundation-secondary-pressed: #E67700;
+  --gmd-color-foundation-secondary-disabled: #8C5000;
+  --gmd-color-foundation-secondary-subtle: #332B1A;
+
+  --gmd-color-foundation-tertiary-base: #ADB5BD;
+  --gmd-color-foundation-tertiary-hover: #BFC7CD;
+  --gmd-color-foundation-tertiary-pressed: #969FA6;
+  --gmd-color-foundation-tertiary-disabled: #495057;
+  --gmd-color-foundation-tertiary-subtle: #212529;
+
+  --gmd-color-foundation-primary-scale-50: #E8F3FB;
+  --gmd-color-foundation-primary-scale-100: #D1E7F7;
+  --gmd-color-foundation-primary-scale-200: #B0D6F1;
+  --gmd-color-foundation-primary-scale-300: #8EC4EB;
+  --gmd-color-foundation-primary-scale-400: #75B6E2;
+  --gmd-color-foundation-primary-scale-500: #62A8D9;
+  --gmd-color-foundation-primary-scale-600: #4E8BB5;
+  --gmd-color-foundation-primary-scale-700: #396D92;
+  --gmd-color-foundation-primary-scale-800: #255070;
+  --gmd-color-foundation-primary-scale-900: #14324D;
+
+  --gmd-color-foundation-gray-scale-50: #141517;
+  --gmd-color-foundation-gray-scale-100: #1A1D20;
+  --gmd-color-foundation-gray-scale-200: #212529;
+  --gmd-color-foundation-gray-scale-300: #343A40;
+  --gmd-color-foundation-gray-scale-400: #495057;
+  --gmd-color-foundation-gray-scale-500: #6C757D;
+  --gmd-color-foundation-gray-scale-600: #CED4DA;
+  --gmd-color-foundation-gray-scale-700: #DEE2E6;
+  --gmd-color-foundation-gray-scale-800: #E9ECEF;
+  --gmd-color-foundation-gray-scale-900: #F8F9FA;
+
+  --gmd-color-semantic-success-base: #43A85E;
+  --gmd-color-semantic-success-hover: #55C473;
+  --gmd-color-semantic-success-pressed: #348A4B;
+  --gmd-color-semantic-success-background: #1C3323;
+  --gmd-color-semantic-warning-base: #FBBF24;
+  --gmd-color-semantic-warning-hover: #FCD34D;
+  --gmd-color-semantic-warning-pressed: #D97706;
+  --gmd-color-semantic-warning-background: #451A03;
+  --gmd-color-semantic-error-base: #E85A63;
+  --gmd-color-semantic-error-hover: #F27B82;
+  --gmd-color-semantic-error-pressed: #C94850;
+  --gmd-color-semantic-error-background: #331F20;
+  --gmd-color-semantic-info-base: #29B6F6;
+  --gmd-color-semantic-info-hover: #4FC3F7;
+  --gmd-color-semantic-info-pressed: #0288D1;
+  --gmd-color-semantic-info-background: #1A2A33;
+
+  --gmd-color-text-primary: #E0E0E0;
+  --gmd-color-text-secondary: #A0A6AC;
+  --gmd-color-text-tertiary: #6C757D;
+  --gmd-color-text-disabled: #6C757D;
+  --gmd-color-text-on-primary: #FFFFFF;
+  --gmd-color-text-on-warning: #212529;
+
+  --gmd-color-background-base: #141416;
+  --gmd-color-background-section: #1E1E21;
+  --gmd-color-background-card: #252529;
+  --gmd-color-background-slot-active: #1E1E21;
+  --gmd-color-background-surface-primary: #1E1E21;
+  --gmd-color-background-surface-hover: #252529;
+  --gmd-color-background-surface-pressed: #19191B;
+  --gmd-color-background-overlay-hover: rgba(255, 255, 255, 0.06);
+  --gmd-color-background-overlay-pressed: rgba(79, 148, 212, 0.12);
+  --gmd-color-background-overlay-scrim: rgba(0, 0, 0, 0.80);
+  --gmd-color-background-surface-outline: rgba(255, 255, 255, 0.08);
+
+  --gmd-color-border-base: #2E3136;
+  --gmd-color-border-variant-base: #3A3C42;
+  --gmd-color-border-divider: #2A2C30;
+  --gmd-color-border-control: #A0A6AC;
+
+  --gmd-color-button-primary-base: #62A8D9;
+  --gmd-color-button-primary-hover: #8AC6E6;
+  --gmd-color-button-primary-pressed: #428AB5;
+  --gmd-color-button-primary-disabled: #506B7D;
+  --gmd-color-button-seed-base: #75A3E8;
+  --gmd-color-button-seed-hover: #8DB3ED;
+  --gmd-color-button-seed-pressed: #6293E3;
+  --gmd-color-button-seed-disabled: #506B7D;
+  --gmd-color-state-titlebar-icon: rgba(255, 255, 255, 0.20);
+  --gmd-color-state-titlebar-hover: #152641;
+  --gmd-color-state-button-disabled-text: rgba(255, 255, 255, 0.40);
+  --gmd-color-state-focus-ring: rgba(79, 148, 212, 0.30);
+  --gmd-color-state-error-ring: rgba(232, 90, 99, 0.30);
+
+  --gmd-elevation-subtle: 0 1px 3px rgba(0, 0, 0, 0.20);
+  --gmd-elevation-card: 0 2px 8px rgba(0, 0, 0, 0.24);
+  --gmd-elevation-modal: 0 8px 32px rgba(0, 0, 0, 0.40);
+}

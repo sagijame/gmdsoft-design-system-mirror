@@ -236,6 +236,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 | `background_reference/base` | `#FFFFFF` | `#141416` | Pure base reference |
 | `surface/primary` | `#FAF9FD` | `#1E1E21` | Elevated surface |
 | `surface/hover` | `#F5F4F8` | `#252529` | Surface hover state |
+| `overlay/hover` | `rgba(0,0,0,0.06)` | `rgba(255,255,255,0.06)` | Transparent-control hover overlay |
+| `overlay/pressed` | `rgba(19,93,181,0.12)` | `rgba(79,148,212,0.12)` | Transparent-control pressed overlay |
 | `overlay/scrim` | `#00000080` | `#000000CC` | Modal backdrop |
 
 ### Border Colors
@@ -313,8 +315,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 - Text: `#135DB5` (`Foundation/primary/base`)
 - Border: 1px solid `#135DB5`
 - Radius: 4px
-- Hover: background `#EBF2FA` (`Foundation/primary/subtle`)
-- Pressed: background `#D5E5F9` (`primary/100`)
+- Hover: background `rgba(0,0,0,0.06)` Light / `rgba(255,255,255,0.06)` Dark (`overlay/hover`)
+- Pressed: background `rgba(19,93,181,0.12)` Light / `rgba(79,148,212,0.12)` Dark (`overlay/pressed`)
 - Disabled: border and text `#A8C4D9`
 - Use: Secondary actions ("Cancel", "Reset", "Export")
 
@@ -322,8 +324,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 - Background: transparent
 - Text: `#495057` (`Foundation/tertiary/base`)
 - Border: none
-- Hover: background `#F8F9FA` (`gray/100`)
-- Pressed: background `#E9ECEF` (`gray/200`)
+- Hover: background `rgba(0,0,0,0.06)` Light / `rgba(255,255,255,0.06)` Dark (`overlay/hover`)
+- Pressed: background `rgba(19,93,181,0.12)` Light / `rgba(79,148,212,0.12)` Dark (`overlay/pressed`)
 - Disabled: text `#ADB5BD`
 - Use: Tertiary actions, toolbar buttons, icon-only buttons
 
