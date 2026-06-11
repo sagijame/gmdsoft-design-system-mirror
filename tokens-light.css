@@ -1,0 +1,151 @@
+:root {
+  --gmd-color-seed: #4681DB;
+
+  --gmd-color-foundation-primary-base: #135DB5;
+  --gmd-color-foundation-primary-hover: #3D82D9;
+  --gmd-color-foundation-primary-pressed: #0E4A94;
+  --gmd-color-foundation-primary-disabled: #A8C4D9;
+  --gmd-color-foundation-primary-subtle: #EBF2FA;
+
+  --gmd-color-foundation-secondary-base: #E67700;
+  --gmd-color-foundation-secondary-hover: #F28500;
+  --gmd-color-foundation-secondary-pressed: #CC6A00;
+  --gmd-color-foundation-secondary-disabled: #FFD8A8;
+  --gmd-color-foundation-secondary-subtle: #FFF4E6;
+
+  --gmd-color-foundation-tertiary-base: #495057;
+  --gmd-color-foundation-tertiary-hover: #5A6268;
+  --gmd-color-foundation-tertiary-pressed: #3D4348;
+  --gmd-color-foundation-tertiary-disabled: #ADB5BD;
+  --gmd-color-foundation-tertiary-subtle: #F8F9FA;
+
+  --gmd-color-foundation-primary-scale-50: #EAF2FC;
+  --gmd-color-foundation-primary-scale-100: #D5E5F9;
+  --gmd-color-foundation-primary-scale-200: #ACCDF2;
+  --gmd-color-foundation-primary-scale-300: #82B5EB;
+  --gmd-color-foundation-primary-scale-400: #4A8CD0;
+  --gmd-color-foundation-primary-scale-500: #135DB5;
+  --gmd-color-foundation-primary-scale-600: #104E99;
+  --gmd-color-foundation-primary-scale-700: #0C3E7D;
+  --gmd-color-foundation-primary-scale-800: #092F61;
+  --gmd-color-foundation-primary-scale-900: #051F45;
+
+  --gmd-color-foundation-gray-scale-50: #FFFFFF;
+  --gmd-color-foundation-gray-scale-100: #F8F9FA;
+  --gmd-color-foundation-gray-scale-200: #E9ECEF;
+  --gmd-color-foundation-gray-scale-300: #DEE2E6;
+  --gmd-color-foundation-gray-scale-400: #CED4DA;
+  --gmd-color-foundation-gray-scale-500: #ADB5BD;
+  --gmd-color-foundation-gray-scale-600: #6C757D;
+  --gmd-color-foundation-gray-scale-700: #495057;
+  --gmd-color-foundation-gray-scale-800: #343A40;
+  --gmd-color-foundation-gray-scale-900: #212529;
+
+  --gmd-color-semantic-success-base: #2E8544;
+  --gmd-color-semantic-success-hover: #37A352;
+  --gmd-color-semantic-success-pressed: #256A37;
+  --gmd-color-semantic-success-background: #E8F5EC;
+  --gmd-color-semantic-warning-base: #D97706;
+  --gmd-color-semantic-warning-hover: #B45309;
+  --gmd-color-semantic-warning-pressed: #92400E;
+  --gmd-color-semantic-warning-background: #FFFBEB;
+  --gmd-color-semantic-error-base: #D42A34;
+  --gmd-color-semantic-error-hover: #E24950;
+  --gmd-color-semantic-error-pressed: #B0232B;
+  --gmd-color-semantic-error-background: #FCEBED;
+  --gmd-color-semantic-info-base: #0288D1;
+  --gmd-color-semantic-info-hover: #039BE5;
+  --gmd-color-semantic-info-pressed: #0277BD;
+  --gmd-color-semantic-info-background: #E1F5FE;
+
+  --gmd-color-text-primary: #212529;
+  --gmd-color-text-secondary: #495057;
+  --gmd-color-text-tertiary: #868E96;
+  --gmd-color-text-disabled: #ADB5BD;
+  --gmd-color-text-on-primary: #FFFFFF;
+  --gmd-color-text-on-warning: #212529;
+
+  --gmd-color-background-base: #F8F9FA;
+  --gmd-color-background-section: #E9ECEF;
+  --gmd-color-background-card: #FAF9FD;
+  --gmd-color-background-slot-active: #FFFFFF;
+  --gmd-color-background-surface-primary: #FAF9FD;
+  --gmd-color-background-surface-hover: #F5F4F8;
+  --gmd-color-background-surface-pressed: #EFEEF3;
+  --gmd-color-background-overlay-hover: rgba(0, 0, 0, 0.06);
+  --gmd-color-background-overlay-pressed: rgba(19, 93, 181, 0.12);
+  --gmd-color-background-overlay-scrim: rgba(0, 0, 0, 0.50);
+  --gmd-color-background-surface-outline: rgba(0, 0, 0, 0.06);
+
+  --gmd-color-border-base: #74777F;
+  --gmd-color-border-variant-base: #C4C6D0;
+  --gmd-color-border-divider: #DFE0E4;
+  --gmd-color-border-control: #868E96;
+
+  --gmd-color-button-primary-base: #135DB5;
+  --gmd-color-button-primary-hover: #3D82D9;
+  --gmd-color-button-primary-pressed: #0E4A94;
+  --gmd-color-button-primary-disabled: #A8C4D9;
+  --gmd-color-button-seed-base: #4681DB;
+  --gmd-color-button-seed-hover: #5B91E1;
+  --gmd-color-button-seed-pressed: #3671CD;
+  --gmd-color-button-seed-disabled: #A8C4D9;
+  --gmd-color-state-titlebar-icon: rgba(255, 255, 255, 0.30);
+  --gmd-color-state-titlebar-hover: rgba(255, 255, 255, 0.10);
+  --gmd-color-state-button-disabled-text: rgba(255, 255, 255, 0.60);
+  --gmd-color-state-focus-ring: rgba(19, 93, 181, 0.20);
+  --gmd-color-state-error-ring: rgba(212, 42, 52, 0.20);
+
+  --gmd-font-family-primary: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --gmd-font-family-secondary: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --gmd-font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --gmd-font-weight-regular: 400;
+  --gmd-font-weight-bold: 700;
+
+  --gmd-font-size-caption: 10px;
+  --gmd-font-size-body-sm: 12px;
+  --gmd-font-size-body-md: 14px;
+  --gmd-font-size-body-lg: 16px;
+  --gmd-font-size-h4: 18px;
+  --gmd-font-size-h3: 20px;
+  --gmd-font-size-h2: 22px;
+  --gmd-font-size-h1: 28px;
+
+  --gmd-line-height-caption: 14px;
+  --gmd-line-height-body-sm: 17px;
+  --gmd-line-height-body-md: 20px;
+  --gmd-line-height-body-lg: 22px;
+  --gmd-line-height-h4: 26px;
+  --gmd-line-height-h3: 28px;
+  --gmd-line-height-h2: 30px;
+  --gmd-line-height-h1: 42px;
+  --gmd-line-height-tight: 20px;
+  --gmd-line-height-normal: 24px;
+  --gmd-line-height-relaxed: 32px;
+
+  --gmd-space-0: 0px;
+  --gmd-space-2: 2px;
+  --gmd-space-4: 4px;
+  --gmd-space-8: 8px;
+  --gmd-space-12: 12px;
+  --gmd-space-16: 16px;
+  --gmd-space-20: 20px;
+  --gmd-space-24: 24px;
+  --gmd-space-32: 32px;
+  --gmd-space-40: 40px;
+  --gmd-space-48: 48px;
+  --gmd-space-56: 56px;
+  --gmd-space-64: 64px;
+  --gmd-space-80: 80px;
+  --gmd-space-96: 96px;
+
+  --gmd-radius-none: 0px;
+  --gmd-radius-sm: 4px;
+  --gmd-radius-md: 8px;
+  --gmd-radius-lg: 12px;
+  --gmd-radius-full: 9999px;
+
+  --gmd-elevation-subtle: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --gmd-elevation-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --gmd-elevation-modal: 0 8px 32px rgba(0, 0, 0, 0.16);
+}

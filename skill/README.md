@@ -13,9 +13,7 @@ skill/
         └── gmdsoft-design-system/
             ├── SKILL.md            ← Claude가 자동 로드하는 트리거/규칙 정의
             ├── DESIGN.md           ← 9개 섹션 디자인 시스템 전체 스펙
-            ├── COLOR_TOKENS.md     ← 130개 색상 토큰 + CSS 변수
-            ├── preview.html        ← Light 모드 시각 카탈로그
-            └── preview-dark.html   ← Dark 모드 시각 카탈로그
+            └── COLOR_TOKENS.md     ← 130개 색상 토큰 + CSS 변수
 ```
 
 ## 설치 (사용할 프로젝트에서)

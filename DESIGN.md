@@ -2,6 +2,9 @@
 version: alpha
 name: GMDSOFT Design System v2.12
 description: Industrial-grade Windows desktop application design language for GMDSOFT products.
+releaseVersion: VERSION
+sourceCollection: 01_GMD_Theme_v2.12
+catalog: index.html
 colors:
   seed: "#4681DB"
   primary: "#135DB5"
@@ -137,6 +140,13 @@ components:
 
 # Design System Inspiration of GMDSOFT
 
+> **Shared release**: see `VERSION`
+> **Canonical catalog**: `index.html`
+> **Token source for catalog**: `tokens.css`
+> **Figma source**: `GMD Design Kit v2.12` / `01_GMD_Theme_v2.12`
+
+AI tools should read this file together with `CLAUDE.md`, `README.md`, `index.html`, and `tokens.css` before designing or implementing prototypes. `index.html` is the visual review baseline; do not treat legacy preview files as the canonical catalog.
+
 ## 1. Visual Theme & Atmosphere
 
 GMDSOFT builds industrial-grade Windows desktop applications for video production, security, and device management. The design philosophy is precision engineering for professionals — every interface element exists to maximize operator productivity in high-stakes environments. The visual language draws from broadcast control rooms and industrial monitoring systems: clean, information-dense, and utterly functional.
@@ -236,6 +246,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 | `background_reference/base` | `#FFFFFF` | `#141416` | Pure base reference |
 | `surface/primary` | `#FAF9FD` | `#1E1E21` | Elevated surface |
 | `surface/hover` | `#F5F4F8` | `#252529` | Surface hover state |
+| `overlay/hover` | `rgba(0,0,0,0.06)` | `rgba(255,255,255,0.06)` | Transparent-control hover overlay |
+| `overlay/pressed` | `rgba(19,93,181,0.12)` | `rgba(79,148,212,0.12)` | Transparent-control pressed overlay |
 | `overlay/scrim` | `#00000080` | `#000000CC` | Modal backdrop |
 
 ### Border Colors
@@ -313,8 +325,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 - Text: `#135DB5` (`Foundation/primary/base`)
 - Border: 1px solid `#135DB5`
 - Radius: 4px
-- Hover: background `#EBF2FA` (`Foundation/primary/subtle`)
-- Pressed: background `#D5E5F9` (`primary/100`)
+- Hover: background `rgba(0,0,0,0.06)` Light / `rgba(255,255,255,0.06)` Dark (`overlay/hover`)
+- Pressed: background `rgba(19,93,181,0.12)` Light / `rgba(79,148,212,0.12)` Dark (`overlay/pressed`)
 - Disabled: border and text `#A8C4D9`
 - Use: Secondary actions ("Cancel", "Reset", "Export")
 
@@ -322,8 +334,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 - Background: transparent
 - Text: `#495057` (`Foundation/tertiary/base`)
 - Border: none
-- Hover: background `#F8F9FA` (`gray/100`)
-- Pressed: background `#E9ECEF` (`gray/200`)
+- Hover: background `rgba(0,0,0,0.06)` Light / `rgba(255,255,255,0.06)` Dark (`overlay/hover`)
+- Pressed: background `rgba(19,93,181,0.12)` Light / `rgba(79,148,212,0.12)` Dark (`overlay/pressed`)
 - Disabled: text `#ADB5BD`
 - Use: Tertiary actions, toolbar buttons, icon-only buttons
 

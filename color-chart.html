@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<title>GMD Design System v2.12 — Color Token Chart</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+  /* ──── RESET ──── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box;}
+
+  /* ──── PAGE ──── */
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #FFFFFF;
+    color: #212529;
+    -webkit-font-smoothing: antialiased;}
+
+  /* ──── SWISS GRID: 12-col, 1440px max, 24px gutter ──── */
+  .page {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 64px 48px 80px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 24px;
+    row-gap: 0;}
+
+  /* ──── MASTHEAD ──── */
+  .masthead {
+    grid-column: 1 / -1;
+    border-top: 8px solid #212529;
+    padding-top: 32px;
+    margin-bottom: 64px;
+    display: grid;
+    grid-template-columns: subgrid;}
+  .masthead-left {
+    grid-column: 1 / 5;}
+  .masthead-right {
+    grid-column: 9 / 13;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;}
+  .masthead h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    color: #212529;}
+  .masthead .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #868E96;
+    margin-top: 8px;
+    letter-spacing: -0.2px;}
+  .masthead .meta {
+    font-size: 11px;
+    font-weight: 500;
+    color: #ADB5BD;
+    
+    text-transform: uppercase;
+    line-height: 1.6;}
+
+  /* ──── SECTION ──── */
+  .section {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    margin-bottom: 56px;}
+  .section-head {
+    grid-column: 1 / 4;
+    padding-right: 24px;
+    position: relative;}
+  .section-head::before {
+    content: attr(data-num);
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    
+    text-transform: uppercase;
+    color: #135DB5;
+    margin-bottom: 4px;}
+  .section-head h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    color: #212529;
+    margin-bottom: 8px;}
+  .section-head p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #868E96;
+    line-height: 1.5;}
+  .section-body {
+    grid-column: 4 / 13;}
+
+  /* ──── RULE (horizontal divider) ──── */
+  .rule {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: #DEE2E6;
+    margin-bottom: 56px;}
+  .rule.heavy {
+    height: 2px;
+    background: #212529;}
+
+  /* ──── SCALE BAR (continuous gradient strip) ──── */
+  .scale-bar {
+    display: flex;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;}
+  .scale-cell {
+    flex: 1;
+    min-height: 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px;}
+  .scale-cell .label {
+    font-size: 10px;
+    font-weight: 700;
+    
+    line-height: 1.2;}
+  .scale-cell .hex {
+    font-size: 9px;
+    font-weight: 500;
+    font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
+    opacity: 0.75;}
+  .scale-cell.lt .label, .scale-cell.lt .hex { color: #FFFFFF;}
+  .scale-cell.dk .label, .scale-cell.dk .hex { color: #212529;}
+
+  /* ──── STATE ROW (base/hover/pressed/disabled/subtle) ──── */
+  .state-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 4px;}
+  .state-strip.four { grid-template-columns: repeat(4, 1fr);}
+  .state-chip {
+    height: 56px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6px 8px;}
+  .state-chip .label {
+    font-size: 10px;
+    font-weight: 700;}
+  .state-chip .hex {
+    font-size: 9px;
+    font-weight: 500;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    opacity: 0.75;}
+  .state-chip.lt .label, .state-chip.lt .hex { color: #FFF;}
+  .state-chip.dk .label, .state-chip.dk .hex { color: #212529;}
+
+  /* ──── STRIP LABEL ──── */
+  .strip-label {
+    font-size: 10px;
+    font-weight: 700;
+    
+    text-transform: uppercase;
+    color: #495057;
+    margin-bottom: 8px;
+    margin-top: 20px;}
+  .strip-label:first-child { margin-top: 0;}
+
+  /* ──── SEMANTIC GRID ──── */
+  .semantic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;}
+  .semantic-col .sem-label {
+    font-size: 10px;
+    font-weight: 700;
+    
+    text-transform: uppercase;
+    color: #495057;
+    margin-bottom: 8px;}
+  .semantic-col .sem-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;}
+  .sem-chip {
+    height: 48px;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    padding: 6px 8px;
+    justify-content: space-between;}
+  .sem-chip .label { font-size: 10px; font-weight: 700;}
+  .sem-chip .hex { font-size: 9px; font-weight: 500; font-family: 'SF Mono', 'Consolas', monospace; opacity: 0.75;}
+  .sem-chip.lt .label, .sem-chip.lt .hex { color: #FFF;}
+  .sem-chip.dk .label, .sem-chip.dk .hex { color: #212529;}
+
+  /* ──── TOKEN LIST (text, border, bg) ──── */
+  .token-table {
+    width: 100%;
+    border-collapse: collapse;}
+  .token-table th {
+    text-align: left;
+    font-size: 9px;
+    font-weight: 700;
+    
+    text-transform: uppercase;
+    color: #ADB5BD;
+    padding: 0 0 8px 0;
+    border-bottom: 2px solid #212529;}
+  .token-table td {
+    font-size: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #E9ECEF;
+    vertical-align: middle;}
+  .token-table .col-swatch { width: 32px;}
+  .token-table .col-token { font-weight: 500; color: #212529;}
+  .token-table .col-hex {
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-size: 11px;
+    color: #495057;
+    font-weight: 500;}
+  .token-table .col-hex-dark {
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-size: 11px;
+    color: #868E96;
+    font-weight: 500;}
+  .token-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,0.08);}
+  .token-dot-pair {
+    display: flex;
+    gap: 4px;
+    align-items: center;}
+
+  /* ──── BUTTON SPECIMENS ──── */
+  .btn-specimens {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;}
+  .btn-spec-group .btn-spec-label {
+    font-size: 10px;
+    font-weight: 700;
+    
+    text-transform: uppercase;
+    color: #495057;
+    margin-bottom: 12px;}
+  .btn-spec-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;}
+  .btn-spec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;}
+  .btn-pill {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFF;
+    letter-spacing: -0.2px;}
+  .btn-hex {
+    font-size: 9px;
+    font-weight: 500;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    color: #868E96;}
+
+  /* ──── DARK MODE PANEL ──── */
+  .dark-panel {
+    grid-column: 1 / -1;
+    background: #141416;
+    border-radius: 8px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 24px;
+    margin-bottom: 56px;}
+  .dark-panel .dp-head {
+    grid-column: 1 / 4;
+    padding-right: 24px;}
+  .dark-panel .dp-head h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #E0E0E0;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;}
+  .dark-panel .dp-head p {
+    font-size: 12px;
+    color: #6C757D;
+    line-height: 1.5;}
+  .dark-panel .dp-head .dp-num {
+    font-size: 11px;
+    font-weight: 700;
+    
+    color: #4F94D4;
+    margin-bottom: 4px;}
+  .dark-panel .dp-body {
+    grid-column: 4 / 13;}
+  .dark-panel .strip-label { color: #A0A6AC;}
+
+  /* Token table dark variant */
+  .dark-panel .token-table th {
+    color: #6C757D;
+    border-bottom-color: #E0E0E0;}
+  .dark-panel .token-table td {
+    border-bottom-color: #2A2C30;}
+  .dark-panel .token-table .col-token { color: #E0E0E0;}
+  .dark-panel .token-table .col-hex { color: #A0A6AC;}
+
+  /* ──── TITLE BAR SPECIMEN ──── */
+  .titlebar-specimen {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    border-radius: 4px;
+    overflow: hidden;}
+  .tb-bg {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #FFF;}
+  .tb-ctrl {
+    height: 100%;
+    width: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: #FFF;}
+
+  /* ──── FOOTER ──── */
+  .footer {
+    grid-column: 1 / -1;
+    border-top: 2px solid #212529;
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ADB5BD;
+    
+    text-transform: uppercase;}
+
+  /* ──── SEED HERO ──── */
+  .seed-hero {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;}
+  .seed-block {
+    width: 200px;
+    height: 100px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;}
+  .seed-block .label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.3px;}
+  .seed-block .hex {
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    opacity: 0.8;}
+  .seed-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12px;
+    color: #868E96;
+    line-height: 1.6;
+    max-width: 360px;}
+
+  /* ──── OVERLAY SPECIMENS ──── */
+  .overlay-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;}
+  .overlay-chip {
+    height: 48px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6px 8px;
+    border: 1px solid #E9ECEF;}
+  .overlay-chip .label { font-size: 10px; font-weight: 700;}
+  .overlay-chip .hex { font-size: 9px; font-family: 'SF Mono', 'Consolas', monospace; opacity: 0.7;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ════════════════════════════════════════════════════════
+     MASTHEAD
+     ════════════════════════════════════════════════════════ -->
+<div class="masthead">
+  <div class="masthead-left">
+    <h1>Color<br>Tokens</h1>
+    <div class="subtitle">GMD Design System v2.12</div>
+  </div>
+  <div class="masthead-right">
+    <div class="meta">
+      Figma: MD-UX (zt8aRVV4gt9tNwjeyjOu1b)<br>
+      Collection: 01_GMD_Theme_v2.12<br>
+      Tokens: 130 (Light + Dark)<br>
+      Extracted: 2026-04-14
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     01 — SEED
+     ════════════════════════════════════════════════════════ -->
+<div class="rule heavy"></div>
+<div class="section">
+  <div class="section-head" data-num="01">
+    <h2>Seed</h2>
+    <p>전체 팔레트 생성의<br>기준 색상 (Origin Color)</p>
+  </div>
+  <div class="section-body">
+    <div class="seed-hero">
+      <div class="seed-block" style="background:#4681DB;">
+        <div class="label" style="color:#FFF;">Light Seed</div>
+        <div class="hex" style="color:#FFF;">#4681DB</div>
+      </div>
+      <div class="seed-block" style="background:#75A3E8;">
+        <div class="label" style="color:#FFF;">Dark Seed</div>
+        <div class="hex" style="color:#FFF;">#75A3E8</div>
+      </div>
+      <div class="seed-desc">
+        Seed Blue에서 Primary Scale(50-900),<br>
+        Button, Loader, Title Bar 색상이<br>
+        체계적으로 파생된다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     02 — PRIMARY SCALE
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="02">
+    <h2>Primary<br>Scale</h2>
+    <p>Foundation Colors /<br>primary 900 &mdash;<br>시스템 전반의 파랑 계열<br>명도 단계 (50&ndash;900)</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Light</div>
+    <div class="scale-bar">
+      <div class="scale-cell dk" style="background:#EAF2FC;"><div class="label">50</div><div class="hex">#EAF2FC</div></div>
+      <div class="scale-cell dk" style="background:#D5E5F9;"><div class="label">100</div><div class="hex">#D5E5F9</div></div>
+      <div class="scale-cell dk" style="background:#ACCDF2;"><div class="label">200</div><div class="hex">#ACCDF2</div></div>
+      <div class="scale-cell dk" style="background:#82B5EB;"><div class="label">300</div><div class="hex">#82B5EB</div></div>
+      <div class="scale-cell lt" style="background:#4A8CD0;"><div class="label">400</div><div class="hex">#4A8CD0</div></div>
+      <div class="scale-cell lt" style="background:#135DB5;"><div class="label">500</div><div class="hex">#135DB5</div></div>
+      <div class="scale-cell lt" style="background:#104E99;"><div class="label">600</div><div class="hex">#104E99</div></div>
+      <div class="scale-cell lt" style="background:#0C3E7D;"><div class="label">700</div><div class="hex">#0C3E7D</div></div>
+      <div class="scale-cell lt" style="background:#092F61;"><div class="label">800</div><div class="hex">#092F61</div></div>
+      <div class="scale-cell lt" style="background:#051F45;"><div class="label">900</div><div class="hex">#051F45</div></div>
+    </div>
+    <div class="strip-label">Dark</div>
+    <div class="scale-bar">
+      <div class="scale-cell dk" style="background:#E8F3FB;"><div class="label">50</div><div class="hex">#E8F3FB</div></div>
+      <div class="scale-cell dk" style="background:#D1E7F7;"><div class="label">100</div><div class="hex">#D1E7F7</div></div>
+      <div class="scale-cell dk" style="background:#B0D6F1;"><div class="label">200</div><div class="hex">#B0D6F1</div></div>
+      <div class="scale-cell dk" style="background:#8EC4EB;"><div class="label">300</div><div class="hex">#8EC4EB</div></div>
+      <div class="scale-cell dk" style="background:#75B6E2;"><div class="label">400</div><div class="hex">#75B6E2</div></div>
+      <div class="scale-cell lt" style="background:#62A8D9;"><div class="label">500</div><div class="hex">#62A8D9</div></div>
+      <div class="scale-cell lt" style="background:#4E8BB5;"><div class="label">600</div><div class="hex">#4E8BB5</div></div>
+      <div class="scale-cell lt" style="background:#396D92;"><div class="label">700</div><div class="hex">#396D92</div></div>
+      <div class="scale-cell lt" style="background:#255070;"><div class="label">800</div><div class="hex">#255070</div></div>
+      <div class="scale-cell lt" style="background:#14324D;"><div class="label">900</div><div class="hex">#14324D</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     03 — GRAY SCALE
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="03">
+    <h2>Gray<br>Scale</h2>
+    <p>Foundation Colors /<br>gray 900 &mdash;<br>배경, 보더, 텍스트 위계를<br>위한 뉴트럴 스케일</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Light</div>
+    <div class="scale-bar">
+      <div class="scale-cell dk" style="background:#FFFFFF; box-shadow: inset 0 0 0 1px #DEE2E6;"><div class="label">50</div><div class="hex">#FFFFFF</div></div>
+      <div class="scale-cell dk" style="background:#F8F9FA;"><div class="label">100</div><div class="hex">#F8F9FA</div></div>
+      <div class="scale-cell dk" style="background:#E9ECEF;"><div class="label">200</div><div class="hex">#E9ECEF</div></div>
+      <div class="scale-cell dk" style="background:#DEE2E6;"><div class="label">300</div><div class="hex">#DEE2E6</div></div>
+      <div class="scale-cell dk" style="background:#CED4DA;"><div class="label">400</div><div class="hex">#CED4DA</div></div>
+      <div class="scale-cell dk" style="background:#ADB5BD;"><div class="label">500</div><div class="hex">#ADB5BD</div></div>
+      <div class="scale-cell lt" style="background:#6C757D;"><div class="label">600</div><div class="hex">#6C757D</div></div>
+      <div class="scale-cell lt" style="background:#495057;"><div class="label">700</div><div class="hex">#495057</div></div>
+      <div class="scale-cell lt" style="background:#343A40;"><div class="label">800</div><div class="hex">#343A40</div></div>
+      <div class="scale-cell lt" style="background:#212529;"><div class="label">900</div><div class="hex">#212529</div></div>
+    </div>
+    <div class="strip-label">Dark (inverted)</div>
+    <div class="scale-bar">
+      <div class="scale-cell lt" style="background:#141517;"><div class="label">50</div><div class="hex">#141517</div></div>
+      <div class="scale-cell lt" style="background:#1A1D20;"><div class="label">100</div><div class="hex">#1A1D20</div></div>
+      <div class="scale-cell lt" style="background:#212529;"><div class="label">200</div><div class="hex">#212529</div></div>
+      <div class="scale-cell lt" style="background:#343A40;"><div class="label">300</div><div class="hex">#343A40</div></div>
+      <div class="scale-cell lt" style="background:#495057;"><div class="label">400</div><div class="hex">#495057</div></div>
+      <div class="scale-cell lt" style="background:#6C757D;"><div class="label">500</div><div class="hex">#6C757D</div></div>
+      <div class="scale-cell dk" style="background:#CED4DA;"><div class="label">600</div><div class="hex">#CED4DA</div></div>
+      <div class="scale-cell dk" style="background:#DEE2E6;"><div class="label">700</div><div class="hex">#DEE2E6</div></div>
+      <div class="scale-cell dk" style="background:#E9ECEF;"><div class="label">800</div><div class="hex">#E9ECEF</div></div>
+      <div class="scale-cell dk" style="background:#F8F9FA;"><div class="label">900</div><div class="hex">#F8F9FA</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     04 — FOUNDATION STATES
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="04">
+    <h2>Foundation<br>States</h2>
+    <p>Primary / Secondary /<br>Tertiary &mdash;<br>base, hover, pressed,<br>disabled, subtle</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Primary</div>
+    <div class="state-strip">
+      <div class="state-chip lt" style="background:#135DB5;"><div class="label">base</div><div class="hex">#135DB5</div></div>
+      <div class="state-chip lt" style="background:#3D82D9;"><div class="label">hover</div><div class="hex">#3D82D9</div></div>
+      <div class="state-chip lt" style="background:#0E4A94;"><div class="label">pressed</div><div class="hex">#0E4A94</div></div>
+      <div class="state-chip dk" style="background:#A8C4D9;"><div class="label">disabled</div><div class="hex">#A8C4D9</div></div>
+      <div class="state-chip dk" style="background:#EBF2FA;"><div class="label">subtle</div><div class="hex">#EBF2FA</div></div>
+    </div>
+    <div class="strip-label">Secondary</div>
+    <div class="state-strip">
+      <div class="state-chip lt" style="background:#E67700;"><div class="label">base</div><div class="hex">#E67700</div></div>
+      <div class="state-chip lt" style="background:#F28500;"><div class="label">hover</div><div class="hex">#F28500</div></div>
+      <div class="state-chip lt" style="background:#CC6A00;"><div class="label">pressed</div><div class="hex">#CC6A00</div></div>
+      <div class="state-chip dk" style="background:#FFD8A8;"><div class="label">disabled</div><div class="hex">#FFD8A8</div></div>
+      <div class="state-chip dk" style="background:#FFF4E6;"><div class="label">subtle</div><div class="hex">#FFF4E6</div></div>
+    </div>
+    <div class="strip-label">Tertiary</div>
+    <div class="state-strip">
+      <div class="state-chip lt" style="background:#495057;"><div class="label">base</div><div class="hex">#495057</div></div>
+      <div class="state-chip lt" style="background:#5A6268;"><div class="label">hover</div><div class="hex">#5A6268</div></div>
+      <div class="state-chip lt" style="background:#3D4348;"><div class="label">pressed</div><div class="hex">#3D4348</div></div>
+      <div class="state-chip dk" style="background:#ADB5BD;"><div class="label">disabled</div><div class="hex">#ADB5BD</div></div>
+      <div class="state-chip dk" style="background:#F8F9FA;"><div class="label">subtle</div><div class="hex">#F8F9FA</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     05 — SEMANTIC
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="05">
+    <h2>Semantic<br>Colors</h2>
+    <p>Error / Warning /<br>Success / Info &mdash;<br>base, hover, pressed,<br>background</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Light</div>
+    <div class="semantic-grid">
+      <div class="semantic-col">
+        <div class="sem-label">Error</div>
+        <div class="sem-chips">
+          <div class="sem-chip lt" style="background:#D42A34;"><div class="label">base</div><div class="hex">#D42A34</div></div>
+          <div class="sem-chip lt" style="background:#E24950;"><div class="label">hover</div><div class="hex">#E24950</div></div>
+          <div class="sem-chip lt" style="background:#B0232B;"><div class="label">pressed</div><div class="hex">#B0232B</div></div>
+          <div class="sem-chip dk" style="background:#FCEBED;"><div class="label">background</div><div class="hex">#FCEBED</div></div>
+        </div>
+      </div>
+      <div class="semantic-col">
+        <div class="sem-label">Warning</div>
+        <div class="sem-chips">
+          <div class="sem-chip dk" style="background:#D97706;"><div class="label">base</div><div class="hex">#D97706</div></div>
+          <div class="sem-chip lt" style="background:#B45309;"><div class="label">hover</div><div class="hex">#B45309</div></div>
+          <div class="sem-chip lt" style="background:#92400E;"><div class="label">pressed</div><div class="hex">#92400E</div></div>
+          <div class="sem-chip dk" style="background:#FFFBEB;"><div class="label">background</div><div class="hex">#FFFBEB</div></div>
+        </div>
+      </div>
+      <div class="semantic-col">
+        <div class="sem-label">Success</div>
+        <div class="sem-chips">
+          <div class="sem-chip lt" style="background:#2E8544;"><div class="label">base</div><div class="hex">#2E8544</div></div>
+          <div class="sem-chip lt" style="background:#37A352;"><div class="label">hover</div><div class="hex">#37A352</div></div>
+          <div class="sem-chip lt" style="background:#256A37;"><div class="label">pressed</div><div class="hex">#256A37</div></div>
+          <div class="sem-chip dk" style="background:#E8F5EC;"><div class="label">background</div><div class="hex">#E8F5EC</div></div>
+        </div>
+      </div>
+      <div class="semantic-col">
+        <div class="sem-label">Info</div>
+        <div class="sem-chips">
+          <div class="sem-chip lt" style="background:#0288D1;"><div class="label">base</div><div class="hex">#0288D1</div></div>
+          <div class="sem-chip lt" style="background:#039BE5;"><div class="label">hover</div><div class="hex">#039BE5</div></div>
+          <div class="sem-chip lt" style="background:#0277BD;"><div class="label">pressed</div><div class="hex">#0277BD</div></div>
+          <div class="sem-chip dk" style="background:#E1F5FE;"><div class="label">background</div><div class="hex">#E1F5FE</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="strip-label">Dark</div>
+    <div class="semantic-grid">
+      <div class="semantic-col">
+        <div class="sem-chips">
+          <div class="sem-chip lt" style="background:#E85A63;"><div class="label">base</div><div class="hex">#E85A63</div></div>
+          <div class="sem-chip dk" style="background:#F27B82;"><div class="label">hover</div><div class="hex">#F27B82</div></div>
+          <div class="sem-chip lt" style="background:#C94850;"><div class="label">pressed</div><div class="hex">#C94850</div></div>
+          <div class="sem-chip lt" style="background:#331F20;"><div class="label">background</div><div class="hex">#331F20</div></div>
+        </div>
+      </div>
+      <div class="semantic-col">
+        <div class="sem-chips">
+          <div class="sem-chip dk" style="background:#FBBF24;"><div class="label">base</div><div class="hex">#FBBF24</div></div>
+          <div class="sem-chip dk" style="background:#FCD34D;"><div class="label">hover</div><div class="hex">#FCD34D</div></div>
+          <div class="sem-chip dk" style="background:#D97706;"><div class="label">pressed</div><div class="hex">#D97706</div></div>
+          <div class="sem-chip lt" style="background:#451A03;"><div class="label">background</div><div class="hex">#451A03</div></div>
+        </div>
+      </div>
+      <div class="semantic-col">
+        <div class="sem-chips">
+          <div class="sem-chip lt" style="background:#43A85E;"><div class="label">base</div><div class="hex">#43A85E</div></div>
+          <div class="sem-chip dk" style="background:#55C473;"><div class="label">hover</div><div class="hex">#55C473</div></div>
+          <div class="sem-chip lt" style="background:#348A4B;"><div class="label">pressed</div><div class="hex">#348A4B</div></div>
+          <div class="sem-chip lt" style="background:#1C3323;"><div class="label">background</div><div class="hex">#1C3323</div></div>
+        </div>
+      </div>
+      <div class="semantic-col">
+        <div class="sem-chips">
+          <div class="sem-chip dk" style="background:#29B6F6;"><div class="label">base</div><div class="hex">#29B6F6</div></div>
+          <div class="sem-chip dk" style="background:#4FC3F7;"><div class="label">hover</div><div class="hex">#4FC3F7</div></div>
+          <div class="sem-chip lt" style="background:#0288D1;"><div class="label">pressed</div><div class="hex">#0288D1</div></div>
+          <div class="sem-chip lt" style="background:#1A2A33;"><div class="label">background</div><div class="hex">#1A2A33</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     06 — TEXT & FOREGROUND
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="06">
+    <h2>Text &<br>Foreground</h2>
+    <p>텍스트 위계(default) 및<br>컬러 배경 위 텍스트<br>(on-primary, on-color)</p>
+  </div>
+  <div class="section-body">
+    <table class="token-table">
+      <thead>
+        <tr>
+          <th class="col-swatch"></th>
+          <th class="col-swatch"></th>
+          <th>Token</th>
+          <th>Light</th>
+          <th>Dark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><div class="token-dot" style="background:#212529;"></div></td><td><div class="token-dot" style="background:#E0E0E0;"></div></td><td class="col-token">Text / default / primary</td><td class="col-hex">#212529</td><td class="col-hex-dark">#E0E0E0</td></tr>
+        <tr><td><div class="token-dot" style="background:#495057;"></div></td><td><div class="token-dot" style="background:#A0A6AC;"></div></td><td class="col-token">Text / default / secondary</td><td class="col-hex">#495057</td><td class="col-hex-dark">#A0A6AC</td></tr>
+        <tr><td><div class="token-dot" style="background:#868E96;"></div></td><td><div class="token-dot" style="background:#6C757D;"></div></td><td class="col-token">Text / default / tertiary</td><td class="col-hex">#868E96</td><td class="col-hex-dark">#6C757D</td></tr>
+        <tr><td><div class="token-dot" style="background:#ADB5BD;"></div></td><td><div class="token-dot" style="background:#6C757D;"></div></td><td class="col-token">Text / default / disabled</td><td class="col-hex">#ADB5BD</td><td class="col-hex-dark">#6C757D</td></tr>
+        <tr><td colspan="5" style="height:8px; border:none;"></td></tr>
+        <tr><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td class="col-token">Text / on-primary / base</td><td class="col-hex">#FFFFFF</td><td class="col-hex-dark">#FFFFFF</td></tr>
+        <tr><td><div class="token-dot" style="background:#E0E0E0;"></div></td><td><div class="token-dot" style="background:#E0E0E0;"></div></td><td class="col-token">Text / on-primary / secondary</td><td class="col-hex">#E0E0E0</td><td class="col-hex-dark">#E0E0E0</td></tr>
+        <tr><td><div class="token-dot" style="background:#CCCCCC;"></div></td><td><div class="token-dot" style="background:#A6A6A6;"></div></td><td class="col-token">Text / on-primary / disabled</td><td class="col-hex">#CCCCCC</td><td class="col-hex-dark">#A6A6A6</td></tr>
+        <tr><td colspan="5" style="height:8px; border:none;"></td></tr>
+        <tr><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td class="col-token">Text / on-color / on-error</td><td class="col-hex">#FFFFFF</td><td class="col-hex-dark">#FFFFFF</td></tr>
+        <tr><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td class="col-token">Text / on-color / on-success</td><td class="col-hex">#FFFFFF</td><td class="col-hex-dark">#FFFFFF</td></tr>
+        <tr><td><div class="token-dot" style="background:#212529;"></div></td><td><div class="token-dot" style="background:#212529;"></div></td><td class="col-token">Text / on-color / on-warning</td><td class="col-hex">#212529</td><td class="col-hex-dark">#212529</td></tr>
+        <tr><td colspan="5" style="height:8px; border:none;"></td></tr>
+        <tr><td><div class="token-dot" style="background:#1A1A1A;"></div></td><td><div class="token-dot" style="background:#FFFFFF; border-color:#DEE2E6;"></div></td><td class="col-token">Foreground / on surface / primary</td><td class="col-hex">#1A1A1A</td><td class="col-hex-dark">#FFFFFF</td></tr>
+        <tr><td><div class="token-dot" style="background:#5F5F5F;"></div></td><td><div class="token-dot" style="background:#B3B3B3;"></div></td><td class="col-token">Foreground / on surface / secondary</td><td class="col-hex">#5F5F5F</td><td class="col-hex-dark">#B3B3B3</td></tr>
+        <tr><td><div class="token-dot" style="background:#9A9A9A;"></div></td><td><div class="token-dot" style="background:#7A7A7A;"></div></td><td class="col-token">Foreground / on surface / tertiary</td><td class="col-hex">#9A9A9A</td><td class="col-hex-dark">#7A7A7A</td></tr>
+        <tr><td><div class="token-dot" style="background:#C2C2C2;"></div></td><td><div class="token-dot" style="background:#5A5A5A;"></div></td><td class="col-token">Foreground / on surface / disabled</td><td class="col-hex">#C2C2C2</td><td class="col-hex-dark">#5A5A5A</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     07 — BACKGROUND & SURFACE
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="07">
+    <h2>Background<br>& Surface</h2>
+    <p>페이지 배경, 카드,<br>섹션, 서피스, 오버레이</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Core Background</div>
+    <div class="state-strip">
+      <div class="state-chip dk" style="background:#F8F9FA;"><div class="label">bg/base</div><div class="hex">#F8F9FA</div></div>
+      <div class="state-chip dk" style="background:#FAF9FD;"><div class="label">bg/card</div><div class="hex">#FAF9FD</div></div>
+      <div class="state-chip dk" style="background:#E9ECEF;"><div class="label">bg/section</div><div class="hex">#E9ECEF</div></div>
+      <div class="state-chip dk" style="background:#FFFFFF; border:1px solid #DEE2E6;"><div class="label">slot-active</div><div class="hex">#FFFFFF</div></div>
+      <div class="state-chip dk" style="background:#E9ECEF;"><div class="label">slot-disabled</div><div class="hex">#E9ECEF</div></div>
+    </div>
+    <div class="strip-label">Surface</div>
+    <div class="state-strip four">
+      <div class="state-chip dk" style="background:#FAF9FD;"><div class="label">primary</div><div class="hex">#FAF9FD</div></div>
+      <div class="state-chip dk" style="background:#F5F4F8;"><div class="label">hover</div><div class="hex">#F5F4F8</div></div>
+      <div class="state-chip dk" style="background:#EFEEF3;"><div class="label">pressed</div><div class="hex">#EFEEF3</div></div>
+      <div class="state-chip dk" style="background:#FFFFFF; border:1px solid #DEE2E6;"><div class="label">disabled</div><div class="hex">#FFFFFF</div></div>
+    </div>
+    <div class="strip-label">Overlay</div>
+    <div class="overlay-strip">
+      <div class="overlay-chip"><div class="label" style="color:#868E96;">hover</div><div class="hex" style="color:#ADB5BD;">rgba(0,0,0, 0.06)</div></div>
+      <div class="overlay-chip" style="background:rgba(19,93,181,0.12);"><div class="label" style="color:#495057;">pressed</div><div class="hex" style="color:#6C757D;">primary 12%</div></div>
+      <div class="overlay-chip" style="background:rgba(0,0,0,0.50);"><div class="label" style="color:#FFF;">scrim</div><div class="hex" style="color:#CED4DA;">50%</div></div>
+      <div class="overlay-chip" style="background:rgba(0,0,0,0.30);"><div class="label" style="color:#FFF;">sheet</div><div class="hex" style="color:#CED4DA;">30%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     08 — BORDER
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="08">
+    <h2>Border<br>Colors</h2>
+    <p>border (강한 보더),<br>border-variant (약한 보더 /<br>구분선)</p>
+  </div>
+  <div class="section-body">
+    <table class="token-table">
+      <thead>
+        <tr>
+          <th class="col-swatch"></th>
+          <th class="col-swatch"></th>
+          <th>Token</th>
+          <th>Light</th>
+          <th>Dark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><div class="token-dot" style="background:#74777F;"></div></td><td><div class="token-dot" style="background:#2E3136;"></div></td><td class="col-token">border / base</td><td class="col-hex">#74777F</td><td class="col-hex-dark">#2E3136</td></tr>
+        <tr><td><div class="token-dot" style="background:#5D6069;"></div></td><td><div class="token-dot" style="background:#3A3D42;"></div></td><td class="col-token">border / hover</td><td class="col-hex">#5D6069</td><td class="col-hex-dark">#3A3D42</td></tr>
+        <tr><td><div class="token-dot" style="background:#484B52;"></div></td><td><div class="token-dot" style="background:#232528;"></div></td><td class="col-token">border / pressed</td><td class="col-hex">#484B52</td><td class="col-hex-dark">#232528</td></tr>
+        <tr><td><div class="token-dot" style="background:#9A9DA6;"></div></td><td><div class="token-dot" style="background:#1C1E21;"></div></td><td class="col-token">border / disabled</td><td class="col-hex">#9A9DA6</td><td class="col-hex-dark">#1C1E21</td></tr>
+        <tr><td colspan="5" style="height:8px; border:none;"></td></tr>
+        <tr><td><div class="token-dot" style="background:#C4C6D0;"></div></td><td><div class="token-dot" style="background:#3A3C42;"></div></td><td class="col-token">border-variant / base</td><td class="col-hex">#C4C6D0</td><td class="col-hex-dark">#3A3C42</td></tr>
+        <tr><td><div class="token-dot" style="background:#DFE0E4;"></div></td><td><div class="token-dot" style="background:#2A2C30;"></div></td><td class="col-token">border-variant / divider</td><td class="col-hex">#DFE0E4</td><td class="col-hex-dark">#2A2C30</td></tr>
+        <tr><td><div class="token-dot" style="background:#A7AAB4;"></div></td><td><div class="token-dot" style="background:#4A4D54;"></div></td><td class="col-token">border-variant / hover</td><td class="col-hex">#A7AAB4</td><td class="col-hex-dark">#4A4D54</td></tr>
+        <tr><td><div class="token-dot" style="background:#898C96;"></div></td><td><div class="token-dot" style="background:#2A2C30;"></div></td><td class="col-token">border-variant / pressed</td><td class="col-hex">#898C96</td><td class="col-hex-dark">#2A2C30</td></tr>
+        <tr><td><div class="token-dot" style="background:#868E96;"></div></td><td><div class="token-dot" style="background:#A0A6AC;"></div></td><td class="col-token">border-variant / control</td><td class="col-hex">#868E96</td><td class="col-hex-dark">#A0A6AC</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     09 — BUTTON
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="09">
+    <h2>Button</h2>
+    <p>Primary 버튼과<br>Seed 버튼의<br>상태별 색상</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Light</div>
+    <div class="btn-specimens">
+      <div class="btn-spec-group">
+        <div class="btn-spec-label">Primary</div>
+        <div class="btn-spec-row">
+          <div class="btn-spec"><div class="btn-pill" style="background:#135DB5;">Base</div><div class="btn-hex">#135DB5</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#3D82D9;">Hover</div><div class="btn-hex">#3D82D9</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#0E4A94;">Pressed</div><div class="btn-hex">#0E4A94</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#A8C4D9;">Disabled</div><div class="btn-hex">#A8C4D9</div></div>
+        </div>
+      </div>
+      <div class="btn-spec-group">
+        <div class="btn-spec-label">Seed</div>
+        <div class="btn-spec-row">
+          <div class="btn-spec"><div class="btn-pill" style="background:#4681DB;">Base</div><div class="btn-hex">#4681DB</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#5B91E1;">Hover</div><div class="btn-hex">#5B91E1</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#3671CD;">Pressed</div><div class="btn-hex">#3671CD</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#A8C4D9;">Disabled</div><div class="btn-hex">#A8C4D9</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="strip-label">Dark</div>
+    <div class="btn-specimens">
+      <div class="btn-spec-group">
+        <div class="btn-spec-label">Primary</div>
+        <div class="btn-spec-row">
+          <div class="btn-spec"><div class="btn-pill" style="background:#62A8D9;">Base</div><div class="btn-hex">#62A8D9</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#8AC6E6;">Hover</div><div class="btn-hex">#8AC6E6</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#428AB5;">Pressed</div><div class="btn-hex">#428AB5</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#506B7D;">Disabled</div><div class="btn-hex">#506B7D</div></div>
+        </div>
+      </div>
+      <div class="btn-spec-group">
+        <div class="btn-spec-label">Seed</div>
+        <div class="btn-spec-row">
+          <div class="btn-spec"><div class="btn-pill" style="background:#75A3E8;">Base</div><div class="btn-hex">#75A3E8</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#8DB3ED;">Hover</div><div class="btn-hex">#8DB3ED</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#6293E3;">Pressed</div><div class="btn-hex">#6293E3</div></div>
+          <div class="btn-spec"><div class="btn-pill" style="background:#506B7D;">Disabled</div><div class="btn-hex">#506B7D</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     10 — LOADER
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="10">
+    <h2>Loader</h2>
+    <p>로딩 애니메이션의<br>색상 단계<br>(Primary / Gray)</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Primary Loader &mdash; Light</div>
+    <div class="scale-bar" style="border-radius:4px; overflow:hidden;">
+      <div class="scale-cell dk" style="background:#E6E6E6; flex:1;"><div class="label">inactive</div><div class="hex">#E6E6E6</div></div>
+      <div class="scale-cell dk" style="background:#D6E3F4; flex:1;"><div class="label">step1</div><div class="hex">#D6E3F4</div></div>
+      <div class="scale-cell dk" style="background:#ADC7EA; flex:1;"><div class="label">step2</div><div class="hex">#ADC7EA</div></div>
+      <div class="scale-cell dk" style="background:#85ABE0; flex:1;"><div class="label">step3</div><div class="hex">#85ABE0</div></div>
+      <div class="scale-cell lt" style="background:#4681DB; flex:1;"><div class="label">active</div><div class="hex">#4681DB</div></div>
+    </div>
+    <div class="strip-label">Gray Loader &mdash; Light</div>
+    <div class="scale-bar" style="border-radius:4px; overflow:hidden;">
+      <div class="scale-cell dk" style="background:#E6E6E6; flex:1;"><div class="label">inactive</div><div class="hex">#E6E6E6</div></div>
+      <div class="scale-cell dk" style="background:#E6E6E6; flex:1;"><div class="label">step1</div><div class="hex">#E6E6E6</div></div>
+      <div class="scale-cell dk" style="background:#CCCCCC; flex:1;"><div class="label">step2</div><div class="hex">#CCCCCC</div></div>
+      <div class="scale-cell lt" style="background:#999999; flex:1;"><div class="label">step3</div><div class="hex">#999999</div></div>
+      <div class="scale-cell lt" style="background:#666666; flex:1;"><div class="label">active</div><div class="hex">#666666</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     11 — TITLE BAR
+     ════════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+<div class="section">
+  <div class="section-head" data-num="11">
+    <h2>Windows<br>Title Bar</h2>
+    <p>32px 타이틀바 전용 &mdash;<br>배경, 컨트롤 버튼,<br>텍스트, 아이콘</p>
+  </div>
+  <div class="section-body">
+    <div class="strip-label">Light</div>
+    <div class="titlebar-specimen" style="margin-bottom:4px;">
+      <div class="tb-bg" style="background:#135DB5;">GMD Application &mdash; bg: #FFFFFF area, controls on primary</div>
+      <div class="tb-ctrl" style="background:#5B91E1;">hover</div>
+      <div class="tb-ctrl" style="background:#3671CD;">press</div>
+      <div class="tb-ctrl" style="background:#E81123;">close</div>
+    </div>
+    <div class="strip-label">Dark</div>
+    <div class="titlebar-specimen">
+      <div class="tb-bg" style="background:#141416; color:#E0E0E0;">GMD Application &mdash; bg: #141416, icon/text: #FFFFFF</div>
+      <div class="tb-ctrl" style="background:#152641;">hover</div>
+      <div class="tb-ctrl" style="background:#1C3357;">press</div>
+      <div class="tb-ctrl" style="background:#E81123;">close</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════════════ -->
+<div class="rule heavy"></div>
+<div class="footer">
+  <span>GMD Design System v2.12 &nbsp;&bull;&nbsp; 01_GMD_Theme_v2.12</span>
+  <span>130 Color Tokens (Light + Dark) &nbsp;&bull;&nbsp; 2026-04-14</span>
+</div>
+
+</div><!-- /.page -->
+</body>
+</html>

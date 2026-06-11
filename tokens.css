@@ -1,0 +1,483 @@
+/* ─────────────────────────────────────────────────────────────────────
+ * GMD Design System — Classic Edition · CSS 토큰
+ * 출처: design-system/classic/tokens.md (YAML front matter)
+ *       → 외부 단일 출처 GMDSOFT/디자인시스템_스킬/DESIGN.md (v2.12) 의 사본.
+ * 사용: <style> 태그 안에 직접 포함하거나, 별도 파일로 import.
+ * 규칙: 본문 CSS 는 var(--gmd-...) 만 사용. raw HEX 단독 금지.
+ *
+ * 톤 방침:
+ *   - GMD v2.12 정통 — blue-gray foundation. 고밀도 업무형 데스크톱·웹 앱용.
+ *   - seed #4681DB / primary #135DB5 5단 + secondary #E67700 + tertiary #495057.
+ *   - 폰트 Inter 1순위, 본문 14px, radius 4px 기본, 그림자 무채색 알파.
+ *   - 캐주얼이 추가한 brand 5단(Mint Cyan)·accents·gradient·bounce·display font·pill 은 본 셋에 없음.
+ * ───────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── seed ────────────────────────────────────────────────────── */
+  --gmd-seed:                #4681DB;
+  --gmd-seed-hover:          #5B91E1;
+  --gmd-seed-pressed:        #3671CD;
+
+  /* ── primary 5 단 (인터랙티브 앵커) ───────────────────────── */
+  --gmd-primary-default:     #135DB5;
+  --gmd-primary-hover:       #3D82D9;
+  --gmd-primary-pressed:     #0E4A94;
+  --gmd-primary-disabled:    #A8C4D9;
+  --gmd-primary-subtle:      #EBF2FA;
+
+  /* ── secondary / tertiary ─────────────────────────────────── */
+  --gmd-secondary:           #E67700;
+  --gmd-tertiary:            #495057;
+  --gmd-tertiary-hover:      #5A6268;
+  --gmd-tertiary-pressed:    #3D4348;
+
+  /* ── 의미 컬러 (semantic) ─────────────────────────────────── */
+  --gmd-semantic-success:    #2E8544;
+  --gmd-semantic-warning:    #D97706;
+  --gmd-semantic-error:      #D42A34;
+  --gmd-semantic-info:       #0288D1;
+
+  /* ── 의미 배경 틴트 (semantic background) — Banner/Info Bar/Toast 의미 변형 ─ */
+  --gmd-semantic-success-bg: #E8F5EC;
+  --gmd-semantic-warning-bg: #FFFBEB;
+  --gmd-semantic-error-bg:   #FCEBED;
+  --gmd-semantic-info-bg:    #E1F5FE;
+
+  /* ── 배경 (background) — cool light ──────────────────────── */
+  --gmd-background-base:     #F8F9FA;
+  --gmd-background-section:  #E9ECEF;
+  --gmd-background-card:     #FAF9FD;
+  --gmd-background-surface-primary: #FAF9FD;
+  --gmd-background-slot-active:     #FFFFFF;
+
+  /* ── 표면 (surface) ───────────────────────────────────────── */
+  --gmd-surface-base:        #FFFFFF;
+  --gmd-surface-hover:       #F5F4F8;
+  --gmd-surface-pressed:     #EFEEF3;
+
+  /* ── 글자 (text) — cool dark ─────────────────────────────── */
+  --gmd-text-primary:        #212529;
+  --gmd-text-secondary:      #495057;
+  --gmd-text-tertiary:       #868E96;
+  --gmd-text-disabled:       #ADB5BD;
+  --gmd-text-on-primary:     #FFFFFF;
+  --gmd-text-on-warning:     #212529;
+
+  /* ── 보더 (border) ────────────────────────────────────────── */
+  --gmd-border-base:         #74777F;
+  --gmd-border-subtle:       #C4C6D0;
+  --gmd-border-control:      #868E96;
+  --gmd-divider:             #DFE0E4;
+
+  /* ── secondary 5단 완성 (v2.12 COLOR_TOKENS.md) ─────────────── */
+  --gmd-secondary-hover:     #F28500;
+  --gmd-secondary-pressed:   #CC6A00;
+  --gmd-secondary-disabled:  #FFD8A8;
+  --gmd-secondary-subtle:    #FFF4E6;
+
+  /* ── tertiary disabled/subtle 보강 ─────────────────────────── */
+  --gmd-tertiary-disabled:   #ADB5BD;
+  --gmd-tertiary-subtle:     #F8F9FA;
+
+  /* ── semantic hover/pressed (base/bg 외 인터랙션 단계) ──────── */
+  --gmd-semantic-error-hover:     #E24950;
+  --gmd-semantic-error-pressed:   #B0232B;
+  --gmd-semantic-warning-hover:   #B45309;
+  --gmd-semantic-warning-pressed: #92400E;
+  --gmd-semantic-success-hover:   #37A352;
+  --gmd-semantic-success-pressed: #256A37;
+  --gmd-semantic-info-hover:      #039BE5;
+  --gmd-semantic-info-pressed:    #0277BD;
+
+  /* ── primary 900 숫자 램프 50~900 (Foundation Colors/primary 900) ─ */
+  --gmd-primary-900-50:  #EAF2FC;
+  --gmd-primary-900-100: #D5E5F9;
+  --gmd-primary-900-200: #ACCDF2;
+  --gmd-primary-900-300: #82B5EB;
+  --gmd-primary-900-400: #4A8CD0;
+  --gmd-primary-900-500: #135DB5;
+  --gmd-primary-900-600: #104E99;
+  --gmd-primary-900-700: #0C3E7D;
+  --gmd-primary-900-800: #092F61;
+  --gmd-primary-900-900: #051F45;
+
+  /* ── gray 900 숫자 램프 50~900 (Foundation Colors/gray 900) ───
+   *   본 화면 중립 스케일. 검토 보조 UI 전용 --gmd-gray-100~900 과 별개. */
+  --gmd-gray-900-50:  #FFFFFF;
+  --gmd-gray-900-100: #F8F9FA;
+  --gmd-gray-900-200: #E9ECEF;
+  --gmd-gray-900-300: #DEE2E6;
+  --gmd-gray-900-400: #CED4DA;
+  --gmd-gray-900-500: #ADB5BD;
+  --gmd-gray-900-600: #6C757D;
+  --gmd-gray-900-700: #495057;
+  --gmd-gray-900-800: #343A40;
+  --gmd-gray-900-900: #212529;
+
+  /* ── 그레이스케일 (검토 보조 UI 전용 — 본 화면 사용 금지) ──── */
+  --gmd-gray-100: #F5F5F5;
+  --gmd-gray-200: #EBEBEB;
+  --gmd-gray-300: #DCDCDC;
+  --gmd-gray-700: #4D4D4D;
+  --gmd-gray-900: #1D1D1D;
+
+  /* ── 오버레이 ─────────────────────────────────────────────── */
+  --gmd-overlay-scrim:       #000000;
+
+  /* ── 그림자 — 무채색 알파. 짧고 정확 ─────────────────────── */
+  --gmd-shadow-soft:  0 2px 8px rgba(0, 0, 0, 0.06);
+  --gmd-shadow-lift:  0 4px 16px rgba(0, 0, 0, 0.10);
+  --gmd-shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.16);
+
+  /* ── radius — Figma Design-Kit "Corner Radius" 전체 단계 ───────
+   *   none 0 / sm 4 / md 8 / lg 12 / xl 16 / circle full. pill 은 circle 별칭(하위호환). */
+  --gmd-radius-none: 0px;     /* 각진 모서리 (Figma none) */
+  --gmd-radius-sm: 4px;       /* 입력·버튼·아이콘 뱃지 기본 (Figma sm) */
+  --gmd-radius-6px: 6px;      /* Banner 전용 (Figma rounded-6, sm/md 사이 예외값) */
+  --gmd-radius-md: 8px;       /* 큰 카드 (Figma md) */
+  --gmd-radius-lg: 12px;      /* 모달 컨테이너 (Figma lg) */
+  --gmd-radius-xl: 16px;      /* 대형 컨테이너·시트 (Figma xl) */
+  --gmd-radius-circle: 999px; /* 원형·풀 라운드 (Figma circle) */
+  --gmd-radius-pill: 999px;   /* 텍스트 Badge·Tag·Status 칩 (= circle 별칭) */
+
+  /* ── 타이포 — Inter 1순위 + Pretendard 폴백 ───────────────── */
+  --gmd-font-body: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --gmd-font-mono: 'JetBrains Mono', 'D2Coding', 'Nanum Gothic Coding', monospace;
+
+  /* ── 타이포 — 사이즈 (정통 8단계. 본문 기본 14px) ──────── */
+  --gmd-font-size-10: 10px;  /* caption */
+  --gmd-font-size-12: 12px;  /* bodySm */
+  --gmd-font-size-14: 14px;  /* bodyMd — 본문 기본 */
+  --gmd-font-size-16: 16px;  /* bodyLg */
+  --gmd-font-size-18: 18px;  /* h4 */
+  --gmd-font-size-20: 20px;  /* h3 */
+  --gmd-font-size-22: 22px;  /* h2 */
+  --gmd-font-size-28: 28px;  /* h1 */
+
+  /* ── 타이포 — line-height (DESIGN.md 의 스타일별 고정값) ─── */
+  --gmd-line-h1:        42px;
+  --gmd-line-h2:        30px;
+  --gmd-line-h3:        28px;
+  --gmd-line-h4:        26px;
+  --gmd-line-body-lg:   22px;
+  --gmd-line-body-md:   20px;
+  --gmd-line-body-sm:   17px;
+  --gmd-line-caption:   14px;
+
+  /* ── 타이포 — 굵기 ───────────────────────────────────────── */
+  --gmd-weight-regular: 400;
+  --gmd-weight-medium:  500;
+  --gmd-weight-bold:    700;
+
+  /* ── 간격 (4px 그리드 — Figma Design-Kit "Spacing/Base Scale" 전체 20단) ─
+   *   기존 키(자주 쓰는 9개)는 이름 보존, Figma 의 빠진 스텝을 px 값 별칭으로 보강. */
+  --gmd-space-0:  0px;
+  --gmd-space-2:  2px;   /* exceptional micro (Figma size20) */
+  --gmd-space-1:  4px;   /* Figma size40 */
+  --gmd-space-6px:  6px;   /* Figma size60 */
+  --gmd-space-2x: 8px;   /* Figma size80 */
+  --gmd-space-10px: 10px;  /* Figma size100 */
+  --gmd-space-3:  12px;  /* Figma size120 */
+  --gmd-space-4:  16px;  /* default component padding (Figma size160) */
+  --gmd-space-5:  20px;  /* Figma size200 */
+  --gmd-space-6:  24px;  /* Figma size240 */
+  --gmd-space-28px: 28px;  /* Figma size280 */
+  --gmd-space-8:  32px;  /* Figma size320 */
+  --gmd-space-36px: 36px;  /* Figma size360 */
+  --gmd-space-10: 40px;  /* Figma size400 */
+  --gmd-space-12: 48px;  /* Figma size480 */
+  --gmd-space-52px: 52px;  /* Figma size520 */
+  --gmd-space-56px: 56px;  /* Figma size560 */
+  --gmd-space-64px: 64px;  /* Figma size640 */
+  --gmd-space-80px: 80px;  /* Figma size800 */
+  --gmd-space-96px: 96px;  /* Figma size960 */
+
+  /* ── semantic spacing (Figma "Spacing/Semantic" — 컴포넌트·레이아웃 의도) ─ */
+  --gmd-space-button-x:    16px;  /* 버튼 좌우 패딩 */
+  --gmd-space-button-y:    8px;   /* 버튼 상하 패딩 */
+  --gmd-space-card:        24px;  /* 카드 내부 패딩 */
+  --gmd-space-field-gap:   16px;  /* 폼 필드 간 간격 */
+  --gmd-space-list-item-x: 16px;  /* 리스트 항목 좌우 패딩 */
+  --gmd-space-list-item-y: 12px;  /* 리스트 항목 상하 패딩 */
+  --gmd-space-modal:       24px;  /* 모달 내부 패딩 */
+  --gmd-space-section:     24px;  /* 섹션 간 간격 */
+  --gmd-space-page:        64px;  /* 페이지 외곽 여백 */
+
+  /* ── 폭 규칙 (다국어 잘림 정책 — 보편 표준 근거, Figma v2.12 미정의: Design Kit 검토 대상) ── */
+  --gmd-width-button-min:         88px;  /* 버튼 최소 폭 — Material 표준 버튼 min-width 88dp */
+  --gmd-width-button-min-compact: 64px;  /* 조밀 영역(xm/sm)·다이얼로그 버튼 — Material dialog 64dp */
+  --gmd-width-button-max:         240px; /* 버튼 최대 폭 — 한국어 라벨 + 200% 팽창(Microsoft 짧은 텍스트 여유) 수용 상한 */
+  --gmd-width-column-min:         48px;  /* 표 컬럼 최소 폭 — 말줄임표 + 비잘림 4자(Carbon) 식별 하한 */
+  --gmd-width-field-max:          320px; /* Input/TextBox 폭 상한 — 같은 표면 일관 폭(Win32 layout 권고), 현행 유지 */
+  --gmd-width-target-min:         24px;  /* 클릭 타깃 최소 — WCAG 2.2 AA(2.5.8) 24×24 CSS px */
+
+  /* ── icon size (Figma "Sizing & Shape/Icon Size") ───────────── */
+  --gmd-icon-sm: 16px;
+  --gmd-icon-md: 20px;
+  --gmd-icon-lg: 24px;
+  --gmd-icon-xl: 32px;
+
+  /* ── border width (Figma "Sizing & Shape/Border Width") ─────── */
+  --gmd-border-w-thin:    1px;
+  --gmd-border-w-default: 1px;
+  --gmd-border-w-thick:   2px;
+
+  /* ── opacity (Figma "Sizing & Shape/Opacity") ──────────────── */
+  --gmd-opacity-disabled: 0.4;
+  --gmd-opacity-hover:    0.08;
+  --gmd-opacity-pressed:  0.32;
+  --gmd-opacity-overlay:  0.5;
+
+  /* ── layout (Figma "Layout" — container/gutter/window) ──────── */
+  --gmd-container-xs: 480px;
+  --gmd-container-sm: 720px;
+  --gmd-container-md: 960px;
+  --gmd-container-lg: 1200px;
+  --gmd-container-xl: 1400px;
+  --gmd-gutter-sm: 8px;
+  --gmd-gutter-md: 16px;
+  --gmd-gutter-lg: 24px;
+  --gmd-window-min-width:  1024px;
+  --gmd-window-min-height: 768px;
+
+  /* ── grid breakpoints (Figma "Grid/Responsive Columns") ─────── */
+  --gmd-breakpoint-desktop: 1920px;  /* 12 columns */
+  --gmd-breakpoint-wide:    1280px;  /* 12 columns */
+  --gmd-breakpoint-tablet:  768px;   /* 8 columns */
+  --gmd-breakpoint-mobile:  360px;   /* 4 columns */
+  --gmd-grid-columns-desktop: 12;
+  --gmd-grid-columns-wide:    12;
+  --gmd-grid-columns-tablet:  8;
+  --gmd-grid-columns-mobile:  4;
+
+  /* ── 모션 — 표준 ease 만. bounce/spring 없음 ──────────── */
+  --gmd-motion-fast:   100ms;
+  --gmd-motion-base:   200ms;
+  --gmd-motion-slow:   320ms;
+  --gmd-motion-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── z-index ────────────────────────────────────────────── */
+  --gmd-z-base:     0;
+  --gmd-z-dropdown: 100;
+  --gmd-z-sticky:   200;
+  --gmd-z-overlay:  800;
+  --gmd-z-modal:    900;
+  --gmd-z-toast:    1000;
+
+  /* ── body 기본 — letter-spacing 양수 금지 ───────────────── */
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);     /* 본문 14 — 16 아님 */
+  line-height: var(--gmd-line-body-md);
+  letter-spacing: 0;
+  color: var(--gmd-text-primary);
+  background: var(--gmd-background-base);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Dark mode — DESIGN.md 의 다크 토큰 추출 (Primary Blue light/dark 쌍).
+ * 시스템 prefers-color-scheme 자동 + [data-theme="dark"] 수동 토글.
+ * WCAG AA 조정(정본 추출값에서 의도 변경 — 근거: 다크 대비 전수 실측):
+ *   primary-default #549AD8→#549AD8 · primary-pressed #458EB9→#458EB9
+ *   semantic-error #EC6E76→#EC6E76 · text-tertiary #868E96→#8F979F
+ *   border-base #495057→#6C757D · border-subtle #2F3236→#4A5057 · divider #2A2D32→#3C4147
+ *   (텍스트 4.5:1 / 컨트롤 경계 3:1 달성. 두 다크 블록 동일 유지 필수.)
+ * ───────────────────────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Primary 5단 — DESIGN.md 가 명시한 다크 페어 */
+    --gmd-seed:                #75A3E8;
+    --gmd-seed-hover:          #8DB3ED;
+    --gmd-seed-pressed:        #6293E3;
+    --gmd-primary-default:     #549AD8;
+    --gmd-primary-hover:       #6EB4E0;
+    --gmd-primary-pressed:     #458EB9;
+    --gmd-primary-disabled:    #506B7D;
+    --gmd-primary-subtle:      #1E3242;
+
+    --gmd-secondary:           #FFA94D;
+    --gmd-tertiary:            #ADB5BD;
+    --gmd-tertiary-hover:      #C2C9CF;
+    --gmd-tertiary-pressed:    #939BA3;
+
+    /* 의미 배경 틴트 — 다크 (GMD v2.12 4683 컬렉션 dark) */
+    --gmd-semantic-success:    #43A85E;
+    --gmd-semantic-warning:    #FBBF24;
+    --gmd-semantic-error:      #EC6E76;
+    --gmd-semantic-info:       #29B6F6;
+    --gmd-semantic-success-bg: #1C3323;
+    --gmd-semantic-warning-bg: #451A03;
+    --gmd-semantic-error-bg:   #331F20;
+    --gmd-semantic-info-bg:    #1A2A33;
+
+    /* 배경/표면 — 어두운 cool 톤 */
+    --gmd-background-base:     #1A1D21;
+    --gmd-background-section:  #25282D;
+    --gmd-background-card:     #2A2D32;
+    --gmd-background-surface-primary: #1E1E21;
+    --gmd-background-slot-active:     #1E1E21;
+    --gmd-surface-base:        #25282D;
+    --gmd-surface-hover:       #2F3236;
+    --gmd-surface-pressed:     #19191B;
+
+    /* 글자 — 밝은 cool 톤 */
+    --gmd-text-primary:        #F8F9FA;
+    --gmd-text-secondary:      #C4C6D0;
+    --gmd-text-tertiary:       #8F979F;
+    --gmd-text-disabled:       #495057;
+    --gmd-text-on-primary:     #1A1D21;
+    --gmd-text-on-warning:     #212529;
+
+    /* 보더 */
+    --gmd-border-base:         #6C757D;
+    --gmd-border-subtle:       #4A5057;
+    --gmd-border-control:      #A0A6AC;
+    --gmd-divider:             #3C4147;
+
+    /* secondary / tertiary 완성 — 다크 */
+    --gmd-secondary-hover:     #FFB966;
+    --gmd-secondary-pressed:   #E67700;
+    --gmd-secondary-disabled:  #8C5000;
+    --gmd-secondary-subtle:    #332B1A;
+    --gmd-tertiary-disabled:   #495057;
+    --gmd-tertiary-subtle:     #212529;
+
+    /* semantic hover/pressed — 다크 */
+    --gmd-semantic-error-hover:     #F27B82;
+    --gmd-semantic-error-pressed:   #C94850;
+    --gmd-semantic-warning-hover:   #FCD34D;
+    --gmd-semantic-warning-pressed: #D97706;
+    --gmd-semantic-success-hover:   #55C473;
+    --gmd-semantic-success-pressed: #348A4B;
+    --gmd-semantic-info-hover:      #4FC3F7;
+    --gmd-semantic-info-pressed:    #0288D1;
+
+    /* primary 900 램프 — 다크 */
+    --gmd-primary-900-50:  #E8F3FB;
+    --gmd-primary-900-100: #D1E7F7;
+    --gmd-primary-900-200: #B0D6F1;
+    --gmd-primary-900-300: #8EC4EB;
+    --gmd-primary-900-400: #75B6E2;
+    --gmd-primary-900-500: #62A8D9;
+    --gmd-primary-900-600: #4E8BB5;
+    --gmd-primary-900-700: #396D92;
+    --gmd-primary-900-800: #255070;
+    --gmd-primary-900-900: #14324D;
+
+    /* gray 900 램프 — 다크 (반전) */
+    --gmd-gray-900-50:  #141517;
+    --gmd-gray-900-100: #1A1D20;
+    --gmd-gray-900-200: #212529;
+    --gmd-gray-900-300: #343A40;
+    --gmd-gray-900-400: #495057;
+    --gmd-gray-900-500: #6C757D;
+    --gmd-gray-900-600: #CED4DA;
+    --gmd-gray-900-700: #DEE2E6;
+    --gmd-gray-900-800: #E9ECEF;
+    --gmd-gray-900-900: #F8F9FA;
+
+    /* 그림자 — 다크에선 알파 살짝 키움 */
+    --gmd-shadow-soft:  0 2px 8px rgba(0, 0, 0, 0.30);
+    --gmd-shadow-lift:  0 4px 16px rgba(0, 0, 0, 0.45);
+    --gmd-shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.60);
+  }
+}
+
+/* 수동 토글 — 시스템 설정을 덮어쓴다 */
+:root[data-theme="dark"] {
+  --gmd-seed:                #75A3E8;
+  --gmd-seed-hover:          #8DB3ED;
+  --gmd-seed-pressed:        #6293E3;
+  --gmd-primary-default:     #549AD8;
+  --gmd-primary-hover:       #6EB4E0;
+  --gmd-primary-pressed:     #458EB9;
+  --gmd-primary-disabled:    #506B7D;
+  --gmd-primary-subtle:      #1E3242;
+
+  --gmd-secondary:           #FFA94D;
+  --gmd-tertiary:            #ADB5BD;
+  --gmd-tertiary-hover:      #C2C9CF;
+  --gmd-tertiary-pressed:    #939BA3;
+
+  --gmd-semantic-success:    #43A85E;
+  --gmd-semantic-warning:    #FBBF24;
+  --gmd-semantic-error:      #EC6E76;
+  --gmd-semantic-info:       #29B6F6;
+  --gmd-semantic-success-bg: #1C3323;
+  --gmd-semantic-warning-bg: #451A03;
+  --gmd-semantic-error-bg:   #331F20;
+  --gmd-semantic-info-bg:    #1A2A33;
+
+  --gmd-background-base:     #1A1D21;
+  --gmd-background-section:  #25282D;
+  --gmd-background-card:     #2A2D32;
+  --gmd-background-surface-primary: #1E1E21;
+  --gmd-background-slot-active:     #1E1E21;
+  --gmd-surface-base:        #25282D;
+  --gmd-surface-hover:       #2F3236;
+  --gmd-surface-pressed:     #19191B;
+
+  --gmd-text-primary:        #F8F9FA;
+  --gmd-text-secondary:      #C4C6D0;
+  --gmd-text-tertiary:       #8F979F;
+  --gmd-text-disabled:       #495057;
+  --gmd-text-on-primary:     #1A1D21;
+  --gmd-text-on-warning:     #212529;
+
+  --gmd-border-base:         #6C757D;
+  --gmd-border-subtle:       #4A5057;
+  --gmd-border-control:      #A0A6AC;
+  --gmd-divider:             #3C4147;
+
+  --gmd-secondary-hover:     #FFB966;
+  --gmd-secondary-pressed:   #E67700;
+  --gmd-secondary-disabled:  #8C5000;
+  --gmd-secondary-subtle:    #332B1A;
+  --gmd-tertiary-disabled:   #495057;
+  --gmd-tertiary-subtle:     #212529;
+
+  --gmd-semantic-error-hover:     #F27B82;
+  --gmd-semantic-error-pressed:   #C94850;
+  --gmd-semantic-warning-hover:   #FCD34D;
+  --gmd-semantic-warning-pressed: #D97706;
+  --gmd-semantic-success-hover:   #55C473;
+  --gmd-semantic-success-pressed: #348A4B;
+  --gmd-semantic-info-hover:      #4FC3F7;
+  --gmd-semantic-info-pressed:    #0288D1;
+
+  --gmd-primary-900-50:  #E8F3FB;
+  --gmd-primary-900-100: #D1E7F7;
+  --gmd-primary-900-200: #B0D6F1;
+  --gmd-primary-900-300: #8EC4EB;
+  --gmd-primary-900-400: #75B6E2;
+  --gmd-primary-900-500: #62A8D9;
+  --gmd-primary-900-600: #4E8BB5;
+  --gmd-primary-900-700: #396D92;
+  --gmd-primary-900-800: #255070;
+  --gmd-primary-900-900: #14324D;
+
+  --gmd-gray-900-50:  #141517;
+  --gmd-gray-900-100: #1A1D20;
+  --gmd-gray-900-200: #212529;
+  --gmd-gray-900-300: #343A40;
+  --gmd-gray-900-400: #495057;
+  --gmd-gray-900-500: #6C757D;
+  --gmd-gray-900-600: #CED4DA;
+  --gmd-gray-900-700: #DEE2E6;
+  --gmd-gray-900-800: #E9ECEF;
+  --gmd-gray-900-900: #F8F9FA;
+
+  --gmd-shadow-soft:  0 2px 8px rgba(0, 0, 0, 0.30);
+  --gmd-shadow-lift:  0 4px 16px rgba(0, 0, 0, 0.45);
+  --gmd-shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.60);
+}
+
+/* prefers-reduced-motion 존중 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
