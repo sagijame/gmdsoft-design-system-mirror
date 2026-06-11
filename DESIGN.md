@@ -2,6 +2,9 @@
 version: alpha
 name: GMDSOFT Design System v2.12
 description: Industrial-grade Windows desktop application design language for GMDSOFT products.
+releaseVersion: VERSION
+sourceCollection: 01_GMD_Theme_v2.12
+catalog: index.html
 colors:
   seed: "#4681DB"
   primary: "#135DB5"
@@ -136,6 +139,13 @@ components:
 ---
 
 # Design System Inspiration of GMDSOFT
+
+> **Shared release**: see `VERSION`
+> **Canonical catalog**: `index.html`
+> **Token source for catalog**: `tokens.css`
+> **Figma source**: `GMD Design Kit v2.12` / `01_GMD_Theme_v2.12`
+
+AI tools should read this file together with `CLAUDE.md`, `README.md`, `index.html`, and `tokens.css` before designing or implementing prototypes. `index.html` is the visual review baseline; do not treat legacy preview files as the canonical catalog.
 
 ## 1. Visual Theme & Atmosphere
 

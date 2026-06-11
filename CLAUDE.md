@@ -2,6 +2,8 @@
 
 This document defines the GMDSOFT Design System for Claude Design integration. All design generation must follow these rules.
 
+Shared release version is recorded in `VERSION`. Figma source remains `GMD Design Kit v2.12`; the shared repository release uses `2.12.x`.
+
 ## Design System Structure
 
 ### Token Definitions
@@ -11,6 +13,8 @@ Design tokens are defined in the following files:
 - **CSS Variables**: `tokens.css` — import and use `var(--gmd-*)` variables
 - **Color Token Reference**: `COLOR_TOKENS.md` — full Light/Dark token path + HEX mapping
 - **Design Specification**: `DESIGN.md` — YAML frontmatter + component specs
+- **Visual Catalog**: `index.html` — canonical component catalog and visual review baseline
+- **Release Version**: `VERSION` — shared repository release version
 
 Token format: CSS Custom Properties with `--gmd-` prefix.
 Light mode is `:root`, Dark mode switches via `[data-theme="dark"]`.
@@ -414,6 +418,7 @@ gmdsoft-design-system/
 ├── DESIGN.md               ← Full design spec with YAML frontmatter
 ├── COLOR_TOKENS.md          ← Light/Dark token path + HEX reference
 ├── OPERATING_MODEL.md       ← Version management rules
+├── VERSION                  ← Shared repository release version
 ├── index.html               ← Primary component catalog and visual review entry
 ├── design-system-rules.md   ← Structured rules with YAML tokens
 └── tokens.css               ← (in parent) CSS custom properties
