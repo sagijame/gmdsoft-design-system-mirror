@@ -414,8 +414,7 @@ gmdsoft-design-system/
 ├── DESIGN.md               ← Full design spec with YAML frontmatter
 ├── COLOR_TOKENS.md          ← Light/Dark token path + HEX reference
 ├── OPERATING_MODEL.md       ← Version management rules
-├── preview.html             ← Light mode visual preview
-├── preview-dark.html        ← Dark mode visual preview
+├── index.html               ← Primary component catalog and visual review entry
 ├── design-system-rules.md   ← Structured rules with YAML tokens
 └── tokens.css               ← (in parent) CSS custom properties
 ```

@@ -48,9 +48,9 @@
 - 이번 변경이 이후 제품군에도 재사용 가능한가
 - 특정 화면 예외를 시스템 규칙처럼 넣고 있지 않은가
 
-### 5. Preview Fitness
+### 5. Index Catalog Fitness
 
-- 프리뷰 산출물이 변경 내용을 충분히 보여주는가
+- `index.html` 카탈로그가 변경 내용을 충분히 보여주는가
 - 문서 변경만 있고 시각 검토 수단이 비어 있지 않은가
 
 ### 6. Operational Clarity
@@ -69,7 +69,7 @@
 
 ### B. Minor System Adjustment
 
-- 기존 체계 안에서 토큰/프리뷰/문구 보정 수준
+- 기존 체계 안에서 토큰/`index.html` 카탈로그/문구 보정 수준
 - 규칙 파괴 없이 세부 보완
 
 ### C. System Extension
@@ -86,7 +86,7 @@
 
 버전은 입력 문서 차수가 아니라 디자인 시스템 변경 강도로 판단한다.
 
-- patch: 오탈자, 설명 보정, 프리뷰 미세 수정, 기존 규칙 내 경미한 조정
+- patch: 오탈자, 설명 보정, `index.html` 미세 수정, 기존 규칙 내 경미한 조정
 - minor: 신규 토큰 추가, 신규 컴포넌트 패턴 추가, 기존 체계 확장
 - major: 토큰 구조 개편, 핵심 규칙 변경, 하위 호환 영향이 큰 시스템 수정
 
@@ -96,7 +96,7 @@
 
 좋은 예:
 
-- `refine button disabled token preview`
+- `refine button disabled index catalog`
 - `add semantic badge color mapping`
 - `revise dark surface hierarchy`
 
@@ -111,8 +111,7 @@
 
 - `DESIGN.md`
 - `COLOR_TOKENS.md`
-- `preview.html`
-- `preview-dark.html`
+- `index.html`
 - 운영 규칙 문서
 
 기획 원문, 기능 요구사항 서술, 업무 메모는 저장소의 기본 산출물이 아니다.
@@ -125,5 +124,5 @@
 - 새 토큰 없이 해결 가능한가
 - 새 규칙이 기존 규칙과 충돌하지 않는가
 - Light/Dark 양쪽에 일관되게 반영됐는가
-- preview에서 검토 가능한가
+- `index.html`에서 검토 가능한가
 - 버전 영향도를 설명할 수 있는가
