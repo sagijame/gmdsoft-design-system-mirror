@@ -1,13 +1,15 @@
 /* ─────────────────────────────────────────────────────────────────────
- * GMDSOFT Design System v2.12 · CSS 토큰
- * 출처: Figma 변수 컬렉션 01_GMD_Theme_v2.12 (DESIGN.md 와 동일 출처)
- * 사용: index.html 카탈로그의 단일 토큰 출처. <style> 직접 포함 또는 별도 파일 import.
+ * GMD Design System — Classic Edition · CSS 토큰
+ * 출처: design-system/classic/tokens.md (YAML front matter)
+ *       → 외부 단일 출처 GMDSOFT/디자인시스템_스킬/DESIGN.md (v2.12) 의 사본.
+ * 사용: <style> 태그 안에 직접 포함하거나, 별도 파일로 import.
  * 규칙: 본문 CSS 는 var(--gmd-...) 만 사용. raw HEX 단독 금지.
  *
  * 톤 방침:
  *   - GMD v2.12 정통 — blue-gray foundation. 고밀도 업무형 데스크톱·웹 앱용.
  *   - seed #4681DB / primary #135DB5 5단 + secondary #E67700 + tertiary #495057.
  *   - 폰트 Inter 1순위, 본문 14px, radius 4px 기본, 그림자 무채색 알파.
+ *   - 캐주얼이 추가한 brand 5단(Mint Cyan)·accents·gradient·bounce·display font·pill 은 본 셋에 없음.
  * ───────────────────────────────────────────────────────────────────── */
 
 :root {
@@ -200,6 +202,14 @@
   --gmd-space-modal:       24px;  /* 모달 내부 패딩 */
   --gmd-space-section:     24px;  /* 섹션 간 간격 */
   --gmd-space-page:        64px;  /* 페이지 외곽 여백 */
+
+  /* ── 폭 규칙 (다국어 잘림 정책 — 보편 표준 근거, Figma v2.12 미정의: Design Kit 검토 대상) ── */
+  --gmd-width-button-min:         88px;  /* 버튼 최소 폭 — Material 표준 버튼 min-width 88dp */
+  --gmd-width-button-min-compact: 64px;  /* 조밀 영역(xm/sm)·다이얼로그 버튼 — Material dialog 64dp */
+  --gmd-width-button-max:         240px; /* 버튼 최대 폭 — 한국어 라벨 + 200% 팽창(Microsoft 짧은 텍스트 여유) 수용 상한 */
+  --gmd-width-column-min:         48px;  /* 표 컬럼 최소 폭 — 말줄임표 + 비잘림 4자(Carbon) 식별 하한 */
+  --gmd-width-field-max:          320px; /* Input/TextBox 폭 상한 — 같은 표면 일관 폭(Win32 layout 권고), 현행 유지 */
+  --gmd-width-target-min:         24px;  /* 클릭 타깃 최소 — WCAG 2.2 AA(2.5.8) 24×24 CSS px */
 
   /* ── icon size (Figma "Sizing & Shape/Icon Size") ───────────── */
   --gmd-icon-sm: 16px;
