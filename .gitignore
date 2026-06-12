@@ -13,3 +13,6 @@ $RECYCLE.BIN/
 
 # Skill 패키지 빌드 산출물 (필요 시 PowerShell Compress-Archive로 재생성)
 skill/*.zip
+
+# 개인 작업 메모 (커밋 제외)
+next-prompts.md
