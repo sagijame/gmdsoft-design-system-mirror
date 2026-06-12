@@ -10,7 +10,7 @@
       "name": "gmdsoft-design-system",
       "source": "./plugins/gmdsoft-design-system",
       "description": "GMDSOFT 사내 Windows 데스크톱 앱 디자인 시스템(v2.12) — 색상·타이포·컴포넌트·레이아웃 토큰과 규칙을 Claude Code에 자동 적용",
-      "version": "2.12.5",
+      "version": "2.12.6",
       "category": "design",
       "keywords": ["design-system", "gmdsoft", "ui", "tokens"]
     }

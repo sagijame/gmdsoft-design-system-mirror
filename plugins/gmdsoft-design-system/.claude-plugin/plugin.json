@@ -1,6 +1,6 @@
 {
   "name": "gmdsoft-design-system",
-  "version": "2.12.5",
+  "version": "2.12.6",
   "description": "GMDSOFT 사내 Windows 데스크톱 애플리케이션 디자인 시스템(v2.12). 색상·타이포그래피·버튼·모달·사이드 내비게이션·테이블·폼·레이아웃(4px 그리드, 타이틀바 32px, 사이드 240/56px)·Light/Dark 모드를 다룬다.",
   "author": {
     "name": "GMDSOFT",
