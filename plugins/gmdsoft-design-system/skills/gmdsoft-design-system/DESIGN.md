@@ -287,6 +287,8 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 
 ## 4. Component Stylings
 
+> 📦 컴포넌트별 **구현 정본 스펙은 `components/<name>.md`** (29종 — 변형·크기·상태·Anatomy·조합·토큰 바인딩). 아래는 설계 의도 요약이며, 정확한 구현 값은 해당 컴포넌트 파일을 본다.
+
 ### Buttons
 
 **Primary**
