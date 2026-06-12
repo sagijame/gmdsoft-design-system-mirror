@@ -297,8 +297,8 @@
 
     --gmd-secondary:           #FFA94D;
     --gmd-tertiary:            #ADB5BD;
-    --gmd-tertiary-hover:      #C2C9CF;
-    --gmd-tertiary-pressed:    #939BA3;
+    --gmd-tertiary-hover:      #BFC7CD;
+    --gmd-tertiary-pressed:    #969FA6;
 
     /* 의미 배경 틴트 — 다크 (GMD v2.12 4683 컬렉션 dark) */
     --gmd-semantic-success:    #43A85E;
@@ -396,8 +396,8 @@
 
   --gmd-secondary:           #FFA94D;
   --gmd-tertiary:            #ADB5BD;
-  --gmd-tertiary-hover:      #C2C9CF;
-  --gmd-tertiary-pressed:    #939BA3;
+  --gmd-tertiary-hover:      #BFC7CD;
+  --gmd-tertiary-pressed:    #969FA6;
 
   --gmd-semantic-success:    #43A85E;
   --gmd-semantic-warning:    #FBBF24;
