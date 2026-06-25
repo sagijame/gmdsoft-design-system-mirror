@@ -5074,21 +5074,21 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 #iconography .icl-toolbar{display:flex;flex-wrap:wrap;gap:var(--gmd-space-4);align-items:center;margin:var(--gmd-space-8) 0 var(--gmd-space-6)}
 .icl-search{position:relative;display:flex;align-items:center;flex:1 1 280px;min-width:240px}
 .icl-search .ico{position:absolute;left:12px;width:16px;height:16px;color:var(--gmd-text-tertiary);pointer-events:none}
-.icl-search input{width:100%;height:36px;padding:0 12px 0 36px;border:1px solid var(--gmd-border-default);border-radius:var(--gmd-radius-md);background:var(--gmd-bg-surface);color:var(--gmd-text-primary);font-size:14px}
-.icl-search input:focus{outline:none;border-color:var(--gmd-border-focus,var(--gmd-primary));box-shadow:0 0 0 3px var(--gmd-primary-100,rgba(19,93,181,.15))}
+.icl-search input{width:100%;height:36px;padding:0 12px 0 36px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);color:var(--gmd-text-primary);font-size:14px}
+.icl-search input:focus{outline:none;border-color:var(--gmd-primary-default);box-shadow:0 0 0 3px var(--gmd-primary-subtle)}
 .icl-chips{display:flex;gap:4px;flex-wrap:wrap}
 .icl-tools{display:flex;gap:8px;align-items:center;margin-left:auto}
-.icl-chip{height:32px;padding:0 12px;border:1px solid var(--gmd-border-default);background:var(--gmd-bg-surface);color:var(--gmd-text-secondary);border-radius:999px;font-size:12px;cursor:pointer;white-space:nowrap}
-.icl-chip:hover{background:var(--gmd-bg-subtle,var(--gmd-bg-muted))}
-.icl-chip.is-on{background:var(--gmd-primary);color:#fff;border-color:var(--gmd-primary)}
+.icl-chip{height:32px;padding:0 12px;border:1px solid var(--gmd-border-base);background:var(--gmd-surface-base);color:var(--gmd-text-secondary);border-radius:999px;font-size:12px;cursor:pointer;white-space:nowrap}
+.icl-chip:hover{background:var(--gmd-surface-hover)}
+.icl-chip.is-on{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary);border-color:var(--gmd-primary-default)}
 .icl-count{font-size:12px;color:var(--gmd-text-tertiary)}
 .icl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
-.icl-tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 8px;border:1px solid var(--gmd-border-subtle,var(--gmd-divider));border-radius:var(--gmd-radius-md);background:var(--gmd-bg-surface);cursor:pointer;transition:border-color .12s,background .12s}
-.icl-tile:hover{border-color:var(--gmd-primary);background:var(--gmd-bg-subtle,var(--gmd-bg-muted))}
-.icl-tile.copied{border-color:var(--gmd-success,#2E7D32)}
-.icl-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(8px);background:var(--gmd-text-primary,#212529);color:var(--gmd-bg-surface,#fff);padding:10px 18px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:0 6px 24px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:1000}
+.icl-tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 8px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);cursor:pointer;transition:border-color .12s,background .12s}
+.icl-tile:hover{border-color:var(--gmd-primary-default);background:var(--gmd-surface-hover)}
+.icl-tile.copied{border-color:var(--gmd-semantic-success)}
+.icl-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(8px);background:var(--gmd-text-primary);color:var(--gmd-surface-base);padding:12px 16px;border-radius:999px;font-size:14px;font-weight:500;box-shadow:var(--gmd-shadow-lift);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:1000}
 .icl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.icl-toast-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:600;background:rgba(255,255,255,.16);padding:1px 6px;border-radius:5px;margin-right:2px}
+.icl-toast-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;background:rgba(255,255,255,.16);padding:0 4px;border-radius:4px;margin-right:4px}
 .icl-glyph{height:32px;display:flex;align-items:center;justify-content:center;color:var(--gmd-text-primary)}
 .icl-glyph svg{width:24px;height:24px}
 #iconography[data-sz="16"] .icl-glyph svg{width:16px;height:16px}
