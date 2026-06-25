@@ -2259,6 +2259,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     <a href="#avatar">Avatar</a>
     <a href="#scrollbar">Scrollbar</a>
     <a href="#stepper">Stepper</a>
+    <a href="#iconography">아이콘</a>
     <div class="group">Guidelines</div>
     <a href="#i18n-truncation">다국어 잘림</a>
   </aside>
@@ -5067,6 +5068,39 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
         </ul>
       </div>
     </section>
+<style>
+/* ── 아이콘 라이브러리 섹션 ── */
+#iconography .icl-toolbar{display:flex;flex-wrap:wrap;gap:var(--gmd-space-4);align-items:center;margin:var(--gmd-space-8) 0 var(--gmd-space-6)}
+.icl-search{position:relative;display:flex;align-items:center;flex:1 1 280px;min-width:240px}
+.icl-search .ico{position:absolute;left:12px;width:16px;height:16px;color:var(--gmd-text-tertiary);pointer-events:none}
+.icl-search input{width:100%;height:36px;padding:0 12px 0 36px;border:1px solid var(--gmd-border-default);border-radius:var(--gmd-radius-md);background:var(--gmd-bg-surface);color:var(--gmd-text-primary);font-size:14px}
+.icl-search input:focus{outline:none;border-color:var(--gmd-border-focus,var(--gmd-primary));box-shadow:0 0 0 3px var(--gmd-primary-100,rgba(19,93,181,.15))}
+.icl-chips{display:flex;gap:4px;flex-wrap:wrap}
+.icl-tools{display:flex;gap:8px;align-items:center;margin-left:auto}
+.icl-chip{height:32px;padding:0 12px;border:1px solid var(--gmd-border-default);background:var(--gmd-bg-surface);color:var(--gmd-text-secondary);border-radius:999px;font-size:12px;cursor:pointer;white-space:nowrap}
+.icl-chip:hover{background:var(--gmd-bg-subtle,var(--gmd-bg-muted))}
+.icl-chip.is-on{background:var(--gmd-primary);color:#fff;border-color:var(--gmd-primary)}
+.icl-count{font-size:12px;color:var(--gmd-text-tertiary)}
+.icl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.icl-tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 8px;border:1px solid var(--gmd-border-subtle,var(--gmd-divider));border-radius:var(--gmd-radius-md);background:var(--gmd-bg-surface);cursor:pointer;transition:border-color .12s,background .12s}
+.icl-tile:hover{border-color:var(--gmd-primary);background:var(--gmd-bg-subtle,var(--gmd-bg-muted))}
+.icl-tile.copied{border-color:var(--gmd-success,#2E7D32)}
+.icl-glyph{height:32px;display:flex;align-items:center;justify-content:center;color:var(--gmd-text-primary)}
+.icl-glyph svg{width:24px;height:24px}
+#iconography[data-sz="16"] .icl-glyph svg{width:16px;height:16px}
+.icl-name{font-size:10px;line-height:1.3;color:var(--gmd-text-tertiary);text-align:center;word-break:break-all}
+.icl-empty{color:var(--gmd-text-tertiary);font-size:14px;padding:24px 0}
+</style>
+    <section id="iconography">
+      <div class="sec-head"><h2>아이콘 라이브러리</h2><p class="sec-sub">Figma MD-UX <code>Icon Export</code> 추출 · 전 아이콘 <code>currentColor</code> 상속. 이름으로 검색하거나 그룹으로 거른다.</p></div>
+      <div class="icl-toolbar">
+        <div class="icl-search"><span class="ico" data-icon="search" aria-hidden="true"></span><input id="iclq" type="text" placeholder="아이콘 이름 검색 (예: arrow, table, user)" aria-label="아이콘 검색"></div>
+        <div class="icl-chips"><button class="icl-chip is-on" data-g="all">전체</button><button class="icl-chip" data-g="24/outline">24 · Outline</button><button class="icl-chip" data-g="16/outline">16 · Outline</button><button class="icl-chip" data-g="16/fill">16 · Fill</button><button class="icl-chip" data-g="other">기타</button></div>
+        <div class="icl-tools"><span class="icl-count" id="iclcount"></span><button class="icl-chip" id="iclsize" data-on="0">24px</button></div>
+      </div>
+      <div class="icl-grid" id="iclgrid"></div>
+      <p class="icl-empty" id="iclempty" hidden>검색 결과가 없습니다.</p>
+    </section>
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
@@ -5639,6 +5673,54 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
     if (btn) apply(btn.dataset.lang);
   });
   apply('de'); // 기본은 최장 팽창 언어 — 잘림이 보이는 상태로 시작
+})();
+</script>
+<script src="icons-data.js"></script>
+<script>
+/* ── 아이콘 라이브러리: 렌더 · 검색 · 그룹필터 · 클릭복사 ── */
+(function(){
+  const grid=document.getElementById('iclgrid'); if(!grid) return;
+  const q=document.getElementById('iclq'), countEl=document.getElementById('iclcount'),
+        emptyEl=document.getElementById('iclempty'), sec=document.getElementById('iconography'),
+        sizeBtn=document.getElementById('iclsize');
+  let group='all', term='';
+  // 1회 렌더(전체) 후 필터는 show/hide
+  const frag=document.createDocumentFragment();
+  ICON_LIB.forEach(it=>{
+    const t=document.createElement('button');
+    t.className='icl-tile'; t.type='button';
+    t.dataset.n=it.n; t.dataset.g=it.g;
+    t.title=it.n+'  ('+it.g+')\n클릭하면 SVG 복사';
+    t.innerHTML='<span class="icl-glyph"><svg viewBox="'+it.v+'" width="100%" height="100%" aria-hidden="true">'+it.b+'</svg></span><span class="icl-name">'+it.n+'</span>';
+    t.addEventListener('click',()=>{
+      const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="'+it.v+'" width="24" height="24">'+it.b+'</svg>';
+      navigator.clipboard&&navigator.clipboard.writeText(svg);
+      t.classList.add('copied'); setTimeout(()=>t.classList.remove('copied'),700);
+    });
+    frag.appendChild(t);
+  });
+  grid.appendChild(frag);
+  const tiles=[...grid.children];
+  function apply(){
+    let shown=0;
+    tiles.forEach(t=>{
+      const ok=(group==='all'||t.dataset.g===group)&&(!term||t.dataset.n.toLowerCase().includes(term));
+      t.style.display=ok?'':'none'; if(ok) shown++;
+    });
+    countEl.textContent=shown.toLocaleString()+' / '+ICON_LIB.length.toLocaleString();
+    emptyEl.hidden=shown>0;
+  }
+  q.addEventListener('input',()=>{term=q.value.trim();apply();});
+  sec.querySelectorAll('.icl-chip[data-g]').forEach(c=>c.addEventListener('click',()=>{
+    group=c.dataset.g;
+    sec.querySelectorAll('.icl-chip[data-g]').forEach(x=>x.classList.toggle('is-on',x===c));
+    apply();
+  }));
+  sizeBtn.addEventListener('click',()=>{
+    const on=sizeBtn.dataset.on==='1'; sizeBtn.dataset.on=on?'0':'1';
+    sec.dataset.sz=on?'24':'16'; sizeBtn.textContent=on?'24px':'16px'; sizeBtn.classList.toggle('is-on',!on);
+  });
+  apply();
 })();
 </script>
 </body>
