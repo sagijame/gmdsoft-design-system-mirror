@@ -5088,6 +5088,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .icl-tile.copied{border-color:var(--gmd-success,#2E7D32)}
 .icl-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(8px);background:var(--gmd-text-primary,#212529);color:var(--gmd-bg-surface,#fff);padding:10px 18px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:0 6px 24px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:1000}
 .icl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.icl-toast-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:600;background:rgba(255,255,255,.16);padding:1px 6px;border-radius:5px;margin-right:2px}
 .icl-glyph{height:32px;display:flex;align-items:center;justify-content:center;color:var(--gmd-text-primary)}
 .icl-glyph svg{width:24px;height:24px}
 #iconography[data-sz="16"] .icl-glyph svg{width:16px;height:16px}
@@ -5690,7 +5691,10 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
   const toast=document.createElement('div'); toast.className='icl-toast'; toast.setAttribute('role','status'); document.body.appendChild(toast);
   let toastTimer=null;
   function showToast(name){
-    toast.textContent=name+'을 복사했어요';
+    // 이름은 변수값 — 코드 토큰으로 구분해 보여준다.
+    toast.innerHTML='';
+    const code=document.createElement('span'); code.className='icl-toast-name'; code.textContent=name;
+    toast.appendChild(code); toast.appendChild(document.createTextNode('을 복사했어요'));
     toast.classList.add('show');
     clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('show'),1800);
   }
