@@ -1,37 +1,51 @@
-# GMDSOFT Icon Library
+# GMD Classic — Icon Library
 
-GMDSOFT 디자인 시스템 아이콘 2,144종. 단일 출처는 Figma **MD-UX** 파일의 `Icon Export` 프레임(`zt8aRVV4gt9tNwjeyjOu1b`, node `1824:5`).
+classic 디자인 시스템 아이콘 105종. 개발자 핸드오프용 단일 출처.
 
 ## 구성
-| 폴더 | 스타일 | 개수 |
-|---|---|---|
-| `24/outline/` | 24px 아웃라인 | 132 |
-| `16/outline/` | 16px 아웃라인 | 1,273 |
-| `16/fill/` | 16px 채움 | 731 |
-| `other/` | 기타 사이즈(17px 등) | 8 |
+- `*.svg` — 개별 아이콘. 슬래시(`/`) 가 든 큐레이션 아이콘은 파일명에서 `__` 로 치환(예: `formatting__bold.svg`).
+- 각 SVG `fill="currentColor"`. viewBox 는 아이콘별로 다름(사용 세트 16그리드, 큐레이션 세트 24그리드). 마크업에서 크기는 width/height 로 제어.
+- `icons.html` — 전체 갤러리.
 
-- `icons.html` — 전체 갤러리(이름 검색·16/24 사이즈·다크 토글).
-- 각 SVG는 `viewBox`로 좌표계를 갖고, 크기는 마크업의 `width/height`로 제어한다.
+## 출처 / 라이선스
+- **Figma Design Kit v2.1** (`Z1ug6AJn88Qcpt9dseua3e`) 에서 직접 추출한 실제 vector geometry.
+- 사용 16종은 Figma 평면 세트(= Bootstrap Icons, MIT) 와 동일 출처. 큐레이션 89종은 GMD 에디터 툴바 세트.
 
-## 색 규칙 — currentColor
-- 모든 글리프 색·stroke는 `fill="currentColor"` / `stroke="currentColor"`로 정규화됨. SVG 안에 색을 박지 않는다.
-- 부모 요소의 `color`(의미색 토큰 `--gmd-semantic-*`, `--gmd-text-*`)를 상속해 라이트/다크·상태색에 자동 대응.
-- 루트 `<svg fill="none">`은 보존(채우기 없음을 의미).
+## 사용 규칙
+- **색**: `fill="currentColor"`. 부모 `color`(의미색 토큰 `--gmd-semantic-*`, `--gmd-text-*`)를 상속. SVG 안에 색을 박지 않는다.
+- **크기**: 토큰으로만. `--gmd-icon-sm 16` / `--gmd-icon-md 20` / `--gmd-icon-lg 24` / `--gmd-icon-xl 32`.
+- **컨테이너 vs 글리프**: 원형 배경 안에 넣을 때 컨테이너 = 글리프 + padding*2. 전역 `box-sizing:border-box` 에서 컨테이너 width 가 padding 을 포함하므로 짜부 주의(예: 24px 원 + 4px padding → 글리프 16px).
+- **네이밍**: 사용 세트는 kebab-case 단일 이름. 큐레이션 세트는 `카테고리/이름`(`formatting/bold`, `tables-cells/insertTable`).
 
-### 투톤 → 단색 플랫화 (10종)
-원본에 보조색(`#4681db`)이 있던 아래 아이콘은 단색 시스템에 맞춰 `currentColor`로 통일했다. 투톤이 필요하면 Figma 원본을 참조해 별도 처리한다.
-`alert-manage-on`, `alert-manage-on2`, `date-range`, `email-icon163`, `log-error`, `messageto-chat-icon16`, `report-icon`, `setting-icon`, `table-optimal-view-icon`, `table-status-icon`
+## 사용 세트 (16) — 컴포넌트에서 직접 참조
+| 이름 | 용도 |
+|---|---|
+| `arrow-right` | 다음 단계·이동·CTA 후행 화살표 |
+| `arrow-up` | 상단 이동·정렬 오름차순 |
+| `check` | 체크(체크박스·완료) |
+| `check-circle` | 성공·완료(원형 체크) |
+| `chevron-down` | 드롭다운·아코디언 펼침 |
+| `chevron-up` | 아코디언 접힘·정렬 |
+| `download` | 다운로드 액션 |
+| `exclamation` | 경고 글리프(원형 조합) |
+| `exclamation-circle` | 주의·경고(원형) |
+| `exclamation-triangle` | warning 배너·경고 다이얼로그 |
+| `home` | 사이드바·리본 내비 홈 |
+| `info-circle` | info 배너·안내 다이얼로그 |
+| `info-i` | 정보 글리프(원형 조합) |
+| `search` | 검색 입력·필터 |
+| `send` | 전송·메시지(토스트) |
+| `x` | 닫기(모달·배너·태그·토스트) |
 
-## 네이밍
-- Figma 컴포넌트명(PascalCase) → kebab-case. 예: `ActionsToolsAdvancedImageEditor` → `actions-tools-advanced-image-editor`.
-- outline/fill는 폴더로 구분. fill 변형은 원본명 그대로 `*-fill` 접미사를 유지.
+## 큐레이션 세트 (89) — GMD 에디터/툴바 아이콘
+- **arrows** (11): `back`, `redo`, `verticalAlignTop`, `codeView`, `undo`, `return`, `fullscreen`, `verticalAlignBottom`, `replaceImage`, `exitFullscreen`, `verticalAlignMiddle`
+- **misc-parts** (3): `Arrow ↓`, `Arrow`, `Dropdown`
+- **standard** (9): `help`, `openLink`, `remove`, `insertEmbed`, `add`, `search`, `star`, `cancel`, `anchors`
+- **paragraph** (12): `paragraphMore`, `alignLeft`, `lineHeight`, `paragraphStyle`, `alignRight`, `outdent`, `alignCenter`, `orderedList`, `indent`, `paragraphFormat`, `alignJustify`, `unorderedList`
+- **formatting** (15): `italic`, `superscript`, `inlineStyle`, `backgroundColor`, `underline`, `fontFamily`, `clearFormatting`, `edit`, `strikeThrough`, `fontSize`, `textColor`, `bold`, `subscript`, `inlineClass`, `textMore`
+- **actions-tools** (10): `print`, `fileInsert`, `upload`, `fontAwesome`, `advancedImageEditor`, `spellcheck`, `linkStyles`, `cogs`, `selectAll`, `unlink`
+- **content** (12): `insertVideo`, `insertLink`, `mention`, `smile`, `pageBreaker`, `insertImage`, `insertMore`, `symbols`, `insertFile`, `tags`, `blockquote`, `horizontalLine`
+- **files-images** (8): `imageAltText`, `imageManager`, `imageCaption`, `imageSize`, `imageClass`, `pdfExport`, `imageDisplay`, `fileManager`
+- **tables-cells** (9): `insertTable`, `row`, `cellBorderColor`, `tableHeader`, `tableStyle`, `cellOptions`, `cellStyle`, `columns`, `cellBackground`
 
-## 사용 예
-```html
-<span style="color: var(--gmd-text-primary); display:inline-flex">
-  <!-- icons/24/outline/search.svg 의 내용 -->
-</span>
-```
-
-## 갱신
-- 출처가 Figma `Icon Export` 프레임이므로, 추가/변경은 Figma에서 한 뒤 REST(`/v1/images?format=svg`)로 재추출 → currentColor 정규화 → 본 폴더 + `icons.html` 갱신.
+> 단일 출처: classic `index.html` 의 `ICONS` 맵과 본 폴더는 같은 geometry 를 공유한다. 추가/변경 시 양쪽을 함께 갱신한다.
