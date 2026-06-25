@@ -5086,6 +5086,8 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .icl-tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 8px;border:1px solid var(--gmd-border-subtle,var(--gmd-divider));border-radius:var(--gmd-radius-md);background:var(--gmd-bg-surface);cursor:pointer;transition:border-color .12s,background .12s}
 .icl-tile:hover{border-color:var(--gmd-primary);background:var(--gmd-bg-subtle,var(--gmd-bg-muted))}
 .icl-tile.copied{border-color:var(--gmd-success,#2E7D32)}
+.icl-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(8px);background:var(--gmd-text-primary,#212529);color:var(--gmd-bg-surface,#fff);padding:10px 18px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:0 6px 24px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:1000}
+.icl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .icl-glyph{height:32px;display:flex;align-items:center;justify-content:center;color:var(--gmd-text-primary)}
 .icl-glyph svg{width:24px;height:24px}
 #iconography[data-sz="16"] .icl-glyph svg{width:16px;height:16px}
@@ -5684,6 +5686,14 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
   const q=document.getElementById('iclq'), countEl=document.getElementById('iclcount'),
         emptyEl=document.getElementById('iclempty'), sec=document.getElementById('iconography'),
         sizeBtn=document.getElementById('iclsize');
+  // 복사 확인 토스트(친절한 안내). 단일 요소를 재사용한다.
+  const toast=document.createElement('div'); toast.className='icl-toast'; toast.setAttribute('role','status'); document.body.appendChild(toast);
+  let toastTimer=null;
+  function showToast(name){
+    toast.textContent=name+'을 복사했어요';
+    toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('show'),1800);
+  }
   let group='all', term='';
   // 1회 렌더(전체) 후 필터는 show/hide
   const frag=document.createDocumentFragment();
@@ -5691,12 +5701,13 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
     const t=document.createElement('button');
     t.className='icl-tile'; t.type='button';
     t.dataset.n=it.n; t.dataset.g=it.g;
-    t.title=it.n+'  ('+it.g+')\n클릭하면 SVG 복사';
+    t.title=it.n+'  ('+it.g+')\n클릭하면 SVG 코드를 복사해요';
     t.innerHTML='<span class="icl-glyph"><svg viewBox="'+it.v+'" width="100%" height="100%" aria-hidden="true">'+it.b+'</svg></span><span class="icl-name">'+it.n+'</span>';
     t.addEventListener('click',()=>{
       const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="'+it.v+'" width="24" height="24">'+it.b+'</svg>';
       navigator.clipboard&&navigator.clipboard.writeText(svg);
       t.classList.add('copied'); setTimeout(()=>t.classList.remove('copied'),700);
+      showToast(it.n);
     });
     frag.appendChild(t);
   });
