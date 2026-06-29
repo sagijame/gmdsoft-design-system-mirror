@@ -700,6 +700,13 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 .btn-xl { height: 48px; padding: var(--gmd-space-3) var(--gmd-space-6); font-size: var(--gmd-font-size-16); }
 .btn-2lg { height: 52px; padding: var(--gmd-space-3) var(--gmd-space-28px); font-size: var(--gmd-font-size-18); }
 .btn .ico { width: 1em; height: 1em; flex: none; display: inline-flex; }
+/* 처리 중(Processing) — Figma "Processing Button"(6:7037). 라벨 앞 회전 스피너로 처리 중을 알리고 그동안 입력을 막는다.
+   새 크기·새 컴포넌트를 만들지 않고 .btn 위계·크기 + 기존 .c-spinner-ring 을 그대로 조합한다. */
+.btn.is-processing { cursor: progress; pointer-events: none; }
+/* 버튼 안 스피너는 라벨 크기에 맞춰 1em. DS 스피너의 두 톤 링 모양을 그대로 유지하되 색만 currentColor 로 상속 — 트랙은 그 25% 농도, 선행 아크는 풀 농도. 채움형은 on-primary(흰색)·텍스트형은 primary 로 자동 전환(raw HEX 없음). */
+.btn .c-spinner-ring { width: 1em; height: 1em; border-width: 2px; border-color: color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; }
+/* 아이콘만(OnlyIcon) — 라벨 없이 스피너만. 정사각으로 좁히고 좌우 패딩을 없앤다. */
+.btn.is-icon-only { min-width: 0; padding-left: 0; padding-right: 0; aspect-ratio: 1; }
 
 .input { width: 100%; max-width: 320px; background: var(--gmd-surface-base); border: 1px solid var(--gmd-border-subtle);
   border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2x) var(--gmd-space-3); font-family: var(--gmd-font-body);
@@ -2469,6 +2476,15 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
         <button class="btn btn-primary btn-2lg">2lg</button>
       </div></div>
       <p class="note">Figma 크기 6단 — <code>btn-xm</code> 24 · <code>btn-sm</code> 32 · <code>btn-md</code> 36(기본) · <code>btn-lg</code> 40 · <code>btn-xl</code> 48 · <code>btn-2lg</code> 52px. 클래스 없이 <code>btn</code>만 쓰면 md(36)다. 조밀 영역은 xm·sm, 강조 영역은 lg·xl·2lg. Text 버튼은 Download/Downloading/Failed 같은 상태 전환 라벨에도 쓰며, hover·pressed 시 <code>--gmd-primary-subtle</code> pill 배경이 생긴다.</p>
+
+      <h3>처리 중 (Processing)</h3>
+      <div class="example"><div class="preview" style="align-items:center">
+        <button class="btn btn-primary is-processing" aria-busy="true"><span class="c-spinner-ring" role="status" aria-label="처리 중"></span>Button</button>
+        <button class="btn btn-primary is-processing is-icon-only" aria-busy="true" aria-label="처리 중"><span class="c-spinner-ring" role="status"></span></button>
+        <button class="btn btn-text is-processing" aria-busy="true"><span class="c-spinner-ring" role="status" aria-label="처리 중"></span>Button</button>
+        <button class="btn btn-text is-processing is-icon-only" aria-busy="true" aria-label="처리 중"><span class="c-spinner-ring" role="status"></span></button>
+      </div></div>
+      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>(6:7037) 1:1. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>cursor:progress</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다.</p>
 
       <h3 class="anatomy-heading">Anatomy</h3>
       <ol class="anatomy-list">
@@ -5108,7 +5124,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.06.25 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.06.29 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>
