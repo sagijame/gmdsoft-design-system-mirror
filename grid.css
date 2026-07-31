@@ -1,0 +1,33 @@
+/* 반응형 그리드 — 컬럼 수·거터는 tokens.css 의 --gmd-grid-columns / --gmd-grid-gutter 가
+   구간별로 정한다(1920·1440·1280 = 12col / 1024·768 = 8col / 360 = 4col). 이 파일에서는
+   @media 를 쓰지 않는다 — 브레이크포인트 정의는 tokens.css 한 곳에만 둔다.
+   데스크톱 앱(MD-*)은 1280 미만에서 레이아웃을 바꾸지 않는다(가로 스크롤·사이드바 유지). */
+
+.gmd-container {
+  width: 100%;
+  max-width: var(--gmd-container-xl);
+  margin-inline: auto;
+  padding-inline: var(--gmd-grid-gutter);
+}
+
+.gmd-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--gmd-grid-columns), minmax(0, 1fr));
+  gap: var(--gmd-grid-gutter);
+}
+
+/* span 이 현재 구간 컬럼 수를 넘으면 CSS Grid 규칙에 따라 전체 폭으로 접힌다
+   (span 12 짜리 카드는 8col 구간에서 8칸, 4col 구간에서 4칸을 차지한다). */
+.gmd-col-1  { grid-column: span 1; }
+.gmd-col-2  { grid-column: span 2; }
+.gmd-col-3  { grid-column: span 3; }
+.gmd-col-4  { grid-column: span 4; }
+.gmd-col-5  { grid-column: span 5; }
+.gmd-col-6  { grid-column: span 6; }
+.gmd-col-7  { grid-column: span 7; }
+.gmd-col-8  { grid-column: span 8; }
+.gmd-col-9  { grid-column: span 9; }
+.gmd-col-10 { grid-column: span 10; }
+.gmd-col-11 { grid-column: span 11; }
+.gmd-col-12 { grid-column: span 12; }
+.gmd-col-full { grid-column: 1 / -1; }

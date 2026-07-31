@@ -683,6 +683,17 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 .btn-tertiary:hover { background: var(--gmd-tertiary-hover); }
 .btn-tertiary:active { background: var(--gmd-tertiary-pressed); }
 .btn-tertiary:disabled { background: var(--gmd-primary-disabled); cursor: not-allowed; }
+/* Neutral 외곽선 = Figma Main-Button-primary 의 Hierarchy=Neutral · Border=true.
+   base/disabled 는 정본과 값이 같다 — 배경 --gmd-surface-base, 테두리 --gmd-divider,
+   글자 --gmd-tertiary / disabled 는 --gmd-tertiary-subtle 배경에 --gmd-text-disabled 글자.
+   hover·pressed 는 정본이 오버레이(검정 6% · primary 12%)와 Figma Border colors/border/hover ·
+   border/pressed 를 쓰지만 classic 에 그 토큰이 없어, btn-secondary 와 같은 classic 관행
+   (subtle 배경 + 상태색 테두리·글자)으로 맞췄다.
+   주 동작이 btn-danger 인 warning·error 다이얼로그의 보조 버튼이 주 용도다. */
+.btn-tertiary-outline { background: var(--gmd-surface-base); color: var(--gmd-tertiary); border-color: var(--gmd-divider); }
+.btn-tertiary-outline:hover { background: var(--gmd-tertiary-subtle); border-color: var(--gmd-tertiary-hover); color: var(--gmd-tertiary-hover); }
+.btn-tertiary-outline:active { background: var(--gmd-tertiary-subtle); border-color: var(--gmd-tertiary-pressed); color: var(--gmd-tertiary-pressed); }
+.btn-tertiary-outline:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-text-disabled); border-color: var(--gmd-tertiary-subtle); cursor: not-allowed; }
 /* btn-danger: Button 위계 외 semantic destructive — warning/error Dialog 확인 버튼에만 사용. */
 .btn-danger { background: var(--gmd-semantic-error); color: var(--gmd-text-on-primary); }
 .btn-danger:hover { background: var(--gmd-semantic-error-hover); }
@@ -707,6 +718,8 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 .btn .c-spinner-ring { width: 1em; height: 1em; border-width: 2px; border-color: color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; }
 /* 아이콘만(OnlyIcon) — 라벨 없이 스피너만. 정사각으로 좁히고 좌우 패딩을 없앤다. */
 .btn.is-icon-only { min-width: 0; padding-left: 0; padding-right: 0; aspect-ratio: 1; }
+/* 처리·대기 공통 커서 — Figma "Processing Button"(6:7037) "cursor: progress/wait" 섹션 정본 커서. 처리 중 버튼은 입력을 막으므로(pointer-events:none) 커서는 버튼이 아니라 처리 중인 영역(또는 body)에 건다. hotspot=화살표 끝(4,2), 미지원 브라우저는 progress 로 폴백. */
+.is-cursor-wait, .cursor-wait-demo { cursor: url("assets/loading-cursor.svg") 4 2, progress; }
 
 .input { width: 100%; max-width: 320px; background: var(--gmd-surface-base); border: 1px solid var(--gmd-border-subtle);
   border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2x) var(--gmd-space-3); font-family: var(--gmd-font-body);
@@ -2234,6 +2247,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     <a href="#color">컬러</a>
     <a href="#typography">타이포그래피</a>
     <a href="#spacing">간격</a>
+    <a href="#grid">레이아웃 · 그리드</a>
     <a href="#radius">Radius</a>
     <a href="#shadow">그림자</a>
     <a href="#motion">모션 · z-index</a>
@@ -2291,7 +2305,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
       <p class="ov-start">시작하기 (Get started)</p>
       <div class="ov-tiles">
         <a class="ov-tile" href="#principles"><span class="ov-tile-ico"><span class="ico" data-icon="standard/star"></span></span><h3>디자인 원칙</h3><p>고밀도 업무, 토큰, 레이아웃, 컴포넌트, 아이콘, 의미 전달까지 classic이 따르는 기준.</p><span class="ov-tile-arrow">원칙 보기<span class="ico" data-icon="arrow-right"></span></span></a>
-        <a class="ov-tile" href="#color"><span class="ov-tile-ico"><span class="ico" data-icon="formatting/textColor"></span></span><h3>파운데이션</h3><p>색·타이포그래피·간격·radius·그림자·모션 — 모든 컴포넌트의 토대가 되는 토큰.</p><span class="ov-tile-arrow">토큰 보기<span class="ico" data-icon="arrow-right"></span></span></a>
+        <a class="ov-tile" href="#color"><span class="ov-tile-ico"><span class="ico" data-icon="formatting/textColor"></span></span><h3>파운데이션</h3><p>색·타이포그래피·간격·레이아웃·radius·그림자·모션 — 모든 컴포넌트의 토대가 되는 토큰.</p><span class="ov-tile-arrow">토큰 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="#button"><span class="ov-tile-ico"><span class="ico" data-icon="tables-cells/insertTable"></span></span><h3>컴포넌트</h3><p>버튼·입력·배너·모달 등 28종 UI 컴포넌트와 상태·구성 요소·조합 예시.</p><span class="ov-tile-arrow">컴포넌트 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer"><span class="ov-tile-ico"><span class="ico" data-icon="download"></span></span><h3>토큰 · 리소스</h3><p>Figma v2.12 변수 컬렉션과 Design Kit 리소스. tokens.css는 이 원본을 미러링한 개발 사본.</p><span class="ov-tile-arrow">Figma v2.12 열기<span class="ico" data-icon="arrow-right"></span></span></a>
       </div>
@@ -2341,7 +2355,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 
     <div class="foundation-zone">
     <!-- ───── 컬러 ───── -->
-    <div class="category"><div class="eyebrow">Foundations</div><div class="category-head"><h2>파운데이션</h2><span class="category-meta">6 토큰 그룹</span></div><p>색·타이포그래피·간격·radius·그림자 등 모든 컴포넌트의 토대가 되는 디자인 토큰. 원본은 <a href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer">Figma v2.12</a>의 <code>01_GMD_Theme_v2.12</code>이고, <a href="tokens.css">tokens.css</a>는 HTML 문서와 개발 적용을 위한 미러 파일이다.</p></div>
+    <div class="category"><div class="eyebrow">Foundations</div><div class="category-head"><h2>파운데이션</h2><span class="category-meta">7 토큰 그룹</span></div><p>색·타이포그래피·간격·레이아웃·radius·그림자 등 모든 컴포넌트의 토대가 되는 디자인 토큰. 원본은 <a href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer">Figma v2.12</a>의 <code>01_GMD_Theme_v2.12</code>이고, <a href="tokens.css">tokens.css</a>는 HTML 문서와 개발 적용을 위한 미러 파일이다.</p></div>
 
     <section id="color">
       <h2>컬러</h2>
@@ -2385,6 +2399,68 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
       <p class="lede">요소 사이 여백과 패딩을 4px 단위로 끊어 쓴다. 모든 간격이 4의 배수라 화면 리듬이 일정하고, 디자이너와 개발자가 같은 값을 공유한다. 임의 여백 대신 이 토큰을 먼저 본다.</p>
       <div data-space="--gmd-space-1:4,--gmd-space-2x:8,--gmd-space-3:12,--gmd-space-4:16,--gmd-space-5:20,--gmd-space-6:24,--gmd-space-8:32,--gmd-space-10:40,--gmd-space-12:48"></div>
       <p class="note">모든 margin · padding · gap은 4의 배수. 비 4배수는 경고로 표시된다.</p>
+    </section>
+
+    <!-- ───── 레이아웃 · 그리드 ───── -->
+    <style>
+      /* 구간별 축소 모형. 바 폭은 1920 을 100% 로 둔 실제 비율이라(1440=75%, 1024=53.33% …)
+         문서 창 크기와 무관하게 여섯 구간의 관계가 항상 같게 보인다. 라이브 데모를 쓰지 않는
+         이유: 이 문서 본문은 .content 의 max-width 1180px 에 갇혀 있어, 뷰포트가 바뀌어도
+         데모 폭은 그대로고 컬럼 개수만 변해 브레이크포인트가 무엇을 하는지 전달되지 않는다.
+         모형 안 거터는 시각 단순화를 위해 4px 로 고정했고, 실제 거터 값은 라벨에 적는다. */
+      .bp-scale { display: flex; flex-direction: column; gap: var(--gmd-space-5); width: 100%; }
+      .bp-item { display: flex; flex-direction: column; gap: var(--gmd-space-2x); }
+      .bp-label { display: flex; align-items: baseline; gap: var(--gmd-space-2x); flex-wrap: wrap;
+        font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); }
+      .bp-label code { font-family: var(--gmd-font-mono); color: var(--gmd-primary-default); }
+      .bp-label b { font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); }
+      .bp-bar { border: 1px solid var(--gmd-border-subtle); border-radius: var(--gmd-radius-sm);
+        padding: var(--gmd-space-1); background: var(--gmd-surface-base); }
+      .bp-cols { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: var(--gmd-space-1); }
+      .bp-cols i { display: block; height: 32px; border-radius: var(--gmd-radius-sm);
+        background: var(--gmd-primary-900-100); border: 1px solid var(--gmd-primary-900-200); }
+    </style>
+    <section id="grid">
+      <h2>레이아웃 · 그리드</h2>
+      <p class="lede">화면 폭에 따라 컬럼 수와 거터를 바꾸는 반응형 그리드다. 구간은 6단이고 값은 각 구간의 하한(min-width)이다. 컴포넌트마다 <code>@media</code>를 따로 쓰지 않고 <code>--gmd-grid-columns</code>·<code>--gmd-grid-gutter</code> 두 변수만 읽는다 — 브레이크포인트 정의는 <a href="tokens.css">tokens.css</a> 한 곳에만 둔다.</p>
+      <table class="tbl">
+        <tr><th>구간</th><th>하한</th><th>컬럼</th><th>거터</th><th>적용 제품</th></tr>
+        <tr><td><code>--gmd-breakpoint-desktop-xl</code></td><td>1920px</td><td>12</td><td>24px</td><td>웹 · 데스크톱 앱</td></tr>
+        <tr><td><code>--gmd-breakpoint-desktop</code></td><td>1440px</td><td>12</td><td>24px</td><td>웹 · 데스크톱 앱</td></tr>
+        <tr><td><code>--gmd-breakpoint-laptop</code></td><td>1280px</td><td>12</td><td>24px</td><td>웹 · 데스크톱 앱 최소 폭</td></tr>
+        <tr><td><code>--gmd-breakpoint-tablet-ls</code></td><td>1024px</td><td>8</td><td>16px</td><td>웹 전용 — 태블릿 가로</td></tr>
+        <tr><td><code>--gmd-breakpoint-tablet</code></td><td>768px</td><td>8</td><td>16px</td><td>웹 전용 — 태블릿 세로</td></tr>
+        <tr><td><code>--gmd-breakpoint-mobile</code></td><td>360px</td><td>4</td><td>8px</td><td>웹 전용</td></tr>
+      </table>
+      <div class="example"><div class="preview col">
+        <div class="bp-scale">
+          <div class="bp-item">
+            <div class="bp-label"><code>desktop-xl</code><b>1920px</b><span>12 columns · gutter 24</span></div>
+            <div class="bp-bar" style="width:100%"><div class="bp-cols" style="--n:12"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-label"><code>desktop</code><b>1440px</b><span>12 columns · gutter 24</span></div>
+            <div class="bp-bar" style="width:75%"><div class="bp-cols" style="--n:12"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-label"><code>laptop</code><b>1280px</b><span>12 columns · gutter 24 · 데스크톱 앱 최소 폭</span></div>
+            <div class="bp-bar" style="width:66.67%"><div class="bp-cols" style="--n:12"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-label"><code>tablet-ls</code><b>1024px</b><span>8 columns · gutter 16 · 태블릿 가로</span></div>
+            <div class="bp-bar" style="width:53.33%"><div class="bp-cols" style="--n:8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-label"><code>tablet</code><b>768px</b><span>8 columns · gutter 16 · 태블릿 세로</span></div>
+            <div class="bp-bar" style="width:40%"><div class="bp-cols" style="--n:8"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-label"><code>mobile</code><b>360px</b><span>4 columns · gutter 8</span></div>
+            <div class="bp-bar" style="width:18.75%"><div class="bp-cols" style="--n:4"><i></i><i></i><i></i><i></i></div></div>
+          </div>
+        </div>
+      </div></div>
+      <p class="note">위 막대의 폭은 1920px을 100%로 둔 실제 비율이다(1440은 75%, 1024는 53.33%). 데스크톱 앱(MD-*)은 1280px 미만에서 레이아웃을 바꾸지 않는다 — 가로 스크롤과 사이드바 유지가 원칙이라 tablet 이하 구간을 쓰지 않는다. 페이지 좌우 여백은 별도 토큰 없이 해당 구간 거터를 <code>.gmd-container</code>의 <code>padding-inline</code>으로 쓴다. <code>.gmd-col-*</code>의 span이 현재 컬럼 수를 넘으면 CSS Grid 규칙에 따라 전체 폭으로 접힌다.</p>
     </section>
 
     <!-- ───── Radius ───── -->
@@ -2439,10 +2515,11 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
           <button class="btn btn-primary">Primary</button>
           <button class="btn btn-secondary">Secondary</button>
           <button class="btn btn-tertiary">Neutral</button>
+          <button class="btn btn-tertiary-outline">Neutral (outline)</button>
           <button class="btn btn-text">Text Link</button>
           <button class="btn btn-danger">Destructive</button>
         </div>      </div>
-      <p class="note">Figma 위계는 <strong>Primary / Secondary / Neutral / Text Link</strong> 4단. 클래스명 <code>btn-tertiary</code>=Neutral, <code>btn-text</code>=Text Link로 매핑한다(사용처 보존). <code>btn-danger</code>는 위계가 아닌 <strong>semantic destructive</strong>로, warning/error Dialog의 확인 버튼에만 쓴다.</p>
+      <p class="note">Figma 위계는 <strong>Primary / Secondary / Neutral / Text Link</strong> 4단. 클래스명 <code>btn-tertiary</code>=Neutral(채움), <code>btn-tertiary-outline</code>=Neutral의 Border 변형(외곽선), <code>btn-text</code>=Text Link로 매핑한다(사용처 보존). <code>btn-danger</code>는 위계가 아닌 <strong>semantic destructive</strong>로, warning/error Dialog의 확인 버튼에만 쓴다. 그 Dialog의 보조 버튼은 파랑 계열(Secondary·Text Link) 대신 <code>btn-tertiary-outline</code>을 쓴다 — 한 다이얼로그에 파랑과 빨강이 같이 놓이는 걸 피한다.</p>
       <h3>상태</h3>
       <div class="example"><div class="preview col">
         <div class="preview" style="padding:0">
@@ -2484,7 +2561,14 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
         <button class="btn btn-text is-processing" aria-busy="true"><span class="c-spinner-ring" role="status" aria-label="처리 중"></span>Button</button>
         <button class="btn btn-text is-processing is-icon-only" aria-busy="true" aria-label="처리 중"><span class="c-spinner-ring" role="status"></span></button>
       </div></div>
-      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>(6:7037) 1:1. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>cursor:progress</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다.</p>
+      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>(6:7037)의 Primary(Fill)·Text(only) 상태를 따른다. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다. 처리·대기 중 커서는 아래 <strong>로딩 커서</strong> 항을 따른다.</p>
+
+      <h3>로딩 커서 (cursor: progress / wait)</h3>
+      <div class="example"><div class="preview cursor-wait-demo" style="align-items:center;gap:var(--gmd-space-3)">
+        <img src="assets/loading-cursor.svg" width="28" height="40" alt="로딩 커서" style="display:block">
+        <span style="font-size:var(--gmd-font-size-14);color:var(--gmd-text-secondary)">이 영역 위에 마우스를 올리면 로딩 커서가 나타난다</span>
+      </div></div>
+      <p class="note">처리·대기 중 공통 커서 — Figma <strong>Processing Button</strong>(6:7037)의 <code>cursor: progress / wait</code> 섹션 정본 커서(<a href="https://www.figma.com/make/WHOTr9qsg4PHphlrohw52v/Design-Loading-Cursor?t=idxLjaiwULoYnY3h-20&amp;fullscreen=1" target="_blank" rel="noopener">Design-Loading-Cursor</a>)를 <code>assets/loading-cursor.svg</code>로 내보내 적용한다. 화살표 포인터 끝(hotspot 4,2)에 2색 로딩 볼이 붙는다. 처리 중 버튼은 입력을 막으므로(<code>pointer-events:none</code>) 이 커서는 버튼이 아니라 처리 중인 <strong>영역</strong>(또는 <code>body</code>)에 <code>.is-cursor-wait</code>(= <code>cursor: url(assets/loading-cursor.svg) 4 2, progress</code>)로 건다. 커스텀 커서 미지원 브라우저는 OS <code>progress</code> 커서로 폴백된다.</p>
 
       <h3 class="anatomy-heading">Anatomy</h3>
       <ol class="anatomy-list">
@@ -3014,30 +3098,30 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-info"><span class="ico" data-icon="info-circle"></span></span><h4>안내</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">변경 사항이 정상적으로 저장되었습니다.</p>
-          <div class="actions"><button class="btn btn-secondary">닫기</button><button class="btn btn-primary">확인</button></div>
+          <div class="actions"><button class="btn btn-tertiary-outline">닫기</button><button class="btn btn-primary">확인</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-confirm"><span class="ico" data-icon="info-circle"></span></span><h4>확인</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">이 항목을 목록에 추가할까요?</p>
-          <div class="actions"><button class="btn btn-secondary">닫기</button><button class="btn btn-primary">확인</button></div>
+          <div class="actions"><button class="btn btn-tertiary-outline">닫기</button><button class="btn btn-primary">확인</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-warning"><span class="ico" data-icon="exclamation-triangle"></span></span><h4>주의</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">저장하지 않은 변경 사항이 있습니다. 계속하면 변경 내용이 사라집니다.</p>
-          <div class="actions"><button class="btn btn-text">취소</button><button class="btn btn-danger">계속</button></div>
+          <div class="actions"><button class="btn btn-tertiary-outline">취소</button><button class="btn btn-danger">계속</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-error"><span class="ico" data-icon="x"></span></span><h4>오류</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">요청을 처리하지 못했습니다. 잠시 후 다시 시도하세요.</p>
-          <div class="actions"><button class="btn btn-secondary">닫기</button><button class="btn btn-danger">삭제</button></div>
+          <div class="actions"><button class="btn btn-tertiary-outline">닫기</button><button class="btn btn-danger">삭제</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-success"><span class="ico" data-icon="check"></span></span><h4>완료</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">파일이 성공적으로 내보내졌습니다.</p>
-          <div class="actions"><button class="btn btn-secondary">폴더 열기</button><button class="btn btn-primary">완료</button></div>
+          <div class="actions"><button class="btn btn-tertiary-outline">폴더 열기</button><button class="btn btn-primary">완료</button></div>
         </div>
       </div></div>
-      <p class="note">5유형 — <strong>information</strong>(파랑 i)·<strong>confirmation</strong>(파랑 i)·<strong>warning</strong>(노랑 △)·<strong>error</strong>(빨강 ✕)·<strong>Done</strong>(녹색 ✓). 헤더는 원형 subtle 배경의 의미색 아이콘 + 제목(Bold 20) + 닫기 X. 버튼 조합: info/confirmation = 닫기(secondary)+확인(primary), warning = 취소(text)+주요(<code>btn-danger</code>), error = 닫기(secondary)+주요(<code>btn-danger</code>), Done = 폴더 열기(secondary)+완료(primary). 의미색 토큰: info <code>#0288D1</code> · success <code>#2E8544</code> · warning <code>#D97706</code> · error <code>#D42A34</code>, 배경은 각 <code>--gmd-semantic-*-bg</code>.</p>
+      <p class="note">5유형 — <strong>information</strong>(파랑 i)·<strong>confirmation</strong>(파랑 i)·<strong>warning</strong>(노랑 △)·<strong>error</strong>(빨강 ✕)·<strong>Done</strong>(녹색 ✓). 헤더는 원형 subtle 배경의 의미색 아이콘 + 제목(Bold 20) + 닫기 X. 버튼 조합 — <strong>보조 동작은 5유형 모두 Neutral 외곽선(<code>btn-tertiary-outline</code>)으로 통일한다</strong>. 주 동작이 <code>btn-danger</code>인 warning·error에서 보조버튼이 Secondary·Text Link(둘 다 primary 파랑)면 한 다이얼로그에 파랑과 빨강이 같이 놓여 의미색이 충돌한다. 채움형 Neutral(<code>btn-tertiary</code>)은 시각 무게가 주 버튼과 비슷해져 보조 위치에 쓰지 않는다. info/confirmation = 닫기(neutral)+확인(primary), warning = 취소(neutral)+계속(<code>btn-danger</code>), error = 닫기(neutral)+삭제(<code>btn-danger</code>), Done = 폴더 열기(neutral)+완료(primary). 의미색 토큰: info <code>#0288D1</code> · success <code>#2E8544</code> · warning <code>#D97706</code> · error <code>#D42A34</code>, 배경은 각 <code>--gmd-semantic-*-bg</code>.</p>
 
       <h3>버튼 구성 (Buttons)</h3>
       <div class="example"><div class="preview" style="background:var(--gmd-background-section);gap:var(--gmd-space-6);align-items:flex-start;flex-wrap:wrap">
@@ -5124,7 +5208,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.06.29 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.07.31 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>

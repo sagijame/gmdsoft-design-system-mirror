@@ -237,18 +237,42 @@
   --gmd-gutter-sm: 8px;
   --gmd-gutter-md: 16px;
   --gmd-gutter-lg: 24px;
-  --gmd-window-min-width:  1024px;
+  --gmd-window-min-width:  1024px;   /* 데스크톱 앱(MD-*) 창 최소 폭 — 웹 반응형에는 적용하지 않는다 */
   --gmd-window-min-height: 768px;
 
-  /* ── grid breakpoints (Figma "Grid/Responsive Columns") ─────── */
-  --gmd-breakpoint-desktop: 1920px;  /* 12 columns */
-  --gmd-breakpoint-wide:    1280px;  /* 12 columns */
-  --gmd-breakpoint-tablet:  768px;   /* 8 columns */
-  --gmd-breakpoint-mobile:  360px;   /* 4 columns */
-  --gmd-grid-columns-desktop: 12;
-  --gmd-grid-columns-wide:    12;
-  --gmd-grid-columns-tablet:  8;
-  --gmd-grid-columns-mobile:  4;
+  /* ── grid breakpoints (Figma 변수 00_GMD Foundations → Layout/grid/breakpoint/*
+        · Layout/grid/columns/*, 문서는 "Layout / Grid" 페이지 Responsive Columns) ── */
+  /* 웹 반응형 6단. 각 값은 해당 구간의 하한(min-width)이다.
+     데스크톱 앱(MD-*)은 창 리사이즈만 다루므로 desktop/laptop 2단만 쓴다.
+     BREAKING (v2.12.8): 구 4단에서 --gmd-breakpoint-desktop 이 1920px → 1440px 로 바뀌었다.
+     1920px 는 --gmd-breakpoint-desktop-xl 로 이동. 구 --gmd-breakpoint-wide 는 laptop alias. */
+  --gmd-breakpoint-desktop-xl: 1920px;  /* 12 columns */
+  --gmd-breakpoint-desktop:    1440px;  /* 12 columns */
+  --gmd-breakpoint-laptop:     1280px;  /* 12 columns */
+  --gmd-breakpoint-tablet-ls:  1024px;  /* 8 columns — 태블릿 가로 */
+  --gmd-breakpoint-tablet:     768px;   /* 8 columns — 태블릿 세로 */
+  --gmd-breakpoint-mobile:     360px;   /* 4 columns */
+  --gmd-breakpoint-wide:       var(--gmd-breakpoint-laptop);  /* deprecated — 구 4단 이름 */
+
+  --gmd-grid-columns-desktop-xl: 12;
+  --gmd-grid-columns-desktop:    12;
+  --gmd-grid-columns-laptop:     12;
+  --gmd-grid-columns-tablet-ls:  8;
+  --gmd-grid-columns-tablet:     8;
+  --gmd-grid-columns-mobile:     4;
+
+  /* 구간별 거터 — 기존 gutter 3단에 매핑한다(신규 값 없음) */
+  --gmd-grid-gutter-desktop-xl: var(--gmd-gutter-lg);  /* 24px */
+  --gmd-grid-gutter-desktop:    var(--gmd-gutter-lg);  /* 24px */
+  --gmd-grid-gutter-laptop:     var(--gmd-gutter-lg);  /* 24px */
+  --gmd-grid-gutter-tablet-ls:  var(--gmd-gutter-md);  /* 16px */
+  --gmd-grid-gutter-tablet:     var(--gmd-gutter-md);  /* 16px */
+  --gmd-grid-gutter-mobile:     var(--gmd-gutter-sm);  /* 8px */
+
+  /* 현재 구간의 실효 컬럼 수·거터 — @media 로 아래에서 덮어쓴다.
+     소비 측은 구간별 토큰 대신 이 둘만 참조하면 된다. */
+  --gmd-grid-columns: var(--gmd-grid-columns-mobile);
+  --gmd-grid-gutter:  var(--gmd-grid-gutter-mobile);
 
   /* ── 모션 — 표준 ease 만. bounce/spring 없음 ──────────── */
   --gmd-motion-fast:   100ms;
@@ -271,6 +295,47 @@
   letter-spacing: 0;
   color: var(--gmd-text-primary);
   background: var(--gmd-background-base);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Responsive grid — 구간별 실효 컬럼·거터. mobile first(360 = :root 기본값)로
+ * min-width 만 올려 잡는다. 데스크톱 앱(MD-*)은 1280 미만에서 레이아웃을 바꾸지
+ * 않고 가로 스크롤·사이드바 유지가 원칙이므로 tablet 이하 구간을 쓰지 않는다.
+ *
+ * 주의 — 미디어 쿼리 조건에는 CSS 변수를 쓸 수 없다(`@media (min-width: var(...))`
+ * 는 동작하지 않는다). 그래서 아래 px 는 리터럴이며, `--gmd-breakpoint-*` 값과
+ * 항상 같아야 한다. 값을 바꾸면 두 곳을 함께 고친다.
+ * ───────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 768px) {
+  :root {
+    --gmd-grid-columns: var(--gmd-grid-columns-tablet);
+    --gmd-grid-gutter:  var(--gmd-grid-gutter-tablet);
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --gmd-grid-columns: var(--gmd-grid-columns-tablet-ls);
+    --gmd-grid-gutter:  var(--gmd-grid-gutter-tablet-ls);
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --gmd-grid-columns: var(--gmd-grid-columns-laptop);
+    --gmd-grid-gutter:  var(--gmd-grid-gutter-laptop);
+  }
+}
+@media (min-width: 1440px) {
+  :root {
+    --gmd-grid-columns: var(--gmd-grid-columns-desktop);
+    --gmd-grid-gutter:  var(--gmd-grid-gutter-desktop);
+  }
+}
+@media (min-width: 1920px) {
+  :root {
+    --gmd-grid-columns: var(--gmd-grid-columns-desktop-xl);
+    --gmd-grid-gutter:  var(--gmd-grid-gutter-desktop-xl);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
