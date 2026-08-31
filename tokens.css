@@ -49,6 +49,7 @@
   --gmd-background-card:     #FAF9FD;
   --gmd-background-surface-primary: #FAF9FD;
   --gmd-background-slot-active:     #FFFFFF;
+  --gmd-background-slot-disabled:   #E9ECEF;   /* Background colors/bg/slot-disabled — 비활성 컨트롤 슬롯 채움 */
 
   /* ── 표면 (surface) ───────────────────────────────────────── */
   --gmd-surface-base:        #FFFFFF;
@@ -381,6 +382,7 @@
     --gmd-background-card:     #2A2D32;
     --gmd-background-surface-primary: #1E1E21;
     --gmd-background-slot-active:     #1E1E21;
+    --gmd-background-slot-disabled:   #2D2D30;
     --gmd-surface-base:        #25282D;
     --gmd-surface-hover:       #2F3236;
     --gmd-surface-pressed:     #19191B;
@@ -478,6 +480,7 @@
   --gmd-background-card:     #2A2D32;
   --gmd-background-surface-primary: #1E1E21;
   --gmd-background-slot-active:     #1E1E21;
+  --gmd-background-slot-disabled:   #2D2D30;
   --gmd-surface-base:        #25282D;
   --gmd-surface-hover:       #2F3236;
   --gmd-surface-pressed:     #19191B;

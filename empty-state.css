@@ -1,0 +1,86 @@
+/* 이 저장소에는 components.css 가 없어 .gmd-component 스코프 리셋을 여기 동봉한다.
+   classic(design-system/classic/components.css) 에서는 그 파일이 같은 역할을 한다. */
+.gmd-component,
+.gmd-component * {
+  box-sizing: border-box;
+}
+
+.gmd-component {
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-primary);
+}
+
+/* ─── Empty State ───
+ * 콘텐츠가 들어갈 자리를 대신하는 안내. Info Bar 는 관련 내용 '옆'에 붙고, Empty State 는 그 '자리'를 차지한다.
+ * 상호작용 요소가 아니라 컨테이너에 4상태를 두지 않는다 — 상태는 내부 Action(Button/링크)이 갖는다.
+ * 마크업: snippets/empty-state.html */
+.c-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--gmd-space-2x);
+  width: 100%;
+  padding: var(--gmd-space-8) var(--gmd-space-4);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-secondary);
+}
+
+/* 간격 출처는 gap 한 곳 — 호스트 문서의 p/h 여백을 물려받으면 제목·본문 사이가 아이콘·제목 사이보다
+   벌어져 묶음이 뒤집힌다. 클래스 선택자로 잡아야 host 의 `.content p`(0,1,1) 를 이긴다. */
+.c-empty-state .c-empty-state-icon,
+.c-empty-state .c-empty-state-title,
+.c-empty-state .c-empty-state-desc,
+.c-empty-state .c-empty-state-action {
+  margin: 0;
+}
+
+/* 아이콘 아래만 16px = gap 8 + margin 8. 색은 text-secondary — tertiary 는 section 배경 위에서
+   2.80:1 로 WCAG 비텍스트 3:1 에 미달한다. */
+.c-empty-state .c-empty-state-icon {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  margin-bottom: var(--gmd-space-2x);
+  border-radius: var(--gmd-radius-circle);
+  background: var(--gmd-background-section);
+  color: var(--gmd-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 아이콘 슬롯은 인라인 svg 와 아이콘 스팬(.ico) 두 마크업을 모두 24px 로 정규화한다 —
+   문서 사본은 span.ico, 스니펫은 인라인 svg 를 쓴다. 한쪽만 잡으면 규격이 갈린다. */
+.c-empty-state .c-empty-state-icon > * {
+  width: var(--gmd-icon-lg);
+  height: var(--gmd-icon-lg);
+}
+
+.c-empty-state .c-empty-state-title {
+  font-size: var(--gmd-font-size-16);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-primary);
+}
+
+/* 480px 은 대응 토큰이 없다 — g-container-xs 는 값이 같아도 컨테이너 폭이라 의미가 다르다.
+   본문 최대 폭 토큰 신설은 별건으로 제안 중이다. */
+.c-empty-state .c-empty-state-desc {
+  max-width: 480px;
+  line-height: var(--gmd-line-body-md);
+}
+
+.c-empty-state .c-empty-state-action {
+  margin-top: var(--gmd-space-2x);
+}
+
+.c-empty-state.c-empty-state-sm {
+  padding: var(--gmd-space-6) var(--gmd-space-4);
+}
+
+.c-empty-state.c-empty-state-lg {
+  padding: var(--gmd-space-12) var(--gmd-space-6);
+}

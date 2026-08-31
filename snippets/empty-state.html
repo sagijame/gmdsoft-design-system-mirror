@@ -1,0 +1,39 @@
+<!-- Empty State — 콘텐츠가 들어갈 자리를 대신하는 안내.
+     본문(c-empty-state-desc) 하나가 필수이고 아이콘·제목·액션은 선택이다.
+     크기: 기본(md) / c-empty-state-sm(패널·목록 일부) / c-empty-state-lg(화면 전체 본문).
+     제목은 문단이 아니라 호스트 화면 위계에 맞는 heading(h2~h6)으로 쓴다.
+     아이콘 path 는 icons/info-circle.svg · icons/search.svg 원본 그대로다 — 새로 그리지 않는다.
+     Action 슬롯의 버튼은 Empty State 소유가 아니다. 이 저장소의 Button 계약(button.css
+     `.gmd-button--outline`)을 쓰며, 다른 배포본에 옮길 때는 그쪽 Button 변형으로 바꾼다. -->
+
+<!-- 기본(md) — 아이콘 + 제목 + 본문 -->
+<div class="gmd-component c-empty-state">
+  <span class="c-empty-state-icon" aria-hidden="true">
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8.7998 12H7.2002V7.2002H8.7998V12Z"/>
+      <path d="M8.7998 5.59961H7.2002V4H8.7998V5.59961Z"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0ZM8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"/>
+    </svg>
+  </span>
+  <h4 class="c-empty-state-title">등록된 고객 그룹이 없습니다</h4>
+  <p class="c-empty-state-desc">설정 &gt; 고객 그룹에서 먼저 등록하세요.</p>
+</div>
+
+<!-- sm — 본문만. 원인이 자명하고 할 일이 없을 때 -->
+<div class="gmd-component c-empty-state c-empty-state-sm">
+  <p class="c-empty-state-desc">아직 댓글이 없습니다.</p>
+</div>
+
+<!-- lg — 액션까지. 액션은 그 자리에서 빈 상태를 해소하는 동작일 때만 둔다 -->
+<div class="gmd-component c-empty-state c-empty-state-lg">
+  <span class="c-empty-state-icon" aria-hidden="true">
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M11.7422 10.3439C12.5329 9.2673 13 7.9382 13 6.5C13 2.91015 10.0899 0 6.5 0C2.91015 0 0 2.91015 0 6.5C0 10.0899 2.91015 13 6.5 13C7.93858 13 9.26801 12.5327 10.3448 11.7415L10.3439 11.7422C10.3734 11.7822 10.4062 11.8204 10.4424 11.8566L14.2929 15.7071C14.6834 16.0976 15.3166 16.0976 15.7071 15.7071C16.0976 15.3166 16.0976 14.6834 15.7071 14.2929L11.8566 10.4424C11.8204 10.4062 11.7822 10.3734 11.7422 10.3439ZM12 6.5C12 9.53757 9.53757 12 6.5 12C3.46243 12 1 9.53757 1 6.5C1 3.46243 3.46243 1 6.5 1C9.53757 1 12 3.46243 12 6.5Z"/>
+    </svg>
+  </span>
+  <h4 class="c-empty-state-title">검색 결과가 없습니다</h4>
+  <p class="c-empty-state-desc">다른 검색어를 쓰거나 필터를 해제해 보세요.</p>
+  <div class="c-empty-state-action">
+    <button type="button" class="gmd-button gmd-button--outline">필터 초기화</button>
+  </div>
+</div>

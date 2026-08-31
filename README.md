@@ -8,7 +8,7 @@ GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로�
 
 | 하려는 일 | 여는 파일 |
 |-----------|-----------|
-| 디자인 시스템을 눈으로 확인 | **`index.html`** — 28개 컴포넌트 카탈로그, 라이트/다크 토글 내장 |
+| 디자인 시스템을 눈으로 확인 | **`index.html`** — 30개 컴포넌트 카탈로그, 라이트/다크 토글 내장 |
 | AI 도구(Claude·Cursor·Codex)로 UI 생성 | `DESIGN.md` 를 참조 문서로 지정 |
 | 색상 값 찾기 | `COLOR_TOKENS.md` (토큰 경로 + HEX, Light/Dark) |
 | 컴포넌트 구현 스펙 확인 | `COMPONENT_SPECS.md` + `tokens.json` |
@@ -75,6 +75,8 @@ GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로�
 <link rel="stylesheet" href="./button.css">
 <link rel="stylesheet" href="./input.css">
 <link rel="stylesheet" href="./table.css">
+<link rel="stylesheet" href="./empty-state.css">
+<link rel="stylesheet" href="./skeleton.css">
 ```
 
 다크 모드는 `<html data-theme="dark">` 로 전환한다. 색상 토큰만 교체되고 간격·구조 값은 동일하다.
@@ -83,7 +85,7 @@ GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로�
 
 | 파일 | 설명 |
 |------|------|
-| `index.html` | **통합 컴포넌트 카탈로그** — 28개 컴포넌트, 라이트/다크 토글, Figma v2.12 Docs/* 1:1 미러링 |
+| `index.html` | **통합 컴포넌트 카탈로그** — 30개 컴포넌트, 라이트/다크 토글, Figma v2.12 Docs/* 1:1 미러링 |
 | `tokens.css` | `index.html` 단일 토큰 출처 — 색상·타이포·간격·그리드·아이콘 크기 |
 | `VERSION` | 공유 레포 릴리스 버전 — 커밋 단위로 patch 증가 |
 | `DESIGN.md` | 디자인 시스템 전체 문서 (9개 섹션, Google DESIGN.md alpha front matter 포함) |
@@ -91,7 +93,9 @@ GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로�
 | `COMPONENT_SPECS.md` | Button·Input·Table 구현 스펙 — 변형/사이즈/상태 규칙과 토큰 바인딩 |
 | `tokens.json` | 기계 판독용 토큰 정본 export (색상·타이포·간격·라운드·엘리베이션) |
 | `tokens-light.css` / `tokens-dark.css` | 구현용 CSS 변수 (Light 기본 + Dark override) |
-| `button.css` / `input.css` / `table.css` | 토큰 기반 레퍼런스 구현 (HTML 프로토타입용) |
+| `button.css` / `input.css` / `table.css` / `empty-state.css` / `skeleton.css` | 토큰 기반 레퍼런스 구현 (HTML 프로토타입용) |
+| `snippets/empty-state.html` | Empty State 마크업 원본 (복붙용) |
+| `snippets/skeleton.html` | Skeleton 마크업 원본 (복붙용) |
 | `color-chart.html` | Figma 전사용 색상 토큰 차트 (WinUI 스타일) |
 | `gmd-logo-*.png`, `assets/` | `index.html` 렌더링 자산 |
 | `.claude-plugin/marketplace.json` | Claude Code 플러그인 마켓플레이스 정의 (마켓플레이스명 `gmd-design-system`) |

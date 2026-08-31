@@ -3,7 +3,7 @@ name: gmdsoft-design-system
 description: |
   GMDSOFT 사내 Windows 데스크톱 애플리케이션 디자인 시스템(v2.12). MD-VIDEO,
   MD-SCANNER, MD-PLATFORM 등 GMDSOFT 제품의 UI/UX를 만들거나 수정·검수할 때
-  사용한다. 색상, 타이포그래피, 버튼·모달·테이블·폼 등 29종 컴포넌트,
+  사용한다. 색상, 타이포그래피, 버튼·모달·테이블·폼 등 31종 컴포넌트,
   사이드 내비게이션, 레이아웃(4px 그리드, 타이틀바 32px, 사이드 240/56px),
   Light/Dark 모드를 모두 다룬다. "GMD 디자인", "사내 디자인 시스템",
   "design system 따라서", "디자인 토큰", "MD-VIDEO/SCANNER/PLATFORM UI" 키워드에 트리거된다.
@@ -34,10 +34,10 @@ GMDSOFT Windows 데스크톱 앱의 디자인 언어. 이 스킬이 활성화되
 > 컴포넌트 구현의 **정본은 `components/<name>.md`**. `DESIGN.md §4`는 설계 의도 요약이다.
 > 특정 컴포넌트 질문이면 그 파일 **1개만** Read한다 (예: 버튼 → `components/button.md`).
 
-### components/ (29종)
+### components/ (31종)
 
 - **입력·폼**: `button` · `input` · `textbox` · `checkbox-radio` · `combobox` · `datetime-picker` · `slider` · `spinner`
-- **표시·피드백**: `card` · `badge` · `toast` · `banner` · `info-bar` · `progress` · `tooltip` · `avatar` · `table`
+- **표시·피드백**: `card` · `badge` · `toast` · `banner` · `info-bar` · `empty-state` · `progress` · `skeleton` · `tooltip` · `avatar` · `table`
 - **내비게이션**: `tab` · `sidebar` · `breadcrumb` · `pagination` · `stepper` · `tree` · `context-menu` · `accordion`
 - **오버레이**: `modal` · `popover` · `filter-labels` · `scrollbar`
 

@@ -1,0 +1,33 @@
+<!-- Skeleton — 화면이 아직 그려지지 않은 최초 진입에 콘텐츠가 들어올 자리를 잡아 두는 판.
+     유형: c-skeleton-line(글줄) / c-skeleton-block(면) / c-skeleton-circle(아바타 자리).
+     줄 높이: 기본 16px / is-sm 12px(보조 문구) / is-lg 20px(제목).
+     폭은 콘텐츠마다 달라 클래스로 정하지 않는다 — 그 자리에서 지정한다.
+     빛줄기는 prefers-reduced-motion: reduce 에서 자동으로 꺼지고, 판이 여러 개라
+     산만할 때는 is-static 으로 직접 끈다.
+     묶음 컨테이너의 배치(gap·padding·배경)는 Skeleton 소유가 아니라 호스트 화면 몫이다 —
+     실제로 들어올 화면과 같은 골격·같은 여백으로 놓아야 콘텐츠 도착 시 레이아웃이 튀지 않는다. -->
+
+<!-- 낱개 -->
+<div class="c-skeleton c-skeleton-line" style="width: 240px"></div>
+<div class="c-skeleton c-skeleton-line is-sm" style="width: 160px"></div>
+<div class="c-skeleton c-skeleton-line is-lg" style="width: 140px"></div>
+<div class="c-skeleton c-skeleton-block" style="width: 200px"></div>
+<div class="c-skeleton c-skeleton-circle"></div>
+
+<!-- 조합 — 제목 + 아바타 행 + 본문 면.
+     aria-busy 는 묶음 컨테이너에 한 번만 건다. 판 하나하나에는 이름을 주지 않는다. -->
+<div style="display: flex; flex-direction: column; gap: var(--gmd-space-4); max-width: 420px"
+     aria-busy="true" aria-label="불러오는 중">
+  <div class="c-skeleton c-skeleton-line is-lg" style="width: 140px"></div>
+  <div style="display: flex; align-items: center; gap: var(--gmd-space-3)">
+    <span class="c-skeleton c-skeleton-circle"></span>
+    <div style="display: flex; flex-direction: column; gap: var(--gmd-space-2x); flex: 1">
+      <div class="c-skeleton c-skeleton-line" style="width: 100%"></div>
+      <div class="c-skeleton c-skeleton-line is-sm" style="width: 60%"></div>
+    </div>
+  </div>
+  <div class="c-skeleton c-skeleton-block"></div>
+</div>
+
+<!-- 정지 — 빛줄기 없이 판만 -->
+<div class="c-skeleton c-skeleton-line is-static" style="width: 240px"></div>

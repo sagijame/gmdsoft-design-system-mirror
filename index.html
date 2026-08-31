@@ -908,6 +908,27 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .info-bar-warning { background: var(--gmd-semantic-warning-bg); } .info-bar-warning .ico { color: var(--gmd-semantic-warning); } .info-bar-warning .link-btn { color: var(--gmd-semantic-warning); }
 .info-bar-error   { background: var(--gmd-semantic-error-bg); }   .info-bar-error .ico   { color: var(--gmd-semantic-error); }   .info-bar-error .link-btn { color: var(--gmd-semantic-error); }
 
+/* Empty State — 복붙 출처는 이 저장소의 배포 CSS + snippets/empty-state.html, 아래는 시각 검수용 사본이다.
+ * 설계 근거(Figma 부재 확인·실측 수렴·상태 미부여)는 섹션 본문에 노출돼 있다. */
+.c-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  gap: var(--gmd-space-2x); width: 100%; padding: var(--gmd-space-8) var(--gmd-space-4);
+  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); }
+/* 간격 출처는 gap 한 곳 — 호스트 문서의 p 여백을 물려받으면 묶음이 뒤집힌다(실측 20px vs 16px) */
+.c-empty-state .c-empty-state-icon, .c-empty-state .c-empty-state-title,
+.c-empty-state .c-empty-state-desc, .c-empty-state .c-empty-state-action { margin: 0; }
+/* 아이콘 아래만 16px = gap 8 + margin 8 */
+.c-empty-state .c-empty-state-icon { width: 48px; height: 48px; flex: none; margin-bottom: var(--gmd-space-2x);
+  border-radius: var(--gmd-radius-circle); background: var(--gmd-background-section); color: var(--gmd-text-secondary);
+  display: flex; align-items: center; justify-content: center; }
+.c-empty-state .c-empty-state-icon > * { width: var(--gmd-icon-lg); height: var(--gmd-icon-lg); }  /* span.ico · 인라인 svg 모두 */
+.c-empty-state .c-empty-state-title { font-size: var(--gmd-font-size-16); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); }
+.c-empty-state .c-empty-state-desc { max-width: 480px; line-height: var(--gmd-line-body-md); }
+.c-empty-state .c-empty-state-action { margin-top: var(--gmd-space-2x); }
+.c-empty-state.c-empty-state-sm { padding: var(--gmd-space-6) var(--gmd-space-4); }
+.c-empty-state.c-empty-state-lg { padding: var(--gmd-space-12) var(--gmd-space-6); }
+/* 문서 전용 — 컴포넌트 정의가 아니다. Anatomy 대표 인스턴스에서는 스크립트가 뗀다. */
+.c-empty-state-bounds { border: 1px dashed var(--gmd-divider); }
+
 .tabs { display: inline-flex; align-items: center; gap: var(--gmd-space-1); }
 .tab { background: transparent; border: none; border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2) var(--gmd-space-3);
   font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
@@ -1032,7 +1053,11 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-checkbox-radio-box.is-hover{border-color:var(--gmd-primary-hover)}
 
 /* disabled */
-.c-checkbox-radio-box.is-disabled{background:var(--gmd-primary-disabled);border-color:var(--gmd-border-subtle)}
+/* 비활성은 고른 상태와 안 고른 상태를 가른다. 하나로 두면 안 고른 상자에 primary-disabled(#A8C4D9)
+   가 차서 「잠긴 채 켜져 있음」 으로 읽힌다. 안 고른 쪽은 중립 슬롯 채움(bg/slot-disabled)을 쓰고
+   desaturated primary 는 실제로 켜져 있는 쪽에만 남긴다. */
+.c-checkbox-radio-box.is-disabled{background:var(--gmd-background-slot-disabled);border-color:var(--gmd-border-subtle)}
+.c-checkbox-radio-box.is-disabled.is-checked,.c-checkbox-radio-box.is-disabled.is-indeterminate{background:var(--gmd-primary-disabled);border-color:var(--gmd-primary-disabled)}
 
 /* radio dot */
 .c-checkbox-radio-dot{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:50%;background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
@@ -1040,7 +1065,8 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-checkbox-radio-dot.is-checked{border-color:var(--gmd-primary-default)}
 .c-checkbox-radio-dot.is-checked::after{transform:scale(1)}
 .c-checkbox-radio-dot.is-hover{border-color:var(--gmd-primary-hover)}
-.c-checkbox-radio-dot.is-disabled{border-color:var(--gmd-border-subtle);background:var(--gmd-primary-disabled)}
+.c-checkbox-radio-dot.is-disabled{border-color:var(--gmd-border-subtle);background:var(--gmd-background-slot-disabled)}
+.c-checkbox-radio-dot.is-disabled.is-checked{border-color:var(--gmd-primary-disabled)}
 .c-checkbox-radio-dot.is-disabled::after{background:var(--gmd-text-disabled)}
 
 /* sizes */
@@ -1207,6 +1233,36 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-spinner-surface{display:flex;align-items:center;gap:var(--gmd-space-3);padding:var(--gmd-space-5);border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);min-width:200px}
 .c-spinner-light{background:var(--gmd-background-card);color:var(--gmd-text-secondary)}
 .c-spinner-msg{font-size:var(--gmd-font-size-14)}
+/* Skeleton — Figma v2.12 미보유, classic 선행 정의. 최초 진입 자리표시 전용.
+   sheen 색으로 surface-base 를 못 쓴다 — Dark 에서 --gmd-surface-base 와
+   --gmd-background-section 이 같은 #25282D 라 빛줄기가 사라진다. Light 는
+   background-card 로 충분하고(#E9ECEF -> #FAF9FD), Dark 는 아래에서 따로 올린다. */
+.c-skeleton{background:var(--gmd-background-section);border-radius:var(--gmd-radius-sm);position:relative;overflow:hidden}
+.c-skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--gmd-background-card),transparent);transform:translateX(-100%);animation:c-skeleton-sheen 1.4s var(--gmd-motion-easing) infinite}
+@keyframes c-skeleton-sheen{to{transform:translateX(100%)}}
+/* Dark 은 section(#25282D) 과 card(#2A2D32) 의 차가 5/255 라 빛줄기가 안 보인다.
+   border-subtle 을 섞어 한 단 더 밝게 올린다. Light 에서는 border-subtle 이
+   section 보다 어두워 빛줄기가 그림자로 뒤집히므로 모드별로 나눈다. */
+html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gmd-border-subtle) 55%,var(--gmd-background-card)),transparent)}
+.c-skeleton-line{height:16px}
+.c-skeleton-line.is-sm{height:12px}
+.c-skeleton-line.is-lg{height:20px}
+.c-skeleton-block{height:72px;border-radius:var(--gmd-radius-md)}
+.c-skeleton-circle{width:40px;height:40px;border-radius:50%}
+/* 모션 민감 사용자 — 빛줄기는 장식이므로 끈다. 판(자리)은 그대로 남는다. */
+.c-skeleton.is-static::after{display:none}
+@media (prefers-reduced-motion: reduce){.c-skeleton::after{display:none}}
+/* 문서 예시 레이아웃 — 판이 background-section 이라 surface-base 위에 그대로 놓으면
+   Dark(둘 다 #25282D) 에서 사라진다. 실제 쓰임처럼 카드 위에 올려 보여준다. */
+.c-skeleton-stage{display:flex;width:100%;padding:var(--gmd-space-5);background:var(--gmd-background-card);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-sizing:border-box}
+.c-skeleton-stage.is-col{flex-direction:column}
+.c-skeleton-anatomy-fig{width:100%;max-width:420px}
+.c-skeleton-stack{display:flex;flex-direction:column;gap:var(--gmd-space-3);width:100%;max-width:320px}
+.c-skeleton-row{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;max-width:320px}
+.c-skeleton-row .c-skeleton-stack{gap:var(--gmd-space-2x)}
+.c-skeleton-cell{display:flex;flex-direction:column;gap:var(--gmd-space-2x);align-items:flex-start}
+.c-skeleton-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.c-skeleton-card{display:flex;flex-direction:column;gap:var(--gmd-space-4);width:100%;max-width:420px;padding:var(--gmd-space-5);background:var(--gmd-background-card);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md)}
 /* TextBox */
 .c-textbox-field { display: flex; flex-direction: column; gap: var(--gmd-space-2x); width: 250px; font-family: var(--gmd-font-body); }
 .c-textbox-field.c-textbox-lg { width: 280px; }
@@ -2259,6 +2315,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     <a href="#toast">Toast</a>
     <a href="#banner">Banner</a>
     <a href="#infobar">Info Bar</a>
+    <a href="#empty-state">Empty State</a>
     <a href="#tab">Tab</a>
     <a href="#progress">Progress</a>
     <a href="#modal">Modal</a>
@@ -2267,6 +2324,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     <a href="#datetime">Date &amp; Time</a>
     <a href="#context-menu">Context Menu</a>
     <a href="#spinner">Spinner</a>
+    <a href="#skeleton">Skeleton</a>
     <a href="#textbox">TextBox</a>
     <a href="#slider">Slider</a>
     <a href="#tooltip">Tooltip</a>
@@ -2306,7 +2364,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
       <div class="ov-tiles">
         <a class="ov-tile" href="#principles"><span class="ov-tile-ico"><span class="ico" data-icon="standard/star"></span></span><h3>디자인 원칙</h3><p>고밀도 업무, 토큰, 레이아웃, 컴포넌트, 아이콘, 의미 전달까지 classic이 따르는 기준.</p><span class="ov-tile-arrow">원칙 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="#color"><span class="ov-tile-ico"><span class="ico" data-icon="formatting/textColor"></span></span><h3>파운데이션</h3><p>색·타이포그래피·간격·레이아웃·radius·그림자·모션 — 모든 컴포넌트의 토대가 되는 토큰.</p><span class="ov-tile-arrow">토큰 보기<span class="ico" data-icon="arrow-right"></span></span></a>
-        <a class="ov-tile" href="#button"><span class="ov-tile-ico"><span class="ico" data-icon="tables-cells/insertTable"></span></span><h3>컴포넌트</h3><p>버튼·입력·배너·모달 등 28종 UI 컴포넌트와 상태·구성 요소·조합 예시.</p><span class="ov-tile-arrow">컴포넌트 보기<span class="ico" data-icon="arrow-right"></span></span></a>
+        <a class="ov-tile" href="#button"><span class="ov-tile-ico"><span class="ico" data-icon="tables-cells/insertTable"></span></span><h3>컴포넌트</h3><p>버튼·입력·배너·모달 등 29종 UI 컴포넌트와 상태·구성 요소·조합 예시.</p><span class="ov-tile-arrow">컴포넌트 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer"><span class="ov-tile-ico"><span class="ico" data-icon="download"></span></span><h3>토큰 · 리소스</h3><p>Figma v2.12 변수 컬렉션과 Design Kit 리소스. tokens.css는 이 원본을 미러링한 개발 사본.</p><span class="ov-tile-arrow">Figma v2.12 열기<span class="ico" data-icon="arrow-right"></span></span></a>
       </div>
 
@@ -2504,7 +2562,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 
     <!-- ───── Button ───── -->
     <div class="component-zone">
-    <div class="category"><div class="eyebrow">Components</div><div class="category-head"><h2>컴포넌트</h2><span class="category-meta">28 컴포넌트</span></div><p>토큰으로 조립된 UI 컴포넌트 28종. 각 항목은 Figma v2.12와 MD-UX 프로젝트의 <code>Docs / *</code> 문서를 미러링한다.</p></div>
+    <div class="category"><div class="eyebrow">Components</div><div class="category-head"><h2>컴포넌트</h2><span class="category-meta">30 컴포넌트</span></div><p>토큰으로 조립된 UI 컴포넌트 30종. 28종은 Figma v2.12와 MD-UX 프로젝트의 <code>Docs / *</code> 문서를 미러링한다. Empty State·Skeleton 2종은 Figma 미보유로 classic 이 선행 정의했다(차기 Figma 반영 대상).</p></div>
 
     <section id="button">
       <h2>Button</h2>
@@ -2936,6 +2994,80 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
       </div></div>
     </section>
 
+    <!-- ───── Empty State ───── -->
+    <section id="empty-state">
+      <h2>Empty State</h2>
+      <p class="lede">콘텐츠가 들어갈 자리에 표시하는 안내. 목록·표·카드 본문이 비었을 때 그 자리를 대신한다. <strong>Info Bar 와 헷갈리지 않는다</strong> — Info Bar 는 관련 내용 <em>옆</em>에 붙고, Empty State 는 그 <em>자리</em>를 차지한다.</p>
+      <p class="note"><strong>Figma 미보유 — classic 선행 정의(차기 Figma 반영 대상).</strong> 다른 28종은 Figma <code>Docs / *</code> 를 미러링하지만 이 컴포넌트는 방향이 반대다. 부재 확인 근거 — Figma <code>search_design_system</code>(파일 <code>Z1ug6AJn88Qcpt9dseua3e</code>)으로 <code>Empty State</code>·<code>No Data</code>·<code>Placeholder</code>·<code>No Result</code> 4개 검색어를 조회해 빈 상태 계열 컴포넌트 0건(2026-08-10). 결과는 전부 아이콘(<code>database-*</code>·<code>clipboard-*</code>)이거나 무관한 컴포넌트 세트였다.<br>
+      신설 근거 — 정본이 없는 사이 제품 프로토타입이 각자 그렸다. <strong>실측 범위: 2026-08-10, <code>GMDSOFT/기획/</code> 하위 프로토타입 <code>index.html</code></strong> 에서 빈 상태 안내를 그리는 클래스 <strong>12종</strong>(<code>.summary-empty</code>·<code>.list-empty</code>·<code>.card-empty</code>·<code>.grid-empty</code>·<code>.tree-empty</code>·<code>.empty-row</code>·<code>.region-empty</code>·<code>.manage-empty</code>·<code>.scope-empty</code>·<code>.dempty</code>·<code>.vempty</code>·<code>.cmt-empty</code>)의 CSS 를 읽어 비교했고, 테두리(solid/dashed/없음)·정렬(좌/중앙)·패딩(12 / 24·16 / 40·16)·본문(14/12px)이 갈린 것을 확인해 축별 다수로 수렴했다. <strong>전수는 아니다</strong> — 이름에 <code>empty</code> 가 든 클래스는 더 넓은 범위 스캔에서 97종까지 잡히며, 그중 실제 빈 상태 안내가 아닌 것(예: 트리 토글 <code>.twist.is-empty</code>)이 섞여 있어 위 12종을 표본으로 삼았다.</p>
+      <p class="note"><strong>상태 — 이 컴포넌트는 4상태를 갖지 않는다.</strong> 상호작용 요소가 아니라 콘텐츠 자리를 채우는 표시이기 때문이다. hover·pressed·disabled 는 내부 Action(Button·링크)이 각자 자기 정의대로 가진다.</p>
+
+      <h3>크기 (Size)</h3>
+      <div class="example"><div class="preview col">
+        <div class="ib-spec">
+          <div class="c-empty-state c-empty-state-sm c-empty-state-bounds">
+            <p class="c-empty-state-desc">표시할 항목이 없습니다.</p>
+          </div>
+          <span class="ib-cap">sm · padding 24/16 — 패널·목록 일부 영역</span>
+        </div>
+        <div class="ib-spec">
+          <div class="c-empty-state c-empty-state-bounds">
+            <span class="c-empty-state-icon" aria-hidden="true"><span class="ico" data-icon="info-circle"></span></span>
+            <h4 class="c-empty-state-title">등록된 고객 그룹이 없습니다</h4>
+            <p class="c-empty-state-desc">설정 &gt; 고객 그룹에서 먼저 등록하세요.</p>
+          </div>
+          <span class="ib-cap">md(기본) · padding 32/16 — 카드·섹션 본문</span>
+        </div>
+        <div class="ib-spec">
+          <div class="c-empty-state c-empty-state-lg c-empty-state-bounds c-empty-state-anatomy-fig">
+            <span class="c-empty-state-icon" aria-hidden="true"><span class="ico" data-icon="search"></span></span>
+            <h4 class="c-empty-state-title">검색 결과가 없습니다</h4>
+            <p class="c-empty-state-desc">다른 검색어를 쓰거나 필터를 해제해 보세요.</p>
+            <div class="c-empty-state-action"><button class="btn btn-secondary btn-sm">필터 초기화</button></div>
+          </div>
+          <span class="ib-cap">lg · padding 48/24 — 화면 전체 본문</span>
+        </div>
+      </div></div>
+      <p class="note">점선 테두리는 <strong>영역 범위를 보여주는 문서용 표시</strong>다 — 컴포넌트에 포함되지 않는다. 실제 화면에서는 배경·테두리 없이 자리만 차지한다. dashed 테두리는 파일 끌어놓기 영역(드롭존) 은유라 빈 상태에 쓰지 않는다.</p>
+
+      <h3>구성 요소는 선택이다</h3>
+      <div class="example"><div class="preview col">
+        <div class="ib-spec">
+          <div class="c-empty-state c-empty-state-sm"><p class="c-empty-state-desc">아직 댓글이 없습니다.</p></div>
+          <span class="ib-cap">본문만 — 원인이 자명하고 할 일이 없을 때</span>
+        </div>
+        <div class="ib-spec">
+          <div class="c-empty-state c-empty-state-sm">
+            <h4 class="c-empty-state-title">사용자 정의 프로필이 없습니다</h4>
+            <p class="c-empty-state-desc">기본 제공 프로필을 복사해 만들 수 있습니다.</p>
+          </div>
+          <span class="ib-cap">제목 + 본문 — 원인과 다음 행동을 함께 알릴 때</span>
+        </div>
+      </div></div>
+      <p class="note">본문 한 줄이 기본이다. 제목·아이콘·액션은 없어도 성립한다 — 빈 화면을 채우려고 넣지 않는다. <strong>액션은 그 자리에서 빈 상태를 해소하는 동작일 때만</strong> 둔다(필터 초기화, 항목 추가). 다른 화면으로 보내야 하면 본문 문장으로 경로를 적는다.</p>
+
+      <h3 class="anatomy-heading">Anatomy</h3>
+      <ol class="anatomy-list">
+        <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Container</strong><span class="anatomy-desc">비어 있는 콘텐츠 자리를 그대로 채우는 영역. 배경·테두리를 두지 않는다 — 자리를 대신하는 것이지 새 표면을 얹는 게 아니다. 세로·가로 모두 중앙 정렬.</span></span></li>
+        <li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Icon</strong><span class="anatomy-desc">선택. 48px 원형 배경(<code>background/section #E9ECEF</code>) 위 24px 아이콘, 색은 <code>text/secondary #495057</code>. 의미는 텍스트가 지므로 장식으로 보고 <code>aria-hidden="true"</code> 를 단다. 상태를 한눈에 구분해야 하는 큰 영역에만 쓴다.</span></span></li>
+        <li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Title</strong><span class="anatomy-desc">선택. 16px Bold. 무엇이 없는지를 한 문장으로. 없으면 본문이 그 역할을 겸한다. <strong>제목 요소로 마크업한다</strong> — 문단이 아니라 <code>h2</code>~<code>h6</code> 중 호스트 화면의 위계에 맞는 단계를 쓴다(문서 예시는 <code>h4</code>).</span></span></li>
+        <li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">Description</strong><span class="anatomy-desc">필수. 14px, 최대 폭 480px. 원인과 다음 행동을 함께 적는다. 잘리지 않고 줄바꿈한다.</span></span></li>
+        <li class="anatomy-item"><span class="anatomy-num">5</span><span><strong class="anatomy-term">Action</strong><span class="anatomy-desc">선택. Button 또는 링크. 빈 상태를 그 자리에서 해소하는 동작 하나만 둔다.</span></span></li>
+      </ol>
+
+      <h3>Info Bar 와의 구분</h3>
+      <div class="example"><div class="preview col" style="max-width:640px">
+        <div class="ib-spec">
+          <div class="info-bar same-line">
+            <span class="ico" data-icon="info-circle"></span><span class="l2 grow">집계 기준이 2026-08-01 부터 바뀌었습니다.</span>
+          </div>
+          <div class="c-empty-state"><p class="c-empty-state-desc">표시할 항목이 없습니다.</p></div>
+          <span class="ib-cap">둘은 함께 쓸 수 있다 — Info Bar 는 영역에 붙고, Empty State 는 비어 있는 본문 자리를 채운다</span>
+        </div>
+      </div></div>
+      <p class="note">같은 화면에서 <strong>Empty State 를 Info Bar 로 대신하지 않는다.</strong> 자리를 비워 두고 위에 안내만 붙이면 콘텐츠가 로딩 중인지 없는 것인지 구분되지 않는다.</p>
+    </section>
+
     <!-- ───── Tab ───── -->
     <section id="tab">
       <h2>Tab</h2>
@@ -2998,7 +3130,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     <!-- ───── Progress ───── -->
     <section id="progress">
       <h2>Progress</h2>
-      <p class="lede">작업이 얼마나 됐는지 막대로 보여준다. 끝이 보이는 업로드·다운로드에 맞고, 끝을 모를 땐 indeterminate를 쓴다. 가능하면 수치를 같이 보여 기다림을 덜어준다.</p>
+      <p class="lede">작업이 얼마나 됐는지 막대로 보여준다. 끝이 보이는 업로드·다운로드에 맞고, 끝을 모를 땐 indeterminate를 쓴다. 가능하면 수치를 같이 보여 기다림을 덜어준다. 화면이 아직 안 그려진 최초 진입은 <a href="#skeleton">Skeleton</a> 이 맡는다 — 분기 기준은 <a href="#skeleton">Skeleton</a> 의 <strong>어느 로더를 쓰는가</strong> 표에 있다.</p>
 
       <h3>진행률 (Progress)</h3>
       <div class="example"><div class="preview col" style="gap:var(--gmd-space-4)">
@@ -3169,6 +3301,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 <div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-box is-indeterminate" role="checkbox" aria-checked="mixed"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/></svg></span><span class="c-checkbox-radio-caption">Indeterminate</span></div>
 <div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-box is-hover" role="checkbox" aria-checked="false"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span class="c-checkbox-radio-caption">Hover</span></div>
 <div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-box is-disabled" role="checkbox" aria-checked="false" aria-disabled="true"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span class="c-checkbox-radio-caption">Disabled</span></div>
+<div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-box is-disabled is-checked" role="checkbox" aria-checked="true" aria-disabled="true"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span class="c-checkbox-radio-caption">Disabled + Checked</span></div>
 </div>
 </div></div>
 
@@ -3180,6 +3313,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 <div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-dot is-checked" role="radio" aria-checked="true"></span><span class="c-checkbox-radio-caption">Selected</span></div>
 <div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-dot is-hover" role="radio" aria-checked="false"></span><span class="c-checkbox-radio-caption">Hover</span></div>
 <div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-dot is-disabled" role="radio" aria-checked="false" aria-disabled="true"></span><span class="c-checkbox-radio-caption">Disabled</span></div>
+<div class="c-checkbox-radio-cell"><span class="c-checkbox-radio-dot is-disabled is-checked" role="radio" aria-checked="true" aria-disabled="true"></span><span class="c-checkbox-radio-caption">Disabled + Selected</span></div>
 </div>
 </div>
 </div>
@@ -3589,7 +3723,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 </section>
 
 <section id="spinner"><h2>Spinner</h2>
-      <p class="lede">처리 중임을 알리는 원형 회전 표시. 얼마나 걸릴지 모르는 짧은 대기에 맞고, 끝이 분명하면 Progress를 쓴다. 너무 짧은 처리엔 깜빡임처럼 보여 쓰지 않는다.</p>
+      <p class="lede">처리 중임을 알리는 원형 회전 표시. 얼마나 걸릴지 모르는 짧은 대기에 맞고, 끝이 분명하면 <a href="#progress">Progress</a>를 쓴다. 너무 짧은 처리엔 깜빡임처럼 보여 쓰지 않는다. 최초 진입에도 쓰지 않는다 — 빈 화면에 스피너만 돌면 멈춘 것처럼 보이므로 <a href="#skeleton">Skeleton</a> 으로 자리를 잡는다.</p>
 
 <h3>크기 (Size)</h3>
 <div class="example"><div class="preview">
@@ -3628,6 +3762,66 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 <div class="c-spinner-surface c-spinner-light"><span class="c-spinner-ring c-spinner-24" role="status" aria-label="불러오는 중"></span><span class="c-spinner-msg">불러오는 중…</span></div>
 </div>
 </div></div>
+</section>
+
+<!-- ───── Skeleton ───── -->
+<section id="skeleton"><h2>Skeleton</h2>
+      <p class="lede">화면이 아직 그려지지 않았을 때 콘텐츠가 들어올 자리를 미리 잡아 두는 회색 판. 최초 진입에만 쓴다. 진행률 개념이 없으므로 수치를 붙이지 않고, 이미 그려진 화면에서 도는 작업은 <a href="#progress">Progress</a> 와 <a href="#spinner">Spinner</a> 가 맡는다.</p>
+
+<h3>어느 로더를 쓰는가 (Branch)</h3>
+      <table class="tbl">
+        <tr><th>무엇을 기다리는가</th><th>쓰는 것</th><th>화면에 뜨는 것</th></tr>
+        <tr><td>최초 진입 — 아직 아무것도 안 그려졌다</td><td><strong>Skeleton</strong></td><td>자리만 잡는다. 수치도 라벨도 없다</td></tr>
+        <tr><td>끝이 보이는 작업 — 업로드처럼 총량을 안다</td><td><a href="#progress">Progress</a> determinate</td><td>채움 비율 + 퍼센트</td></tr>
+        <tr><td>끝을 모르는 작업 — 서버 응답을 기다린다</td><td><a href="#progress">Progress</a> indeterminate 또는 <a href="#spinner">Spinner</a></td><td>동작 라벨(<code>등록 중…</code>)</td></tr>
+        <tr><td>누른 버튼 하나가 처리 중이다</td><td><a href="#button">Processing Button</a></td><td>버튼 안 스피너 + 입력 차단</td></tr>
+      </table>
+      <p class="note">가르는 기준은 <strong>걸리는 시간이 아니라 기다리는 대상</strong>이다. 최초 진입에 스피너를 쓰면 빈 화면이 멈춘 것처럼 보이고, 반대로 이미 그려진 화면을 스켈레톤으로 덮으면 사용자가 방금 읽던 내용을 잃는다.</p>
+
+<h3>유형 (Type)</h3>
+<div class="example"><div class="preview"><div class="c-skeleton-stage" style="gap:var(--gmd-space-8);align-items:flex-end">
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-line" style="width:200px"></div><span class="c-skeleton-cap">Line — 텍스트 한 줄</span></div>
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-block" style="width:200px"></div><span class="c-skeleton-cap">Block — 카드나 이미지 자리</span></div>
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-circle"></div><span class="c-skeleton-cap">Circle — 아바타 자리</span></div>
+</div></div></div>
+      <p class="note">들어올 요소의 모양을 그대로 따른다. Line 은 글줄, Block 은 면, Circle 은 <a href="#avatar">Avatar</a> 자리다. radius 도 대체할 요소를 따라가 Line 과 Circle 은 <code>--gmd-radius-sm</code>, Block 은 카드와 같은 <code>--gmd-radius-md</code> 를 쓴다.</p>
+
+<h3>크기 (Size)</h3>
+<div class="example"><div class="preview"><div class="c-skeleton-stage is-col" style="gap:var(--gmd-space-5);align-items:flex-start">
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-line is-sm" style="width:240px"></div><span class="c-skeleton-cap">12px <code>.is-sm</code> — 보조 문구</span></div>
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-line" style="width:240px"></div><span class="c-skeleton-cap">16px 기본 — 본문 14px 한 줄</span></div>
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-line is-lg" style="width:240px"></div><span class="c-skeleton-cap">20px <code>.is-lg</code> — 제목</span></div>
+</div></div></div>
+      <p class="note">위에서부터 12px <code>.is-sm</code> 은 보조 문구, 16px 기본은 본문 14px 한 줄, 20px <code>.is-lg</code> 은 제목이다. 판 높이는 대체할 글자의 크기가 아니라 <strong>줄 높이</strong>에 맞춘다. 폭은 콘텐츠마다 달라 클래스로 정하지 않고 그 자리에서 지정한다.</p>
+
+<h3>정지 (Static)</h3>
+<div class="example"><div class="preview"><div class="c-skeleton-stage" style="gap:var(--gmd-space-8);align-items:flex-end">
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-line" style="width:200px"></div><span class="c-skeleton-cap">기본 — 빛줄기가 훑는다</span></div>
+<div class="c-skeleton-cell"><div class="c-skeleton c-skeleton-line is-static" style="width:200px"></div><span class="c-skeleton-cap">Static — 판만 남는다</span></div>
+</div></div></div>
+      <p class="note">빛줄기는 장식이라 빼도 뜻이 남는다. <code>prefers-reduced-motion: reduce</code> 에서 자동으로 Static 이 되고, 목록에 판이 여러 개라 움직임이 산만할 때 <code>.is-static</code> 으로 직접 끌 수도 있다. 회전 자체가 뜻인 <a href="#spinner">Spinner</a> 와 다른 점이다.</p>
+
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example"><div class="preview">
+<div class="c-skeleton-anatomy-fig"><div class="c-skeleton c-skeleton-block"></div></div>
+</div></div>
+      <ol class="anatomy-list">
+        <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Placeholder</strong><span class="anatomy-desc">들어올 요소의 자리. <code>--gmd-background-section</code> 으로 면을 채우고 대체할 요소의 크기와 radius 를 그대로 쓴다. 카드나 섹션 위에 올려야 읽힌다 — Dark 에서 <code>--gmd-surface-base</code> 와 값이 같아 맨 표면에 그대로 놓으면 판이 사라진다.</span></span></li>
+        <li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Sheen</strong><span class="anatomy-desc">판 위를 한 방향으로 훑는 빛줄기. 아직 살아 있다는 표시이며 진행률을 뜻하지 않는다.</span></span></li>
+      </ol>
+
+<h3>조합 예시 (Composition)</h3>
+<div class="example"><div class="preview col" style="gap:var(--gmd-space-6)">
+<div class="c-skeleton-card" aria-busy="true" aria-label="불러오는 중">
+<div class="c-skeleton c-skeleton-line is-lg" style="width:140px"></div>
+<div class="c-skeleton-row"><span class="c-skeleton c-skeleton-circle"></span><div class="c-skeleton-stack"><div class="c-skeleton c-skeleton-line" style="width:100%"></div><div class="c-skeleton c-skeleton-line is-sm" style="width:60%"></div></div></div>
+<div class="c-skeleton c-skeleton-block"></div>
+</div>
+</div></div>
+      <p class="note">실제로 들어올 화면과 <strong>같은 골격, 같은 여백</strong>으로 놓는다. 자리가 어긋나면 콘텐츠가 도착할 때 레이아웃이 튀어 스켈레톤을 쓴 이유가 없어진다. 컨테이너에 <code>aria-busy="true"</code> 를 걸어 보조기술에 대기 중임을 알리고, 판 하나하나에는 아무 이름도 주지 않는다.</p>
+
+      <p class="note"><strong>Figma 미보유 — classic 선행 정의(차기 Figma 반영 대상).</strong> <a href="#empty-state">Empty State</a> 와 같은 경우다. 부재 확인 근거 — Figma <code>search_design_system</code>(파일 <code>Z1ug6AJn88Qcpt9dseua3e</code>)으로 <code>Skeleton</code>, <code>Loading placeholder</code>, <code>Shimmer</code> 3개 검색어를 조회해 <strong>Design Kit v2 계열에서 스켈레톤 계열과 자리표시 계열 0건</strong>(2026-08-27). 잡힌 것은 아이콘(<code>auto_awesome</code>)이거나 무관한 컴포넌트였고, 로더 계열은 다른 제품 라이브러리의 <code>Spinner-Dots</code>(<code>PC 메신저 &gt; 수집기</code>) 하나뿐이라 Design Kit 정본에는 없다.<br>
+      신설 근거 — 정본에 최초 진입용 로더가 없어 Progress 와 Spinner 가 그 자리까지 대신 쓰이고 있었다. 이 문서에 <strong>어느 로더를 쓰는가</strong> 표를 함께 넣은 이유다. 값은 새로 만들지 않고 기존 토큰만 조합했다 — 면 <code>--gmd-background-section</code>, 빛줄기 <code>--gmd-background-card</code>, radius <code>--gmd-radius-sm</code> 과 <code>--gmd-radius-md</code>, 가감속 <code>--gmd-motion-easing</code>.</p>
 </section>
 
 <section id="textbox"><h2>TextBox</h2>
@@ -5208,7 +5402,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.07.31 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.08.27 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>
@@ -5369,6 +5563,9 @@ function enhanceAnatomyBoards() {
     toast: ['.toast-card, .tc', '.tc-h, .toast-title', '.tc-t, .toast-body', '.tc-actions, .btn'],
     banner: ['.banner @ 0.03 0.5', '.banner .title-row, .banner .t', '.banner .desc, .banner p', '.banner .close, .banner .btn, .banner a'],
     infobar: ['.info-bar, [class*="infobar"] @ 0.5 0.06', '.ico, svg', '.body, .grow, .l2', '.actions, .link, .btn'],
+    /* 대표 인스턴스는 lg 데모(.c-empty-state-anatomy-fig) 하나로 고정한다 — 크기 데모 3종이 함께 복제되면
+       핀이 서로 다른 인스턴스로 흩어진다. 5개 구성요소를 모두 가진 것은 lg 뿐이다. */
+    'empty-state': ['.c-empty-state @ 0.06 0.5', '.c-empty-state-icon', '.c-empty-state-title', '.c-empty-state-desc', '.c-empty-state-action'],
     tab: ['[role="tab"]:not([aria-selected="true"]), .tab @ 0.5 0.15', '[aria-selected="true"], .tab @ 0.6 0.5', '[aria-selected="true"], .tab @ 0.5 0.94'],
     progress: ['.progress, [class*="progress"]', '.progress-bar, [class*="bar"]', '.prog-labels, [class*="label"]'],
     modal: ['.modal-demo @ 0.06 0.1', '.modal-demo h4', '.modal-demo .body', '.modal-demo .alert-icon, .modal-demo .ico'],
@@ -5377,6 +5574,8 @@ function enhanceAnatomyBoards() {
     datetime: ['.c-datetime-card @ 0.5 0.04', '.c-datetime-head', '.c-datetime-grid, .c-datetime-clock, .c-datetime-row', '.c-datetime-actions, .c-datetime-actbtn'],
     'context-menu': ['.c-context-menu-menu @ 0.5 0.08', '.c-context-menu-label'],
     spinner: ['.c-spinner-ring, .spinner, [class*="spinner"]'],
+    /* Sheen 은 ::after 라 핀을 걸 노드가 없다 — button·badge 처럼 같은 판의 다른 지점에 세운다. */
+    skeleton: ['.c-skeleton-anatomy-fig .c-skeleton @ 0.08 0.5', '.c-skeleton-anatomy-fig .c-skeleton @ 0.62 0.5'],
     textbox: ['.c-textbox-area', '.c-textbox-label', '.c-textbox-hint @ 0.18 0.5', '.c-textbox-hint-ico'],
     slider: ['.c-slider-anatomy-fig .c-slider-track @ 0.08 0.5', '.c-slider-anatomy-fig .c-slider-fill', '.c-slider-anatomy-fig .c-slider-thumb', '.c-slider-anatomy-fig .c-slider-label', '.c-slider-anatomy-fig .c-slider-tick:nth-child(3)'],
     tooltip: ['.c-tooltip-rich, .c-tooltip-bubble @ 0.5 0.06', '.c-tooltip-title', '.c-tooltip-text', '.c-tooltip-img'],
@@ -5480,6 +5679,11 @@ function enhanceAnatomyBoards() {
       if (sectionId === 'stepper') {
         const stepperFig = clone.querySelector('.c-stepper-anatomy-fig');
         if (stepperFig) clone.replaceChildren(stepperFig);
+      }
+      if (sectionId === 'empty-state') {
+        const esFig = clone.querySelector('.c-empty-state-anatomy-fig');
+        /* 문서 전용 점선 경계(.c-empty-state-bounds)는 대표 인스턴스에서 뗀다 — 컴포넌트 정의가 아니다. */
+        if (esFig) { esFig.classList.remove('c-empty-state-bounds'); clone.replaceChildren(esFig); }
       }
       if (sectionId === 'slider') {
         const sliderFig = clone.querySelector('.c-slider-anatomy-fig');

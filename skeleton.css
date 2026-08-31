@@ -1,0 +1,60 @@
+/* Skeleton — 이 저장소에는 components.css 가 없어 컴포넌트 CSS 를 파일 하나로 낸다.
+   classic(design-system/classic/components.css) 의 같은 블록과 1:1 동일하다.
+   판에는 padding·border·글자가 없어 empty-state.css 의 .gmd-component 스코프 리셋에 기대지 않는다 —
+   이 파일만 연결해도 그대로 동작한다. */
+
+/* ─── Skeleton ───
+ * 화면이 아직 그려지지 않은 최초 진입에 콘텐츠가 들어올 자리를 잡아 두는 판. 진행률 개념이 없어 수치를 붙이지 않는다.
+ * 이미 그려진 화면에서 도는 작업은 Progress·Spinner 가 맡는다 — 가르는 기준은 걸리는 시간이 아니라 기다리는 대상이다.
+ * Figma v2.12 미보유 — classic 선행 정의(차기 Figma 반영 대상).
+ * 마크업: snippets/skeleton.html */
+.c-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--gmd-background-section);
+  border-radius: var(--gmd-radius-sm);
+}
+
+/* sheen 색으로 surface-base 를 못 쓴다 — Dark 에서 --gmd-surface-base 와 --gmd-background-section 이
+   같은 #25282D 라 빛줄기가 사라진다. Light 는 background-card 로 충분하다(#E9ECEF -> #FAF9FD). */
+.c-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--gmd-background-card), transparent);
+  transform: translateX(-100%);
+  animation: c-skeleton-sheen 1.4s var(--gmd-motion-easing) infinite;
+}
+
+@keyframes c-skeleton-sheen {
+  to { transform: translateX(100%); }
+}
+
+/* Dark 은 section(#25282D) 과 card(#2A2D32) 의 차가 5/255 라 빛줄기가 안 보인다. border-subtle 을 섞어
+   한 단 더 밝게 올린다. Light 에서는 border-subtle 이 section 보다 어두워 빛줄기가 그림자로 뒤집힌다. */
+html[data-theme="dark"] .c-skeleton::after {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gmd-border-subtle) 55%, var(--gmd-background-card)), transparent);
+}
+
+/* 판 높이는 대체할 글자의 크기가 아니라 줄 높이에 맞춘다. 폭은 콘텐츠마다 달라 클래스로 정하지 않고 그 자리에서 지정한다. */
+.c-skeleton-line { height: 16px; }
+.c-skeleton-line.is-sm { height: 12px; }
+.c-skeleton-line.is-lg { height: 20px; }
+
+.c-skeleton-block {
+  height: 72px;
+  border-radius: var(--gmd-radius-md);
+}
+
+.c-skeleton-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* 빛줄기는 장식이라 빼도 뜻이 남는다. 판(자리)은 그대로 남는다. */
+.c-skeleton.is-static::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .c-skeleton::after { display: none; }
+}
