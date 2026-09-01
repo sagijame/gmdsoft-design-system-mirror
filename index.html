@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GMD Classic v2.12 — 디자인 시스템</title>
+<title>GMD Classic v2.13 — 디자인 시스템</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="app-icon/design-system-glass-brush-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="app-icon/design-system-glass-brush-16.png">
@@ -908,8 +908,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .info-bar-warning { background: var(--gmd-semantic-warning-bg); } .info-bar-warning .ico { color: var(--gmd-semantic-warning); } .info-bar-warning .link-btn { color: var(--gmd-semantic-warning); }
 .info-bar-error   { background: var(--gmd-semantic-error-bg); }   .info-bar-error .ico   { color: var(--gmd-semantic-error); }   .info-bar-error .link-btn { color: var(--gmd-semantic-error); }
 
-/* Empty State — 복붙 출처는 이 저장소의 배포 CSS + snippets/empty-state.html, 아래는 시각 검수용 사본이다.
- * 설계 근거(Figma 부재 확인·실측 수렴·상태 미부여)는 섹션 본문에 노출돼 있다. */
+/* Empty State — 복붙 출처는 이 저장소의 배포 CSS + snippets/empty-state.html, 아래는 시각 검수용 사본이다. */
 .c-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   gap: var(--gmd-space-2x); width: 100%; padding: var(--gmd-space-8) var(--gmd-space-4);
   font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); }
@@ -1233,7 +1232,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-spinner-surface{display:flex;align-items:center;gap:var(--gmd-space-3);padding:var(--gmd-space-5);border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);min-width:200px}
 .c-spinner-light{background:var(--gmd-background-card);color:var(--gmd-text-secondary)}
 .c-spinner-msg{font-size:var(--gmd-font-size-14)}
-/* Skeleton — Figma v2.12 미보유, classic 선행 정의. 최초 진입 자리표시 전용.
+/* Skeleton — 최초 진입 자리표시 전용.
    sheen 색으로 surface-base 를 못 쓴다 — Dark 에서 --gmd-surface-base 와
    --gmd-background-section 이 같은 #25282D 라 빛줄기가 사라진다. Light 는
    background-card 로 충분하고(#E9ECEF -> #FAF9FD), Dark 는 아래에서 따로 올린다. */
@@ -1544,6 +1543,12 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-tooltip-pane .c-tooltip-tag{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
 .c-tooltip-pane.is-light{background:var(--gmd-background-base)}
 .c-tooltip-targetlabel{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+
+html[data-theme="dark"] .c-tooltip-bubble,
+html[data-theme="dark"] .c-tooltip-minimal,
+html[data-theme="dark"] .c-tooltip-rich,
+html[data-theme="dark"] .c-tooltip-rich .c-tooltip-text,
+html[data-theme="dark"] .c-tooltip-rich .c-tooltip-action{color:var(--gmd-text-on-primary-tertiary)}
 /* Tree */
 .c-tree-panel{border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-4);background:var(--gmd-background-card);width:360px;box-shadow:var(--gmd-shadow-soft)}
 .c-tree{list-style:none;margin:0;padding:0;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14)}
@@ -1648,6 +1653,36 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-popover-stage-light{background:var(--gmd-background-section)}
 .c-popover-anatomywrap{position:relative;display:inline-block}
 .c-popover-pin{position:absolute;z-index:2}
+/* Hidden Column */
+.c-hidcol-set{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--gmd-space-6);}
+.c-hidcol-cell{display:flex;flex-direction:column;align-items:flex-start;gap:var(--gmd-space-2x);}
+.c-hidcol-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+.c-hidcol-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);height:24px;max-width:100%;min-width:0;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-control);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);cursor:pointer;}
+.c-hidcol-chip:hover,.c-hidcol-chip.is-hover{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-hover);}
+.c-hidcol-chip:active,.c-hidcol-chip.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-pressed);}
+.c-hidcol-chip[aria-expanded="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);}
+.c-hidcol-chip[data-on="true"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary);}
+.c-hidcol-chip:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
+.c-hidcol-chip-ico{width:16px;height:16px;flex:none;}
+.c-hidcol-chip-label{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.c-hidcol-chip-caret{font-size:var(--gmd-font-size-10);}
+.c-hidcol-toggle{display:inline-flex;align-items:center;gap:var(--gmd-space-1);height:24px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-secondary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);line-height:1;cursor:pointer;}
+.c-hidcol-toggle:hover,.c-hidcol-toggle.is-hover{border-color:var(--gmd-primary-hover);color:var(--gmd-text-primary);}
+.c-hidcol-toggle:active,.c-hidcol-toggle.is-pressed{border-color:var(--gmd-primary-pressed);}
+.c-hidcol-toggle[aria-pressed="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);}
+.c-hidcol-toggle:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
+.c-hidcol-knob{width:12px;height:12px;flex:none;border:1px solid currentColor;border-radius:var(--gmd-radius-sm);}
+.c-hidcol-toggle[aria-pressed="true"] .c-hidcol-knob{background:currentColor;box-shadow:inset 0 0 0 2px var(--gmd-primary-subtle);}
+.c-hidcol-pop{display:inline-block;width:320px;max-width:420px;background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);padding:var(--gmd-space-4);font-family:var(--gmd-font-body);}
+.c-hidcol-pop-top{display:flex;align-items:center;gap:var(--gmd-space-3);margin-bottom:var(--gmd-space-1);}
+.c-hidcol-pop-head{flex:1;min-width:0;font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);}
+.c-hidcol-pop-note{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+.c-hidcol-pop-divider{height:1px;background:var(--gmd-divider);margin:var(--gmd-space-3) 0;}
+.c-hidcol-pop-groups{display:flex;flex-direction:column;gap:var(--gmd-space-3);max-height:168px;overflow:auto;}
+.c-hidcol-pop-group{display:flex;flex-direction:column;gap:var(--gmd-space-1);}
+.c-hidcol-pop-sub{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+.c-hidcol-pop-cols{display:flex;flex-wrap:wrap;gap:var(--gmd-space-1);}
+
 /* Filter Labels */
 .c-filter-labels-set{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--gmd-space-8);}
 .c-filter-labels-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x);}
@@ -2126,6 +2161,8 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-stepper-state-success .c-stepper-title{color:var(--gmd-semantic-success)}
 .c-stepper-state-error .c-stepper-title{color:var(--gmd-semantic-error)}
 .c-stepper-state-error .c-stepper-connector{background:var(--gmd-semantic-error)}
+.c-stepper-badge-success-primary{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);border:1px solid var(--gmd-primary-subtle)}
+.c-stepper-state-success-primary .c-stepper-title{color:var(--gmd-primary-default)}
 
 .c-stepper-anatomy{display:flex;flex-wrap:wrap;gap:var(--gmd-space-8);align-items:flex-start}
 .c-stepper-anatomy-fig{width:min(100%,420px);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-5);background:var(--gmd-background-card)}
@@ -2275,7 +2312,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
       <span class="im-logo">
         <img src="gmd-logo-light.png" alt="GMDSOFT" height="28">
       </span>
-      <span class="im-tag">v2.12 · 2026.06.11</span>
+      <span class="im-tag">v2.13 · 2026.09.01</span>
     </div>
   </div>
   <a class="intro-cue" href="#overview" aria-label="아래로 스크롤">
@@ -2290,7 +2327,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
     <img class="brand-logo brand-logo-light" src="gmd-logo-light.png" alt="" width="140" height="22">
     <img class="brand-logo brand-logo-dark" src="gmd-logo-dark.png" alt="" width="140" height="22">
   </span>
-  <span class="ver">Classic v2.12 · Design System</span>
+  <span class="ver">Classic v2.13 · Design System</span>
   <span class="spacer"></span>
   <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">다크로 전환</button>
 </header>
@@ -2332,6 +2369,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
     <a href="#ribbon-nav">Ribbon Nav</a>
     <a href="#popover">Popover</a>
     <a href="#filter-labels">Filter Labels</a>
+    <a href="#hidden-column">Hidden Column</a>
     <a href="#accordion">Accordion</a>
     <a href="#pagination">Pagination</a>
     <a href="#breadcrumb">Breadcrumb</a>
@@ -2353,7 +2391,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
         </video>
         <div class="ov-hero-scrim" aria-hidden="true"></div>
         <div class="ov-hero-text">
-          <span class="ov-hero-kicker">v2.12</span>
+          <span class="ov-hero-kicker">v2.13</span>
           <h1>GMD Classic Design System</h1>
           <p class="lead">고밀도 업무형 데스크톱·웹 앱을 위한 제품 UI 시스템입니다. 차분한 blue-gray 토대 위에 컬러, 타입, 간격, 컴포넌트, 아이콘 규칙을 묶어 복잡한 정보를 빠르고 정확하게 다루도록 설계합니다.</p>
           <div class="ov-hero-meta"><span>28 components</span><span>77 color tokens</span><span>Light · Dark</span></div>
@@ -2562,7 +2600,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 
     <!-- ───── Button ───── -->
     <div class="component-zone">
-    <div class="category"><div class="eyebrow">Components</div><div class="category-head"><h2>컴포넌트</h2><span class="category-meta">30 컴포넌트</span></div><p>토큰으로 조립된 UI 컴포넌트 30종. 28종은 Figma v2.12와 MD-UX 프로젝트의 <code>Docs / *</code> 문서를 미러링한다. Empty State·Skeleton 2종은 Figma 미보유로 classic 이 선행 정의했다(차기 Figma 반영 대상).</p></div>
+    <div class="category"><div class="eyebrow">Components</div><div class="category-head"><h2>컴포넌트</h2><span class="category-meta">31 컴포넌트</span></div><p>토큰으로 조립된 UI 컴포넌트 31종.</p></div>
 
     <section id="button">
       <h2>Button</h2>
@@ -2998,9 +3036,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
     <section id="empty-state">
       <h2>Empty State</h2>
       <p class="lede">콘텐츠가 들어갈 자리에 표시하는 안내. 목록·표·카드 본문이 비었을 때 그 자리를 대신한다. <strong>Info Bar 와 헷갈리지 않는다</strong> — Info Bar 는 관련 내용 <em>옆</em>에 붙고, Empty State 는 그 <em>자리</em>를 차지한다.</p>
-      <p class="note"><strong>Figma 미보유 — classic 선행 정의(차기 Figma 반영 대상).</strong> 다른 28종은 Figma <code>Docs / *</code> 를 미러링하지만 이 컴포넌트는 방향이 반대다. 부재 확인 근거 — Figma <code>search_design_system</code>(파일 <code>Z1ug6AJn88Qcpt9dseua3e</code>)으로 <code>Empty State</code>·<code>No Data</code>·<code>Placeholder</code>·<code>No Result</code> 4개 검색어를 조회해 빈 상태 계열 컴포넌트 0건(2026-08-10). 결과는 전부 아이콘(<code>database-*</code>·<code>clipboard-*</code>)이거나 무관한 컴포넌트 세트였다.<br>
-      신설 근거 — 정본이 없는 사이 제품 프로토타입이 각자 그렸다. <strong>실측 범위: 2026-08-10, <code>GMDSOFT/기획/</code> 하위 프로토타입 <code>index.html</code></strong> 에서 빈 상태 안내를 그리는 클래스 <strong>12종</strong>(<code>.summary-empty</code>·<code>.list-empty</code>·<code>.card-empty</code>·<code>.grid-empty</code>·<code>.tree-empty</code>·<code>.empty-row</code>·<code>.region-empty</code>·<code>.manage-empty</code>·<code>.scope-empty</code>·<code>.dempty</code>·<code>.vempty</code>·<code>.cmt-empty</code>)의 CSS 를 읽어 비교했고, 테두리(solid/dashed/없음)·정렬(좌/중앙)·패딩(12 / 24·16 / 40·16)·본문(14/12px)이 갈린 것을 확인해 축별 다수로 수렴했다. <strong>전수는 아니다</strong> — 이름에 <code>empty</code> 가 든 클래스는 더 넓은 범위 스캔에서 97종까지 잡히며, 그중 실제 빈 상태 안내가 아닌 것(예: 트리 토글 <code>.twist.is-empty</code>)이 섞여 있어 위 12종을 표본으로 삼았다.</p>
-      <p class="note"><strong>상태 — 이 컴포넌트는 4상태를 갖지 않는다.</strong> 상호작용 요소가 아니라 콘텐츠 자리를 채우는 표시이기 때문이다. hover·pressed·disabled 는 내부 Action(Button·링크)이 각자 자기 정의대로 가진다.</p>
 
       <h3>크기 (Size)</h3>
       <div class="example"><div class="preview col">
@@ -3820,8 +3855,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 </div></div>
       <p class="note">실제로 들어올 화면과 <strong>같은 골격, 같은 여백</strong>으로 놓는다. 자리가 어긋나면 콘텐츠가 도착할 때 레이아웃이 튀어 스켈레톤을 쓴 이유가 없어진다. 컨테이너에 <code>aria-busy="true"</code> 를 걸어 보조기술에 대기 중임을 알리고, 판 하나하나에는 아무 이름도 주지 않는다.</p>
 
-      <p class="note"><strong>Figma 미보유 — classic 선행 정의(차기 Figma 반영 대상).</strong> <a href="#empty-state">Empty State</a> 와 같은 경우다. 부재 확인 근거 — Figma <code>search_design_system</code>(파일 <code>Z1ug6AJn88Qcpt9dseua3e</code>)으로 <code>Skeleton</code>, <code>Loading placeholder</code>, <code>Shimmer</code> 3개 검색어를 조회해 <strong>Design Kit v2 계열에서 스켈레톤 계열과 자리표시 계열 0건</strong>(2026-08-27). 잡힌 것은 아이콘(<code>auto_awesome</code>)이거나 무관한 컴포넌트였고, 로더 계열은 다른 제품 라이브러리의 <code>Spinner-Dots</code>(<code>PC 메신저 &gt; 수집기</code>) 하나뿐이라 Design Kit 정본에는 없다.<br>
-      신설 근거 — 정본에 최초 진입용 로더가 없어 Progress 와 Spinner 가 그 자리까지 대신 쓰이고 있었다. 이 문서에 <strong>어느 로더를 쓰는가</strong> 표를 함께 넣은 이유다. 값은 새로 만들지 않고 기존 토큰만 조합했다 — 면 <code>--gmd-background-section</code>, 빛줄기 <code>--gmd-background-card</code>, radius <code>--gmd-radius-sm</code> 과 <code>--gmd-radius-md</code>, 가감속 <code>--gmd-motion-easing</code>.</p>
 </section>
 
 <section id="textbox"><h2>TextBox</h2>
@@ -4552,6 +4585,34 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 </div></div>
 </section>
 
+<section id="hidden-column"><h2>Hidden Column</h2>
+      <p class="lede">숨긴 열이 검색 대상에서 빠졌다는 사실을 알리고, 필요하면 숨긴 열까지 포함해 다시 검색하게 하는 한 벌. 테이블 툴바의 칩에서 팝오버로, 팝오버의 토글로 이어진다. 검색 결과가 전수인지 설명해야 하는 화면에서 범위를 상시로 드러내는 것이 목적이다.</p>
+
+<h3>칩 (Chip)</h3>
+      <p class="note">테이블 툴바에 서고 라벨이 길면 말줄임한다. 「포함 중」은 평소와 다른 검색 범위임을 칩 자체가 계속 알리는 상태다.</p>
+<div class="example"><div class="preview col">
+<div class="c-hidcol-set">
+<div class="c-hidcol-cell"><button type="button" class="c-hidcol-chip"><svg class="c-hidcol-chip-ico" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.3589 11.2376C15.0613 9.72097 16 8 16 8C16 8 13 2.5 7.99999 2.5C6.98461 2.5 6.05171 2.72682 5.20966 3.08834L5.98053 3.85921C6.60982 3.63318 7.2844 3.5 7.99999 3.5C10.1194 3.5 11.879 4.66818 13.1679 5.95711C13.8037 6.5929 14.2978 7.23193 14.6327 7.71242C14.7055 7.81677 14.7704 7.91321 14.8273 8C14.7704 8.08679 14.7055 8.18323 14.6327 8.28758C14.2978 8.76807 13.8037 9.4071 13.1679 10.0429C13.0031 10.2077 12.8306 10.3706 12.6506 10.5292L13.3589 11.2376Z" fill="currentColor"/><path d="M11.2975 9.17614C11.4286 8.80856 11.5 8.41262 11.5 8C11.5 6.067 9.93299 4.5 7.99999 4.5C7.58737 4.5 7.19143 4.5714 6.82385 4.70252L7.64617 5.52484C7.76175 5.50847 7.87988 5.5 7.99999 5.5C9.3807 5.5 10.5 6.61929 10.5 8C10.5 8.12011 10.4915 8.23823 10.4752 8.35382L11.2975 9.17614Z" fill="currentColor"/><path d="M8.35385 10.4752L9.17617 11.2975C8.80858 11.4286 8.41263 11.5 8 11.5C6.067 11.5 4.5 9.93302 4.5 8.00002C4.5 7.58739 4.5714 7.19144 4.70253 6.82385L5.52485 7.64617C5.50847 7.76177 5.5 7.8799 5.5 8.00002C5.5 9.38073 6.61929 10.5 8 10.5C8.12012 10.5 8.23825 10.4915 8.35385 10.4752Z" fill="currentColor"/><path d="M3.34944 5.47072C3.16945 5.6294 2.99693 5.79225 2.83211 5.95708C2.19631 6.59287 1.70216 7.2319 1.36727 7.71239C1.29454 7.81674 1.22963 7.91318 1.1727 7.99997C1.22963 8.08676 1.29454 8.1832 1.36727 8.28755C1.70216 8.76804 2.19631 9.40707 2.83211 10.0429C4.12103 11.3318 5.88062 12.5 8 12.5C8.7156 12.5 9.39018 12.3668 10.0195 12.1408L10.7904 12.9117C9.9483 13.2732 9.01539 13.5 8 13.5C3 13.5 0 7.99997 0 7.99997C0 7.99997 0.938717 6.27899 2.64112 4.76239L3.34944 5.47072Z" fill="currentColor"/><path d="M13.6464 14.3536L1.64642 2.35352L2.35352 1.64642L14.3536 13.6464L13.6464 14.3536Z" fill="currentColor"/></svg><span class="c-hidcol-chip-label">열 3개 제외</span><span class="c-hidcol-chip-caret" aria-hidden="true">&#9662;</span></button><span class="c-hidcol-cap">Default</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-chip" class="c-hidcol-chip is-hover"><svg class="c-hidcol-chip-ico" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.3589 11.2376C15.0613 9.72097 16 8 16 8C16 8 13 2.5 7.99999 2.5C6.98461 2.5 6.05171 2.72682 5.20966 3.08834L5.98053 3.85921C6.60982 3.63318 7.2844 3.5 7.99999 3.5C10.1194 3.5 11.879 4.66818 13.1679 5.95711C13.8037 6.5929 14.2978 7.23193 14.6327 7.71242C14.7055 7.81677 14.7704 7.91321 14.8273 8C14.7704 8.08679 14.7055 8.18323 14.6327 8.28758C14.2978 8.76807 13.8037 9.4071 13.1679 10.0429C13.0031 10.2077 12.8306 10.3706 12.6506 10.5292L13.3589 11.2376Z" fill="currentColor"/><path d="M11.2975 9.17614C11.4286 8.80856 11.5 8.41262 11.5 8C11.5 6.067 9.93299 4.5 7.99999 4.5C7.58737 4.5 7.19143 4.5714 6.82385 4.70252L7.64617 5.52484C7.76175 5.50847 7.87988 5.5 7.99999 5.5C9.3807 5.5 10.5 6.61929 10.5 8C10.5 8.12011 10.4915 8.23823 10.4752 8.35382L11.2975 9.17614Z" fill="currentColor"/><path d="M8.35385 10.4752L9.17617 11.2975C8.80858 11.4286 8.41263 11.5 8 11.5C6.067 11.5 4.5 9.93302 4.5 8.00002C4.5 7.58739 4.5714 7.19144 4.70253 6.82385L5.52485 7.64617C5.50847 7.76177 5.5 7.8799 5.5 8.00002C5.5 9.38073 6.61929 10.5 8 10.5C8.12012 10.5 8.23825 10.4915 8.35385 10.4752Z" fill="currentColor"/><path d="M3.34944 5.47072C3.16945 5.6294 2.99693 5.79225 2.83211 5.95708C2.19631 6.59287 1.70216 7.2319 1.36727 7.71239C1.29454 7.81674 1.22963 7.91318 1.1727 7.99997C1.22963 8.08676 1.29454 8.1832 1.36727 8.28755C1.70216 8.76804 2.19631 9.40707 2.83211 10.0429C4.12103 11.3318 5.88062 12.5 8 12.5C8.7156 12.5 9.39018 12.3668 10.0195 12.1408L10.7904 12.9117C9.9483 13.2732 9.01539 13.5 8 13.5C3 13.5 0 7.99997 0 7.99997C0 7.99997 0.938717 6.27899 2.64112 4.76239L3.34944 5.47072Z" fill="currentColor"/><path d="M13.6464 14.3536L1.64642 2.35352L2.35352 1.64642L14.3536 13.6464L13.6464 14.3536Z" fill="currentColor"/></svg><span class="c-hidcol-chip-label">열 3개 제외</span><span class="c-hidcol-chip-caret" aria-hidden="true">&#9662;</span></button><span class="c-hidcol-cap">Hover</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-chip" class="c-hidcol-chip is-pressed"><svg class="c-hidcol-chip-ico" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.3589 11.2376C15.0613 9.72097 16 8 16 8C16 8 13 2.5 7.99999 2.5C6.98461 2.5 6.05171 2.72682 5.20966 3.08834L5.98053 3.85921C6.60982 3.63318 7.2844 3.5 7.99999 3.5C10.1194 3.5 11.879 4.66818 13.1679 5.95711C13.8037 6.5929 14.2978 7.23193 14.6327 7.71242C14.7055 7.81677 14.7704 7.91321 14.8273 8C14.7704 8.08679 14.7055 8.18323 14.6327 8.28758C14.2978 8.76807 13.8037 9.4071 13.1679 10.0429C13.0031 10.2077 12.8306 10.3706 12.6506 10.5292L13.3589 11.2376Z" fill="currentColor"/><path d="M11.2975 9.17614C11.4286 8.80856 11.5 8.41262 11.5 8C11.5 6.067 9.93299 4.5 7.99999 4.5C7.58737 4.5 7.19143 4.5714 6.82385 4.70252L7.64617 5.52484C7.76175 5.50847 7.87988 5.5 7.99999 5.5C9.3807 5.5 10.5 6.61929 10.5 8C10.5 8.12011 10.4915 8.23823 10.4752 8.35382L11.2975 9.17614Z" fill="currentColor"/><path d="M8.35385 10.4752L9.17617 11.2975C8.80858 11.4286 8.41263 11.5 8 11.5C6.067 11.5 4.5 9.93302 4.5 8.00002C4.5 7.58739 4.5714 7.19144 4.70253 6.82385L5.52485 7.64617C5.50847 7.76177 5.5 7.8799 5.5 8.00002C5.5 9.38073 6.61929 10.5 8 10.5C8.12012 10.5 8.23825 10.4915 8.35385 10.4752Z" fill="currentColor"/><path d="M3.34944 5.47072C3.16945 5.6294 2.99693 5.79225 2.83211 5.95708C2.19631 6.59287 1.70216 7.2319 1.36727 7.71239C1.29454 7.81674 1.22963 7.91318 1.1727 7.99997C1.22963 8.08676 1.29454 8.1832 1.36727 8.28755C1.70216 8.76804 2.19631 9.40707 2.83211 10.0429C4.12103 11.3318 5.88062 12.5 8 12.5C8.7156 12.5 9.39018 12.3668 10.0195 12.1408L10.7904 12.9117C9.9483 13.2732 9.01539 13.5 8 13.5C3 13.5 0 7.99997 0 7.99997C0 7.99997 0.938717 6.27899 2.64112 4.76239L3.34944 5.47072Z" fill="currentColor"/><path d="M13.6464 14.3536L1.64642 2.35352L2.35352 1.64642L14.3536 13.6464L13.6464 14.3536Z" fill="currentColor"/></svg><span class="c-hidcol-chip-label">열 3개 제외</span><span class="c-hidcol-chip-caret" aria-hidden="true">&#9662;</span></button><span class="c-hidcol-cap">Pressed</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-chip" aria-expanded="true"><svg class="c-hidcol-chip-ico" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.3589 11.2376C15.0613 9.72097 16 8 16 8C16 8 13 2.5 7.99999 2.5C6.98461 2.5 6.05171 2.72682 5.20966 3.08834L5.98053 3.85921C6.60982 3.63318 7.2844 3.5 7.99999 3.5C10.1194 3.5 11.879 4.66818 13.1679 5.95711C13.8037 6.5929 14.2978 7.23193 14.6327 7.71242C14.7055 7.81677 14.7704 7.91321 14.8273 8C14.7704 8.08679 14.7055 8.18323 14.6327 8.28758C14.2978 8.76807 13.8037 9.4071 13.1679 10.0429C13.0031 10.2077 12.8306 10.3706 12.6506 10.5292L13.3589 11.2376Z" fill="currentColor"/><path d="M11.2975 9.17614C11.4286 8.80856 11.5 8.41262 11.5 8C11.5 6.067 9.93299 4.5 7.99999 4.5C7.58737 4.5 7.19143 4.5714 6.82385 4.70252L7.64617 5.52484C7.76175 5.50847 7.87988 5.5 7.99999 5.5C9.3807 5.5 10.5 6.61929 10.5 8C10.5 8.12011 10.4915 8.23823 10.4752 8.35382L11.2975 9.17614Z" fill="currentColor"/><path d="M8.35385 10.4752L9.17617 11.2975C8.80858 11.4286 8.41263 11.5 8 11.5C6.067 11.5 4.5 9.93302 4.5 8.00002C4.5 7.58739 4.5714 7.19144 4.70253 6.82385L5.52485 7.64617C5.50847 7.76177 5.5 7.8799 5.5 8.00002C5.5 9.38073 6.61929 10.5 8 10.5C8.12012 10.5 8.23825 10.4915 8.35385 10.4752Z" fill="currentColor"/><path d="M3.34944 5.47072C3.16945 5.6294 2.99693 5.79225 2.83211 5.95708C2.19631 6.59287 1.70216 7.2319 1.36727 7.71239C1.29454 7.81674 1.22963 7.91318 1.1727 7.99997C1.22963 8.08676 1.29454 8.1832 1.36727 8.28755C1.70216 8.76804 2.19631 9.40707 2.83211 10.0429C4.12103 11.3318 5.88062 12.5 8 12.5C8.7156 12.5 9.39018 12.3668 10.0195 12.1408L10.7904 12.9117C9.9483 13.2732 9.01539 13.5 8 13.5C3 13.5 0 7.99997 0 7.99997C0 7.99997 0.938717 6.27899 2.64112 4.76239L3.34944 5.47072Z" fill="currentColor"/><path d="M13.6464 14.3536L1.64642 2.35352L2.35352 1.64642L14.3536 13.6464L13.6464 14.3536Z" fill="currentColor"/></svg><span class="c-hidcol-chip-label">열 3개 제외</span><span class="c-hidcol-chip-caret" aria-hidden="true">&#9662;</span></button><span class="c-hidcol-cap">Expanded</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-chip" data-on="true"><svg class="c-hidcol-chip-ico" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.3589 11.2376C15.0613 9.72097 16 8 16 8C16 8 13 2.5 7.99999 2.5C6.98461 2.5 6.05171 2.72682 5.20966 3.08834L5.98053 3.85921C6.60982 3.63318 7.2844 3.5 7.99999 3.5C10.1194 3.5 11.879 4.66818 13.1679 5.95711C13.8037 6.5929 14.2978 7.23193 14.6327 7.71242C14.7055 7.81677 14.7704 7.91321 14.8273 8C14.7704 8.08679 14.7055 8.18323 14.6327 8.28758C14.2978 8.76807 13.8037 9.4071 13.1679 10.0429C13.0031 10.2077 12.8306 10.3706 12.6506 10.5292L13.3589 11.2376Z" fill="currentColor"/><path d="M11.2975 9.17614C11.4286 8.80856 11.5 8.41262 11.5 8C11.5 6.067 9.93299 4.5 7.99999 4.5C7.58737 4.5 7.19143 4.5714 6.82385 4.70252L7.64617 5.52484C7.76175 5.50847 7.87988 5.5 7.99999 5.5C9.3807 5.5 10.5 6.61929 10.5 8C10.5 8.12011 10.4915 8.23823 10.4752 8.35382L11.2975 9.17614Z" fill="currentColor"/><path d="M8.35385 10.4752L9.17617 11.2975C8.80858 11.4286 8.41263 11.5 8 11.5C6.067 11.5 4.5 9.93302 4.5 8.00002C4.5 7.58739 4.5714 7.19144 4.70253 6.82385L5.52485 7.64617C5.50847 7.76177 5.5 7.8799 5.5 8.00002C5.5 9.38073 6.61929 10.5 8 10.5C8.12012 10.5 8.23825 10.4915 8.35385 10.4752Z" fill="currentColor"/><path d="M3.34944 5.47072C3.16945 5.6294 2.99693 5.79225 2.83211 5.95708C2.19631 6.59287 1.70216 7.2319 1.36727 7.71239C1.29454 7.81674 1.22963 7.91318 1.1727 7.99997C1.22963 8.08676 1.29454 8.1832 1.36727 8.28755C1.70216 8.76804 2.19631 9.40707 2.83211 10.0429C4.12103 11.3318 5.88062 12.5 8 12.5C8.7156 12.5 9.39018 12.3668 10.0195 12.1408L10.7904 12.9117C9.9483 13.2732 9.01539 13.5 8 13.5C3 13.5 0 7.99997 0 7.99997C0 7.99997 0.938717 6.27899 2.64112 4.76239L3.34944 5.47072Z" fill="currentColor"/><path d="M13.6464 14.3536L1.64642 2.35352L2.35352 1.64642L14.3536 13.6464L13.6464 14.3536Z" fill="currentColor"/></svg><span class="c-hidcol-chip-label">열 3개 포함 중</span><span class="c-hidcol-chip-caret" aria-hidden="true">&#9662;</span></button><span class="c-hidcol-cap">Included</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-chip" disabled><svg class="c-hidcol-chip-ico" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.3589 11.2376C15.0613 9.72097 16 8 16 8C16 8 13 2.5 7.99999 2.5C6.98461 2.5 6.05171 2.72682 5.20966 3.08834L5.98053 3.85921C6.60982 3.63318 7.2844 3.5 7.99999 3.5C10.1194 3.5 11.879 4.66818 13.1679 5.95711C13.8037 6.5929 14.2978 7.23193 14.6327 7.71242C14.7055 7.81677 14.7704 7.91321 14.8273 8C14.7704 8.08679 14.7055 8.18323 14.6327 8.28758C14.2978 8.76807 13.8037 9.4071 13.1679 10.0429C13.0031 10.2077 12.8306 10.3706 12.6506 10.5292L13.3589 11.2376Z" fill="currentColor"/><path d="M11.2975 9.17614C11.4286 8.80856 11.5 8.41262 11.5 8C11.5 6.067 9.93299 4.5 7.99999 4.5C7.58737 4.5 7.19143 4.5714 6.82385 4.70252L7.64617 5.52484C7.76175 5.50847 7.87988 5.5 7.99999 5.5C9.3807 5.5 10.5 6.61929 10.5 8C10.5 8.12011 10.4915 8.23823 10.4752 8.35382L11.2975 9.17614Z" fill="currentColor"/><path d="M8.35385 10.4752L9.17617 11.2975C8.80858 11.4286 8.41263 11.5 8 11.5C6.067 11.5 4.5 9.93302 4.5 8.00002C4.5 7.58739 4.5714 7.19144 4.70253 6.82385L5.52485 7.64617C5.50847 7.76177 5.5 7.8799 5.5 8.00002C5.5 9.38073 6.61929 10.5 8 10.5C8.12012 10.5 8.23825 10.4915 8.35385 10.4752Z" fill="currentColor"/><path d="M3.34944 5.47072C3.16945 5.6294 2.99693 5.79225 2.83211 5.95708C2.19631 6.59287 1.70216 7.2319 1.36727 7.71239C1.29454 7.81674 1.22963 7.91318 1.1727 7.99997C1.22963 8.08676 1.29454 8.1832 1.36727 8.28755C1.70216 8.76804 2.19631 9.40707 2.83211 10.0429C4.12103 11.3318 5.88062 12.5 8 12.5C8.7156 12.5 9.39018 12.3668 10.0195 12.1408L10.7904 12.9117C9.9483 13.2732 9.01539 13.5 8 13.5C3 13.5 0 7.99997 0 7.99997C0 7.99997 0.938717 6.27899 2.64112 4.76239L3.34944 5.47072Z" fill="currentColor"/><path d="M13.6464 14.3536L1.64642 2.35352L2.35352 1.64642L14.3536 13.6464L13.6464 14.3536Z" fill="currentColor"/></svg><span class="c-hidcol-chip-label">열 3개 제외</span><span class="c-hidcol-chip-caret" aria-hidden="true">&#9662;</span></button><span class="c-hidcol-cap">Disabled</span></div>
+</div>
+</div></div>
+
+<h3>포함 토글 (Toggle)</h3>
+      <p class="note">확정 버튼이 아니라 상태 전환이다. 켜짐을 <code>aria-pressed</code>로 유지하고 결과는 재검색 없이 즉시 갱신된다.</p>
+<div class="example"><div class="preview col">
+<div class="c-hidcol-set">
+<div class="c-hidcol-cell"><button type="button" class="c-hidcol-toggle" aria-pressed="false"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button><span class="c-hidcol-cap">Default</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-toggle" class="c-hidcol-toggle is-hover" aria-pressed="false"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button><span class="c-hidcol-cap">Hover</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-toggle" class="c-hidcol-toggle is-pressed" aria-pressed="false"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button><span class="c-hidcol-cap">Pressed</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-toggle" aria-pressed="true"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button><span class="c-hidcol-cap">On</span></div><div class="c-hidcol-cell"><button type="button" class="c-hidcol-toggle" aria-pressed="false" disabled><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button><span class="c-hidcol-cap">Disabled</span></div>
+</div>
+</div></div>
+
+<h3>팝오버 (Popover)</h3>
+      <p class="note">빠진 열을 원인별로 두 묶음으로 가른다. 배지는 <a href="#filter-labels">Filter Labels</a>의 sm · rounded · gray를 그대로 쓴다. 해당 묶음이 비면 그 묶음째 감춘다.</p>
+<div class="example"><div class="preview col">
+<div class="c-hidcol-set">
+<div class="c-hidcol-cell"><div class="c-hidcol-pop" role="dialog" aria-label="숨겨진 열"><div class="c-hidcol-pop-top"><span class="c-hidcol-pop-head">숨겨진 열</span><button type="button" class="c-hidcol-toggle" aria-pressed="false"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button></div><span class="c-hidcol-pop-note">표시 중인 열만 검색합니다.</span><div class="c-hidcol-pop-divider" aria-hidden="true"></div><div class="c-hidcol-pop-groups"><div class="c-hidcol-pop-group"><span class="c-hidcol-pop-sub">검색에서 제외됨</span><div class="c-hidcol-pop-cols"><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">증거물</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">비고</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">출처</span></div></div><div class="c-hidcol-pop-group"><span class="c-hidcol-pop-sub">값이 없어 자동 숨김</span><div class="c-hidcol-pop-cols"><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">속성</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">계정</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">공간</span></div></div></div></div><span class="c-hidcol-cap">Both · Toggle Off</span></div><div class="c-hidcol-cell"><div class="c-hidcol-pop" role="dialog" aria-label="숨겨진 열"><div class="c-hidcol-pop-top"><span class="c-hidcol-pop-head">숨겨진 열</span><button type="button" class="c-hidcol-toggle" aria-pressed="true"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button></div><span class="c-hidcol-pop-note">숨겨진 열까지 검색합니다.</span><div class="c-hidcol-pop-divider" aria-hidden="true"></div><div class="c-hidcol-pop-groups"><div class="c-hidcol-pop-group"><span class="c-hidcol-pop-sub">검색에서 제외됨</span><div class="c-hidcol-pop-cols"><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">증거물</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">비고</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">출처</span></div></div><div class="c-hidcol-pop-group"><span class="c-hidcol-pop-sub">값이 없어 자동 숨김</span><div class="c-hidcol-pop-cols"><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">속성</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">계정</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">공간</span></div></div></div></div><span class="c-hidcol-cap">Both · Toggle On</span></div><div class="c-hidcol-cell"><div class="c-hidcol-pop" role="dialog" aria-label="숨겨진 열"><div class="c-hidcol-pop-top"><span class="c-hidcol-pop-head">숨겨진 열</span><button type="button" class="c-hidcol-toggle" aria-pressed="false"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button></div><span class="c-hidcol-pop-note">표시 중인 열만 검색합니다.</span><div class="c-hidcol-pop-divider" aria-hidden="true"></div><div class="c-hidcol-pop-groups"><div class="c-hidcol-pop-group"><span class="c-hidcol-pop-sub">검색에서 제외됨</span><div class="c-hidcol-pop-cols"><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">증거물</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">비고</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">출처</span></div></div></div></div><span class="c-hidcol-cap">Excluded only</span></div><div class="c-hidcol-cell"><div class="c-hidcol-pop" role="dialog" aria-label="숨겨진 열"><div class="c-hidcol-pop-top"><span class="c-hidcol-pop-head">숨겨진 열</span><button type="button" class="c-hidcol-toggle" aria-pressed="false"><span class="c-hidcol-knob" aria-hidden="true"></span><span>숨겨진 열 포함</span></button></div><span class="c-hidcol-pop-note">표시 중인 열만 검색합니다.</span><div class="c-hidcol-pop-divider" aria-hidden="true"></div><div class="c-hidcol-pop-groups"><div class="c-hidcol-pop-group"><span class="c-hidcol-pop-sub">값이 없어 자동 숨김</span><div class="c-hidcol-pop-cols"><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">속성</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">계정</span><span class="c-filter-labels-chip c-filter-labels-sm c-filter-labels-rounded c-filter-labels-gray">공간</span></div></div></div></div><span class="c-hidcol-cap">Auto only</span></div>
+</div>
+</div></div>
+</section>
+
 <section id="accordion">
 <h2>Accordion</h2>
       <p class="lede">헤더를 눌러 본문을 펼치거나 접어 좁은 공간에 많은 내용을 담는다. 헤더 제목만으로 안을 짐작할 수 있어야 하고, 전부 읽어야 하는 내용이면 그냥 펼쳐둔 페이지가 낫다.</p>
@@ -5163,14 +5224,15 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 </div></div>
 
 <h3>상태 (State)</h3>
-<p>Default는 미진행, Active는 현재 단계, Success는 완료, Pending은 대기, Error는 오류 상태를 나타낸다.</p>
+<p>Default는 미진행, Active는 현재 단계, Success는 완료, Pending은 대기, Error는 오류 상태를 나타낸다. 배지 안에는 단계 번호를 넣고 상태는 배지 색으로 구분한다 — 완료만 번호 대신 체크로 바꾼다. 완료는 의미색(초록)과 primary 두 톤을 쓴다.</p>
 <div class="example"><div class="preview">
 <div class="c-stepper-row" style="flex-wrap:wrap;gap:var(--gmd-space-8)">
-<div class="c-stepper-state-default" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-num"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm.9 10.5H7.1V7h1.8v4.5zM8 5.8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Default</div></div>
-<div class="c-stepper-state-active" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-active"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm.9 10.5H7.1V7h1.8v4.5zM8 5.8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Active</div></div>
+<div class="c-stepper-state-default" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-num">1</span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Default</div></div>
+<div class="c-stepper-state-active" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-active">1</span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Active</div></div>
 <div class="c-stepper-state-success" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-success"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M13.5 4.5 6 12 2.5 8.5l1-1L6 10l6.5-6.5z"/></svg></span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Success</div></div>
-<div class="c-stepper-state-pending" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-pending"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm.9 10.5H7.1V7h1.8v4.5zM8 5.8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Pending</div></div>
-<div class="c-stepper-state-error" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-error"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor"><path d="M2.5 2.5 13.5 13.5M13.5 2.5 2.5 13.5" stroke="currentColor" stroke-width="2"/></svg></span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Error</div></div>
+<div class="c-stepper-state-success-primary" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-success-primary"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M13.5 4.5 6 12 2.5 8.5l1-1L6 10l6.5-6.5z"/></svg></span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Success (Primary)</div></div>
+<div class="c-stepper-state-pending" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-pending">1</span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Pending</div></div>
+<div class="c-stepper-state-error" style="width:160px"><div class="c-stepper-head"><span class="c-stepper-badge c-stepper-badge-error">1</span><div class="c-stepper-title">Personal Info</div></div><div class="c-stepper-cap">Error</div></div>
 </div>
 </div></div>
 
@@ -5402,7 +5464,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v2.12 · Figma v2.12 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.08.27 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v2.13 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.09.01 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>

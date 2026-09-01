@@ -1,6 +1,6 @@
 :root[data-theme="dark"],
 [data-theme="dark"] {
-  --gmd-color-seed: #75A3E8;
+  --gmd-color-seed: #3B6DB8;
 
   --gmd-color-foundation-primary-base: #4F94D4;
   --gmd-color-foundation-primary-hover: #6EB4E0;
@@ -87,9 +87,9 @@
   --gmd-color-button-primary-hover: #8AC6E6;
   --gmd-color-button-primary-pressed: #428AB5;
   --gmd-color-button-primary-disabled: #506B7D;
-  --gmd-color-button-seed-base: #75A3E8;
-  --gmd-color-button-seed-hover: #8DB3ED;
-  --gmd-color-button-seed-pressed: #6293E3;
+  --gmd-color-button-seed-base: #3B6DB8;
+  --gmd-color-button-seed-hover: #4E7DC5;
+  --gmd-color-button-seed-pressed: #2D558F;
   --gmd-color-button-seed-disabled: #506B7D;
   --gmd-color-state-titlebar-icon: rgba(255, 255, 255, 0.20);
   --gmd-color-state-titlebar-hover: #152641;

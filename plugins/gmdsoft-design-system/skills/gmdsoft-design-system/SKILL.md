@@ -67,7 +67,7 @@ DESIGN.md §9 "Agent Prompt Guide"의 규칙. 어떤 경우에도 어기지 않�
 | Primary | `#135DB5` | `#4F94D4` |
 | Primary Hover | `#3D82D9` | `#6EB4E0` |
 | Primary Pressed | `#0E4A94` | `#428AB5` |
-| Seed Button | `#4681DB` | `#75A3E8` |
+| Seed Button | `#4681DB` | `#3B6DB8` |
 | Page BG | `#FFFFFF` | `#141416` |
 | Card BG | `#FAF9FD` | `#252529` |
 | Text Primary | `#212529` | `#E0E0E0` |

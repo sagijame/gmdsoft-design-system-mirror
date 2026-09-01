@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: GMDSOFT Design System v2.12
+name: GMDSOFT Design System v2.13
 description: Industrial-grade Windows desktop application design language for GMDSOFT products.
 releaseVersion: VERSION
 sourceCollection: 01_GMD_Theme_v2.12
@@ -171,7 +171,7 @@ Typography is engineered for density. Inter serves as the primary UI font with P
 
 ### Seed & Primary
 
-- **Seed Blue** (`#4681DB` Light / `#75A3E8` Dark): The generative origin of the entire color system. Used for seed-level buttons and brand-carrying UI elements.
+- **Seed Blue** (`#4681DB` Light / `#3B6DB8` Dark): The generative origin of the entire color system. Used for seed-level buttons and brand-carrying UI elements.
 - **Primary Blue** (`#135DB5` Light / `#4F94D4` Dark): `Foundation/primary/base`. The system's interactive anchor — primary buttons, active states, selected items, focus indicators.
 - **Primary Hover** (`#3D82D9` Light / `#6EB4E0` Dark): `Foundation/primary/hover`. Brightened variant for pointer hover feedback.
 - **Primary Pressed** (`#0E4A94` Light / `#428AB5` Dark): `Foundation/primary/pressed`. Deepened variant for click/press feedback.
@@ -694,7 +694,7 @@ At 1280x720 with expanded navigation (240px), the Content Area is 1040px. All la
 
 [Seed Button]
   Light: #4681DB (button/seed/base)
-  Dark:  #75A3E8
+  Dark:  #3B6DB8
 
 [Page Background]
   Light: #FFFFFF (background_reference/base)

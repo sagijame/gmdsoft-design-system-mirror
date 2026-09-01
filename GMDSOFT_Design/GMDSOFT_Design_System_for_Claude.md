@@ -51,7 +51,7 @@
 
 | 역할 | 토큰 경로 | Light | Dark |
 |------|----------|-------|------|
-| Seed | `Seed` | `#4681DB` | `#75A3E8` |
+| Seed | `Seed` | `#4681DB` | `#3B6DB8` |
 | Primary base | `Foundation Colors/primary/base` | `#135DB5` | `#4F94D4` |
 | Primary hover | `Foundation Colors/primary/hover` | `#3D82D9` | `#6EB4E0` |
 | Primary pressed | `Foundation Colors/primary/pressed` | `#0E4A94` | `#428AB5` |
@@ -141,9 +141,9 @@
 | Primary hover | `button/primary/hover` | `#3D82D9` | `#8AC6E6` |
 | Primary pressed | `button/primary/pressed` | `#0E4A94` | `#428AB5` |
 | Primary disabled | `button/primary/disabled` | `#A8C4D9` | `#506B7D` |
-| Seed base | `button/seed/base` | `#4681DB` | `#75A3E8` |
-| Seed hover | `button/seed/hover` | `#5B91E1` | `#8DB3ED` |
-| Seed pressed | `button/seed/pressed` | `#3671CD` | `#6293E3` |
+| Seed base | `button/seed/base` | `#4681DB` | `#3B6DB8` |
+| Seed hover | `button/seed/hover` | `#5B91E1` | `#4E7DC5` |
+| Seed pressed | `button/seed/pressed` | `#3671CD` | `#2D558F` |
 
 ### Gray 900 Scale
 

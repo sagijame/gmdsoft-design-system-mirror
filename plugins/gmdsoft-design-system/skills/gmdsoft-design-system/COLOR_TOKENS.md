@@ -22,7 +22,7 @@
 
 | Token Path | Light | Dark |
 |---|---|---|
-| `Seed` | `#4681DB` | `#75A3E8` |
+| `Seed` | `#4681DB` | `#3B6DB8` |
 
 ---
 
@@ -194,9 +194,9 @@
 | `button/primary/hover` | `#3D82D9` | `#8AC6E6` |
 | `button/primary/pressed` | `#0E4A94` | `#428AB5` |
 | `button/primary/disabled` | `#A8C4D9` | `#506B7D` |
-| `button/seed/base` | `#4681DB` | `#75A3E8` |
-| `button/seed/hover` | `#5B91E1` | `#8DB3ED` |
-| `button/seed/pressed` | `#3671CD` | `#6293E3` |
+| `button/seed/base` | `#4681DB` | `#3B6DB8` |
+| `button/seed/hover` | `#5B91E1` | `#4E7DC5` |
+| `button/seed/pressed` | `#3671CD` | `#2D558F` |
 | `button/seed/disabled` | `#A8C4D9` | `#506B7D` |
 
 ---
@@ -363,7 +363,7 @@
 ```css
 [data-theme="dark"] {
   /* Seed */
-  --seed: #75A3E8;
+  --seed: #3B6DB8;
 
   /* Foundation — Primary */
   --primary-base: #4F94D4;
@@ -445,9 +445,9 @@
   --btn-primary-hover: #8AC6E6;
   --btn-primary-pressed: #428AB5;
   --btn-primary-disabled: #506B7D;
-  --btn-seed-base: #75A3E8;
-  --btn-seed-hover: #8DB3ED;
-  --btn-seed-pressed: #6293E3;
+  --btn-seed-base: #3B6DB8;
+  --btn-seed-hover: #4E7DC5;
+  --btn-seed-pressed: #2D558F;
   --btn-seed-disabled: #506B7D;
 
   /* Gray Scale (inverted) */

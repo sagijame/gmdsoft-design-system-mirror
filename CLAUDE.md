@@ -32,7 +32,7 @@ Dark mode auto-switches when `<html data-theme="dark">` is set.
 
 | Role | Light | Dark | Token Path |
 |------|-------|------|-----------|
-| Seed | `#4681DB` | `#75A3E8` | `--gmd-seed` |
+| Seed | `#4681DB` | `#3B6DB8` | `--gmd-seed` |
 | Primary | `#135DB5` | `#4F94D4` | `--gmd-primary-base` |
 | Primary Hover | `#3D82D9` | `#6EB4E0` | `--gmd-primary-hover` |
 | Primary Pressed | `#0E4A94` | `#428AB5` | `--gmd-primary-pressed` |
