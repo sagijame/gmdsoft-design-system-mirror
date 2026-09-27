@@ -8,7 +8,7 @@ GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로�
 
 | 하려는 일 | 여는 파일 |
 |-----------|-----------|
-| 디자인 시스템을 눈으로 확인 | **`index.html`** — 30개 컴포넌트 카탈로그, 라이트/다크 토글 내장 |
+| 디자인 시스템을 눈으로 확인 | **`index.html`** — 32개 컴포넌트 카탈로그, 라이트/다크 토글 내장 |
 | AI 도구(Claude·Cursor·Codex)로 UI 생성 | `DESIGN.md` 를 참조 문서로 지정 |
 | 색상 값 찾기 | `COLOR_TOKENS.md` (토큰 경로 + HEX, Light/Dark) |
 | 컴포넌트 구현 스펙 확인 | `COMPONENT_SPECS.md` + `tokens.json` |
@@ -85,7 +85,7 @@ GMDSOFT 사내 공유 디자인 시스템 저장소. AI 도구로 UI나 프로�
 
 | 파일 | 설명 |
 |------|------|
-| `index.html` | **통합 컴포넌트 카탈로그** — 30개 컴포넌트, 라이트/다크 토글, Figma v2.12 Docs/* 1:1 미러링 |
+| `index.html` | **통합 컴포넌트 카탈로그** — 32개 컴포넌트, 라이트/다크 토글, Figma v2.12 Docs/* 1:1 미러링 |
 | `tokens.css` | `index.html` 단일 토큰 출처 — 색상·타이포·간격·그리드·아이콘 크기 |
 | `VERSION` | 공유 레포 릴리스 버전 — 커밋 단위로 patch 증가 |
 | `DESIGN.md` | 디자인 시스템 전체 문서 (9개 섹션, Google DESIGN.md alpha front matter 포함) |
