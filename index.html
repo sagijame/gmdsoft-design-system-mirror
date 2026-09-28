@@ -780,7 +780,7 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 /* ── Badge: primary blue 마커/칩 ── */
 .badge { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
   padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
-  background: var(--gmd-primary-default); color: var(--gmd-text-on-primary); line-height: 1; }
+  background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); line-height: 1; }
 .badge .ico { width: 12px; height: 12px; flex: none; }
 .badge-circle, .badge-square { padding: 0; width: 24px; height: 24px; justify-content: center; }
 .badge-circle { border-radius: 50%; }
@@ -814,7 +814,7 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 .fchip { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-sm);
   padding: var(--gmd-space-1) var(--gmd-space-2x); font-size: var(--gmd-font-size-12); cursor: pointer;
   background: var(--gmd-surface-base); color: var(--gmd-text-primary); border: 1px solid var(--gmd-divider); }
-.fchip.is-active { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary); border-color: transparent; }
+.fchip.is-active { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); border-color: transparent; }
 .fchip.is-visible { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
 .fchip .ico { width: 12px; height: 12px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
 
@@ -950,7 +950,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
   display: inline-flex; align-items: center; justify-content: center; }
 /* Pills — 활성 = 블루 필 */
 .tabs-pills .tab { border-radius: var(--gmd-radius-pill); }
-.tabs-pills .tab[aria-selected="true"] { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary); }
+.tabs-pills .tab[aria-selected="true"] { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
 .tabs-pills .tab[aria-selected="true"] .tab-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); }
 /* Underline — 활성 = 블루 텍스트 + 하단 밑줄 */
 .tabs-underline { gap: var(--gmd-space-5); border-bottom: 1px solid var(--gmd-divider); }
@@ -1053,7 +1053,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-checkbox-radio-field[aria-disabled="true"]{cursor:not-allowed;color:var(--gmd-text-disabled)}
 
 /* base control box (checkbox) */
-.c-checkbox-radio-box{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;color:var(--gmd-text-on-primary);transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-checkbox-radio-box{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;color:var(--gmd-text-on-primary-fill);transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
 .c-checkbox-radio-box svg{opacity:0}
 
 /* checked / indeterminate */
@@ -1068,7 +1068,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
    가 차서 「잠긴 채 켜져 있음」 으로 읽힌다. 안 고른 쪽은 중립 슬롯 채움(bg/slot-disabled)을 쓰고
    desaturated primary 는 실제로 켜져 있는 쪽에만 남긴다. */
 .c-checkbox-radio-box.is-disabled{background:var(--gmd-background-slot-disabled);border-color:var(--gmd-border-subtle)}
-.c-checkbox-radio-box.is-disabled.is-checked,.c-checkbox-radio-box.is-disabled.is-indeterminate{background:var(--gmd-primary-disabled);border-color:var(--gmd-primary-disabled)}
+.c-checkbox-radio-box.is-disabled.is-checked,.c-checkbox-radio-box.is-disabled.is-indeterminate{background:var(--gmd-primary-disabled);border-color:var(--gmd-primary-disabled);color:var(--gmd-text-on-primary)}
 
 /* radio dot */
 .c-checkbox-radio-dot{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:50%;background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
@@ -1140,7 +1140,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-datetime-floatlabel{position:absolute;top:-7px;left:var(--gmd-space-2x);padding:0 var(--gmd-space-1);background:var(--gmd-surface-base);font-size:var(--gmd-font-size-10);color:var(--gmd-primary-default);line-height:1}
 
 .c-datetime-card{width:264px;border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);box-shadow:var(--gmd-shadow-lift);overflow:hidden;font-size:var(--gmd-font-size-12)}
-.c-datetime-head{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary);padding:var(--gmd-space-3) var(--gmd-space-4)}
+.c-datetime-head{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);padding:var(--gmd-space-3) var(--gmd-space-4)}
 .c-datetime-eyebrow{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);letter-spacing:.08em;opacity:.85;margin-bottom:var(--gmd-space-2x)}
 .c-datetime-headtitle{font-size:var(--gmd-font-size-22);font-weight:var(--gmd-weight-bold);line-height:1}
 .c-datetime-headrow{display:flex;align-items:flex-end;justify-content:space-between}
@@ -1168,7 +1168,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-datetime-day{display:flex;align-items:center;justify-content:center;height:28px;border-radius:50%;color:var(--gmd-text-primary);cursor:pointer}
 .c-datetime-day:hover{background:var(--gmd-surface-hover)}
 .c-datetime-day.is-today{border:1px solid var(--gmd-border-base);color:var(--gmd-text-primary)}
-.c-datetime-day.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary)}
+.c-datetime-day.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
 .c-datetime-day.is-disabled{color:var(--gmd-text-disabled);background:var(--gmd-background-section);cursor:not-allowed;pointer-events:none}
 .c-datetime-day.is-mute{color:var(--gmd-text-disabled)}
 
@@ -1181,7 +1181,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 
 .c-datetime-clock{position:relative;width:200px;height:200px;margin:var(--gmd-space-4) auto var(--gmd-space-2x);border-radius:50%;background:var(--gmd-primary-subtle)}
 .c-datetime-cnum{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary)}
-.c-datetime-cnum.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary)}
+.c-datetime-cnum.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
 .c-datetime-chand{position:absolute;left:50%;bottom:50%;width:2px;background:var(--gmd-primary-default);transform-origin:bottom center}
 .c-datetime-cdot{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--gmd-primary-default)}
 
@@ -1466,7 +1466,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   height: 24px;
   border-radius: 50%;
   background: var(--gmd-primary-default);
-  color: var(--gmd-text-on-primary);
+  color: var(--gmd-text-on-primary-fill);
   font-size: var(--gmd-font-size-12);
   font-weight: var(--gmd-weight-bold);
 }
@@ -1592,7 +1592,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 #tree .c-tree-cbrow .c-tree-ico{flex:0 0 auto;}
 #tree .c-tree-states .c-tree-chip:has(.c-tree-cbrow){width:220px;}
 .c-tree-cap{font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-tree-cb{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-on-primary);flex:0 0 auto}
+.c-tree-cb{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-on-primary-fill);flex:0 0 auto}
 .c-tree-cb.is-on{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default)}
 .c-tree-cbrow{display:flex;align-items:center;gap:var(--gmd-space-2x);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
 .c-tree-anatomy{display:flex;align-items:center}
@@ -1614,7 +1614,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-ribbon-nav-item:hover{background:var(--gmd-surface-hover);color:var(--gmd-text-primary);}
 .c-ribbon-nav-item.is-active,.c-ribbon-nav-item[aria-current="page"]{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);}
 .c-ribbon-nav-item.is-active .c-ribbon-nav-chev,.c-ribbon-nav-item[aria-current="page"] .c-ribbon-nav-chev{color:var(--gmd-primary-default);}
-.c-ribbon-nav-badge{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 var(--gmd-space-1);border-radius:var(--gmd-radius-lg);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);line-height:1;}
+.c-ribbon-nav-badge{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 var(--gmd-space-1);border-radius:var(--gmd-radius-lg);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);line-height:1;}
 .c-ribbon-nav-item.is-nested{padding-left:var(--gmd-space-8);}
 /* sm 사이즈 — Figma Sidebar Size 섹션: 행 42px · 아이콘 16 · padding 8/12 · label 16px. md(50)가 기본. */
 .c-ribbon-nav-item.is-sm{height:42px;padding:var(--gmd-space-2x) var(--gmd-space-3);font-size:var(--gmd-font-size-14);}
@@ -1644,7 +1644,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-popover-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
 .c-popover-value{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);font-weight:var(--gmd-weight-bold)}
 .c-popover-actions{display:flex;justify-content:flex-end;gap:var(--gmd-space-2x);margin-top:var(--gmd-space-4)}
-.c-popover-action{height:28px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
+.c-popover-action{height:28px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
 .c-popover-status{display:flex;justify-content:space-between;align-items:center;gap:var(--gmd-space-2x);margin-bottom:var(--gmd-space-3)}
 .c-popover-badge{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2) var(--gmd-space-2x)}
 .c-popover-banner{background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2x) var(--gmd-space-3);margin-bottom:var(--gmd-space-3);font-size:var(--gmd-font-size-12);line-height:1.5;color:var(--gmd-semantic-error)}
@@ -1671,7 +1671,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-hidcol-chip:hover,.c-hidcol-chip.is-hover{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-hover);}
 .c-hidcol-chip:active,.c-hidcol-chip.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-pressed);}
 .c-hidcol-chip[aria-expanded="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);}
-.c-hidcol-chip[data-on="true"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary);}
+.c-hidcol-chip[data-on="true"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);}
 .c-hidcol-chip:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
 .c-hidcol-chip-ico{width:16px;height:16px;flex:none;}
 .c-hidcol-chip-label{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -1774,7 +1774,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-pagination-item:hover,.c-pagination-item.is-hover{background:var(--gmd-surface-hover);border-color:var(--gmd-border-base)}
 .c-pagination-item.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default)}
 .c-pagination-item.is-focused{outline:2px solid var(--gmd-primary-default);outline-offset:2px}
-.c-pagination-item.is-active,.c-pagination-item[aria-current="page"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary);font-weight:var(--gmd-weight-bold)}
+.c-pagination-item.is-active,.c-pagination-item[aria-current="page"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-weight:var(--gmd-weight-bold)}
 .c-pagination-item.is-disabled,.c-pagination-item[aria-disabled="true"]{background:var(--gmd-background-card);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed}
 .c-pagination-nav{padding:0;width:32px}
 .c-pagination-nav svg{display:block}
@@ -1929,8 +1929,13 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   flex: none;
   overflow: hidden;
   border-radius: 50%;
-  background: var(--gmd-primary-default);
-  color: var(--gmd-text-on-primary);
+  /* 색 7종 — Design Kit Component / Avatar Colors(2026-09-16) 정본. 배경은 각 계열의 밝은 틴트,
+     글자는 같은 계열 원색. 라이트에서만 검정 18% 를 섞어 틴트 위 대비를 올리고 다크는 원색 그대로.
+     새 토큰 없이 기존 v2.12 쌍만 조합한다 — 아래 두 자리 변수는 컴포넌트 안에서만 쓴다. */
+  --c-avatar-bg: var(--gmd-primary-subtle);
+  --c-avatar-base: var(--gmd-primary-default);
+  background: var(--c-avatar-bg);
+  color: color-mix(in srgb, var(--c-avatar-base) 82%, black);
   font-family: var(--gmd-font-body);
   font-weight: var(--gmd-weight-bold);
   line-height: 1;
@@ -1953,6 +1958,19 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-avatar-md { width: 32px; height: 32px; font-size: var(--gmd-font-size-12); }
 .c-avatar-lg { width: 40px; height: 40px; font-size: var(--gmd-font-size-16); }
 .c-avatar-xl { width: 48px; height: 48px; font-size: var(--gmd-font-size-18); }
+
+/* 색 7종 — 계정 식별자로 서버가 한 번 정한다. 사람이 고르지 않는다. */
+.c-avatar-secondary { --c-avatar-bg: var(--gmd-secondary-subtle);    --c-avatar-base: var(--gmd-secondary); }
+.c-avatar-tertiary  { --c-avatar-bg: var(--gmd-tertiary-subtle);     --c-avatar-base: var(--gmd-tertiary); }
+.c-avatar-success   { --c-avatar-bg: var(--gmd-semantic-success-bg); --c-avatar-base: var(--gmd-semantic-success); }
+.c-avatar-warning   { --c-avatar-bg: var(--gmd-semantic-warning-bg); --c-avatar-base: var(--gmd-semantic-warning); }
+.c-avatar-error     { --c-avatar-bg: var(--gmd-semantic-error-bg);   --c-avatar-base: var(--gmd-semantic-error); }
+.c-avatar-info      { --c-avatar-bg: var(--gmd-semantic-info-bg);    --c-avatar-base: var(--gmd-semantic-info); }
+/* 다크는 섞지 않고 원색. 시스템 다크와 수동 토글 두 경로에 모두 건다(한쪽만 걸면 다른 쪽에 구멍). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .c-avatar:not(.c-avatar-icon) { color: var(--c-avatar-base); }
+}
+:root[data-theme="dark"] .c-avatar:not(.c-avatar-icon) { color: var(--c-avatar-base); }
 
 /* Icon 유형: 중립 표면 + 보조 텍스트 색 */
 .c-avatar-icon {
@@ -2119,7 +2137,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-scrollbar-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-3)}
 .c-scrollbar-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-family:var(--gmd-font-body)}
 .c-scrollbar-anatomy{display:flex;align-items:center;gap:var(--gmd-space-10)}
-.c-scrollbar-mark{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
+.c-scrollbar-mark{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
 .c-scrollbar-legend{display:flex;flex-direction:column;gap:var(--gmd-space-4)}
 .c-scrollbar-legrow{display:flex;align-items:flex-start;gap:var(--gmd-space-3)}
 .c-scrollbar-legrow strong{font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold)}
@@ -2136,7 +2154,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-stepper-node{display:flex;flex-direction:column;gap:var(--gmd-space-2)}
 .c-stepper-badge{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);flex:none}
 .c-stepper-badge-num{border:1px solid var(--gmd-border-base);color:var(--gmd-text-tertiary);background:var(--gmd-surface-base)}
-.c-stepper-badge-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary);border:1px solid var(--gmd-primary-default)}
+.c-stepper-badge-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);border:1px solid var(--gmd-primary-default)}
 .c-stepper-badge-success{background:var(--gmd-semantic-success);color:var(--gmd-text-on-primary);border:1px solid var(--gmd-semantic-success)}
 .c-stepper-badge-error{border:1px solid var(--gmd-semantic-error);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg)}
 .c-stepper-badge-pending{border:1px solid var(--gmd-border-base);color:var(--gmd-text-tertiary);background:var(--gmd-surface-base)}
@@ -2150,7 +2168,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 
 .c-stepper-bar{display:flex;align-items:center;gap:0;flex:1}
 .c-stepper-bar-badge{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold)}
-.c-stepper-bar-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary)}
+.c-stepper-bar-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
 .c-stepper-bar-num{border:2px solid var(--gmd-primary-default);color:var(--gmd-primary-default);background:var(--gmd-surface-base)}
 .c-stepper-bar-success{border:2px solid var(--gmd-primary-subtle);background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
 .c-stepper-bar-line{flex:1;height:2px;background:var(--gmd-divider)}
@@ -5132,6 +5150,23 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
       </div>
     </div>  </div>
 
+  <h3>색상 7종 (Colors)</h3>
+  <p>배경은 각 계열의 밝은 틴트, 글자는 같은 계열 원색이다. 라이트에서만 글자에 검정 18% 를 섞고 다크는 원색 그대로 쓴다. 계정이 만들어질 때 계정 식별자로 한 번 정해지고 이후 바뀌지 않는다. 관리 화면에 색을 고르는 컨트롤을 두지 않는다.</p>
+  <div class="example">
+    <div class="preview">
+      <div class="c-avatar-specimens">
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md">JD</span><span class="c-avatar-cap">1 primary</span></div>
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md c-avatar-secondary">JD</span><span class="c-avatar-cap">2 secondary</span></div>
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md c-avatar-tertiary">JD</span><span class="c-avatar-cap">3 tertiary</span></div>
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md c-avatar-success">JD</span><span class="c-avatar-cap">4 success</span></div>
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md c-avatar-warning">JD</span><span class="c-avatar-cap">5 warning</span></div>
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md c-avatar-error">JD</span><span class="c-avatar-cap">6 error</span></div>
+        <div class="c-avatar-spec"><span class="c-avatar c-avatar-md c-avatar-info">JD</span><span class="c-avatar-cap">7 info</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><strong>아바타는 혼자 두지 않는다.</strong> 옆에 이름이 항상 오고 값은 그 이름이 전달한다 — 그래서 이니셜은 장식이고 <code>aria-hidden="true"</code> 로 숨기며, 대비는 비텍스트 3:1 축으로 잰다(7종 최저 3.94:1, 라이트 secondary). 이름 없이 단독으로 쓰면 본문 4.5:1 축이 걸려 라이트 secondary 3.94, warning 4.36, 다크 primary 4.40 이 미달한다. 겹친 그룹처럼 이름을 붙일 수 없는 자리는 툴팁으로 이름을 보여준다.</p>
+
   <h3 class="anatomy-heading">Anatomy</h3>
   <p>Initial 유형(md) 기준. Image/Icon은 동일한 컨테이너에서 내부 콘텐츠만 다름.</p>
   <div class="example">
@@ -5145,7 +5180,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
         </div>
         <dl class="c-avatar-legend">
           <li><span class="c-avatar-num">1</span><div><dt>Container</dt><dd>Size 별 크기(sm 24 · md 32 · lg 40 · xl 48), 완전 원형. 내부 오버플로 제거.</dd></div></li>
-          <li><span class="c-avatar-num">2</span><div><dt>Content</dt><dd>Type=Initial은 이니셜 텍스트(Bold), Image는 이미지/단색+on-primary 이니셜, Icon은 사용자 아이콘.</dd></div></li>
+          <li><span class="c-avatar-num">2</span><div><dt>Content</dt><dd>Type=Initial은 이니셜 텍스트(Bold). 색은 7종 틴트 중 하나로, 밝은 배경에 같은 계열 원색 글자다. Image는 이미지, Icon은 중립 면의 사용자 아이콘.</dd></div></li>
           <li><span class="c-avatar-num">3</span><div><dt>Border</dt><dd>1px inside stroke(divider). 밝은 배경에서도 윤곽이 보이도록 부여.</dd></div></li>
         </dl>
       </div>
@@ -5177,9 +5212,9 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
           <div class="c-avatar-cell">
             <div class="c-avatar-stack">
               <span class="c-avatar c-avatar-md">JD</span>
-              <span class="c-avatar c-avatar-md">JD</span>
+              <span class="c-avatar c-avatar-md c-avatar-success">KM</span>
               <span class="c-avatar c-avatar-md c-avatar-icon" role="img" aria-label="사용자"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5 6c0-2.5-2.5-4-5-4s-5 1.5-5 4v1h10v-1Z"/></svg></span>
-              <span class="c-avatar c-avatar-md">JD</span>
+              <span class="c-avatar c-avatar-md c-avatar-warning">YS</span>
             </div>
           </div>
         </div>

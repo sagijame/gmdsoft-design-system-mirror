@@ -68,7 +68,8 @@
   --gmd-text-on-primary-secondary: #E0E0E0;   /* Text/on-primary/secondary */
   --gmd-text-on-primary-tertiary:  #E0E0E0;   /* Text/on-primary/tertiary */
   --gmd-text-on-primary-disabled:  #CCCCCC;   /* Text/on-primary/disabled */
-  --gmd-text-on-primary-fill:      #FFFFFF;   /* Text/on-primary/fill — Primary 버튼 채움 위 라벨·아이콘.
+  --gmd-text-on-primary-fill:      #FFFFFF;   /* Text/on-primary/fill — primary 채움(base/hover/pressed) 위 글자·아이콘.
+                                                버튼, 배지, 선택 칩·탭, 날짜 선택, 페이지네이션, 체크 표시 등 16곳.
                                                 2026-09-28 신설. Design Kit 01_·99_ 에 등록, MD-UX 이관 전.
                                                 다크 pressed #458EB9 위는 4.28:1 로 AA 미달이 남는다(사용자 확정). */
   --gmd-text-on-warning:     #212529;
