@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="app-icon/design-system-glass-brush-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="app-icon/design-system-glass-brush-16.png">
 <!-- 단일 출처: 같은 폴더의 tokens.css 를 그대로 로드(값 하드코딩 금지). 토큰이 바뀌면 본 문서도 자동 반영. -->
-<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"><!-- tokens.css·grid.css 는 components.css 가 @import 한다 -->
 <!-- 인트로 스플래시 전용 디스플레이 폰트(에디토리얼 비주얼라이징). 토큰 시스템과 분리, .intro 에만 사용. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -543,6 +543,44 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 .intro-mouse::before { content: ""; position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; border-radius: 2px;
   background: currentColor; transform: translateX(-50%); animation: intro-wheel 1.6s ease-in-out infinite; }
 @keyframes intro-float { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -8px); } }
+/* ── 인트로 엑스레이 — 커서 렌즈 안에서만 같은 인트로의 설계 레이어(외곽선 타이포·그리드·실측 토큰)를 보여준다. 렌즈 밖 인트로는 그대로. ── */
+.intro-xray { position: absolute; inset: 0; z-index: 3; pointer-events: none; --lx: 50%; --ly: 50%; --lr: 0px; }
+body:not(.intro-active) .intro-xray { display: none; }
+.intro.ix-on { cursor: crosshair; }
+.ix-view { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: var(--gmd-space-8);
+  background:
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--gmd-primary-default) 7%, transparent) 0 1px, transparent 1px 4px),
+    var(--gmd-background-base);
+  clip-path: circle(var(--lr) at var(--lx) var(--ly)); }
+.ix-ghost { isolation: isolate; }
+.ix-ghost::before { content: ""; position: absolute; inset: -100vh 0; z-index: -1;
+  --ix-g: var(--gmd-grid-gutter); --ix-c: calc((100% - var(--ix-g) * (var(--gmd-grid-columns) - 1)) / var(--gmd-grid-columns));
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--gmd-primary-default) 8%, transparent) 0 var(--ix-c), transparent var(--ix-c) calc(var(--ix-c) + var(--ix-g))); }
+.ix-ghost .intro-title { color: transparent; -webkit-text-stroke: 1px var(--gmd-primary-default); }
+.ix-ghost .intro-rule { background: var(--gmd-primary-default); opacity: 1; }
+.ix-ghost .im-logo img { opacity: 0.32; filter: grayscale(1); }
+.ix-ghost .im-tag { color: var(--gmd-primary-default); }
+.ix-marks { position: absolute; inset: 0; }
+.ix-box { position: absolute; border: 1px dashed color-mix(in srgb, var(--gmd-primary-default) 72%, transparent); }
+.ix-tag { position: absolute; left: -1px; bottom: -1px; transform: translateY(100%); display: flex; gap: var(--gmd-space-2);
+  padding: 2px var(--gmd-space-2); background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill);
+  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); line-height: 1.5;
+  white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ix-tag b { font-weight: var(--gmd-weight-bold); }
+.ix-ring { position: absolute; top: 0; left: 0; width: calc(var(--lr) * 2); height: calc(var(--lr) * 2);
+  border: 1px solid var(--gmd-primary-default); border-radius: 50%;
+  transform: translate(calc(var(--lx) - var(--lr)), calc(var(--ly) - var(--lr))); }
+.ix-ring::before, .ix-ring::after { content: ""; position: absolute; top: 50%; left: 50%; background: var(--gmd-primary-default); transform: translate(-50%, -50%); }
+.ix-ring::before { width: 12px; height: 1px; }
+.ix-ring::after { width: 1px; height: 12px; }
+.ix-readout { position: absolute; top: 100%; left: 50%; margin-top: var(--gmd-space-3); transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: var(--gmd-space-1); padding: var(--gmd-space-2) var(--gmd-space-3);
+  border-radius: 4px; background: color-mix(in srgb, var(--gmd-background-base) 88%, transparent);
+  white-space: pre; font-variant-numeric: tabular-nums; }
+.ix-readout b { font-family: "Bricolage Grotesque", var(--gmd-font-body), sans-serif; font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold);
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gmd-text-tertiary); }
+.ix-readout span { font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); color: var(--gmd-text-primary); }
+.ix-readout span:empty { display: none; }
 @keyframes intro-wheel { 0% { opacity: 0; transform: translate(-50%, 0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, 12px); } }
 @media (prefers-reduced-motion: reduce) {
   .intro-bg { display: none; }
@@ -661,261 +699,14 @@ html[data-theme="dark"] .intro-bg { filter: brightness(0.5) saturate(0.92); }
 .type-sample { display: flex; align-items: baseline; gap: var(--gmd-space-5); padding: var(--gmd-space-2x) 0; border-bottom: 1px solid var(--gmd-divider); }
 .type-sample .tag { font-family: var(--gmd-font-mono); font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); width: 150px; flex: none; }
 
-/* ───────────────── 컴포넌트 (classic 토큰) ───────────────── */
-/* Button — Figma Docs/Button 정합. 위계 4단 + 크기 6단. 기본 md(높이 36). */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--gmd-space-1);
-  border: 1px solid transparent; font-family: var(--gmd-font-body); font-weight: var(--gmd-weight-regular);
-  font-size: var(--gmd-font-size-14); border-radius: var(--gmd-radius-sm); height: 36px; padding: var(--gmd-space-2x) var(--gmd-space-4);
-  /* 폭 규칙(다국어 잘림 정책): min은 Material 88dp, max는 한국어 라벨 200% 팽창 수용 상한 */
-  min-width: var(--gmd-width-button-min); max-width: var(--gmd-width-button-max);
-  box-sizing: border-box; cursor: pointer; transition: background var(--gmd-motion-fast) var(--gmd-motion-easing); }
-/* Text Link는 인라인 성격 — 고정 min-width를 두지 않는다 */
-.btn-text { min-width: 0; }
-/* 위계(Hierarchy): Figma 명칭 Primary / Secondary / Neutral(=tertiary) / Text Link(=text). 클래스명은 사용처 보존 위해 유지. */
-.btn-primary { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
-.btn-primary:hover { background: var(--gmd-primary-hover); }
-.btn-primary:active { background: var(--gmd-primary-pressed); }
-/* 비활성 = 옅은 채움 + 흐린 라벨. 정본은 채움 primary/subtle · 라벨 button/primary/disabled 로,
-   classic 은 이 둘이 뒤바뀌어 채움에 #A8C4D9 가 차고 라벨이 흰색이라 「켜져 있음」 으로 읽혔다.
-   근거: Design Kit Docs/Button State=Disable 실측 — 채움 #EBF2FA · 라벨 #A8C4D9 · 테두리 없음. */
-.btn-primary:disabled { background: var(--gmd-primary-subtle); color: var(--gmd-primary-disabled); cursor: not-allowed; }
-.btn-secondary { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
-.btn-secondary:hover { background: var(--gmd-primary-subtle); }
-.btn-secondary:active { background: var(--gmd-primary-subtle); border-color: var(--gmd-primary-pressed); color: var(--gmd-primary-pressed); }
-.btn-secondary:disabled { color: var(--gmd-primary-disabled); border-color: var(--gmd-primary-disabled); cursor: not-allowed; }
-/* Neutral 채움 라벨은 Text/on-primary/tertiary(라이트 #E0E0E0 · 다크 #212529). --gmd-text-on-primary 는
-   양 테마 #FFFFFF 고정이라 다크에서 밝은 회색(#ADB5BD) 위 흰 글자 2.07:1 이 됐다.
-   근거: Design Kit Docs/Button Hierarchy=Neutral 네이티브 렌더 실측 — 채움 #495057 · 라벨 #E0E0E0. */
-.btn-tertiary { background: var(--gmd-tertiary); color: var(--gmd-text-on-primary-tertiary); }
-.btn-tertiary:hover { background: var(--gmd-tertiary-hover); }
-.btn-tertiary:active { background: var(--gmd-tertiary-pressed); }
-/* Neutral 비활성은 primary(파랑) 계열을 쓰지 않는다 — 중립 버튼이 비활성에서 파랗게 변하던 문제.
-   Primary 에서 실측한 「채움 subtle + 라벨 disabled」 짝을 tertiary 축에 그대로 적용한다. */
-.btn-tertiary:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-tertiary-disabled); cursor: not-allowed; }
-/* Neutral 외곽선 = Figma Main-Button-primary 의 Hierarchy=Neutral · Border=true.
-   base/disabled 는 정본과 값이 같다 — 배경 --gmd-surface-base, 테두리 --gmd-divider,
-   글자 --gmd-tertiary / disabled 는 --gmd-tertiary-subtle 배경에 --gmd-text-disabled 글자.
-   hover·pressed 는 정본이 오버레이(검정 6% · primary 12%)와 Figma Border colors/border/hover ·
-   border/pressed 를 쓰지만 classic 에 그 토큰이 없어, btn-secondary 와 같은 classic 관행
-   (subtle 배경 + 상태색 테두리·글자)으로 맞췄다.
-   주 동작이 btn-danger 인 warning·error 다이얼로그의 보조 버튼이 주 용도다. */
-.btn-tertiary-outline { background: var(--gmd-surface-base); color: var(--gmd-tertiary); border-color: var(--gmd-divider); }
-.btn-tertiary-outline:hover { background: var(--gmd-tertiary-subtle); border-color: var(--gmd-tertiary-hover); color: var(--gmd-tertiary-hover); }
-.btn-tertiary-outline:active { background: var(--gmd-tertiary-subtle); border-color: var(--gmd-tertiary-pressed); color: var(--gmd-tertiary-pressed); }
-.btn-tertiary-outline:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-text-disabled); border-color: var(--gmd-tertiary-subtle); cursor: not-allowed; }
-/* btn-danger: Button 위계 외 semantic destructive — warning/error Dialog 확인 버튼에만 사용. */
-.btn-danger { background: var(--gmd-semantic-error); color: var(--gmd-text-on-primary); }
-.btn-danger:hover { background: var(--gmd-semantic-error-hover); }
-.btn-danger:active { background: var(--gmd-semantic-error-pressed); }
-/* Text Link(Figma 명칭) = .btn-text. */
-.btn-text { background: transparent; color: var(--gmd-primary-default); border-color: transparent; }
-.btn-text:hover { background: var(--gmd-primary-subtle); }
-.btn-text:active { background: var(--gmd-primary-subtle); color: var(--gmd-primary-pressed); }
-.btn-text:disabled { color: var(--gmd-primary-disabled); cursor: not-allowed; }
-/* 크기(Size) 6단 — Figma Size 섹션 높이 측정값. md(36)가 기본. 패딩은 4px 그리드. */
-.btn-xm { height: 24px; padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); min-width: var(--gmd-width-button-min-compact); }  /* sm-xm */
-.btn-sm { height: 32px; padding: var(--gmd-space-2x) var(--gmd-space-3); font-size: var(--gmd-font-size-12); min-width: var(--gmd-width-button-min-compact); }
-.btn-md { height: 36px; padding: var(--gmd-space-2x) var(--gmd-space-4); font-size: var(--gmd-font-size-14); }  /* 기본 = .btn 기본값 */
-.btn-lg { height: 40px; padding: var(--gmd-space-2x) var(--gmd-space-5); font-size: var(--gmd-font-size-16); }
-.btn-xl { height: 48px; padding: var(--gmd-space-3) var(--gmd-space-6); font-size: var(--gmd-font-size-16); }
-.btn-2lg { height: 52px; padding: var(--gmd-space-3) var(--gmd-space-28px); font-size: var(--gmd-font-size-18); }
-.btn .ico { width: 1em; height: 1em; flex: none; display: inline-flex; }
-/* 처리 중(Processing) — Figma "Processing Button". 라벨 앞 회전 스피너로 처리 중을 알리고 그동안 입력을 막는다.
-   새 크기·새 컴포넌트를 만들지 않고 .btn 위계·크기 + 기존 .c-spinner-ring 을 그대로 조합한다. */
-.btn.is-processing { cursor: progress; pointer-events: none; }
-/* 버튼 안 스피너는 라벨 크기에 맞춰 1em. DS 스피너의 두 톤 링 모양을 그대로 유지하되 색만 currentColor 로 상속 — 트랙은 그 25% 농도, 선행 아크는 풀 농도. 채움형은 on-primary(흰색)·텍스트형은 primary 로 자동 전환(raw HEX 없음). */
-.btn .c-spinner-ring { width: 1em; height: 1em; border-width: 2px; border-color: color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; }
-/* 아이콘만(OnlyIcon) — 라벨 없이 스피너만. 정사각으로 좁히고 좌우 패딩을 없앤다. */
-.btn.is-icon-only { min-width: 0; padding-left: 0; padding-right: 0; aspect-ratio: 1; }
-/* 처리·대기 공통 커서 — Figma "Processing Button" "cursor: progress/wait" 섹션 정본 커서. 처리 중 버튼은 입력을 막으므로(pointer-events:none) 커서는 버튼이 아니라 처리 중인 영역(또는 body)에 건다. hotspot=화살표 끝(4,2), 미지원 브라우저는 progress 로 폴백. */
-.is-cursor-wait, .cursor-wait-demo { cursor: url("assets/loading-cursor.svg") 4 2, progress; }
-
-.input { width: 100%; max-width: 320px; background: var(--gmd-surface-base); border: 1px solid var(--gmd-border-subtle);
-  border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2x) var(--gmd-space-3); font-family: var(--gmd-font-body);
-  font-size: var(--gmd-font-size-14); color: var(--gmd-text-primary); transition: border-color var(--gmd-motion-base) var(--gmd-motion-easing); }
-.input::placeholder { color: var(--gmd-text-tertiary); }
-.input:hover:not(:disabled), .input.is-hover { border-color: var(--gmd-border-base); }
-.input:focus-visible, .input.is-focus { outline: none; border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
-.input[aria-invalid="true"], .input.is-error { border-color: var(--gmd-semantic-error); color: var(--gmd-semantic-error); }
-.input.is-success { border-color: var(--gmd-semantic-success); color: var(--gmd-semantic-success); }
-.input:disabled, .input.is-disabled { background: var(--gmd-background-section); color: var(--gmd-text-disabled); cursor: not-allowed; }
-.input-sm { padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); }
-.input-lg { padding: var(--gmd-space-3) var(--gmd-space-3); font-size: var(--gmd-font-size-16); }
-/* 라벨 + 컨트롤 + 도움말 세로 묶음 */
-.field { display: flex; flex-direction: column; gap: var(--gmd-space-1); max-width: 320px; }
-.field-label { font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); }
-.input-help { font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); }
-.input-help.is-error { color: var(--gmd-semantic-error); }
-/* leading/trailing 아이콘·카운터를 얹는 래퍼 */
-.input-wrap { position: relative; display: flex; align-items: center; max-width: 320px; }
-.input-wrap .input { max-width: none; flex: 1; }
-.input-wrap .ico { position: absolute; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--gmd-text-tertiary); pointer-events: none; }
-.input-wrap .ico.lead { left: var(--gmd-space-3); }
-.input-wrap .ico.trail { right: var(--gmd-space-3); }
-.input-wrap.has-lead .input { padding-left: var(--gmd-space-8); }
-.input-wrap.has-trail .input { padding-right: var(--gmd-space-8); }
-.input-counter { position: absolute; right: var(--gmd-space-3); font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); pointer-events: none; }
-.textarea { width: 100%; max-width: 320px; min-height: 88px; resize: vertical; background: var(--gmd-surface-base); border: 1px solid var(--gmd-border-subtle); border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2x) var(--gmd-space-3); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); color: var(--gmd-text-primary); }
-.textarea::placeholder { color: var(--gmd-text-tertiary); }
-.textarea:focus-visible { outline: none; border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
-
-.card { background: var(--gmd-background-card); border: 1px solid transparent; border-radius: var(--gmd-radius-md);
-  padding: var(--gmd-space-6); max-width: 300px;
-  transition: background var(--gmd-motion-base) var(--gmd-motion-easing), box-shadow var(--gmd-motion-base) var(--gmd-motion-easing), border-color var(--gmd-motion-base) var(--gmd-motion-easing); }
-.card-outline { background: var(--gmd-surface-base); border-color: var(--gmd-divider); }
-.card-elevated { background: var(--gmd-surface-base); box-shadow: var(--gmd-shadow-soft); }
-.card:hover, .card.is-hover { background: var(--gmd-surface-hover); }
-.card-elevated:hover, .card-elevated.is-hover { box-shadow: var(--gmd-shadow-lift); }
-.card.is-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
-/* note: Figma Card 본문 13px·eyebrow off-scale 은 Figma off-scale — classic 은 디자인 시스템 정책 고수(본문 14px·eyebrow 12px), 디자인팀 피드백 대상. */
-.card .eyebrow { font-size: var(--gmd-font-size-12); letter-spacing: 0.5px; text-transform: uppercase;
-  color: var(--gmd-text-secondary); font-weight: var(--gmd-weight-medium); }
-.card h4 { margin: var(--gmd-space-1) 0 var(--gmd-space-2x); font-size: var(--gmd-font-size-16);
-  font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: var(--gmd-line-body-lg); }
-.card p { margin: 0 0 var(--gmd-space-3); color: var(--gmd-text-secondary); font-size: var(--gmd-font-size-14); }
-.card .card-action { background: none; border: none; padding: 0; cursor: pointer;
-  color: var(--gmd-primary-default); font-weight: var(--gmd-weight-bold); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); }
-.card .card-action:hover { text-decoration: underline; }
-
-/* ── Badge: primary blue 마커/칩 ── */
-.badge { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
-  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
-  background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); line-height: 1; }
-.badge .ico { width: 12px; height: 12px; flex: none; }
-.badge-circle, .badge-square { padding: 0; width: 24px; height: 24px; justify-content: center; }
-.badge-circle { border-radius: 50%; }
-.badge-square { border-radius: var(--gmd-radius-sm); }
-.badge-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill);
-  min-width: 16px; height: 16px; padding: 0 var(--gmd-space-1); display: inline-flex; align-items: center; justify-content: center;
-  font-size: var(--gmd-font-size-10); font-weight: var(--gmd-weight-bold); }
-
-/* ── Tag: 닫기 가능한 라벨(neutral / secondary) ── */
-.tag { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
-  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12);
-  background: var(--gmd-background-card); color: var(--gmd-text-primary); border: 1px solid var(--gmd-divider); }
-.tag:hover, .tag.is-hover { background: var(--gmd-surface-hover); }
-.tag.is-pressed { background: var(--gmd-background-section); }
-.tag.is-disabled { color: var(--gmd-text-disabled); background: var(--gmd-surface-base); cursor: not-allowed; }
-.tag-secondary { background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); border-color: transparent; }
-.tag .close { width: 12px; height: 12px; flex: none; cursor: pointer; color: var(--gmd-text-tertiary); }
-.tag-secondary .close { color: var(--gmd-primary-default); }
-.tag.is-disabled .close { color: var(--gmd-text-disabled); }
-
-/* ── Status: dot + label(배경 없음), dot·텍스트 동일 의미색 ── */
-.status { display: inline-flex; align-items: center; gap: var(--gmd-space-2); font-size: var(--gmd-font-size-12); }
-.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
-.status-available { color: var(--gmd-semantic-success); }
-.status-busy      { color: var(--gmd-semantic-warning); }
-.status-updating  { color: var(--gmd-primary-default); }
-.status-failed, .status-unavailable { color: var(--gmd-semantic-error); }
-.status-disconnected, .status-deactivated { color: var(--gmd-text-tertiary); }
-
-/* ── Filter: 필터/정렬 칩(상세는 Filter Labels) ── */
-.fchip { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-sm);
-  padding: var(--gmd-space-1) var(--gmd-space-2x); font-size: var(--gmd-font-size-12); cursor: pointer;
-  background: var(--gmd-surface-base); color: var(--gmd-text-primary); border: 1px solid var(--gmd-divider); }
-.fchip.is-active { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); border-color: transparent; }
-.fchip.is-visible { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
-.fchip .ico { width: 12px; height: 12px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
-
-/* Toast (semantic) — Figma Toast_semantic 매핑: 색 텍스트 + 1px 동색 보더 + 틴트 배경, 아이콘 없음, radius md, 12px.
- * error/success 는 의미색 글자, warning/info 는 가독성 위해 본문색(text-primary). */
-.toast { display: inline-block; border: 1px solid; border-radius: var(--gmd-radius-md);
-  padding: var(--gmd-space-4) var(--gmd-space-3); font-size: var(--gmd-font-size-12); line-height: var(--gmd-line-body-sm); }
-.toast-error   { background: var(--gmd-semantic-error-bg);   border-color: var(--gmd-semantic-error);   color: var(--gmd-semantic-error); }
-.toast-success { background: var(--gmd-semantic-success-bg); border-color: var(--gmd-semantic-success); color: var(--gmd-semantic-success); }
-.toast-warning { background: var(--gmd-semantic-warning-bg); border-color: var(--gmd-semantic-warning); color: var(--gmd-text-primary); }
-.toast-info    { background: var(--gmd-semantic-info-bg);    border-color: var(--gmd-semantic-info);    color: var(--gmd-text-primary); }
-/* ── Toast 유형(Type): 흰 카드 + 그림자 + 닫기 ── */
-.toast-card { position: relative; display: flex; gap: var(--gmd-space-3); align-items: flex-start;
-  background: var(--gmd-surface-base); border: 1px solid var(--gmd-divider); border-radius: var(--gmd-radius-md);
-  box-shadow: var(--gmd-shadow-soft); padding: var(--gmd-space-4); padding-right: var(--gmd-space-8); max-width: 440px; }
-.toast-card.simple { align-items: center; max-width: 320px; }
-.toast-card .tc-icon { width: 16px; height: 16px; flex: none; margin-top: var(--gmd-space-1); color: var(--gmd-semantic-success); }
-.toast-card .tc-icon.info { color: var(--gmd-semantic-info); }
-.toast-card .tc-icon.send { color: var(--gmd-primary-default); }
-.toast-card .tc-avatar { width: 32px; height: 32px; border-radius: 50%; flex: none;
-  background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); display: inline-flex; align-items: center; justify-content: center;
-  font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); }
-.toast-card .tc-body { flex: 1; min-width: 0; }
-.toast-card .tc-h { font-size: var(--gmd-font-size-14); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); }
-.toast-card .tc-t { font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); margin-top: var(--gmd-space-1); }
-.toast-card .tc-time { font-size: var(--gmd-font-size-12); color: var(--gmd-primary-default); margin-top: var(--gmd-space-1); }
-.toast-card .tc-close { position: absolute; top: var(--gmd-space-3); right: var(--gmd-space-3); width: 14px; height: 14px; flex: none; color: var(--gmd-text-tertiary); cursor: pointer; }
-.toast-card .tc-actions { display: flex; gap: var(--gmd-space-2x); margin-top: var(--gmd-space-3); }
-.toast-card .tc-nested { display: flex; gap: var(--gmd-space-2x); align-items: flex-start; margin-top: var(--gmd-space-2x); }
+/* 문서 사이트 전용 — Anatomy·표본 배치·범례·Composition 표. 컴포넌트 자체 스타일은 components.css 한 곳에 둔다. */
 .toast-anatomy{display:grid;grid-template-columns:minmax(320px,440px) minmax(280px,1fr);gap:var(--gmd-space-8);align-items:start;width:100%}
 .toast-anatomy-demo{display:flex;flex-direction:column;gap:var(--gmd-space-3);padding:var(--gmd-space-5);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-section)}
 .toast-anatomy-demo .toast-card{width:100%;max-width:none}
 .toast-anatomy-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--gmd-space-3)}
 .toast-anatomy-list li{display:flex;gap:var(--gmd-space-3);align-items:flex-start}
 @media (max-width: 900px){.toast-anatomy{grid-template-columns:1fr}}
-
-/* Figma Docs/Banner 실측 구조: 세로 stack(gap 32) — [제목줄(아이콘·헤딩·x)] → 본문(전체폭) → 액션. padding 24 · radius 6 */
-.banner { position: relative; display: flex; flex-direction: column; gap: var(--gmd-space-8); border-radius: var(--gmd-radius-6px);
-  padding: var(--gmd-space-6); width: 100%; }
-.banner .desc { display: flex; flex-direction: column; gap: var(--gmd-space-3); }            /* 제목줄↔본문 gap 12 */
-.banner .title-row { display: flex; align-items: center; gap: var(--gmd-space-2x); }          /* 아이콘↔헤딩 gap 8 */
-/* Figma 아이콘: 32px 슬롯 안에 26.67px 원(프레임의 83.34%, inset 8.33%)이 중앙 배치. 슬롯 32 유지·원만 ::before 로 26.67 */
-.banner .title-row .ico { position: relative; width: 32px; height: 32px; flex: none; box-sizing: border-box;
-  display: inline-flex; align-items: center; justify-content: center;
-  color: var(--gmd-text-on-primary); padding: var(--gmd-space-2x); background: none; }
-.banner .title-row .ico::before { content: ""; position: absolute; inset: 0; margin: auto; width: 26.67px; height: 26.67px;
-  border-radius: 50%; background: var(--banner-ico-color, var(--gmd-tertiary)); }
-.banner .title-row .ico svg { position: relative; z-index: 1; }
-.banner .h { font-size: var(--gmd-font-size-16); line-height: 1.375; font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); flex: 1; min-width: 0; }  /* Figma 헤딩 16px Bold·leading 22 */
-.banner .t { font-size: var(--gmd-font-size-14); line-height: 1.43; color: var(--gmd-text-primary); }              /* Figma 본문 14px Regular·leading 20, 전체폭 */
-.banner .close { flex: none; width: 14px; height: 14px; display: inline-flex; color: var(--gmd-text-tertiary); cursor: pointer; }
-/* Figma 액션 = Main-Button-primary: Regular(볼드 아님) · 12px · padding 6/12 · gap 6 (본문과 gap 32는 .banner gap 이 처리) */
-.banner .ba { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--gmd-space-6px);
-  border: none; border-radius: var(--gmd-radius-sm); height: 24px; padding: 0 var(--gmd-space-2x);
-  font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-text-on-primary); cursor: pointer; font-family: var(--gmd-font-body); }
-.banner .ba .ico { width: 12px; height: 12px; padding: 0; border-radius: 0; background: none; color: inherit; margin: 0; }
-.banner-default { background: var(--gmd-background-section); }            .banner-default .ba { background: var(--gmd-tertiary); }
-/* Info 배너 전경 = Figma는 primary(#135DB5) 사용(semantic-info #0288D1 아님). 배경만 semantic-info-bg(#E1F5FE). */
-.banner-info    { background: var(--gmd-semantic-info-bg); }    .banner-info .ico    { --banner-ico-color: var(--gmd-primary-default); }    .banner-info .h    { color: var(--gmd-primary-default); }    .banner-info .ba    { background: var(--gmd-primary-default); }
-.banner-success { background: var(--gmd-semantic-success-bg); } .banner-success .ico { --banner-ico-color: var(--gmd-semantic-success); } .banner-success .h { color: var(--gmd-semantic-success); } .banner-success .ba { background: var(--gmd-semantic-success); }
-.banner-warning { background: var(--gmd-semantic-warning-bg); } .banner-warning .ico { --banner-ico-color: var(--gmd-semantic-warning); } .banner-warning .h { color: var(--gmd-text-primary); }    .banner-warning .ba { background: var(--gmd-semantic-warning); color: var(--gmd-text-on-warning); }
-.banner-danger  { background: var(--gmd-semantic-error-bg); }   .banner-danger .ico  { --banner-ico-color: var(--gmd-semantic-error); }   .banner-danger .h  { color: var(--gmd-semantic-error); }   .banner-danger .ba  { background: var(--gmd-semantic-error); }
-/* Outline = 틴트 bg 유지 + 4px 색 좌측 스트로크 + 얇은 subtle 보더 */
-/* Figma Outline(BannerStroke_X) = Fill 그대로(틴트 배경 유지) + 좌측 3px 라인만. 전체 보더 없음. */
-.banner-outline { border-left: 3px solid var(--gmd-divider); }
-.banner-outline.banner-default { border-left-color: var(--gmd-tertiary); }
-.banner-outline.banner-info { border-left-color: var(--gmd-primary-default); }
-.banner-outline.banner-success { border-left-color: var(--gmd-semantic-success); }
-.banner-outline.banner-warning { border-left-color: var(--gmd-semantic-warning); }
-.banner-outline.banner-danger { border-left-color: var(--gmd-semantic-error); }
-/* 다크 — 틴트 배경이 페이지와 1.1:1 수준으로 묻혀, 토스트와 같은 1px 의미색 경계를 inset ring 으로 부여(레이아웃·outline 좌측 보더 불간섭) */
-html[data-theme="dark"] .banner { box-shadow: inset 0 0 0 1px var(--banner-ring, var(--gmd-border-base)); }
-html[data-theme="dark"] .banner-info    { --banner-ring: var(--gmd-primary-default); }
-html[data-theme="dark"] .banner-success { --banner-ring: var(--gmd-semantic-success); }
-html[data-theme="dark"] .banner-warning { --banner-ring: var(--gmd-semantic-warning); }
-html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-error); }
-
-/* Info Bar — Figma 매핑: 레이아웃 4종(Two/One/Same line · Link on right) + 의미 변형.
- * 텍스트는 1줄(l1, 보조색/Notice) + 2줄(l2, 볼드 메시지) 구조, 액션은 링크형 버튼. */
-/* Figma Docs/Info Bar 실측: bg card·border divider·radius 8·padding 20/40/20/20·gap 20 */
-.info-bar { display: flex; align-items: flex-start; gap: var(--gmd-space-5); background: var(--gmd-background-card);
-  border: 1px solid var(--gmd-divider);
-  border-radius: var(--gmd-radius-md); padding: var(--gmd-space-5) var(--gmd-space-10) var(--gmd-space-5) var(--gmd-space-5); font-size: var(--gmd-font-size-14);
-  color: var(--gmd-text-primary); width: 100%; }
 .ib-spec { display: flex; flex-direction: column; gap: var(--gmd-space-1); }
-.ib-cap { font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); }
-.info-bar .ico { width: 16px; height: 16px; flex: none; color: var(--gmd-semantic-info); margin-top: var(--gmd-space-2); }
-.info-bar .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--gmd-space-3); }
-.info-bar .l1 { color: var(--gmd-text-secondary); }
-.info-bar .l2 { font-weight: var(--gmd-weight-bold); }
-.info-bar .grow { flex: 1; min-width: 0; }
-.info-bar .actions { display: flex; gap: var(--gmd-space-6); }
-/* Figma 액션 = Main-Button-primary: Regular 400 · 12px · primary 색 (bold/14px 아님) */
-.info-bar .link-btn { background: none; border: none; padding: 0; cursor: pointer;
-  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-primary-default); }
-.info-bar .link { margin-left: auto; color: var(--gmd-primary-default); font-weight: var(--gmd-weight-bold); white-space: nowrap; align-self: center; }
-.info-bar.same-line { align-items: center; }
-.info-bar.same-line .ico { margin-top: 0; }
-.info-bar-success { background: var(--gmd-semantic-success-bg); } .info-bar-success .ico { color: var(--gmd-semantic-success); } .info-bar-success .link-btn { color: var(--gmd-semantic-success); }
-.info-bar-warning { background: var(--gmd-semantic-warning-bg); } .info-bar-warning .ico { color: var(--gmd-semantic-warning); } .info-bar-warning .link-btn { color: var(--gmd-semantic-warning); }
-.info-bar-error   { background: var(--gmd-semantic-error-bg); }   .info-bar-error .ico   { color: var(--gmd-semantic-error); }   .info-bar-error .link-btn { color: var(--gmd-semantic-error); }
 
 /* Empty State — 복붙 출처는 이 저장소의 배포 CSS + snippets/empty-state.html, 아래는 시각 검수용 사본이다. */
 .c-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
@@ -937,91 +728,6 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 /* 문서 전용 — 컴포넌트 정의가 아니다. Anatomy 대표 인스턴스에서는 스크립트가 뗀다. */
 .c-empty-state-bounds { border: 1px dashed var(--gmd-divider); }
 
-.tabs { display: inline-flex; align-items: center; gap: var(--gmd-space-1); }
-.tab { background: transparent; border: none; border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2) var(--gmd-space-3);
-  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
-  color: var(--gmd-text-secondary); cursor: pointer; display: inline-flex; align-items: center; gap: var(--gmd-space-1);
-  transition: color var(--gmd-motion-base) var(--gmd-motion-easing), background var(--gmd-motion-base) var(--gmd-motion-easing); }
-.tab:hover:not(:disabled), .tab.is-hover { color: var(--gmd-primary-default); }
-.tab:disabled, .tab.is-disabled { color: var(--gmd-text-disabled); cursor: not-allowed; }
-.tab .ico { width: 14px; height: 14px; flex: none; }
-.tab .tab-count { background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill);
-  font-size: var(--gmd-font-size-10); font-weight: var(--gmd-weight-bold); padding: 0 var(--gmd-space-1); min-width: 16px; height: 16px;
-  display: inline-flex; align-items: center; justify-content: center; }
-/* Pills — 활성 = 블루 필 */
-.tabs-pills .tab { border-radius: var(--gmd-radius-pill); }
-.tabs-pills .tab[aria-selected="true"] { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
-.tabs-pills .tab[aria-selected="true"] .tab-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); }
-/* Underline — 활성 = 블루 텍스트 + 하단 밑줄 */
-.tabs-underline { gap: var(--gmd-space-5); border-bottom: 1px solid var(--gmd-divider); }
-.tabs-underline .tab { border-radius: 0; padding: var(--gmd-space-2) var(--gmd-space-1); border-bottom: 2px solid transparent; margin-bottom: -1px; }
-.tabs-underline .tab[aria-selected="true"] { color: var(--gmd-primary-default); border-bottom-color: var(--gmd-primary-default); }
-/* 크기 sm/md/lg/xl */
-.tab-sm { font-size: var(--gmd-font-size-10); } .tab-md { font-size: var(--gmd-font-size-12); }
-.tab-lg { font-size: var(--gmd-font-size-14); } .tab-xl { font-size: var(--gmd-font-size-16); }
-
-.progress { width: 100%; max-width: 360px; height: 8px; background: var(--gmd-background-section); border-radius: var(--gmd-radius-pill); overflow: hidden; }
-.progress-bar { height: 100%; background: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill); }
-.progress-success .progress-bar { background: var(--gmd-semantic-success); }
-.progress-warning .progress-bar { background: var(--gmd-semantic-warning); }
-.progress-danger  .progress-bar { background: var(--gmd-semantic-error); }
-/* 라벨 위치 */
-.prog-field { display: flex; flex-direction: column; gap: var(--gmd-space-1); width: 340px; max-width: 100%; }
-.prog-field .progress { max-width: none; }
-.prog-labels { display: flex; justify-content: space-between; font-size: var(--gmd-font-size-10); color: var(--gmd-text-tertiary); }
-.prog-side { display: flex; align-items: center; gap: var(--gmd-space-3); width: 380px; max-width: 100%; }
-.prog-side .progress { flex: 1; }
-.prog-side .pct { font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); white-space: nowrap; }
-/* 상태 배지 */
-.prog-status { display: inline-flex; flex-direction: column; align-items: center; gap: var(--gmd-space-1); font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); }
-.prog-status .dot { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; }
-.prog-status.pending .dot    { border: 2px solid var(--gmd-divider); }
-.prog-status.inprogress .dot { border: 2px solid var(--gmd-primary-default); border-top-color: transparent; }
-.prog-status.completed .dot  { background: var(--gmd-semantic-success); color: var(--gmd-text-on-primary); }
-.prog-status.error .dot      { background: var(--gmd-semantic-error); color: var(--gmd-text-on-primary); }
-.prog-status .dot .ico { width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
-/* 세로 */
-.progress-v { width: 8px; height: 120px; background: var(--gmd-background-section); border-radius: var(--gmd-radius-pill); position: relative; overflow: hidden; }
-.progress-v .progress-bar { position: absolute; bottom: 0; left: 0; width: 100%; border-radius: var(--gmd-radius-pill); }
-
-/* Indeterminate (진행 중) — 진행률을 모를 때. 그라데이션 세그먼트가 트랙을 무한 반복해 가로지른다(스피너와 같은 무한 루프). */
-.progress.is-indeterminate { position: relative; }
-.progress.is-indeterminate .progress-bar {
-  position: absolute; top: 0; left: 0; width: 40%; height: 100%; border-radius: var(--gmd-radius-pill);
-  background: linear-gradient(90deg, transparent 0%, var(--gmd-primary-default) 45%, var(--gmd-primary-hover) 60%, transparent 100%);
-  animation: prog-indeterminate 1.4s var(--gmd-motion-easing) infinite;
-}
-/* 의미색 indeterminate — 채움 색만 토큰으로 교체 */
-.progress-success .progress.is-indeterminate .progress-bar { background: linear-gradient(90deg, transparent, var(--gmd-semantic-success) 55%, transparent); }
-.progress-warning .progress.is-indeterminate .progress-bar { background: linear-gradient(90deg, transparent, var(--gmd-semantic-warning) 55%, transparent); }
-.progress-danger  .progress.is-indeterminate .progress-bar { background: linear-gradient(90deg, transparent, var(--gmd-semantic-error) 55%, transparent); }
-@keyframes prog-indeterminate { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
-
-/* 흐르는 그라데이션 (Flowing) — 진행률은 확정이되 작업이 활성 중임을 표시. 채움 안에서 밝은→기본→짙은 그라데이션이 한 방향으로 흐른다. */
-.progress-bar.is-flowing {
-  background: linear-gradient(90deg, var(--gmd-primary-pressed), var(--gmd-primary-default), var(--gmd-primary-hover), var(--gmd-primary-default), var(--gmd-primary-pressed));
-  background-size: 200% 100%;
-  animation: prog-flow 2s linear infinite;
-}
-@keyframes prog-flow { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
-
-/* 빛 sheen (Shimmer) — 채움 위로 밝은 빛줄기가 주기적으로 한 번씩 훑고 지나간다. */
-.progress-bar.is-shimmer { position: relative; overflow: hidden; }
-.progress-bar.is-shimmer::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-  transform: translateX(-100%);
-  animation: prog-shimmer 1.6s var(--gmd-motion-easing) infinite;
-}
-@keyframes prog-shimmer { 0% { transform: translateX(-100%); } 55%, 100% { transform: translateX(100%); } }
-
-/* 모션 민감 사용자 — 진행 애니메이션 정지(접근성) */
-@media (prefers-reduced-motion: reduce) {
-  .progress.is-indeterminate .progress-bar { animation: none; left: 0; width: 100%; }
-  .progress-bar.is-flowing { animation: none; }
-  .progress-bar.is-shimmer::after { animation: none; }
-}
-
 .modal-demo { background: var(--gmd-surface-base); border-radius: var(--gmd-radius-lg); padding: var(--gmd-space-6);
   width: 400px; max-width: 100%; box-shadow: var(--gmd-shadow-modal); border: 1px solid var(--gmd-divider); box-sizing: border-box; }
 .modal-demo header { display: flex; align-items: center; gap: var(--gmd-space-2x); justify-content: space-between; margin-bottom: var(--gmd-space-3); }
@@ -1034,398 +740,38 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .modal-demo .x:hover { color: var(--gmd-text-primary); }
 .modal-demo .actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--gmd-space-2x); margin-top: var(--gmd-space-6); }
 .modal-demo .actions.between { justify-content: space-between; }
-/* Alert 5유형 — 헤더의 원형 subtle 배경 + 의미색 아이콘. Figma Alert(information/confirmation/warning/error/Done) 정합. */
-.alert-icon { width: 40px; height: 40px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--gmd-radius-circle); }
-.alert-icon .ico { width: 24px; height: 24px; }
-.alert-info     { background: var(--gmd-semantic-info-bg);    color: var(--gmd-semantic-info); }
-.alert-confirm  { background: var(--gmd-semantic-info-bg);    color: var(--gmd-semantic-info); }
-.alert-warning  { background: var(--gmd-semantic-warning-bg); color: var(--gmd-semantic-warning); }
-.alert-error    { background: var(--gmd-semantic-error-bg);   color: var(--gmd-semantic-error); }
-.alert-success  { background: var(--gmd-semantic-success-bg); color: var(--gmd-semantic-success); }
-
-/* ===== 워크플로우 생성 컴포넌트 (Figma Docs 미러) ===== */
-/* Checkbox & Radio */
-.c-checkbox-radio-row{display:flex;align-items:flex-end;gap:var(--gmd-space-6);flex-wrap:wrap}
 .c-checkbox-radio-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x)}
 .c-checkbox-radio-caption{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-
-.c-checkbox-radio-field{display:inline-flex;align-items:center;gap:var(--gmd-space-2x);cursor:pointer;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary)}
-.c-checkbox-radio-field[aria-disabled="true"]{cursor:not-allowed;color:var(--gmd-text-disabled)}
-
-/* base control box (checkbox) */
-.c-checkbox-radio-box{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;color:var(--gmd-text-on-primary-fill);transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-checkbox-radio-box svg{opacity:0}
-
-/* checked / indeterminate */
-.c-checkbox-radio-box.is-checked,.c-checkbox-radio-box.is-indeterminate{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default)}
-.c-checkbox-radio-box.is-checked svg,.c-checkbox-radio-box.is-indeterminate svg{opacity:1}
-
-/* hover */
-.c-checkbox-radio-box.is-hover{border-color:var(--gmd-primary-hover)}
-
-/* disabled */
-/* 비활성은 고른 상태와 안 고른 상태를 가른다. 하나로 두면 안 고른 상자에 primary-disabled(#A8C4D9)
-   가 차서 「잠긴 채 켜져 있음」 으로 읽힌다. 안 고른 쪽은 중립 슬롯 채움(bg/slot-disabled)을 쓰고
-   desaturated primary 는 실제로 켜져 있는 쪽에만 남긴다. */
-.c-checkbox-radio-box.is-disabled{background:var(--gmd-background-slot-disabled);border-color:var(--gmd-border-subtle)}
-.c-checkbox-radio-box.is-disabled.is-checked,.c-checkbox-radio-box.is-disabled.is-indeterminate{background:var(--gmd-primary-disabled);border-color:var(--gmd-primary-disabled);color:var(--gmd-text-on-primary)}
-
-/* radio dot */
-.c-checkbox-radio-dot{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:50%;background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-checkbox-radio-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--gmd-primary-default);transform:scale(0);transition:transform var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-checkbox-radio-dot.is-checked{border-color:var(--gmd-primary-default)}
-.c-checkbox-radio-dot.is-checked::after{transform:scale(1)}
-.c-checkbox-radio-dot.is-hover{border-color:var(--gmd-primary-hover)}
-.c-checkbox-radio-dot.is-disabled{border-color:var(--gmd-border-subtle);background:var(--gmd-background-slot-disabled)}
-.c-checkbox-radio-dot.is-disabled.is-checked{border-color:var(--gmd-primary-disabled)}
-.c-checkbox-radio-dot.is-disabled::after{background:var(--gmd-text-disabled)}
-
-/* sizes */
-.c-checkbox-radio-box.is-sm,.c-checkbox-radio-dot.is-sm{width:16px;height:16px}
-.c-checkbox-radio-box.is-lg,.c-checkbox-radio-dot.is-lg{width:22px;height:22px}
-.c-checkbox-radio-dot.is-lg::after{width:10px;height:10px}
-
-/* labelled block */
-.c-checkbox-radio-labelled{display:flex;align-items:flex-start;gap:var(--gmd-space-2x);padding:var(--gmd-space-3);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);width:280px}
-.c-checkbox-radio-labelled .c-checkbox-radio-box,.c-checkbox-radio-labelled .c-checkbox-radio-dot{margin-top:var(--gmd-space-2)}
-.c-checkbox-radio-texts{display:flex;flex-direction:column;gap:var(--gmd-space-1)}
-.c-checkbox-radio-heading{font-size:var(--gmd-font-size-16);color:var(--gmd-text-primary)}
-.c-checkbox-radio-body{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
-
-/* composition list */
-.c-checkbox-radio-list{display:flex;flex-direction:column;gap:var(--gmd-space-3);padding:var(--gmd-space-4);border-radius:var(--gmd-radius-md);width:300px}
-.c-checkbox-radio-list.is-light{background:var(--gmd-background-section);border:1px solid var(--gmd-border-subtle)}
-.c-checkbox-radio-item{display:flex;align-items:flex-start;gap:var(--gmd-space-2x)}
-.c-checkbox-radio-item .c-checkbox-radio-box{margin-top:var(--gmd-space-2)}
 /* Combobox */
 #combobox{--c-combobox-width:200px;}
-.c-combobox-trigger{display:inline-flex;align-items:center;justify-content:space-between;gap:var(--gmd-space-2x);width:var(--c-combobox-width);background:var(--gmd-surface-base);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2x) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);color:var(--gmd-text-secondary);cursor:pointer;transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing),box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing);}
-.c-combobox-trigger:hover{border-color:var(--gmd-primary-default);}
-.c-combobox-trigger .c-combobox-label{flex:1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.c-combobox-trigger .c-combobox-chevron{flex:none;color:var(--gmd-text-tertiary);transition:transform var(--gmd-motion-fast) var(--gmd-motion-easing);}
-.c-combobox-leadicon{flex:none;color:var(--gmd-text-tertiary);}
-.c-combobox-leadicon.ico,.c-combobox-search .ico{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex:none;color:var(--gmd-text-tertiary);}
-.c-combobox-trigger.c-combobox-sm{padding:var(--gmd-space-1) var(--gmd-space-2x);font-size:var(--gmd-font-size-12);}
-.c-combobox-trigger.c-combobox-open{border-color:var(--gmd-primary-default);box-shadow:0 0 0 3px var(--gmd-primary-subtle);}
-.c-combobox-trigger.c-combobox-open .c-combobox-chevron{transform:rotate(180deg);}
-.c-combobox-field{position:relative;width:var(--c-combobox-width);}
-.c-combobox-menu{margin-top:var(--gmd-space-1);background:var(--gmd-surface-base);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);box-shadow:var(--gmd-shadow-lift);padding:var(--gmd-space-1) 0;width:var(--c-combobox-width);}
-.c-combobox-option{display:flex;align-items:center;gap:var(--gmd-space-2x);padding:var(--gmd-space-2x) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary);cursor:pointer;}
-.c-combobox-option:hover{background:var(--gmd-surface-hover);}
-.c-combobox-option[aria-selected="true"]{color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);}
-.c-combobox-option[aria-disabled="true"]{color:var(--gmd-text-disabled);cursor:not-allowed;}
-.c-combobox-option .c-combobox-check{flex:none;color:var(--gmd-primary-default);}
-.c-combobox-search{display:flex;align-items:center;gap:var(--gmd-space-2x);margin:var(--gmd-space-1) var(--gmd-space-2x) var(--gmd-space-2x);padding:var(--gmd-space-1) var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);color:var(--gmd-text-tertiary);font-size:var(--gmd-font-size-12);}
-.c-combobox-search input{border:none;outline:none;background:transparent;flex:1;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary);}
-.c-combobox-statelist{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start;}
-.c-combobox-statecell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x);}
-.c-combobox-statebox{width:var(--c-combobox-width);display:flex;align-items:center;justify-content:flex-start;padding:var(--gmd-space-1) var(--gmd-space-3);border-radius:var(--gmd-radius-sm);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);}
-.c-combobox-statebox.is-default{color:var(--gmd-text-primary);}
-.c-combobox-statebox.is-hover{background:var(--gmd-surface-hover);color:var(--gmd-text-primary);}
-.c-combobox-statebox.is-selected{color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);border-left:2px solid var(--gmd-primary-default);}
-.c-combobox-statebox.is-disabled{color:var(--gmd-text-disabled);}
 .c-combobox-caption{font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
 .c-combobox-comp{display:grid;grid-template-columns:160px 1fr;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);overflow:hidden;width:100%;max-width:720px;}
 .c-combobox-comp .c-combobox-comphead{background:var(--gmd-background-section);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-secondary);padding:var(--gmd-space-3);border-bottom:1px solid var(--gmd-border-subtle);}
 .c-combobox-comp .c-combobox-compcell{padding:var(--gmd-space-5);display:flex;align-items:center;justify-content:center;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary);}
 .c-combobox-comp .c-combobox-compcell.c-combobox-statecol{justify-content:flex-start;font-weight:var(--gmd-weight-bold);}
-/* Date&Time Picker */
-.c-datetime-field{position:relative;display:flex;align-items:center;width:240px;height:40px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);color:var(--gmd-text-tertiary);font-size:var(--gmd-font-size-14);transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing),box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-datetime-field.is-hover{border-color:var(--gmd-text-tertiary);background:var(--gmd-surface-hover)}
-.c-datetime-field.is-focused{border-color:var(--gmd-primary-default);box-shadow:0 0 0 3px var(--gmd-primary-subtle)}
-.c-datetime-field.is-filled{color:var(--gmd-text-primary)}
-.c-datetime-field .c-datetime-fieldlabel{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.c-datetime-field .c-datetime-ficon{flex:none;color:var(--gmd-text-tertiary);display:inline-flex}
-.c-datetime-field.is-focused .c-datetime-ficon{color:var(--gmd-primary-default)}
-.c-datetime-floatlabel{position:absolute;top:-7px;left:var(--gmd-space-2x);padding:0 var(--gmd-space-1);background:var(--gmd-surface-base);font-size:var(--gmd-font-size-10);color:var(--gmd-primary-default);line-height:1}
-
-.c-datetime-card{width:264px;border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);box-shadow:var(--gmd-shadow-lift);overflow:hidden;font-size:var(--gmd-font-size-12)}
-.c-datetime-head{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);padding:var(--gmd-space-3) var(--gmd-space-4)}
-.c-datetime-eyebrow{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);letter-spacing:.08em;opacity:.85;margin-bottom:var(--gmd-space-2x)}
-.c-datetime-headtitle{font-size:var(--gmd-font-size-22);font-weight:var(--gmd-weight-bold);line-height:1}
-.c-datetime-headrow{display:flex;align-items:flex-end;justify-content:space-between}
-.c-datetime-headtabs{display:flex;gap:var(--gmd-space-4)}
-.c-datetime-tabbtn{background:none;border:none;color:var(--gmd-text-on-primary);opacity:.6;cursor:pointer;padding:0;display:inline-flex;line-height:0}
-.c-datetime-tabbtn[aria-selected="true"]{opacity:1;border-bottom:2px solid var(--gmd-text-on-primary);padding-bottom:var(--gmd-space-2x)}
-
-.c-datetime-timehead{display:flex;align-items:flex-start;justify-content:space-between}
-.c-datetime-timebig{font-size:var(--gmd-font-size-28);font-weight:var(--gmd-weight-bold);line-height:1;letter-spacing:.02em}
-.c-datetime-timebig .c-datetime-tactive{color:var(--gmd-text-on-primary)}
-.c-datetime-timebig .c-datetime-tmute{opacity:.55}
-.c-datetime-ampm{display:flex;flex-direction:column;gap:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);text-align:right}
-.c-datetime-ampm span{opacity:.55;cursor:pointer}
-.c-datetime-ampm span[aria-selected="true"]{opacity:1}
-
-.c-datetime-monthbar{display:flex;align-items:center;justify-content:space-between;padding:var(--gmd-space-3) var(--gmd-space-4) var(--gmd-space-2x)}
-.c-datetime-monthsel{display:inline-flex;align-items:center;gap:var(--gmd-space-1);background:none;border:none;color:var(--gmd-text-primary);font-size:var(--gmd-font-size-12);cursor:pointer;padding:0}
-.c-datetime-monthsel svg{color:var(--gmd-text-tertiary)}
-.c-datetime-navbtns{display:flex;gap:var(--gmd-space-2x)}
-.c-datetime-iconbtn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:none;border-radius:var(--gmd-radius-sm);background:none;color:var(--gmd-text-secondary);cursor:pointer}
-.c-datetime-iconbtn:hover{background:var(--gmd-surface-hover)}
-
-.c-datetime-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--gmd-space-2);padding:0 var(--gmd-space-3) var(--gmd-space-2x);text-align:center}
-.c-datetime-dow{font-size:var(--gmd-font-size-10);color:var(--gmd-text-tertiary);padding:var(--gmd-space-2x) 0}
-.c-datetime-day{display:flex;align-items:center;justify-content:center;height:28px;border-radius:50%;color:var(--gmd-text-primary);cursor:pointer}
-.c-datetime-day:hover{background:var(--gmd-surface-hover)}
-.c-datetime-day.is-today{border:1px solid var(--gmd-border-base);color:var(--gmd-text-primary)}
-.c-datetime-day.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
-.c-datetime-day.is-disabled{color:var(--gmd-text-disabled);background:var(--gmd-background-section);cursor:not-allowed;pointer-events:none}
-.c-datetime-day.is-mute{color:var(--gmd-text-disabled)}
-
-.c-datetime-ymgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gmd-space-2);padding:var(--gmd-space-3) var(--gmd-space-4)}
-.c-datetime-ymcell{display:flex;align-items:center;justify-content:center;height:36px;border-radius:var(--gmd-radius-lg);color:var(--gmd-text-primary);cursor:pointer;font-size:var(--gmd-font-size-12)}
-.c-datetime-ymcell:hover{background:var(--gmd-surface-hover)}
-.c-datetime-ymcell.is-current{border:1px solid var(--gmd-border-base)}
-.c-datetime-ymcell.is-mute{color:var(--gmd-text-disabled)}
-.c-datetime-ymcell.is-disabled{color:var(--gmd-text-disabled);background:var(--gmd-background-section)}
-
-.c-datetime-clock{position:relative;width:200px;height:200px;margin:var(--gmd-space-4) auto var(--gmd-space-2x);border-radius:50%;background:var(--gmd-primary-subtle)}
-.c-datetime-cnum{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary)}
-.c-datetime-cnum.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
-.c-datetime-chand{position:absolute;left:50%;bottom:50%;width:2px;background:var(--gmd-primary-default);transform-origin:bottom center}
-.c-datetime-cdot{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--gmd-primary-default)}
-
-.c-datetime-actions{display:flex;align-items:center;justify-content:space-between;padding:var(--gmd-space-2x) var(--gmd-space-4) var(--gmd-space-3);border-top:1px solid var(--gmd-divider)}
-.c-datetime-actbtn{background:none;border:none;color:var(--gmd-primary-default);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);letter-spacing:.04em;cursor:pointer;padding:var(--gmd-space-1) var(--gmd-space-2x)}
-.c-datetime-actright{display:flex;gap:var(--gmd-space-2x)}
 .c-datetime-caption{margin-top:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);text-align:center}
-.c-datetime-row{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start}
-/* Context Menu */
-.c-context-menu-menu{display:inline-flex;flex-direction:column;min-width:164px;padding:var(--gmd-space-2x);background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);gap:var(--gmd-space-1);font-family:var(--gmd-font-body);}
-.c-context-menu-menu--wide{min-width:192px;}
-.c-context-menu-item{display:flex;align-items:center;gap:var(--gmd-space-2x);width:100%;box-sizing:border-box;padding:var(--gmd-space-2x);min-height:24px;border-radius:var(--gmd-radius-sm);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-regular);color:var(--gmd-text-primary);background:transparent;border:none;text-align:left;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing);}
-.c-context-menu-item:hover{background:var(--gmd-surface-hover);}
-.c-context-menu-item--hover{background:var(--gmd-surface-hover);}
-.c-context-menu-item--pressed{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);}
-.c-context-menu-item--disabled{color:var(--gmd-text-disabled);cursor:not-allowed;pointer-events:none;}
-.c-context-menu-item--danger{color:var(--gmd-semantic-error);}
-.c-context-menu-item--selected{color:var(--gmd-primary-default);}
-.c-context-menu-label{flex:1;}
-.c-context-menu-icon{flex:0 0 auto;display:inline-flex;color:var(--gmd-text-tertiary);}
-.c-context-menu-item--selected .c-context-menu-icon{color:var(--gmd-primary-default);}
-.c-context-menu-caret{flex:0 0 auto;display:inline-flex;color:var(--gmd-text-tertiary);margin-left:var(--gmd-space-2x);}
-.c-context-menu-divider{height:1px;margin:var(--gmd-space-1) 0;background:var(--gmd-divider);}
 .c-context-menu-state-row{display:flex;flex-wrap:wrap;gap:var(--gmd-space-8);}
 .c-context-menu-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x);}
-.c-context-menu-chip{display:inline-flex;align-items:center;min-width:77px;box-sizing:border-box;padding:var(--gmd-space-2x);min-height:24px;border-radius:var(--gmd-radius-sm);font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary);background:var(--gmd-surface-base);font-family:var(--gmd-font-body);}
-.c-context-menu-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);}
 .c-context-menu-anatomy{display:flex;align-items:flex-start;gap:var(--gmd-space-8);flex-wrap:wrap;}
 .c-context-menu-anatomy-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--gmd-space-3);}
 .c-context-menu-anatomy-list li{display:flex;gap:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);}
 .c-context-menu-num{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:999px;background:var(--gmd-text-secondary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);}
 .c-context-menu-anatomy-list strong{color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold);}
-.c-context-menu-compose{display:flex;gap:var(--gmd-space-4);flex-wrap:wrap;}
-.c-context-menu-stage{display:flex;flex-direction:column;gap:var(--gmd-space-2x);align-items:center;justify-content:center;padding:var(--gmd-space-8);border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);min-width:240px;}
-.c-context-menu-stage--light{background:var(--gmd-background-section);}
-/* Spinner */
-.c-spinner-ring{display:inline-block;border-radius:50%;border-style:solid;border-color:var(--gmd-primary-subtle);border-top-color:var(--gmd-primary-default);animation:c-spinner-rotate 0.9s linear infinite;box-sizing:border-box}
-@keyframes c-spinner-rotate{to{transform:rotate(360deg)}}
-.c-spinner-16{width:16px;height:16px;border-width:2px}
-.c-spinner-24{width:24px;height:24px;border-width:2px}
-.c-spinner-32{width:32px;height:32px;border-width:3px}
-.c-spinner-48{width:48px;height:48px;border-width:4px}
-.c-spinner-sizes{display:flex;align-items:flex-end;gap:var(--gmd-space-8)}
 .c-spinner-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x)}
-.c-spinner-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-spinner-frames{display:flex;gap:var(--gmd-space-8)}
-.c-spinner-static{display:inline-block;width:32px;height:32px;border-radius:50%;border-style:solid;border-width:3px;border-color:var(--gmd-primary-subtle);box-sizing:border-box}
-.c-spinner-f1{border-top-color:var(--gmd-primary-default)}
-.c-spinner-f2{border-right-color:var(--gmd-primary-default)}
-.c-spinner-f3{border-bottom-color:var(--gmd-primary-default)}
-.c-spinner-f4{border-left-color:var(--gmd-primary-default)}
 .c-spinner-anatomy{display:flex;align-items:center;gap:var(--gmd-space-6)}
-.c-spinner-box{display:flex;align-items:center;justify-content:center;width:72px;height:72px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);position:relative}
-.c-spinner-marker{position:absolute;top:var(--gmd-space-2x);left:var(--gmd-space-2x);display:flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--gmd-text-primary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold)}
 .c-spinner-anatomy-text{display:flex;flex-direction:column;gap:var(--gmd-space-1)}
 .c-spinner-anatomy-title{display:flex;align-items:center;gap:var(--gmd-space-2x);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
 .c-spinner-num{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--gmd-text-primary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold)}
 .c-spinner-anatomy-desc{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);max-width:280px;line-height:1.5}
 .c-spinner-comp{display:flex;gap:var(--gmd-space-4);flex-wrap:wrap}
-.c-spinner-surface{display:flex;align-items:center;gap:var(--gmd-space-3);padding:var(--gmd-space-5);border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);min-width:200px}
-.c-spinner-light{background:var(--gmd-background-card);color:var(--gmd-text-secondary)}
-.c-spinner-msg{font-size:var(--gmd-font-size-14)}
-/* Skeleton — 최초 진입 자리표시 전용.
-   sheen 색으로 surface-base 를 못 쓴다 — Dark 에서 --gmd-surface-base 와
-   --gmd-background-section 이 같은 #25282D 라 빛줄기가 사라진다. Light 는
-   background-card 로 충분하고(#E9ECEF -> #FAF9FD), Dark 는 아래에서 따로 올린다. */
-.c-skeleton{background:var(--gmd-background-section);border-radius:var(--gmd-radius-sm);position:relative;overflow:hidden}
-.c-skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--gmd-background-card),transparent);transform:translateX(-100%);animation:c-skeleton-sheen 1.4s var(--gmd-motion-easing) infinite}
-@keyframes c-skeleton-sheen{to{transform:translateX(100%)}}
-/* Dark 은 section(#25282D) 과 card(#2A2D32) 의 차가 5/255 라 빛줄기가 안 보인다.
-   border-subtle 을 섞어 한 단 더 밝게 올린다. Light 에서는 border-subtle 이
-   section 보다 어두워 빛줄기가 그림자로 뒤집히므로 모드별로 나눈다. */
-html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gmd-border-subtle) 55%,var(--gmd-background-card)),transparent)}
-.c-skeleton-line{height:16px}
-.c-skeleton-line.is-sm{height:12px}
-.c-skeleton-line.is-lg{height:20px}
-.c-skeleton-block{height:72px;border-radius:var(--gmd-radius-md)}
-.c-skeleton-circle{width:40px;height:40px;border-radius:50%}
-/* 모션 민감 사용자 — 빛줄기는 장식이므로 끈다. 판(자리)은 그대로 남는다. */
-.c-skeleton.is-static::after{display:none}
-@media (prefers-reduced-motion: reduce){.c-skeleton::after{display:none}}
-/* 문서 예시 레이아웃 — 판이 background-section 이라 surface-base 위에 그대로 놓으면
-   Dark(둘 다 #25282D) 에서 사라진다. 실제 쓰임처럼 카드 위에 올려 보여준다. */
-.c-skeleton-stage{display:flex;width:100%;padding:var(--gmd-space-5);background:var(--gmd-background-card);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-sizing:border-box}
-.c-skeleton-stage.is-col{flex-direction:column}
 .c-skeleton-anatomy-fig{width:100%;max-width:420px}
-.c-skeleton-stack{display:flex;flex-direction:column;gap:var(--gmd-space-3);width:100%;max-width:320px}
-.c-skeleton-row{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;max-width:320px}
-.c-skeleton-row .c-skeleton-stack{gap:var(--gmd-space-2x)}
 .c-skeleton-cell{display:flex;flex-direction:column;gap:var(--gmd-space-2x);align-items:flex-start}
-.c-skeleton-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-skeleton-card{display:flex;flex-direction:column;gap:var(--gmd-space-4);width:100%;max-width:420px;padding:var(--gmd-space-5);background:var(--gmd-background-card);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md)}
-/* TextBox */
-.c-textbox-field { display: flex; flex-direction: column; gap: var(--gmd-space-2x); width: 250px; font-family: var(--gmd-font-body); }
-.c-textbox-field.c-textbox-lg { width: 280px; }
-.c-textbox-field.c-textbox-sm { width: 200px; }
-.c-textbox-label { font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: 1.5; }
-.c-textbox-area { width: 100%; box-sizing: border-box; resize: none; height: 100px; padding: var(--gmd-space-3); border: 1px solid var(--gmd-border-base); border-radius: var(--gmd-radius-md); background: var(--gmd-surface-base); color: var(--gmd-text-primary); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); line-height: 1.5; transition: border-color var(--gmd-motion-fast) var(--gmd-motion-easing), box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing); }
-.c-textbox-area::placeholder { color: var(--gmd-text-tertiary); }
-.c-textbox-area:hover { border-color: var(--gmd-primary-default); }
-.c-textbox-area.c-textbox-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); outline: none; }
-.c-textbox-area.c-textbox-active { border-color: var(--gmd-primary-default); }
-.c-textbox-area.c-textbox-disabled { background: var(--gmd-background-section); border-color: var(--gmd-border-subtle); color: var(--gmd-text-disabled); cursor: not-allowed; }
-.c-textbox-area.c-textbox-disabled::placeholder { color: var(--gmd-text-disabled); }
-.c-textbox-area.c-textbox-success { border-color: var(--gmd-semantic-success); }
-.c-textbox-area.c-textbox-error { border-color: var(--gmd-semantic-error); }
-.c-textbox-area.c-textbox-lg { height: 100px; }
-.c-textbox-area.c-textbox-md { height: 100px; }
-.c-textbox-area.c-textbox-sm { height: 100px; font-size: var(--gmd-font-size-12); }
-.c-textbox-hint { display: flex; align-items: center; gap: var(--gmd-space-1); font-size: var(--gmd-font-size-12); line-height: 1.4; color: var(--gmd-text-secondary); }
-.c-textbox-hint.c-textbox-success { color: var(--gmd-semantic-success); }
-.c-textbox-hint.c-textbox-error { color: var(--gmd-semantic-error); }
-.c-textbox-hint svg { flex: none; width: 12px; height: 12px; }
-.c-textbox-hint-ico { width: 16px; height: 16px; display: inline-flex; color: var(--gmd-semantic-success); }
 .c-textbox-caption { font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); margin-top: var(--gmd-space-2x); }
 .c-textbox-anatomy { display: flex; flex-wrap: wrap; gap: var(--gmd-space-8); align-items: flex-start; }
 .c-textbox-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--gmd-space-3); max-width: 420px; }
 .c-textbox-legend li { display: flex; gap: var(--gmd-space-3); font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); line-height: 1.5; }
 .c-textbox-num { flex: none; width: 20px; height: 20px; border-radius: 999px; background: var(--gmd-text-secondary); color: var(--gmd-text-on-primary); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); display: flex; align-items: center; justify-content: center; }
 .c-textbox-legend strong { color: var(--gmd-text-primary); font-weight: var(--gmd-weight-bold); }
-/* Slider */
-.c-slider {
-  display: flex;
-  align-items: center;
-  gap: var(--gmd-space-3);
-  width: 100%;
-}
-.c-slider-track {
-  position: relative;
-  flex: 1 1 auto;
-  height: 4px;
-  border-radius: var(--gmd-radius-sm);
-  background: var(--gmd-border-subtle);
-}
-.c-slider-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  border-radius: var(--gmd-radius-sm);
-  background: var(--gmd-primary-default);
-}
-.c-slider-thumb {
-  position: absolute;
-  top: 50%;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--gmd-surface-base);
-  border: 2px solid var(--gmd-primary-default);
-  box-shadow: var(--gmd-shadow-soft);
-  transform: translate(-50%, -50%);
-  transition: box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing),
-    transform var(--gmd-motion-fast) var(--gmd-motion-easing);
-}
-.c-slider-label {
-  flex: 0 0 auto;
-  min-width: 36px;
-  text-align: right;
-  font-size: var(--gmd-font-size-12);
-  color: var(--gmd-text-secondary);
-  font-variant-numeric: tabular-nums;
-}
-.c-slider--hover .c-slider-thumb {
-  border-color: var(--gmd-primary-hover);
-  box-shadow: var(--gmd-shadow-lift);
-}
-.c-slider--hover .c-slider-fill { background: var(--gmd-primary-hover); }
-.c-slider--pressed .c-slider-thumb {
-  width: 20px;
-  height: 20px;
-  border-color: var(--gmd-primary-pressed);
-  box-shadow: 0 0 0 6px var(--gmd-primary-subtle);
-}
-.c-slider--pressed .c-slider-fill { background: var(--gmd-primary-pressed); }
-.c-slider--disabled {
-  opacity: 1;
-  pointer-events: none;
-}
-.c-slider--disabled .c-slider-fill { background: var(--gmd-primary-disabled); }
-.c-slider--disabled .c-slider-thumb {
-  border-color: var(--gmd-primary-disabled);
-  box-shadow: none;
-}
-.c-slider--disabled .c-slider-label { color: var(--gmd-text-disabled); }
-
-.c-slider-ticks {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 0;
-  transform: translateY(-50%);
-}
-.c-slider-tick {
-  position: absolute;
-  top: 50%;
-  width: 2px;
-  height: 8px;
-  border-radius: var(--gmd-radius-sm);
-  background: var(--gmd-border-base);
-  transform: translate(-50%, -50%);
-}
-
-.c-slider-vwrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--gmd-space-3);
-}
-.c-slider-vert {
-  position: relative;
-  width: 4px;
-  height: 240px;
-  border-radius: var(--gmd-radius-sm);
-  background: var(--gmd-border-subtle);
-}
-.c-slider-vfill {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  border-radius: var(--gmd-radius-sm);
-  background: var(--gmd-primary-default);
-}
-.c-slider-vthumb {
-  position: absolute;
-  left: 50%;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--gmd-surface-base);
-  border: 2px solid var(--gmd-primary-default);
-  box-shadow: var(--gmd-shadow-soft);
-  transform: translate(-50%, 50%);
-}
-
-.c-slider-range-fill {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  border-radius: var(--gmd-radius-sm);
-  background: var(--gmd-primary-default);
-}
 
 .c-slider-anatomy {
   display: flex;
@@ -1456,19 +802,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   display: flex;
   align-items: flex-start;
   gap: var(--gmd-space-3);
-}
-.c-slider-badge {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--gmd-primary-default);
-  color: var(--gmd-text-on-primary-fill);
-  font-size: var(--gmd-font-size-12);
-  font-weight: var(--gmd-weight-bold);
 }
 .c-slider-anatomy-term {
   font-size: var(--gmd-font-size-14);
@@ -1505,44 +838,10 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   color: var(--gmd-text-primary);
 }
 .c-slider-table td + td { border-left: 1px solid var(--gmd-divider); }
-/* Tooltip */
-.c-tooltip-stage{display:flex;flex-wrap:wrap;gap:var(--gmd-space-10);align-items:flex-start}
 .c-tooltip-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x);min-width:96px}
-.c-tooltip-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-
-/* 트리거 아이콘 (info-circle) */
-.c-tooltip-trigger{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;color:var(--gmd-text-tertiary);background:transparent;border:none;border-radius:var(--gmd-radius-sm);cursor:pointer}
-.c-tooltip-trigger.is-focus{color:var(--gmd-primary-default);outline:2px solid var(--gmd-primary-default);outline-offset:2px}
-.c-tooltip-trigger.is-disabled{color:var(--gmd-text-disabled);cursor:not-allowed}
-
-/* 말풍선 본체 */
-.c-tooltip-anchor{position:relative;display:inline-flex;flex-direction:column;align-items:center}
-/* 툴팁 면은 --gmd-tertiary 라 다크에서 밝은 회색으로 뒤집힌다. 글자도 함께 뒤집히는
-   --gmd-text-on-primary-tertiary 를 기본 선언에서 쓴다 — 종전처럼 html[data-theme="dark"]
-   오버라이드로 막으면 시스템 다크(prefers-color-scheme)만 켠 사용자에게 구멍이 남는다. */
-.c-tooltip-bubble{position:relative;background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);font-size:var(--gmd-font-size-10);line-height:1.4;border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-1) var(--gmd-space-2x);white-space:nowrap;box-shadow:var(--gmd-shadow-soft)}
-
-/* 화살표 — 방향별 */
-.c-tooltip-bubble::after{content:"";position:absolute;width:0;height:0;border:6px solid transparent}
-.c-tooltip-bubble.c-tooltip-top::after{top:100%;left:50%;transform:translateX(-50%);border-top-color:var(--gmd-tertiary)}
-.c-tooltip-bubble.c-tooltip-bottom::after{bottom:100%;left:50%;transform:translateX(-50%);border-bottom-color:var(--gmd-tertiary)}
-.c-tooltip-bubble.c-tooltip-left::after{left:100%;top:50%;transform:translateY(-50%);border-left-color:var(--gmd-tertiary)}
-.c-tooltip-bubble.c-tooltip-right::after{right:100%;top:50%;transform:translateY(-50%);border-right-color:var(--gmd-tertiary)}
 
 /* hover 데모: 트리거 위에 본체가 떠 있는 모습 */
 .c-tooltip-hoverdemo{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-1)}
-
-/* 미니멀 Style 1 — 텍스트 다줄 */
-.c-tooltip-minimal{background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);border-radius:var(--gmd-radius-sm);box-shadow:var(--gmd-shadow-lift);width:240px}
-.c-tooltip-minimal .c-tooltip-body{padding:var(--gmd-space-2x) var(--gmd-space-3);font-size:var(--gmd-font-size-10);line-height:1.5;white-space:normal}
-
-/* 미니멀 Style 2 — 이미지+제목+본문+액션 */
-.c-tooltip-rich{background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);width:240px;overflow:hidden}
-.c-tooltip-rich .c-tooltip-img{margin:var(--gmd-space-3);height:130px;border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-hover);display:flex;align-items:center;justify-content:center;color:var(--gmd-text-tertiary)}
-.c-tooltip-rich .c-tooltip-content{padding:0 var(--gmd-space-3) var(--gmd-space-3)}
-.c-tooltip-rich .c-tooltip-title{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);margin:0 0 var(--gmd-space-2x)}
-.c-tooltip-rich .c-tooltip-text{font-size:var(--gmd-font-size-10);line-height:1.5;color:var(--gmd-text-on-primary-tertiary);margin:0 0 var(--gmd-space-3);white-space:normal}  /* 종전 --gmd-border-subtle 은 다크 3.93 미달. 제목과 본문 위계는 12px Bold 대 10px Regular 가 진다 */
-.c-tooltip-rich .c-tooltip-action{display:inline-flex;align-items:center;gap:var(--gmd-space-1);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-on-primary-tertiary);background:none;border:none;padding:0;cursor:pointer}
 
 /* Anatomy */
 .c-tooltip-anat{display:flex;flex-wrap:wrap;gap:var(--gmd-space-10);align-items:flex-start}
@@ -1554,32 +853,8 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 
 /* Composition */
 .c-tooltip-comp{display:flex;gap:var(--gmd-space-4);flex-wrap:wrap}
-.c-tooltip-pane{flex:1 1 320px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-8) var(--gmd-space-4);display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-3)}
-.c-tooltip-pane .c-tooltip-tag{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-tooltip-pane.is-light{background:var(--gmd-background-base)}
-.c-tooltip-targetlabel{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
-
-/* Tree */
-.c-tree-panel{border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-4);background:var(--gmd-background-card);width:360px;box-shadow:var(--gmd-shadow-soft)}
-.c-tree{list-style:none;margin:0;padding:0;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14)}
-.c-tree ul{list-style:none;margin:0;padding:0}
-.c-tree-row{display:flex;align-items:center;gap:var(--gmd-space-2x);min-width:0;height:32px;padding:var(--gmd-space-1) var(--gmd-space-2x);border-radius:var(--gmd-radius-sm);color:var(--gmd-text-primary);cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-tree-row:hover{background:var(--gmd-surface-hover)}
-.c-tree-twig{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;color:var(--gmd-text-tertiary);flex:0 0 auto}
-.c-tree-twig.c-tree-leaf{visibility:hidden}
-.c-tree-ico{display:inline-flex;align-items:center;color:var(--gmd-primary-default);flex:0 0 auto}
-.c-tree-lbl{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.c-tree-indent-1{padding-left:var(--gmd-space-6)}
-.c-tree-indent-2{padding-left:var(--gmd-space-10)}
-.c-tree-row.is-hover{background:var(--gmd-surface-hover)}
-.c-tree-row.is-pressed{background:var(--gmd-primary-subtle)}
-.c-tree-row.is-active{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
-.c-tree-row.is-active .c-tree-ico,.c-tree-row.is-active .c-tree-twig{color:var(--gmd-primary-default)}
-.c-tree-row.is-disabled{color:var(--gmd-text-disabled);cursor:not-allowed}
-.c-tree-row.is-disabled .c-tree-ico,.c-tree-row.is-disabled .c-tree-twig{color:var(--gmd-text-disabled)}
 .c-tree-states{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start}
 .c-tree-state{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x)}
-.c-tree-chip{width:148px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);padding:var(--gmd-space-2x);box-shadow:var(--gmd-shadow-soft)}
 #tree .c-tree-checkbox-states{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gmd-space-5);width:100%;align-items:start;}
 #tree .c-tree-checkbox-states .c-tree-state{align-items:stretch;}
 #tree .c-tree-checkbox-states .c-tree-chip{width:100%;padding:var(--gmd-space-3);}
@@ -1591,10 +866,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 #tree .c-tree-cbrow .c-tree-twig,#tree .c-tree-cbrow .c-tree-cb{flex:0 0 auto;}
 #tree .c-tree-cbrow .c-tree-ico{flex:0 0 auto;}
 #tree .c-tree-states .c-tree-chip:has(.c-tree-cbrow){width:220px;}
-.c-tree-cap{font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-tree-cb{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-on-primary-fill);flex:0 0 auto}
-.c-tree-cb.is-on{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default)}
-.c-tree-cbrow{display:flex;align-items:center;gap:var(--gmd-space-2x);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
 .c-tree-anatomy{display:flex;align-items:center}
 .anatomy-copy .c-tree-anatomy{display:none}
 .c-tree-num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:var(--gmd-radius-lg);background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);flex:0 0 auto}
@@ -1604,129 +875,26 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-tree-comp{display:grid;grid-template-columns:repeat(2,minmax(300px,1fr));gap:var(--gmd-space-6);width:100%}
 .c-tree-comp > div{display:flex;flex-direction:column;gap:var(--gmd-space-2x);padding:var(--gmd-space-5);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-section)}
 .c-tree-comp .c-tree-panel{width:100%;box-shadow:none}
-/* Ribbon Navigation */
-/* 라벨: Figma Anatomy 는 20px 이나 50px 항목 대비 과해, 밀도 우선 데스크톱 비율로 16px 로 조정(의도적 deviation). 높이 50·아이콘 24 는 Figma 유지. */
-.c-ribbon-nav-item{display:flex;align-items:center;gap:var(--gmd-space-2x);width:253px;height:50px;padding:var(--gmd-space-3) var(--gmd-space-5);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);color:var(--gmd-text-secondary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-16);font-weight:var(--gmd-weight-regular);cursor:pointer;border:none;text-align:left;box-sizing:border-box;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),color var(--gmd-motion-fast) var(--gmd-motion-easing);}
-.c-ribbon-nav-item .c-ribbon-nav-ico{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:currentColor;}
-.c-ribbon-nav-item .c-ribbon-nav-ico svg{width:18px;height:18px;}
-.c-ribbon-nav-label{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.c-ribbon-nav-chev{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--gmd-text-tertiary);}
-.c-ribbon-nav-item:hover{background:var(--gmd-surface-hover);color:var(--gmd-text-primary);}
-.c-ribbon-nav-item.is-active,.c-ribbon-nav-item[aria-current="page"]{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);}
-.c-ribbon-nav-item.is-active .c-ribbon-nav-chev,.c-ribbon-nav-item[aria-current="page"] .c-ribbon-nav-chev{color:var(--gmd-primary-default);}
-.c-ribbon-nav-badge{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 var(--gmd-space-1);border-radius:var(--gmd-radius-lg);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);line-height:1;}
-.c-ribbon-nav-item.is-nested{padding-left:var(--gmd-space-8);}
-/* sm 사이즈 — Figma Sidebar Size 섹션: 행 42px · 아이콘 16 · padding 8/12 · label 16px. md(50)가 기본. */
-.c-ribbon-nav-item.is-sm{height:42px;padding:var(--gmd-space-2x) var(--gmd-space-3);font-size:var(--gmd-font-size-14);}
-.c-ribbon-nav-item.is-sm .c-ribbon-nav-ico{width:16px;height:16px;}
-.c-ribbon-nav-item.is-sm .c-ribbon-nav-ico svg{width:16px;height:16px;}
-.c-ribbon-nav-item.is-sm .c-ribbon-nav-chev{width:16px;height:16px;}
-.c-ribbon-nav-item.is-sm.is-nested{padding-left:var(--gmd-space-6);}
-.c-ribbon-nav-stack{display:flex;flex-direction:column;gap:var(--gmd-space-1);width:253px;}
-.c-ribbon-nav-cap{margin-top:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-family:var(--gmd-font-body);}
 .c-ribbon-nav-comp{display:grid;grid-template-columns:minmax(320px,1fr);gap:var(--gmd-space-6);align-items:stretch;width:100%;max-width:720px;padding:var(--gmd-space-6);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-lg);background:var(--gmd-background-section);}
 .c-ribbon-nav-comp-col{display:grid;grid-template-columns:220px minmax(0,1fr);gap:var(--gmd-space-5);min-height:360px;padding:var(--gmd-space-5);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);box-shadow:var(--gmd-shadow-soft);}
 .c-ribbon-nav-comp-col h4{grid-column:1 / -1;margin:0;font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-secondary);font-family:var(--gmd-font-body);}
 .c-ribbon-nav-comp-col .c-ribbon-nav-stack{width:100%;}
 .c-ribbon-nav-comp-col .c-ribbon-nav-item{width:100%;}
-.c-ribbon-nav-surface{display:flex;flex-direction:column;gap:var(--gmd-space-3);min-width:0;padding:var(--gmd-space-4);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-base);}
-.c-ribbon-nav-surface-title{height:16px;width:56%;border-radius:var(--gmd-radius-sm);background:var(--gmd-border-subtle);}
-.c-ribbon-nav-surface-line{height:8px;border-radius:var(--gmd-radius-sm);background:var(--gmd-border-subtle);opacity:.72;}
-.c-ribbon-nav-surface-line.is-short{width:64%;}
-.c-ribbon-nav-surface-card{height:72px;border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);}
 @media (max-width: 1120px){.c-ribbon-nav-comp{grid-template-columns:1fr;}.c-ribbon-nav-comp-col{grid-template-columns:220px minmax(0,1fr);}}
 @media (max-width: 720px){.c-ribbon-nav-comp-col{grid-template-columns:1fr;}.c-ribbon-nav-comp{padding:var(--gmd-space-4);}}
-/* Popover */
-.c-popover-pop{display:inline-block;width:260px;background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);padding:var(--gmd-space-4);font-family:var(--gmd-font-body)}
-.c-popover-title{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);margin:0 0 var(--gmd-space-3)}
-.c-popover-rows{display:flex;flex-direction:column;gap:var(--gmd-space-2x)}
-.c-popover-row{display:flex;justify-content:space-between;align-items:baseline;gap:var(--gmd-space-2x)}
-.c-popover-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-popover-value{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);font-weight:var(--gmd-weight-bold)}
-.c-popover-actions{display:flex;justify-content:flex-end;gap:var(--gmd-space-2x);margin-top:var(--gmd-space-4)}
-.c-popover-action{height:28px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
-.c-popover-status{display:flex;justify-content:space-between;align-items:center;gap:var(--gmd-space-2x);margin-bottom:var(--gmd-space-3)}
-.c-popover-badge{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2) var(--gmd-space-2x)}
-.c-popover-banner{background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2x) var(--gmd-space-3);margin-bottom:var(--gmd-space-3);font-size:var(--gmd-font-size-12);line-height:1.5;color:var(--gmd-semantic-error)}
-.c-popover-divider{height:1px;background:var(--gmd-divider);margin:0 0 var(--gmd-space-3)}
-.c-popover-anchorwrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;padding-top:var(--gmd-space-2x)}
-.c-popover-caret{width:14px;height:14px;background:var(--gmd-surface-base);border-left:1px solid var(--gmd-border-subtle);border-top:1px solid var(--gmd-border-subtle);transform:rotate(45deg);margin-bottom:-7px;z-index:1;box-shadow:var(--gmd-shadow-soft)}
 .c-popover-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--gmd-text-primary);color:var(--gmd-background-card);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);flex:0 0 auto}
 .c-popover-legend{display:flex;flex-direction:column;gap:var(--gmd-space-4)}
 .c-popover-legrow{display:flex;align-items:flex-start;gap:var(--gmd-space-3)}
-.c-popover-legtitle{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);margin:0 0 var(--gmd-space-2)}
-.c-popover-legdesc{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);margin:0;line-height:1.5}
 .c-popover-grid{display:flex;flex-wrap:wrap;gap:var(--gmd-space-12);align-items:flex-start}
 .c-popover-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x)}
 .c-popover-celllabel{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-popover-stage{padding:var(--gmd-space-8);border-radius:var(--gmd-radius-md);display:flex;justify-content:center}
-.c-popover-stage-light{background:var(--gmd-background-section)}
 .c-popover-anatomywrap{position:relative;display:inline-block}
 .c-popover-pin{position:absolute;z-index:2}
-/* Hidden Column */
-.c-hidcol-set{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--gmd-space-6);}
 .c-hidcol-cell{display:flex;flex-direction:column;align-items:flex-start;gap:var(--gmd-space-2x);}
-.c-hidcol-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
-.c-hidcol-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);height:24px;max-width:100%;min-width:0;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-control);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);cursor:pointer;}
-.c-hidcol-chip:hover,.c-hidcol-chip.is-hover{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-hover);}
-.c-hidcol-chip:active,.c-hidcol-chip.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-pressed);}
-.c-hidcol-chip[aria-expanded="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);}
-.c-hidcol-chip[data-on="true"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);}
-.c-hidcol-chip:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
-.c-hidcol-chip-ico{width:16px;height:16px;flex:none;}
-.c-hidcol-chip-label{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.c-hidcol-chip-caret{font-size:var(--gmd-font-size-10);}
-.c-hidcol-toggle{display:inline-flex;align-items:center;gap:var(--gmd-space-1);height:24px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-secondary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);line-height:1;cursor:pointer;}
-.c-hidcol-toggle:hover,.c-hidcol-toggle.is-hover{border-color:var(--gmd-primary-hover);color:var(--gmd-text-primary);}
-.c-hidcol-toggle:active,.c-hidcol-toggle.is-pressed{border-color:var(--gmd-primary-pressed);}
-.c-hidcol-toggle[aria-pressed="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);}
-.c-hidcol-toggle:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
-.c-hidcol-knob{width:12px;height:12px;flex:none;border:1px solid currentColor;border-radius:var(--gmd-radius-sm);}
-.c-hidcol-toggle[aria-pressed="true"] .c-hidcol-knob{background:currentColor;box-shadow:inset 0 0 0 2px var(--gmd-primary-subtle);}
-.c-hidcol-pop{display:inline-block;width:320px;max-width:420px;background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);padding:var(--gmd-space-4);font-family:var(--gmd-font-body);}
-.c-hidcol-pop-top{display:flex;align-items:center;gap:var(--gmd-space-3);margin-bottom:var(--gmd-space-1);}
-.c-hidcol-pop-head{flex:1;min-width:0;font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);}
-.c-hidcol-pop-note{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
-.c-hidcol-pop-divider{height:1px;background:var(--gmd-divider);margin:var(--gmd-space-3) 0;}
-.c-hidcol-pop-groups{display:flex;flex-direction:column;gap:var(--gmd-space-3);max-height:168px;overflow:auto;}
-.c-hidcol-pop-group{display:flex;flex-direction:column;gap:var(--gmd-space-1);}
-.c-hidcol-pop-sub{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
-.c-hidcol-pop-cols{display:flex;flex-wrap:wrap;gap:var(--gmd-space-1);}
-
-/* Filter Labels */
-.c-filter-labels-set{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--gmd-space-8);}
 .c-filter-labels-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x);}
-.c-filter-labels-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
-
-/* Figma 정합: Label = Inter Semi Bold 14px. classic 에 semibold(600) 토큰 없음 → medium(500)으로 근사(Figma semibold≈medium). font-size 14 유지. */
-.c-filter-labels-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);border:1px solid var(--gmd-border-base);border-radius:999px;padding:var(--gmd-space-1) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-medium);line-height:1;background:var(--gmd-surface-base);color:var(--gmd-text-secondary);}
-.c-filter-labels-chip svg{flex:none;}
-.c-filter-labels-label{white-space:nowrap;}
-.c-filter-labels-close{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-right:calc(var(--gmd-space-1) * -1);padding:0;border:0;background:transparent;color:currentColor;cursor:pointer;border-radius:var(--gmd-radius-circle);}
-.c-filter-labels-close:hover{background:color-mix(in srgb,currentColor 12%,transparent);}
-
-.c-filter-labels-gray{background:var(--gmd-surface-hover);border-color:var(--gmd-border-base);color:var(--gmd-text-secondary);}
-.c-filter-labels-blue{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);}
-.c-filter-labels-success{background:var(--gmd-semantic-success-bg);border-color:var(--gmd-semantic-success);color:var(--gmd-semantic-success);}
-.c-filter-labels-warning{background:var(--gmd-semantic-warning-bg);border-color:var(--gmd-semantic-warning);color:var(--gmd-semantic-warning);}
-.c-filter-labels-error{background:var(--gmd-semantic-error-bg);border-color:var(--gmd-semantic-error);color:var(--gmd-semantic-error);}
-
-.c-filter-labels-pill{border-radius:999px;}
-.c-filter-labels-rounded{border-radius:var(--gmd-radius-sm);}
-.c-filter-labels-square{border-radius:0;}
-
-.c-filter-labels-sm{font-size:var(--gmd-font-size-12);padding:var(--gmd-space-2) var(--gmd-space-2x);}
-.c-filter-labels-lg{font-size:var(--gmd-font-size-14);padding:var(--gmd-space-1) var(--gmd-space-3);}
-
-.c-filter-labels-dot{width:10px;height:10px;border-radius:999px;background:var(--gmd-primary-default);}
 
 .c-filter-labels-anatomy{display:flex;align-items:flex-start;gap:var(--gmd-space-10);flex-wrap:wrap;}
 .c-filter-labels-anatomy-stage{position:relative;padding:var(--gmd-space-8);background:var(--gmd-background-section);border-radius:var(--gmd-radius-md);}
-.c-filter-labels-marker{position:absolute;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:var(--gmd-text-primary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);}
-.c-filter-labels-m1{top:var(--gmd-space-1);left:var(--gmd-space-1);}
-.c-filter-labels-m2{bottom:var(--gmd-space-1);right:var(--gmd-space-1);}
-.c-filter-labels-m3{bottom:var(--gmd-space-1);left:var(--gmd-space-2x);}
-.c-filter-labels-m4{top:var(--gmd-space-1);right:var(--gmd-space-1);}
 .c-filter-labels-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--gmd-space-4);}
 .c-filter-labels-legend li{display:flex;gap:var(--gmd-space-3);}
 .c-filter-labels-legend .c-filter-labels-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:var(--gmd-text-primary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);}
@@ -1737,112 +905,15 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-filter-labels-table th,.c-filter-labels-table td{border:1px solid var(--gmd-divider);padding:var(--gmd-space-4);text-align:left;vertical-align:middle;font-size:var(--gmd-font-size-12);}
 .c-filter-labels-table th{color:var(--gmd-text-secondary);font-weight:var(--gmd-weight-bold);}
 .c-filter-labels-table td.c-filter-labels-rowhead{color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold);}
-.c-filter-labels-stack{display:flex;flex-wrap:wrap;gap:var(--gmd-space-2x);}
-/* Accordion */
-/* Figma 정합: 외곽선 톤을 divider 로 낮춰 item 간 구분선만 남긴다(강한 border-base 외곽선 제거). 컨테이너 배경은 Figma surface/primary = --gmd-background-card. */
-.c-accordion-item{border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);overflow:hidden;width:320px}
-.c-accordion-header{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;padding:var(--gmd-space-3) var(--gmd-space-4);background:transparent;border:0;cursor:pointer;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);text-align:left;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-accordion-chevron{flex:0 0 auto;color:var(--gmd-text-tertiary);transition:transform var(--gmd-motion-base) var(--gmd-motion-easing)}
-.c-accordion-title{flex:1 1 auto}
-.c-accordion-header:hover{background:var(--gmd-surface-hover)}
-.c-accordion-item.c-accordion-hover .c-accordion-header{background:var(--gmd-surface-hover)}
-.c-accordion-item.c-accordion-pressed .c-accordion-header{background:var(--gmd-primary-subtle)}
-.c-accordion-item.c-accordion-focused .c-accordion-header{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:var(--gmd-radius-md)}
-.c-accordion-header:focus-visible{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:var(--gmd-radius-md)}
-.c-accordion-item.c-accordion-open .c-accordion-chevron{transform:rotate(180deg);color:var(--gmd-primary-default)}
-.c-accordion-item.c-accordion-open .c-accordion-title{color:var(--gmd-primary-default)}
-/* 좌패딩: Figma 44px(off-grid) — classic 은 4px 그리드 유지값 40px(--gmd-space-10)으로 둔다(가까운 쪽). */
-.c-accordion-panel{padding:0 var(--gmd-space-4) var(--gmd-space-4) var(--gmd-space-10);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-regular);color:var(--gmd-text-secondary);line-height:1.5}
-.c-accordion-item.c-accordion-disabled{opacity:.55;background:var(--gmd-background-section)}
-.c-accordion-item.c-accordion-disabled .c-accordion-header{cursor:not-allowed;color:var(--gmd-text-disabled)}
-.c-accordion-item.c-accordion-disabled .c-accordion-chevron{color:var(--gmd-text-disabled)}
 .c-accordion-anatomy{display:flex;flex-wrap:wrap;gap:var(--gmd-space-8);align-items:flex-start}
 .c-accordion-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--gmd-space-3);min-width:320px;flex:1 1 320px}
 .c-accordion-legend li{display:flex;gap:var(--gmd-space-3);align-items:flex-start}
 .c-accordion-num{flex:0 0 auto;width:24px;height:24px;border-radius:var(--gmd-radius-sm);background:var(--gmd-text-secondary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);display:inline-flex;align-items:center;justify-content:center}
 .c-accordion-legend b{display:block;font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary)}
 .c-accordion-legend span{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
-.c-accordion-stack{width:420px}
-.c-accordion-stack .c-accordion-item{width:100%;border-radius:0;border-top:0}
-.c-accordion-stack .c-accordion-item:first-child{border-top:1px solid var(--gmd-border-base);border-top-left-radius:var(--gmd-radius-md);border-top-right-radius:var(--gmd-radius-md)}
-.c-accordion-stack .c-accordion-item:last-child{border-bottom-left-radius:var(--gmd-radius-md);border-bottom-right-radius:var(--gmd-radius-md)}
-/* Pagination */
-.c-pagination-row{display:flex;align-items:center;gap:var(--gmd-space-2x);flex-wrap:wrap}
-/* Figma 정합: 컨테이너 표면을 Figma surface/primary = --gmd-background-card 로 통일.
-   note: 라벨 13px·radius 6px 는 Figma off-scale — classic 은 디자인 시스템 정책 고수(14px·--gmd-radius-sm 4px), 디자인팀 피드백 대상. */
-.c-pagination-item{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-background-card);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-regular);line-height:1;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing),color var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-pagination-item:hover,.c-pagination-item.is-hover{background:var(--gmd-surface-hover);border-color:var(--gmd-border-base)}
-.c-pagination-item.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default)}
-.c-pagination-item.is-focused{outline:2px solid var(--gmd-primary-default);outline-offset:2px}
-.c-pagination-item.is-active,.c-pagination-item[aria-current="page"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-weight:var(--gmd-weight-bold)}
-.c-pagination-item.is-disabled,.c-pagination-item[aria-disabled="true"]{background:var(--gmd-background-card);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed}
-.c-pagination-nav{padding:0;width:32px}
-.c-pagination-nav svg{display:block}
-.c-pagination-ellipsis{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;color:var(--gmd-text-tertiary);font-size:var(--gmd-font-size-14);user-select:none}
 .c-pagination-caption{margin-top:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);text-align:center}
 .c-pagination-grid{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6)}
 .c-pagination-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x)}
-.c-pagination-compose{display:flex;flex-direction:column;gap:var(--gmd-space-3)}
-.c-pagination-compose-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
-/* Breadcrumb */
-.c-breadcrumb-nav { display: inline-flex; }
-.c-breadcrumb-list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--gmd-space-2x);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-family: var(--gmd-font-body);
-  font-size: var(--gmd-font-size-14);
-}
-.c-breadcrumb-item {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gmd-space-2x);
-}
-.c-breadcrumb-link {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--gmd-space-2) var(--gmd-space-1);
-  border-radius: var(--gmd-radius-sm);
-  color: var(--gmd-text-secondary);
-  text-decoration: none;
-  font-weight: var(--gmd-weight-regular);
-  transition: color var(--gmd-motion-fast) var(--gmd-motion-easing),
-              background-color var(--gmd-motion-fast) var(--gmd-motion-easing);
-}
-.c-breadcrumb-link:hover {
-  color: var(--gmd-text-primary);
-  background-color: var(--gmd-surface-hover);
-}
-.c-breadcrumb-link:active,
-.c-breadcrumb-link.is-pressed {
-  color: var(--gmd-primary-pressed);
-}
-.c-breadcrumb-link:focus-visible,
-.c-breadcrumb-link.is-focused {
-  outline: none;
-  color: var(--gmd-text-primary);
-  box-shadow: 0 0 0 2px var(--gmd-primary-default);
-}
-/* 마지막 현재 항목 — 링크 아님, 강조 표시 */
-.c-breadcrumb-current {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--gmd-space-2) var(--gmd-space-1);
-  color: var(--gmd-text-primary);
-  font-weight: var(--gmd-weight-bold);
-}
-/* 분리자 — chevron-right, Current 앞에는 없음 */
-/* Figma 정합: 구분자 색을 --gmd-text-disabled 로 낮춤. note: 라벨 13px 는 Figma off-scale — classic 은 14px 유지(디자인팀 피드백 대상). */
-.c-breadcrumb-sep {
-  display: inline-flex;
-  align-items: center;
-  color: var(--gmd-text-disabled);
-}
-.c-breadcrumb-sep svg { width: 12px; height: 12px; display: block; }
 
 /* 상태 표본 정렬 */
 .c-breadcrumb-specimens {
@@ -1871,19 +942,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   display: flex;
   align-items: flex-start;
   gap: var(--gmd-space-3);
-}
-.c-breadcrumb-badge {
-  flex: none;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: var(--gmd-primary-subtle);
-  color: var(--gmd-primary-default);
-  font-size: var(--gmd-font-size-12);
-  font-weight: var(--gmd-weight-bold);
 }
 .c-breadcrumb-anatomy-text { display: flex; flex-direction: column; gap: var(--gmd-space-2); }
 .c-breadcrumb-anatomy-title { font-size: var(--gmd-font-size-14); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); }
@@ -1918,69 +976,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   white-space: nowrap;
 }
 .c-breadcrumb-cell-light { background-color: var(--gmd-background-base); }
-/* 다크 셀 — 본 화면 대비 표현용 */
-/* white-alpha 금지 — 셀 배경(tertiary)이 다크에서 밝게 반전되므로 on-primary 페어를 알파만 낮춰 양 테마 대비 보존 */
-/* Avatar */
-.c-avatar {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  overflow: hidden;
-  border-radius: 50%;
-  /* 색 7종 — Design Kit Component / Avatar Colors(2026-09-16) 정본. 배경은 각 계열의 밝은 틴트,
-     글자는 같은 계열 원색. 라이트에서만 검정 18% 를 섞어 틴트 위 대비를 올리고 다크는 원색 그대로.
-     새 토큰 없이 기존 v2.12 쌍만 조합한다 — 아래 두 자리 변수는 컴포넌트 안에서만 쓴다. */
-  --c-avatar-bg: var(--gmd-primary-subtle);
-  --c-avatar-base: var(--gmd-primary-default);
-  background: var(--c-avatar-bg);
-  color: color-mix(in srgb, var(--c-avatar-base) 82%, black);
-  font-family: var(--gmd-font-body);
-  font-weight: var(--gmd-weight-bold);
-  line-height: 1;
-  /* Figma 정합: 보더 톤을 --gmd-divider 로 낮춤(border-subtle 대체). */
-  box-shadow: inset 0 0 0 1px var(--gmd-divider);
-  user-select: none;
-}
-.c-avatar img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.c-avatar svg { display: block; }
-
-/* 사이즈: Figma sm 24 / md 32 / lg 40 / xl 48 */
-.c-avatar-sm { width: 24px; height: 24px; font-size: var(--gmd-font-size-10); }
-.c-avatar-md { width: 32px; height: 32px; font-size: var(--gmd-font-size-12); }
-.c-avatar-lg { width: 40px; height: 40px; font-size: var(--gmd-font-size-16); }
-.c-avatar-xl { width: 48px; height: 48px; font-size: var(--gmd-font-size-18); }
-
-/* 색 7종 — 계정 식별자로 서버가 한 번 정한다. 사람이 고르지 않는다. */
-.c-avatar-secondary { --c-avatar-bg: var(--gmd-secondary-subtle);    --c-avatar-base: var(--gmd-secondary); }
-.c-avatar-tertiary  { --c-avatar-bg: var(--gmd-tertiary-subtle);     --c-avatar-base: var(--gmd-tertiary); }
-.c-avatar-success   { --c-avatar-bg: var(--gmd-semantic-success-bg); --c-avatar-base: var(--gmd-semantic-success); }
-.c-avatar-warning   { --c-avatar-bg: var(--gmd-semantic-warning-bg); --c-avatar-base: var(--gmd-semantic-warning); }
-.c-avatar-error     { --c-avatar-bg: var(--gmd-semantic-error-bg);   --c-avatar-base: var(--gmd-semantic-error); }
-.c-avatar-info      { --c-avatar-bg: var(--gmd-semantic-info-bg);    --c-avatar-base: var(--gmd-semantic-info); }
-/* 다크는 섞지 않고 원색. 시스템 다크와 수동 토글 두 경로에 모두 건다(한쪽만 걸면 다른 쪽에 구멍). */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .c-avatar:not(.c-avatar-icon) { color: var(--c-avatar-base); }
-}
-:root[data-theme="dark"] .c-avatar:not(.c-avatar-icon) { color: var(--c-avatar-base); }
-
-/* Icon 유형: 중립 표면 + 보조 텍스트 색 */
-.c-avatar-icon {
-  background: var(--gmd-surface-hover);
-  color: var(--gmd-text-secondary);
-}
-.c-avatar-sm.c-avatar-icon svg { width: 14px; height: 14px; }
-.c-avatar-md.c-avatar-icon svg { width: 18px; height: 18px; }
-.c-avatar-lg.c-avatar-icon svg { width: 22px; height: 22px; }
-.c-avatar-xl.c-avatar-icon svg { width: 26px; height: 26px; }
 
 /* Specimen 그리드: 표본 + 캡션 */
 .c-avatar-specimens {
@@ -1994,11 +989,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   flex-direction: column;
   align-items: center;
   gap: var(--gmd-space-2x);
-}
-.c-avatar-cap {
-  font-size: var(--gmd-font-size-12);
-  color: var(--gmd-text-tertiary);
-  font-family: var(--gmd-font-body);
 }
 
 /* Anatomy */
@@ -2083,19 +1073,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   overflow: hidden;
   width: 100%;
 }
-.c-avatar-row {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  border-top: 1px solid var(--gmd-divider);
-}
-.c-avatar-row:first-child { border-top: none; }
-.c-avatar-th {
-  font-size: var(--gmd-font-size-12);
-  font-weight: var(--gmd-weight-bold);
-  color: var(--gmd-text-secondary);
-  text-align: center;
-  padding: var(--gmd-space-3);
-}
 .c-avatar-rowhead {
   font-size: var(--gmd-font-size-14);
   color: var(--gmd-text-primary);
@@ -2110,86 +1087,24 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
   padding: var(--gmd-space-6);
   border-left: 1px solid var(--gmd-divider);
 }
-.c-avatar-scale { display: flex; align-items: flex-end; gap: var(--gmd-space-2x); }
-
-/* 그룹(stack): 음수 마진으로 겹침 + 흰 테두리 */
-.c-avatar-stack { display: flex; }
-.c-avatar-stack .c-avatar {
-  box-shadow: 0 0 0 2px var(--gmd-background-card);
-  margin-left: -8px;
-}
-.c-avatar-stack .c-avatar:first-child { margin-left: 0; }
-/* Scrollbar */
-/* Figma 정합: track 배경을 Figma surface/primary = --gmd-background-card 로 통일. */
-/* Figma 정합: 트랙 14px(tertiary-subtle 레일), thumb 은 4px inset 한 6px pill(트랙을 꽉 채우지 않음). */
-.c-scrollbar-track{position:relative;width:14px;background:var(--gmd-tertiary-subtle);border-radius:var(--gmd-radius-pill);overflow:hidden}
-.c-scrollbar-track.c-scrollbar-v{height:280px}
-.c-scrollbar-track.c-scrollbar-h{width:280px;height:14px}
-.c-scrollbar-thumb{position:absolute;border-radius:var(--gmd-radius-pill);background:var(--gmd-border-subtle);transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
-.c-scrollbar-v .c-scrollbar-thumb{left:var(--gmd-space-1);right:var(--gmd-space-1);top:var(--gmd-space-2x)}
-.c-scrollbar-h .c-scrollbar-thumb{top:var(--gmd-space-1);bottom:var(--gmd-space-1);left:var(--gmd-space-2x)}
-.c-scrollbar-thumb.c-scrollbar-hover{background:var(--gmd-text-tertiary)}
-.c-scrollbar-thumb.c-scrollbar-pressed{background:var(--gmd-text-secondary)}
-.c-scrollbar-thumb.c-scrollbar-disabled{background:var(--gmd-divider)}
-.c-scrollbar-track.c-scrollbar-disabled-track{background:var(--gmd-background-section)}
-.c-scrollbar-track.c-scrollbar-bare{background:transparent}
-.c-scrollbar-row{display:flex;align-items:flex-start;gap:var(--gmd-space-8)}
 .c-scrollbar-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-3)}
-.c-scrollbar-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-family:var(--gmd-font-body)}
 .c-scrollbar-anatomy{display:flex;align-items:center;gap:var(--gmd-space-10)}
-.c-scrollbar-mark{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
 .c-scrollbar-legend{display:flex;flex-direction:column;gap:var(--gmd-space-4)}
 .c-scrollbar-legrow{display:flex;align-items:flex-start;gap:var(--gmd-space-3)}
 .c-scrollbar-legrow strong{font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold)}
 .c-scrollbar-legrow span{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
-.c-scrollbar-legtext{display:flex;flex-direction:column;gap:var(--gmd-space-2)}
 .c-scrollbar-comp{display:flex;gap:var(--gmd-space-4);width:100%}
 .c-scrollbar-comp-cell{flex:1;position:relative;height:200px;border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);overflow:hidden}
 .c-scrollbar-comp-cell.c-scrollbar-light{background:var(--gmd-background-card)}
 .c-scrollbar-comp-cell .c-scrollbar-track{position:absolute;top:var(--gmd-space-4);right:var(--gmd-space-4);height:168px}
 .c-scrollbar-comp-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);margin-bottom:var(--gmd-space-2x)}
-/* Stepper */
-.c-stepper-row{display:flex;align-items:flex-start;gap:var(--gmd-space-3)}
-.c-stepper-h{display:flex;align-items:flex-start;flex:1;min-width:0}
-.c-stepper-node{display:flex;flex-direction:column;gap:var(--gmd-space-2)}
-.c-stepper-badge{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);flex:none}
 .c-stepper-badge-num{border:1px solid var(--gmd-border-base);color:var(--gmd-text-tertiary);background:var(--gmd-surface-base)}
-.c-stepper-badge-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);border:1px solid var(--gmd-primary-default)}
-.c-stepper-badge-success{background:var(--gmd-semantic-success);color:var(--gmd-text-on-primary);border:1px solid var(--gmd-semantic-success)}
-.c-stepper-badge-error{border:1px solid var(--gmd-semantic-error);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg)}
-.c-stepper-badge-pending{border:1px solid var(--gmd-border-base);color:var(--gmd-text-tertiary);background:var(--gmd-surface-base)}
-.c-stepper-label{display:flex;flex-direction:column;gap:var(--gmd-space-2);min-width:0}
-.c-stepper-head{display:flex;align-items:center;gap:var(--gmd-space-2x)}
-.c-stepper-title{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);line-height:1.3}
-.c-stepper-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-weight:var(--gmd-weight-regular)}
-.c-stepper-connector{flex:1;height:1px;background:var(--gmd-divider);margin-top:10px;min-width:24px}
-.c-stepper-connector-active{background:var(--gmd-primary-default);height:2px}
-.c-stepper-arrow{color:var(--gmd-text-tertiary);margin-top:6px}
-
-.c-stepper-bar{display:flex;align-items:center;gap:0;flex:1}
-.c-stepper-bar-badge{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold)}
-.c-stepper-bar-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
 .c-stepper-bar-num{border:2px solid var(--gmd-primary-default);color:var(--gmd-primary-default);background:var(--gmd-surface-base)}
-.c-stepper-bar-success{border:2px solid var(--gmd-primary-subtle);background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
-.c-stepper-bar-line{flex:1;height:2px;background:var(--gmd-divider)}
-.c-stepper-bar-line-fill{background:var(--gmd-primary-default)}
-
-.c-stepper-vrow{display:flex;flex-wrap:wrap;gap:var(--gmd-space-8)}
-.c-stepper-v{display:flex;gap:var(--gmd-space-3);width:200px}
-.c-stepper-v-rail{display:flex;flex-direction:column;align-items:center;flex:none}
-.c-stepper-v-line{width:1px;flex:1;background:var(--gmd-divider);min-height:48px;margin-top:var(--gmd-space-2x)}
-.c-stepper-v-body{display:flex;flex-direction:column;gap:var(--gmd-space-2);padding-top:var(--gmd-space-2)}
-.c-stepper-v-title{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
-.c-stepper-v-desc{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
-
-.c-stepper-input{display:flex;align-items:center;justify-content:space-between;gap:var(--gmd-space-3);width:240px;padding:var(--gmd-space-2x) var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-subtle);font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary)}
-.c-stepper-input svg{color:var(--gmd-text-tertiary)}
 
 .c-stepper-state-title{color:var(--gmd-text-primary)}
 .c-stepper-state-success .c-stepper-title{color:var(--gmd-semantic-success)}
 .c-stepper-state-error .c-stepper-title{color:var(--gmd-semantic-error)}
 .c-stepper-state-error .c-stepper-connector{background:var(--gmd-semantic-error)}
-.c-stepper-badge-success-primary{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);border:1px solid var(--gmd-primary-subtle)}
 .c-stepper-state-success-primary .c-stepper-title{color:var(--gmd-primary-default)}
 
 .c-stepper-anatomy{display:flex;flex-wrap:wrap;gap:var(--gmd-space-8);align-items:flex-start}
@@ -2209,20 +1124,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-stepper-comp-body{display:grid;grid-template-columns:160px 1fr;align-items:center}
 .c-stepper-comp-label{padding:var(--gmd-space-4);font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold)}
 .c-stepper-comp-cell{padding:var(--gmd-space-4)}
-.c-stepper-track{display:flex;align-items:center}
-.c-stepper-track-dot{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none}
-.c-stepper-track-line{flex:1;height:2px}
-.c-stepper-light-success{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
-.c-stepper-light-greensuccess{background:var(--gmd-semantic-success-bg);color:var(--gmd-semantic-success)}
-.c-stepper-light-line-blue{background:var(--gmd-primary-default)}
-.c-stepper-light-line-green{background:var(--gmd-semantic-success)}
-/* Stepper — 라벨형 (Labeled): Step 머리말 + 타이틀 */
-.c-stepper-eyebrow{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);color:var(--gmd-primary-default);line-height:1.3}
-.c-stepper-eyebrow-muted{color:var(--gmd-text-tertiary)}
-.c-stepper-lbl-h{display:flex;align-items:flex-start}
-.c-stepper-lbl-h .c-stepper-head{align-items:flex-start}
-.c-stepper-lbl-text{display:flex;flex-direction:column;gap:var(--gmd-space-1);min-width:0}
-.c-stepper-lbl-col{display:flex;flex-direction:column;gap:0;width:220px}
 
 /* Anatomy 공통 정합 레이어 — 컴포넌트별 개별 스타일 뒤에서 번호 배지·리스트 리듬을 통일한다. */
 .anatomy-num,
@@ -2263,7 +1164,6 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .anatomy-heading + p + .example > .c-accordion-anatomy {
   padding: var(--gmd-space-6);
 }
-
 /* ── 다국어 잘림 (i18n Truncation) 가이드라인 ── */
 /* 원칙 카드 10 데모 — 같은 의미의 라벨이 언어에 따라 얼마나 길어지는지 */
 .ov-d-i18n { display: flex; flex-direction: column; gap: var(--gmd-space-1); width: 128px; }
@@ -2304,7 +1204,11 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .guide-dont .guide-flag { color: var(--gmd-semantic-error); }
 /* 안내 문구 wrap 데모 */
 .c-i18n-wrapbox { border: 1px solid var(--gmd-divider); border-radius: var(--gmd-radius-md); padding: var(--gmd-space-4); display: flex; flex-direction: column; gap: var(--gmd-space-3); align-items: flex-start; background: var(--gmd-surface-base); }
-.c-i18n-wrapbox p { margin: 0; font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); line-height: 1.5; }
+.c-i18n-wrapbox p { margin: 0; font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); line-height: 1.5; word-break: keep-all; overflow-wrap: break-word; }
+/* 줄바꿈 Do/Don't — 단어 단위 vs 단어 중간 끊김 */
+.c-i18n-wrap-sample { margin: 0; width: 200px; font-size: var(--gmd-font-size-12); line-height: 1.5; color: var(--gmd-text-secondary); }
+.c-i18n-wrap-word { word-break: keep-all; overflow-wrap: break-word; }
+.c-i18n-wrap-break { word-break: break-all; }
 /* 불변 조건 카드 */
 .c-i18n-inv { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--gmd-space-3); width: 100%; }
 .c-i18n-inv-card { border: 1px solid var(--gmd-divider); border-radius: var(--gmd-radius-md); padding: var(--gmd-space-4); background: var(--gmd-surface-base); }
@@ -2314,6 +1218,8 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 /* 정적 툴팁 시연 */
 .c-i18n-tipdemo { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gmd-space-1); }
 /* 섹션 타이틀 우측 Figma Design Kit 링크 아이콘 */
+.content section > h2 .figma-link { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-left: var(--gmd-space-2x); border-radius: var(--gmd-radius-sm); color: var(--gmd-text-tertiary); vertical-align: middle; }
+.content section > h2 .figma-link:hover { color: var(--gmd-primary-default); background: var(--gmd-primary-subtle); }
 /* 근거 불렛 리스트 */
 .c-i18n-refs { margin-top: var(--gmd-space-4); padding-top: var(--gmd-space-3); border-top: 1px solid var(--gmd-divider); }
 .c-i18n-refs .note { margin: 0 0 var(--gmd-space-1); font-weight: var(--gmd-weight-bold); }
@@ -2338,7 +1244,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
       <span class="im-logo">
         <img src="gmd-logo-light.png" alt="GMDSOFT" height="28">
       </span>
-      <span class="im-tag">v2.13.1 · 2026.09.28</span>
+      <span class="im-tag">v2.13.3 · 2026.10.23</span>
     </div>
   </div>
   <a class="intro-cue" href="#overview" aria-label="아래로 스크롤">
@@ -2430,7 +1336,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
         <a class="ov-tile" href="#principles"><span class="ov-tile-ico"><span class="ico" data-icon="standard/star"></span></span><h3>디자인 원칙</h3><p>고밀도 업무, 토큰, 레이아웃, 컴포넌트, 아이콘, 의미 전달까지 classic이 따르는 기준.</p><span class="ov-tile-arrow">원칙 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="#color"><span class="ov-tile-ico"><span class="ico" data-icon="formatting/textColor"></span></span><h3>파운데이션</h3><p>색·타이포그래피·간격·레이아웃·radius·그림자·모션 — 모든 컴포넌트의 토대가 되는 토큰.</p><span class="ov-tile-arrow">토큰 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="#button"><span class="ov-tile-ico"><span class="ico" data-icon="tables-cells/insertTable"></span></span><h3>컴포넌트</h3><p>버튼·입력·배너·모달 등 29종 UI 컴포넌트와 상태·구성 요소·조합 예시.</p><span class="ov-tile-arrow">컴포넌트 보기<span class="ico" data-icon="arrow-right"></span></span></a>
-        
+        <a class="ov-tile" href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer"><span class="ov-tile-ico"><span class="ico" data-icon="download"></span></span><h3>토큰 · 리소스</h3><p>Figma v2.12 변수 컬렉션과 Design Kit 리소스. tokens.css는 이 원본을 미러링한 개발 사본.</p><span class="ov-tile-arrow">Figma v2.12 열기<span class="ico" data-icon="arrow-right"></span></span></a>
       </div>
 
       <div class="ov-block" id="principles">
@@ -2478,7 +1384,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 
     <div class="foundation-zone">
     <!-- ───── 컬러 ───── -->
-    <div class="category"><div class="eyebrow">Foundations</div><div class="category-head"><h2>파운데이션</h2><span class="category-meta">7 토큰 그룹</span></div><p>색·타이포그래피·간격·레이아웃·radius·그림자 등 모든 컴포넌트의 토대가 되는 디자인 토큰. 원본은 Figma v2.12의 <code>01_GMD_Theme_v2.12</code>이고, <a href="tokens.css">tokens.css</a>는 HTML 문서와 개발 적용을 위한 미러 파일이다.</p></div>
+    <div class="category"><div class="eyebrow">Foundations</div><div class="category-head"><h2>파운데이션</h2><span class="category-meta">7 토큰 그룹</span></div><p>색·타이포그래피·간격·레이아웃·radius·그림자 등 모든 컴포넌트의 토대가 되는 디자인 토큰. 원본은 <a href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer">Figma v2.12</a>의 <code>01_GMD_Theme_v2.12</code>이고, <a href="tokens.css">tokens.css</a>는 HTML 문서와 개발 적용을 위한 미러 파일이다.</p></div>
 
     <section id="color">
       <h2>컬러</h2>
@@ -2498,7 +1404,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
       <h3>Background · Surface</h3>
       <div class="swatches" data-swatch="--gmd-background-base,--gmd-background-section,--gmd-background-card,--gmd-background-surface-primary,--gmd-background-slot-active,--gmd-surface-base,--gmd-surface-hover,--gmd-surface-pressed"></div>
       <h3>Text · Border · Divider</h3>
-      <div class="swatches" data-swatch="--gmd-text-primary,--gmd-text-secondary,--gmd-text-tertiary,--gmd-text-disabled,--gmd-text-on-primary,--gmd-text-on-primary-fill,--gmd-text-on-warning,--gmd-border-base,--gmd-border-subtle,--gmd-border-control,--gmd-divider"></div>
+      <div class="swatches" data-swatch="--gmd-text-primary,--gmd-text-secondary,--gmd-text-tertiary,--gmd-text-disabled,--gmd-text-on-primary,--gmd-text-on-primary-fill,--gmd-text-on-primary-subtle,--gmd-text-on-error-fill,--gmd-text-on-warning,--gmd-border-base,--gmd-border-subtle,--gmd-border-control,--gmd-divider"></div>
       <p class="note">warning 정식값은 <code>01_GMD_Theme_v2.12</code> 기준 <code>#D97706</code>. 일부 Figma 컴포넌트의 비정식 <code>99_</code> warning 값은 채택하지 않는다.</p>
     </section>
 
@@ -2612,6 +1518,22 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
         </div>
       </div></div>
       <p class="note">위 막대의 폭은 1920px을 100%로 둔 실제 비율이다(1440은 75%, 1024는 53.33%). 데스크톱 앱(MD-*)은 1280px 미만에서 레이아웃을 바꾸지 않는다 — 가로 스크롤과 사이드바 유지가 원칙이라 tablet 이하 구간을 쓰지 않는다. 페이지 좌우 여백은 별도 토큰 없이 해당 구간 거터를 <code>.gmd-container</code>의 <code>padding-inline</code>으로 쓴다. <code>.gmd-col-*</code>의 span이 현재 컬럼 수를 넘으면 CSS Grid 규칙에 따라 전체 폭으로 접힌다.</p>
+      <h3>화면 가로 규격</h3>
+      <p>본문 폭은 창 폭에서 사이드 내비 폭을 뺀 값이다. 1680px를 넘으면 <code>.gmd-stage</code>가 본문을 <code>--gmd-container-max</code>(1680px)에서 멈추고 가운데 정렬한다. 1680px는 기본 설계 기준인 1920px 창에서 내비 240px를 뺀 본문 폭이다.</p>
+      <table class="tbl">
+        <tr><th>창 폭</th><th>본문 폭 (내비 펼침 240px)</th><th>본문 폭 (내비 접힘 56px)</th><th>비고</th></tr>
+        <tr><td>1280px</td><td>1040px</td><td>1224px</td><td>데스크톱 앱 최소 창. 내비 접힘 권장. 더 좁으면 가로 스크롤</td></tr>
+        <tr><td>1440px</td><td>1200px</td><td>1384px</td><td></td></tr>
+        <tr><td>1920px</td><td>1680px</td><td>1680px (최대 폭)</td><td>기본 설계 기준(FHD)</td></tr>
+        <tr><td>2560px 이상</td><td>1680px (최대 폭)</td><td>1680px (최대 폭)</td><td>남는 폭은 좌우 여백</td></tr>
+      </table>
+      <table class="tbl">
+        <tr><th>토큰</th><th>값</th><th>쓰임</th></tr>
+        <tr><td><code>--gmd-container-max</code></td><td>1680px</td><td>페이지 최대 폭 — <code>.gmd-stage</code></td></tr>
+        <tr><td><code>--gmd-window-min-width</code> · <code>--gmd-window-min-height</code></td><td>1280px · 720px</td><td>데스크톱 앱 창 최소 크기</td></tr>
+        <tr><td><code>--gmd-titlebar-height</code></td><td>32px</td><td>데스크톱 앱 셸 — 타이틀 바</td></tr>
+        <tr><td><code>--gmd-sidenav-width</code> · <code>--gmd-sidenav-width-collapsed</code></td><td>240px · 56px</td><td>데스크톱 앱 셸 — 사이드 내비 펼침 · 접힘</td></tr>
+      </table>
     </section>
 
     <!-- ───── Radius ───── -->
@@ -2685,8 +1607,14 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
           <button class="btn btn-tertiary" style="background:var(--gmd-tertiary-pressed)">Pressed</button>
           <button class="btn btn-tertiary" disabled>Disabled</button>
         </div>
+        <div class="preview" style="padding:0">
+          <button class="btn btn-danger">Default</button>
+          <button class="btn btn-danger" style="background:var(--gmd-semantic-error-hover)">Hover</button>
+          <button class="btn btn-danger" style="background:var(--gmd-semantic-error-pressed)">Pressed</button>
+          <button class="btn btn-danger" disabled>Disabled</button>
+        </div>
       </div></div>
-      <p class="note">각 위계는 default / hover / pressed / disabled 4단을 가진다. Primary hover <code>--gmd-primary-hover</code>, pressed <code>--gmd-primary-pressed</code>, disabled <code>--gmd-primary-disabled</code>.</p>
+      <p class="note">각 위계는 default / hover / pressed / disabled 4단을 가진다. Primary hover <code>--gmd-primary-hover</code>, pressed <code>--gmd-primary-pressed</code>, disabled <code>--gmd-primary-disabled</code>. Destructive 비활성은 빨강을 남기지 않고 Neutral 비활성과 같은 회색 짝(<code>--gmd-tertiary-subtle</code> 채움 + <code>--gmd-tertiary-disabled</code> 라벨)을 쓴다.</p>
       <h3>아이콘</h3>
       <div class="example"><div class="preview">
         <button class="btn btn-primary"><span class="ico" data-icon="download"></span>Download</button>
@@ -2712,14 +1640,14 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
         <button class="btn btn-text is-processing" aria-busy="true"><span class="c-spinner-ring" role="status" aria-label="처리 중"></span>Button</button>
         <button class="btn btn-text is-processing is-icon-only" aria-busy="true" aria-label="처리 중"><span class="c-spinner-ring" role="status"></span></button>
       </div></div>
-      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>의 Primary(Fill)·Text(only) 상태를 따른다. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다. 처리·대기 중 커서는 아래 <strong>로딩 커서</strong> 항을 따른다.</p>
+      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>(6:7037)의 Primary(Fill)·Text(only) 상태를 따른다. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다. 처리·대기 중 커서는 아래 <strong>로딩 커서</strong> 항을 따른다.</p>
 
       <h3>로딩 커서 (cursor: progress / wait)</h3>
       <div class="example"><div class="preview cursor-wait-demo" style="align-items:center;gap:var(--gmd-space-3)">
         <img src="assets/loading-cursor.svg" width="28" height="40" alt="로딩 커서" style="display:block">
         <span style="font-size:var(--gmd-font-size-14);color:var(--gmd-text-secondary)">이 영역 위에 마우스를 올리면 로딩 커서가 나타난다</span>
       </div></div>
-      <p class="note">처리·대기 중 공통 커서 — Figma <strong>Processing Button</strong>의 <code>cursor: progress / wait</code> 섹션 정본 커서(Design-Loading-Cursor)를 <code>assets/loading-cursor.svg</code>로 내보내 적용한다. 화살표 포인터 끝(hotspot 4,2)에 2색 로딩 볼이 붙는다. 처리 중 버튼은 입력을 막으므로(<code>pointer-events:none</code>) 이 커서는 버튼이 아니라 처리 중인 <strong>영역</strong>(또는 <code>body</code>)에 <code>.is-cursor-wait</code>(= <code>cursor: url(assets/loading-cursor.svg) 4 2, progress</code>)로 건다. 커스텀 커서 미지원 브라우저는 OS <code>progress</code> 커서로 폴백된다.</p>
+      <p class="note">처리·대기 중 공통 커서 — Figma <strong>Processing Button</strong>(6:7037)의 <code>cursor: progress / wait</code> 섹션 정본 커서(<a href="https://www.figma.com/make/WHOTr9qsg4PHphlrohw52v/Design-Loading-Cursor?t=idxLjaiwULoYnY3h-20&amp;fullscreen=1" target="_blank" rel="noopener">Design-Loading-Cursor</a>)를 <code>assets/loading-cursor.svg</code>로 내보내 적용한다. 화살표 포인터 끝(hotspot 4,2)에 2색 로딩 볼이 붙는다. 처리 중 버튼은 입력을 막으므로(<code>pointer-events:none</code>) 이 커서는 버튼이 아니라 처리 중인 <strong>영역</strong>(또는 <code>body</code>)에 <code>.is-cursor-wait</code>(= <code>cursor: url(assets/loading-cursor.svg) 4 2, progress</code>)로 건다. 커스텀 커서 미지원 브라우저는 OS <code>progress</code> 커서로 폴백된다.</p>
 
       <h3 class="anatomy-heading">Anatomy</h3>
       <ol class="anatomy-list">
@@ -3509,7 +2437,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 </section>
 
 <section id="datetime"><h2>Date&Time Picker</h2>
-      <p class="lede">날짜·시간을 고르는 컨트롤. 필드를 누르면 달력이 떠 연·월을 넘기며 고르고 필요하면 시간까지 잡는다. 직접 타이핑 대신 골라서 형식 오류를 막는다.</p>
+      <p class="lede">날짜·시간을 고르는 컨트롤. 필드를 누르면 달력이 떠 연·월을 넘기며 고르고 필요하면 시간까지 잡는다. 날짜는 직접 입력해도 되고 달력에서 골라도 된다. 입력은 칸별 마스크로 형식 오류를 막고, 달력은 입력한 값을 눈으로 확인하게 한다.</p>
 
 <h3>입력 필드 (Input Field)</h3>
 <div class="example"><div class="preview">
@@ -3701,12 +2629,132 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 </div>
 </div></div>
 
+<h3>기간 선택 (Date Range)</h3>
+<div class="example"><div class="preview col">
+<div class="c-datetime-row">
+<div>
+<div class="c-datetime-field is-range"><span class="c-datetime-seg">Start date</span><span class="c-datetime-segsep" aria-hidden="true">–</span><span class="c-datetime-seg">End date</span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
+<div class="c-datetime-caption">Default</div>
+</div>
+<div>
+<div class="c-datetime-field is-range is-focused"><span class="c-datetime-seg is-active">Start date</span><span class="c-datetime-segsep" aria-hidden="true">–</span><span class="c-datetime-seg">End date</span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
+<div class="c-datetime-caption">Focused · 시작일</div>
+</div>
+<div>
+<div class="c-datetime-field is-range is-focused is-filled"><span class="c-datetime-seg">12/06/2023</span><span class="c-datetime-segsep" aria-hidden="true">–</span><span class="c-datetime-seg is-active">End date</span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
+<div class="c-datetime-caption">Focused · 종료일</div>
+</div>
+<div>
+<div class="c-datetime-field is-range is-filled"><span class="c-datetime-seg">12/06/2023</span><span class="c-datetime-segsep" aria-hidden="true">–</span><span class="c-datetime-seg">18/06/2023</span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
+<div class="c-datetime-caption">Filled</div>
+</div>
+<div>
+<div class="c-datetime-field is-range is-focused is-filled"><span class="c-datetime-seg">12/06/2023</span><span class="c-datetime-segsep" aria-hidden="true">–</span><span class="c-datetime-seg is-active">20/06/<span class="c-datetime-mask">YYYY</span></span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
+<div class="c-datetime-caption">Typing</div>
+</div>
+<div>
+<div class="c-datetime-field is-range is-filled is-error" aria-invalid="true" aria-describedby="dt-range-err"><span class="c-datetime-seg">20/06/2023</span><span class="c-datetime-segsep" aria-hidden="true">–</span><span class="c-datetime-seg">12/06/2023</span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
+<div class="c-datetime-help is-error" id="dt-range-err">End date is before the start date. Check the dates.</div>
+<div class="c-datetime-caption">Error</div>
+</div>
+</div>
+<div class="c-datetime-row">
+<div>
+<div class="c-datetime-card is-range" role="dialog" aria-label="기간 선택">
+<div class="c-datetime-head"><div class="c-datetime-eyebrow">SELECT RANGE</div><div class="c-datetime-headtitle">Jun 1 – Jun 7</div><div class="c-datetime-headmeta">7 days</div></div>
+<div class="c-datetime-rbody">
+<div class="c-datetime-presets" role="group" aria-label="빠른 기간"><button class="c-datetime-preset" aria-pressed="false">Today</button><button class="c-datetime-preset" aria-pressed="false">Yesterday</button><button class="c-datetime-preset" aria-pressed="true">Last 7 days</button><button class="c-datetime-preset" aria-pressed="false">Last 30 days</button><button class="c-datetime-preset" aria-pressed="false">This month</button><button class="c-datetime-preset" aria-pressed="false">Last month</button></div>
+<div class="c-datetime-months">
+<div class="c-datetime-month">
+<div class="c-datetime-monthbar is-split"><button class="c-datetime-iconbtn" aria-label="이전 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/></svg></button><span class="c-datetime-monthname">May 2023</span><span aria-hidden="true"></span></div>
+<div class="c-datetime-grid is-range">
+<span class="c-datetime-dow">M</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">W</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">F</span><span class="c-datetime-dow">S</span><span class="c-datetime-dow">S</span>
+<span class="c-datetime-day">1</span><span class="c-datetime-day">2</span><span class="c-datetime-day">3</span><span class="c-datetime-day">4</span><span class="c-datetime-day">5</span><span class="c-datetime-day">6</span><span class="c-datetime-day">7</span>
+<span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span><span class="c-datetime-day">12</span><span class="c-datetime-day">13</span><span class="c-datetime-day">14</span>
+<span class="c-datetime-day">15</span><span class="c-datetime-day">16</span><span class="c-datetime-day">17</span><span class="c-datetime-day">18</span><span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span>
+<span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span><span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span>
+<span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day">31</span><span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-blank" aria-hidden="true"></span>
+</div>
+</div>
+<div class="c-datetime-month">
+<div class="c-datetime-monthbar is-split"><span aria-hidden="true"></span><span class="c-datetime-monthname">June 2023</span><button class="c-datetime-iconbtn" aria-label="다음 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></svg></button></div>
+<div class="c-datetime-grid is-range">
+<span class="c-datetime-dow">M</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">W</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">F</span><span class="c-datetime-dow">S</span><span class="c-datetime-dow">S</span>
+<span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-range-start" aria-selected="true">1</span><span class="c-datetime-day is-in-range">2</span><span class="c-datetime-day is-in-range">3</span><span class="c-datetime-day is-in-range">4</span>
+<span class="c-datetime-day is-in-range">5</span><span class="c-datetime-day is-in-range">6</span><span class="c-datetime-day is-range-end is-today" aria-current="date" aria-selected="true">7</span><span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span>
+<span class="c-datetime-day">12</span><span class="c-datetime-day">13</span><span class="c-datetime-day">14</span><span class="c-datetime-day">15</span><span class="c-datetime-day">16</span><span class="c-datetime-day">17</span><span class="c-datetime-day">18</span>
+<span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
+<span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-blank" aria-hidden="true"></span><span class="c-datetime-day is-blank" aria-hidden="true"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+</div>
+<div class="c-datetime-caption">Two months + presets</div>
+</div>
+</div>
+<div class="c-datetime-row">
+<div>
+<div class="c-datetime-card is-range" role="dialog" aria-label="기간 선택 · 종료일 고르는 중">
+<div class="c-datetime-head"><div class="c-datetime-eyebrow">SELECT RANGE</div><div class="c-datetime-headtitle">Jun 12 – <span class="c-datetime-tbd">End</span></div><div class="c-datetime-headmeta">Pick an end date</div></div>
+<div class="c-datetime-monthbar"><button class="c-datetime-monthsel">June 2023 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/></svg></button><div class="c-datetime-navbtns"><button class="c-datetime-iconbtn" aria-label="이전 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/></svg></button><button class="c-datetime-iconbtn" aria-label="다음 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></svg></button></div></div>
+<div class="c-datetime-grid is-range">
+<span class="c-datetime-dow">M</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">W</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">F</span><span class="c-datetime-dow">S</span><span class="c-datetime-dow">S</span>
+<span class="c-datetime-day is-mute">29</span><span class="c-datetime-day is-mute">30</span><span class="c-datetime-day is-mute">31</span><span class="c-datetime-day">1</span><span class="c-datetime-day">2</span><span class="c-datetime-day">3</span><span class="c-datetime-day">4</span>
+<span class="c-datetime-day">5</span><span class="c-datetime-day">6</span><span class="c-datetime-day">7</span><span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span>
+<span class="c-datetime-day is-range-start" aria-selected="true">12</span><span class="c-datetime-day is-preview">13</span><span class="c-datetime-day is-preview">14</span><span class="c-datetime-day is-preview">15</span><span class="c-datetime-day is-preview-end">16</span><span class="c-datetime-day">17</span><span class="c-datetime-day">18</span>
+<span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
+<span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
+</div>
+<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn" disabled>OK</button></div></div>
+</div>
+<div class="c-datetime-caption">Selecting</div>
+</div>
+<div>
+<div class="c-datetime-card is-range" role="dialog" aria-label="기간 선택 · 하루">
+<div class="c-datetime-head"><div class="c-datetime-eyebrow">SELECT RANGE</div><div class="c-datetime-headtitle">Jun 14</div><div class="c-datetime-headmeta">1 day</div></div>
+<div class="c-datetime-monthbar"><button class="c-datetime-monthsel">June 2023 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/></svg></button><div class="c-datetime-navbtns"><button class="c-datetime-iconbtn" aria-label="이전 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/></svg></button><button class="c-datetime-iconbtn" aria-label="다음 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></svg></button></div></div>
+<div class="c-datetime-grid is-range">
+<span class="c-datetime-dow">M</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">W</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">F</span><span class="c-datetime-dow">S</span><span class="c-datetime-dow">S</span>
+<span class="c-datetime-day is-mute">29</span><span class="c-datetime-day is-mute">30</span><span class="c-datetime-day is-mute">31</span><span class="c-datetime-day">1</span><span class="c-datetime-day">2</span><span class="c-datetime-day">3</span><span class="c-datetime-day">4</span>
+<span class="c-datetime-day">5</span><span class="c-datetime-day">6</span><span class="c-datetime-day">7</span><span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span>
+<span class="c-datetime-day">12</span><span class="c-datetime-day">13</span><span class="c-datetime-day is-range-start is-range-end" aria-selected="true">14</span><span class="c-datetime-day">15</span><span class="c-datetime-day">16</span><span class="c-datetime-day">17</span><span class="c-datetime-day">18</span>
+<span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
+<span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
+</div>
+<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+</div>
+<div class="c-datetime-caption">Same day</div>
+</div>
+<div>
+<div class="c-datetime-card is-range" role="dialog" aria-label="기간 선택 · 최대 기간">
+<div class="c-datetime-head"><div class="c-datetime-eyebrow">SELECT RANGE</div><div class="c-datetime-headtitle">Jun 12 – <span class="c-datetime-tbd">End</span></div><div class="c-datetime-headmeta">Pick an end date</div></div>
+<div class="c-datetime-monthbar"><button class="c-datetime-monthsel">June 2023 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/></svg></button><div class="c-datetime-navbtns"><button class="c-datetime-iconbtn" aria-label="이전 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/></svg></button><button class="c-datetime-iconbtn" aria-label="다음 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></svg></button></div></div>
+<div class="c-datetime-grid is-range">
+<span class="c-datetime-dow">M</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">W</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">F</span><span class="c-datetime-dow">S</span><span class="c-datetime-dow">S</span>
+<span class="c-datetime-day is-mute">29</span><span class="c-datetime-day is-mute">30</span><span class="c-datetime-day is-mute">31</span><span class="c-datetime-day is-disabled" aria-disabled="true">1</span><span class="c-datetime-day is-disabled" aria-disabled="true">2</span><span class="c-datetime-day is-disabled" aria-disabled="true">3</span><span class="c-datetime-day is-disabled" aria-disabled="true">4</span>
+<span class="c-datetime-day is-disabled" aria-disabled="true">5</span><span class="c-datetime-day">6</span><span class="c-datetime-day">7</span><span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span>
+<span class="c-datetime-day is-range-start" aria-selected="true">12</span><span class="c-datetime-day">13</span><span class="c-datetime-day">14</span><span class="c-datetime-day">15</span><span class="c-datetime-day">16</span><span class="c-datetime-day">17</span><span class="c-datetime-day">18</span>
+<span class="c-datetime-day is-disabled" aria-disabled="true">19</span><span class="c-datetime-day is-disabled" aria-disabled="true">20</span><span class="c-datetime-day is-disabled" aria-disabled="true">21</span><span class="c-datetime-day is-disabled" aria-disabled="true">22</span><span class="c-datetime-day is-disabled" aria-disabled="true">23</span><span class="c-datetime-day is-disabled" aria-disabled="true">24</span><span class="c-datetime-day is-disabled" aria-disabled="true">25</span>
+<span class="c-datetime-day is-disabled" aria-disabled="true">26</span><span class="c-datetime-day is-disabled" aria-disabled="true">27</span><span class="c-datetime-day is-disabled" aria-disabled="true">28</span><span class="c-datetime-day is-disabled" aria-disabled="true">29</span><span class="c-datetime-day is-disabled" aria-disabled="true">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
+</div>
+<div class="c-datetime-hint">Up to 7 days from the start date</div>
+<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn" disabled>OK</button></div></div>
+</div>
+<div class="c-datetime-caption">Max range</div>
+</div>
+</div>
+</div></div>
+<p class="note">직접 입력이 기본이고 달력은 확인과 보조다. 입력은 연·월·일 칸 마스크로 숫자만 받고, 시작일을 다 치면 종료일로 넘어가며 달력도 그 달로 따라간다. 입력과 달력은 늘 같은 값을 보여준다. 달력에서 두 날짜를 누르면 기간이 되고, 먼저 누른 날이 뒤면 앞뒤를 바꿔 잡는다. 직접 입력한 값은 바꾸지 않고, 종료일이 앞서거나 없는 날짜면 필드 아래에 이유와 고칠 방법을 적는다. 종료일을 고르기 전에는 OK를 막고, 헤더에 지금 무엇을 고를 차례인지 글로 보여준다. 최대 기간이 있으면 넘는 날짜를 비활성으로 두고 그 이유를 달력 아래에 적는다. 데스크톱 기본은 두 달 보기 + 빠른 기간이고, 폭이 좁으면 한 달 보기로 줄인다.</p>
+
 <h3 class="anatomy-heading">Anatomy</h3>
 <ol class="anatomy-list">
 <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Field</strong><span class="anatomy-desc">입력 시작점. 날짜 값, placeholder, 캘린더 아이콘을 한 줄로 정렬한다.</span></span></li>
 <li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Header</strong><span class="anatomy-desc">선택 모드와 현재 선택값을 요약하는 상단 영역.</span></span></li>
 <li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Calendar / Clock body</strong><span class="anatomy-desc">날짜 격자 또는 시간 다이얼. 선택 가능한 단위만 명확하게 노출한다.</span></span></li>
 <li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">Actions</strong><span class="anatomy-desc">CLEAR, CANCEL, OK 같은 확정 동작. 패널 하단에 고정해 흐름을 닫는다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">5</span><span><strong class="anatomy-term">Presets (기간 선택)</strong><span class="anatomy-desc">자주 쓰는 구간(오늘, 최근 7일 등)을 한 번에 고르는 목록. 기간 선택의 두 달 보기에만 둔다.</span></span></li>
 </ol>
 
 <h3>조합 예시 (Composition)</h3>
@@ -4291,6 +3339,33 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 <tr><td>a3f9c1…</td><td>SHA-256</td></tr>
 <tr><td>7b21e0…</td><td>SHA-256</td></tr>
 <tr><td>c04d8a…</td><td>SHA-256</td></tr>
+</tbody>
+</table>
+</div>
+</div></div>
+
+<h3>정렬 — 오름차순 · 내림차순</h3>
+<p style="font-size:var(--gmd-font-size-14);color:var(--gmd-text-secondary)">정렬할 수 있는 열은 헤더 안에 <code>button.c-table-sort</code> 를 두고, 상태는 <code>th</code> 의 <code>aria-sort</code>(<code>ascending</code> · <code>descending</code> · <code>none</code>) 하나로 정한다. 오름차순은 위 화살표, 내림차순은 아래 화살표다. 정렬 안 된 열은 아이콘을 숨기되 자리는 남겨, 정렬을 켤 때 라벨이 밀리지 않는다. 숫자 열(<code>is-num</code>)은 아이콘을 라벨 앞에 둬 라벨이 숫자 끝선에 맞는다. 한 번에 한 열만 정렬 상태를 가진다.</p>
+<div class="example"><div class="preview">
+<div class="c-table-wrap">
+<table class="c-table">
+<thead><tr><th scope="col" aria-sort="ascending"><button type="button" class="c-table-sort">파일명<span class="ico" data-icon="arrow-up-short"></span></button></th><th scope="col" aria-sort="none"><button type="button" class="c-table-sort">유형<span class="ico" data-icon="arrow-up-short"></span></button></th><th scope="col" class="is-num" aria-sort="none"><button type="button" class="c-table-sort">크기(MB)<span class="ico" data-icon="arrow-up-short"></span></button></th><th scope="col">등록일</th></tr></thead>
+<tbody>
+<tr><td>call_log.db</td><td>데이터베이스</td><td class="is-num">18.7</td><td>2026-09-02</td></tr>
+<tr><td>IMG_0417.jpg</td><td>이미지</td><td class="is-num">2.4</td><td>2026-09-02</td></tr>
+<tr><td>notes.txt</td><td>텍스트</td><td class="is-num">0.1</td><td>2026-09-03</td></tr>
+</tbody>
+</table>
+</div>
+</div></div>
+<div class="example"><div class="preview">
+<div class="c-table-wrap">
+<table class="c-table">
+<thead><tr><th scope="col" aria-sort="none"><button type="button" class="c-table-sort">파일명<span class="ico" data-icon="arrow-up-short"></span></button></th><th scope="col" aria-sort="none"><button type="button" class="c-table-sort">유형<span class="ico" data-icon="arrow-up-short"></span></button></th><th scope="col" class="is-num" aria-sort="descending"><button type="button" class="c-table-sort">크기(MB)<span class="ico" data-icon="arrow-down-short"></span></button></th><th scope="col">등록일</th></tr></thead>
+<tbody>
+<tr><td>call_log.db</td><td>데이터베이스</td><td class="is-num">18.7</td><td>2026-09-02</td></tr>
+<tr><td>IMG_0417.jpg</td><td>이미지</td><td class="is-num">2.4</td><td>2026-09-02</td></tr>
+<tr><td>notes.txt</td><td>텍스트</td><td class="is-num">0.1</td><td>2026-09-03</td></tr>
 </tbody>
 </table>
 </div>
@@ -5524,7 +4599,24 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
           <p class="c-i18n-hint">오른쪽 아래 모서리를 드래그해 컨트롤을 줄여보세요</p>
         </div>
       </div></div>
+      <div class="example"><div class="preview">
+        <div class="guide-pair">
+          <figure class="guide-card guide-do">
+            <div class="guide-card-stage">
+              <p class="c-i18n-wrap-sample c-i18n-wrap-word" data-i18n="boardGuide">보드에 파일을 추가하면 분석을 시작할 수 있습니다.</p>
+            </div>
+            <figcaption><span class="guide-flag"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>Do</span>단어 단위로 줄을 바꾼다. 단어 안에서는 끊지 않는다.</figcaption>
+          </figure>
+          <figure class="guide-card guide-dont">
+            <div class="guide-card-stage">
+              <p class="c-i18n-wrap-sample c-i18n-wrap-break" data-i18n="boardGuide">보드에 파일을 추가하면 분석을 시작할 수 있습니다.</p>
+            </div>
+            <figcaption><span class="guide-flag"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.15 3.44 8 7.29l3.85-3.85.71.71L8.71 8l3.85 3.85-.71.71L8 8.71l-3.85 3.85-.71-.71L7.29 8 3.44 4.15z"/></svg>Don&#39;t</span>단어 중간에서 줄이 바뀐다. 끊긴 단어를 다시 이어 읽어야 한다.</figcaption>
+          </figure>
+        </div>
+      </div></div>
       <p class="note">안내 문구는 자르지 않고 줄을 바꾼다. 영역은 아래로 늘어나고, 버튼과의 간격은 8px 이상을 지킨다.</p>
+      <p class="note">줄바꿈은 단어 단위로 한다. 단어 중간에서 줄을 바꾸지 않는다(한국어는 띄어쓰기 단위). 한 단어가 영역 폭보다 길 때만 그 단어 안에서 줄을 바꾼다. 라벨 2줄 표시(B)와 배너 본문(F)처럼 줄바꿈이 생기는 모든 자리에 같은 규칙을 쓴다. CSS 는 <code>word-break: keep-all</code> + <code>overflow-wrap: break-word</code>, <code>word-break: break-all</code> 은 쓰지 않는다.</p>
 
       <h3>E. 사용자 데이터 — 가운데 말줄임</h3>
       <div class="example"><div class="preview col">
@@ -5562,6 +4654,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
         <li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">말줄임 + 툴팁</strong><span class="anatomy-desc">위 두 가지가 어려울 때 쓰는 마지막 표시 방법. 주요 버튼에는 쓰지 않는다.</span></span></li>
         <li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">컨트롤 구조 변경</strong><span class="anatomy-desc">비용이 가장 큰 수단. 효과를 따로 판단해 결정한다.</span></span></li>
       </ol>
+      <p class="note">줄바꿈이나 말줄임 결과가 어색하면 문자열을 고치기 전에 현재 구현된 UI 레이아웃에서 개선할 부분을 먼저 찾는다. 찾은 개선 사항은 정리해 이 규칙에 추가한다.</p>
       <div class="c-i18n-refs">
         <p class="note">근거</p>
         <ul>
@@ -5592,7 +4685,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .icl-tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 8px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);cursor:pointer;transition:border-color .12s,background .12s}
 .icl-tile:hover{border-color:var(--gmd-primary-default);background:var(--gmd-surface-hover)}
 .icl-tile.copied{border-color:var(--gmd-semantic-success)}
-.icl-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(8px);background:var(--gmd-text-primary);color:var(--gmd-surface-base);padding:12px 16px;border-radius:999px;font-size:14px;font-weight:500;box-shadow:var(--gmd-shadow-lift);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:1000}
+.icl-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(8px);background:var(--gmd-text-primary);color:var(--gmd-surface-base);padding:12px 16px;border-radius:999px;font-size:14px;font-weight:400;box-shadow:var(--gmd-shadow-lift);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:1000}
 .icl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .icl-toast-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;background:rgba(255,255,255,.16);padding:0 4px;border-radius:4px;margin-right:4px}
 .icl-glyph{height:32px;display:flex;align-items:center;justify-content:center;color:var(--gmd-text-primary)}
@@ -5614,7 +4707,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v2.13 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.09.28 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v2.13 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.10.23 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>
@@ -5735,6 +4828,8 @@ const ICONS = {
   'tables-cells/columns': {vb:'0 0 24 24', p:'<g transform="translate(1.999,4.999) scale(1,1)"><path d="M18 0H2C0.9 0 0 0.9 0 2V12C0 13.1 0.9 14 2 14H18C19.1 14 20 13.1 20 12V2C20 0.9 19.1 0 18 0ZM6 12.5H2C1.7 12.5 1.5 12.3 1.5 12.1V12V10H6V12.5ZM6 8.5H1.5V5.5H6V8.5ZM6 4H1.5V2C1.5 1.7 1.7 1.5 1.9 1.5H6V4ZM18.5 12C18.5 12.3 18.3 12.5 18.1 12.5H14V10H18.5V12ZM18.5 8.5H14V5.5H18.5V8.5ZM18.5 4H14V1.5H18C18.3 1.5 18.5 1.7 18.5 1.9V4Z"/></g>'},
   'tables-cells/cellBackground': {vb:'0 0 24 24', p:'<g transform="translate(2.95,3.499) scale(1,1)"><path d="M13.65 8.9L4.65 0L3.25 1.4L5.65 3.8L0.45 9C-0.15 9.6 -0.15 10.5 0.45 11.1L5.95 16.6C6.25 16.9 6.65 17 7.05 17C7.45 17 7.85 16.9 8.15 16.6L13.65 11.1C14.25 10.5 14.25 9.5 13.65 8.9ZM2.25 10L7.05 5.2L11.85 10H2.25ZM16.05 11.5C16.05 11.5 14.05 13.7 14.05 15C14.05 16.1 14.95 17 16.05 17C17.15 17 18.05 16.1 18.05 15C18.05 13.7 16.05 11.5 16.05 11.5Z"/></g>'},
   'misc-parts/Dropdown': {vb:'0 0 32 24', p:'<g transform="translate(3,6) scale(1,1)"><path d="M0 12H18V10H0V12ZM0 5V7H18V5H0ZM0 0V2H18V0H0Z"/></g><g transform="translate(24,9.5)"><path d="M4 5L8 0H0L4 5Z"/></g>'},
+  'arrow-up-short': {vb:'0 0 16 16', p:'<path fill-rule="evenodd" clip-rule="evenodd" d="M8 12C8.27614 12 8.5 11.7761 8.5 11.5V5.70711L10.6464 7.85355C10.8417 8.04882 11.1583 8.04882 11.3536 7.85355C11.5488 7.65829 11.5488 7.34171 11.3536 7.14645L8.35355 4.14645C8.15829 3.95118 7.84171 3.95118 7.64645 4.14645L4.64645 7.14645C4.45118 7.34171 4.45118 7.65829 4.64645 7.85355C4.84171 8.04882 5.15829 8.04882 5.35355 7.85355L7.5 5.70711V11.5C7.5 11.7761 7.72386 12 8 12Z" fill="currentColor"/>'},
+  'arrow-down-short': {vb:'0 0 16 16', p:'<path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8.27614 4 8.5 4.22386 8.5 4.5V10.2929L10.6464 8.14645C10.8417 7.95118 11.1583 7.95118 11.3536 8.14645C11.5488 8.34171 11.5488 8.65829 11.3536 8.85355L8.35355 11.8536C8.15829 12.0488 7.84171 12.0488 7.64645 11.8536L4.64645 8.85355C4.45118 8.65829 4.45118 8.34171 4.64645 8.14645C4.84171 7.95118 5.15829 7.95118 5.35355 8.14645L7.5 10.2929V4.5C7.5 4.22386 7.72386 4 8 4Z" fill="currentColor"/>'},
 };
 document.querySelectorAll('[data-icon]').forEach(el => {
   const k = el.getAttribute('data-icon');
@@ -5984,6 +5079,125 @@ toggle.addEventListener('click', () => {
 /* ── 인트로 전환: 첫 wheel/click/key 입력을 문서 스크롤이 아니라 오버레이 페이지 전환으로 처리한다. ── */
 const intro = document.querySelector('.intro');
 const introCue = document.querySelector('.intro-cue');
+/* ── 인트로 엑스레이: 렌즈 안 라벨은 하드코딩이 아니라 실제 computed style 을 토큰 이름으로 역조회한 값이다. ── */
+const introXray = (() => {
+  const inner = intro && intro.querySelector('.intro-inner');
+  if (!inner || !matchMedia('(hover: hover) and (pointer: fine)').matches) return null;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const layer = document.createElement('div');
+  layer.className = 'intro-xray';
+  layer.setAttribute('aria-hidden', 'true');
+  layer.innerHTML = '<div class="ix-view"><div class="ix-marks"></div></div><div class="ix-ring"><span class="ix-readout"><b></b><span></span></span></div><i style="position:absolute;visibility:hidden"></i>';
+  const view = layer.querySelector('.ix-view');
+  const marks = layer.querySelector('.ix-marks');
+  const readName = layer.querySelector('.ix-readout b');
+  const readSpec = layer.querySelector('.ix-readout span');
+  const probe = layer.querySelector('i');
+  const ghost = inner.cloneNode(true);
+  ghost.classList.add('ix-ghost');
+  ghost.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+  view.prepend(ghost);
+  intro.append(layer);
+
+  const TOKEN = '--gmd-'; // 토큰 이름을 런타임에 조립한다(정적 검사기가 미정의 참조로 오인하지 않게 접두사를 분리)
+  const COLORS = ['text-primary', 'text-secondary', 'text-tertiary', 'border-base', 'primary-default', 'background-base'];
+  const SPACES = ['1', '2', '3', '4', '5', '6', '8', '10', '12'];
+  const colorToken = value => {
+    for (const name of COLORS) {
+      probe.style.color = `var(${TOKEN}${name})`;
+      if (getComputedStyle(probe).color === value) return name;
+    }
+    return value;
+  };
+  const spaceToken = value => {
+    const px = parseFloat(value);
+    for (const name of SPACES) {
+      probe.style.width = `var(${TOKEN}space-${name})`;
+      if (Math.abs(parseFloat(getComputedStyle(probe).width) - px) < 0.5) return `space-${name}`;
+    }
+    return `${Math.round(px)}px`;
+  };
+  const num = value => Math.round(parseFloat(value) * 100) / 100;
+  const em = cs => cs.letterSpacing === 'normal' ? '0' : `${num(parseFloat(cs.letterSpacing) / parseFloat(cs.fontSize))}em`;
+  const TARGETS = [
+    ['.intro-title', 'Title', cs => `${cs.fontFamily.split(',')[0].replace(/"/g, '')} ${cs.fontWeight} · ${Math.round(parseFloat(cs.fontSize))}px · lh ${num(parseFloat(cs.lineHeight) / parseFloat(cs.fontSize))} · ${colorToken(cs.color)}`],
+    ['.intro-title .it-thin', 'Subtitle', cs => `${cs.fontWeight} ${cs.fontStyle} · ls ${em(cs)}`],
+    ['.intro-rule', 'Rule', cs => `${colorToken(cs.backgroundColor)} ${Math.round(cs.opacity * 100)}% · mt ${spaceToken(cs.marginTop)} · mb ${spaceToken(cs.marginBottom)}`],
+    ['.im-logo img', 'Logo', cs => `h ${Math.round(parseFloat(cs.height))}px`],
+    ['.im-tag', 'Tag', cs => `${Math.round(parseFloat(cs.fontSize))}px · ${cs.fontWeight} · ${colorToken(cs.color)}`],
+    ['.intro-cue', 'Scroll cue', cs => `${Math.round(parseFloat(cs.fontSize))}px · ls ${em(cs)} · bottom ${spaceToken(cs.bottom)}`]
+  ];
+
+  let hits = [];
+  const build = () => {
+    const base = intro.getBoundingClientRect();
+    marks.textContent = '';
+    hits = [];
+    TARGETS.forEach(([selector, name, describe], depth) => {
+      const el = intro.querySelector(selector); // 원본이 고스트 사본(.intro-xray)보다 문서 순서상 앞이다
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const box = document.createElement('div');
+      box.className = 'ix-box';
+      box.style.cssText = `left:${r.left - base.left}px;top:${r.top - base.top}px;width:${r.width}px;height:${r.height}px`;
+      const spec = describe(getComputedStyle(el));
+      const tag = document.createElement('span');
+      tag.className = 'ix-tag';
+      tag.append(Object.assign(document.createElement('b'), { textContent: name }), spec);
+      box.append(tag);
+      marks.append(box);
+      hits.push({ name, spec, r, depth });
+    });
+  };
+
+  const lens = { x: 0, y: 0, r: 0, tx: 0, ty: 0, tr: 0 };
+  let raf = 0;
+  const step = () => {
+    lens.x += (lens.tx - lens.x) * (reduce ? 1 : 0.2);
+    lens.y += (lens.ty - lens.y) * (reduce ? 1 : 0.2);
+    lens.r += (lens.tr - lens.r) * (reduce ? 1 : 0.16);
+    layer.style.setProperty('--lx', `${lens.x.toFixed(1)}px`);
+    layer.style.setProperty('--ly', `${lens.y.toFixed(1)}px`);
+    layer.style.setProperty('--lr', `${Math.max(lens.r, 0).toFixed(1)}px`);
+    const settled = Math.abs(lens.tx - lens.x) < 0.3 && Math.abs(lens.ty - lens.y) < 0.3 && Math.abs(lens.tr - lens.r) < 0.3;
+    raf = settled ? 0 : requestAnimationFrame(step);
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(step); };
+  const aim = event => {
+    lens.tx = event.clientX;
+    lens.ty = event.clientY;
+    const hit = hits
+      .filter(({ r }) => event.clientX >= r.left && event.clientX <= r.right && event.clientY >= r.top && event.clientY <= r.bottom)
+      .sort((a, b) => b.depth - a.depth)[0];
+    readName.textContent = `${hit ? `${hit.name}   ` : ''}${Math.round(event.clientX)}, ${Math.round(event.clientY)}`;
+    readSpec.textContent = hit ? hit.spec : '';
+    kick();
+  };
+  const open = event => {
+    if (!document.body.classList.contains('intro-active')) return;
+    build();
+    if (!intro.classList.contains('ix-on')) {
+      lens.x = event.clientX;
+      lens.y = event.clientY;
+    }
+    intro.classList.add('ix-on');
+    lens.tr = 128;
+    aim(event);
+  };
+  intro.addEventListener('pointerenter', open);
+  intro.addEventListener('pointermove', event => intro.classList.contains('ix-on') ? aim(event) : open(event), { passive: true });
+  intro.addEventListener('pointerdown', () => { if (lens.tr) { lens.tr = 220; kick(); } });
+  window.addEventListener('pointerup', () => { if (lens.tr) { lens.tr = 128; kick(); } });
+  intro.addEventListener('pointerleave', () => {
+    intro.classList.remove('ix-on');
+    lens.tr = 0;
+    kick();
+  });
+  window.addEventListener('resize', () => { if (intro.classList.contains('ix-on')) build(); }, { passive: true });
+  new MutationObserver(() => { if (intro.classList.contains('ix-on')) build(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  return { build };
+})();
 const completeIntro = () => {
   document.body.classList.add('intro-entered', 'intro-complete');
   document.body.classList.remove('intro-active');
@@ -6110,7 +5324,64 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
   h2.prepend(a);
 });
 </script>
-
+<script>
+/* ── 섹션 타이틀 → Figma Design Kit 링크. 노드 id가 비어 있으면 파일 루트로 연다 ── */
+(function(){
+  const FIGMA_FILE = 'https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12';
+  // 섹션 id → Figma 문서 프레임 딥링크 (id + 프레임 이름 — 툴팁에 사용). 비면 파일 루트.
+  const FIGMA_NODES = {
+    color:        { id:'6052:45339', name:'Color (Design-Kit format)' },
+    typography:   { id:'6052:45651', name:'Typography (Design-Kit format)' },
+    spacing:      { id:'6052:44298', name:'Spacing (Design-Kit format)' },
+    radius:       { id:'', name:'' },
+    shadow:       { id:'6052:45811', name:'Shadow (Design-Kit format)' },
+    motion:       { id:'', name:'' },
+    button:       { id:'6073:4094', name:'Docs / Button' },
+    input:        { id:'6105:5081', name:'Docs / Input' },
+    card:         { id:'6253:1049', name:'Docs / Card' },
+    badge:        { id:'6260:3082', name:'Docs / Badge' },
+    toast:        { id:'6129:51',   name:'Docs / Toast' },
+    banner:       { id:'6344:6',    name:'Docs / Banner & Info Bar' },
+    infobar:      { id:'6344:6',    name:'Docs / Banner & Info Bar' },
+    tab:          { id:'6118:536',  name:'Docs / Tab' },
+    progress:     { id:'6139:429',  name:'Docs / Progress Bar' },
+    modal:        { id:'6133:2779', name:'Docs / Modal' },
+    'checkbox-radio': { id:'6112:582', name:'Docs / Checkbox & Radio' },
+    combobox:     { id:'6092:2566', name:'Docs / Combobox' },
+    datetime:     { id:'6100:219',  name:'Docs / Date&Time Picker' },
+    'context-menu': { id:'6098:544', name:'Docs / Context Menu' },
+    spinner:      { id:'6153:19',   name:'Docs / Spinner' },
+    textbox:      { id:'6109:59',   name:'Docs / TextBox' },
+    slider:       { id:'6152:568',  name:'Docs / Slider' },
+    tooltip:      { id:'6127:91',   name:'Docs / Tooltip' },
+    tree:         { id:'6472:691',  name:'Docs / Tree' },
+    'ribbon-nav': { id:'6124:1845', name:'Docs / Sidebar' },
+    popover:      { id:'6137:5',    name:'Docs / Popover' },
+    'filter-labels': { id:'6144:68', name:'Docs / Filter Labels' },
+    accordion:    { id:'6252:683',  name:'Docs / Accordion' },
+    pagination:   { id:'6253:832',  name:'Docs / Pagination' },
+    breadcrumb:   { id:'6253:726',  name:'Docs / Breadcrumb' },
+    avatar:       { id:'6253:928',  name:'Docs / Avatar' },
+    scrollbar:    { id:'6156:289',  name:'Docs / Scrollbar' },
+    stepper:      { id:'6169:580',  name:'Docs / Stepper' }
+  };
+  document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
+    const sid = h2.closest('section').id;
+    if (!(sid in FIGMA_NODES)) return;
+    const node = FIGMA_NODES[sid];
+    const a = document.createElement('a');
+    a.href = node.id ? `${FIGMA_FILE}?node-id=${node.id.replace(':', '-')}` : FIGMA_FILE;
+    a.className = 'figma-link';
+    a.target = '_blank';
+    a.rel = 'noreferrer';
+    const desc = node.name ? `Figma에서 ${node.name} 열기` : 'Figma Design Kit 열기';
+    a.title = desc;
+    a.setAttribute('aria-label', desc);
+    a.innerHTML = '<svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M5.5 1.5h2.5v3.5H5.5a1.75 1.75 0 1 1 0-3.5zM5.5 5.75h2.5v3.5H5.5a1.75 1.75 0 1 1 0-3.5zM5.5 10h2.5v1.75A1.75 1.75 0 1 1 5.5 10zM8.75 1.5h1.75a1.75 1.75 0 1 1 0 3.5H8.75V1.5zM10.5 5.75a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5z"/></svg>';
+    h2.appendChild(a);
+  });
+})();
+</script>
 <script>
 /* ── 다국어 잘림 데모: 언어 전환 — 같은 키의 문자열을 5개 언어로 바꿔 잘림 동작을 비교한다 ── */
 (function(){

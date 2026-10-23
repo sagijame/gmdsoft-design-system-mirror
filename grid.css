@@ -10,6 +10,14 @@
   padding-inline: var(--gmd-grid-gutter);
 }
 
+/* 페이지 최대 폭 — 화면이 넓어져도 본문은 --gmd-container-max(1680) 에서 멈추고 가운데 정렬한다.
+   .gmd-container(1400, 거터 여백)는 그 안의 내용 묶음 폭이다. */
+.gmd-stage {
+  width: 100%;
+  max-width: var(--gmd-container-max);
+  margin-inline: auto;
+}
+
 .gmd-grid {
   display: grid;
   grid-template-columns: repeat(var(--gmd-grid-columns), minmax(0, 1fr));

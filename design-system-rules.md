@@ -497,3 +497,86 @@ Key variables:
 - `--gmd-btn-primary-base`, `--gmd-btn-seed-base`
 - `--gmd-error-base`, `--gmd-success-base`, `--gmd-warning-base`, `--gmd-info-base`
 - `--gmd-shadow-sm`, `--gmd-shadow-md`, `--gmd-shadow-lg`
+
+---
+
+## Figma MCP 연동 (레포 작업 절차)
+
+> 본 절은 `Product-designer` 레포에서 Figma MCP(`mcp__claude_ai_Figma__*`)로 작업할 때의 절차다. 위 절들이 **무엇이 정본인가**를 정하고, 이 절은 **그것을 Figma 와 어떻게 주고받는가**를 정한다. 규칙 본문의 canonical 은 `Product-designer/AGENTS.md` §7 이며 충돌 시 그쪽이 우선한다.
+
+### 원본 파일 — 색과 간격은 다른 파일이다
+
+| 갈래 | Figma 파일 | 변수 컬렉션 | 대조본 |
+| --- | --- | --- | --- |
+| **색** | MD-UX `zt8aRVV4gt9tNwjeyjOu1b` | `01_GMD_Theme_v2.12` | `COLOR_TOKENS.md` · `01_GMD_Theme_v2.12/{Light,Dark}.tokens.json` |
+| **간격·radius·아이콘·레이아웃** | Design Kit v2.1 `Z1ug6AJn88Qcpt9dseua3e` | `00_GMD Foundations` | `00_GMD Foundations/light.tokens.json` |
+| **아이콘 원본** | MD-UX `zt8aRVV4gt9tNwjeyjOu1b` | `Icon Export` 프레임 (node `1824:5`) | `icon-library/` 2,144종 |
+
+한 파일 키로 묶어 읽으면 색 토큰의 출처가 틀어진다. `01_GMD_Theme_v2.12` 밖 컬렉션(과거 `99_GMD Theme Colors` 등)의 색 값은 쓰지 않는다.
+
+### 변수 경로 → CSS 토큰
+
+| 컬렉션 | Figma 경로 | CSS 토큰 |
+| --- | --- | --- |
+| `01_GMD_Theme_v2.12` | `Foundation Colors/primary 900/{50…900}` | `--gmd-primary-900-{50…900}` |
+| `01_GMD_Theme_v2.12` | `Foundation Colors/gray 900/{50…900}` | `--gmd-gray-900-{50…900}` |
+| `01_GMD_Theme_v2.12` | `Semantic colors/{success\|warning\|error\|info}/base` · `/background` | `--gmd-semantic-{name}` · `-bg` |
+| `00_GMD Foundations` | `Corner Radius/*` | `--gmd-radius-*` |
+| `00_GMD Foundations` | `Spacing/Base Scale/size{20…960}` | `--gmd-space-*` (20단) |
+| `00_GMD Foundations` | `Spacing/Semantic/*` | `--gmd-space-button-x` 등 9종 |
+| `00_GMD Foundations` | `Sizing & Shape/{Icon Size\|Border Width\|Opacity}` | `--gmd-icon-*` · `--gmd-border-w-*` · `--gmd-opacity-*` |
+| `00_GMD Foundations` | `Layout/grid/{breakpoint\|columns}/*` | `--gmd-breakpoint-*` · `--gmd-grid-columns-*` |
+
+이 표는 `tokens.css` 주석의 Figma 경로를 근거로 만들었고 Figma 파일을 열어 대조하지는 않았다. 경로 단위 확정은 `get_variable_defs` 대조가 필요하다.
+
+**함정** — `--gmd-space-2` 는 **2px**(exceptional micro)이고 `--gmd-space-1` 이 **4px** 다. 숫자 접미사를 스케일 단계로 읽으면 틀린다. 값으로 고른다.
+
+### `tokens.css` 는 정본의 subset 이다
+
+레포 사본(`design-system/classic/tokens.css`)에 없다고 "토큰 없음" 으로 판정하면 안 된다 — 실측 기준 `DESIGN.md` HEX 83종 중 12종이 사본에 없다. 판정 순서:
+
+1. `tokens.css` / 위 매핑표 조회
+2. 미스이면 **정본을 직접 확인** — `grep -n -i '<변수명|HEX>' "$HOME/.../GMDSOFT/디자인시스템_스킬/DESIGN.md"`
+3. 정본에도 없을 때만 새 값을 논의 대상으로 올린다
+
+"가장 가까운 기존 토큰으로 대체" 는 2단계를 통과한 뒤에만 허용한다.
+
+### Figma → 코드
+
+1. `get_metadata` 로 구조, `get_design_context` 로 스타일, `get_screenshot` 으로 눈 대조. **링크만 받고 구현 시작 금지.**
+2. `get_variable_defs` 결과를 위 매핑표로 옮긴다. 매핑표에 없으면 위 subset 절차를 탄다.
+3. MCP 가 돌려주는 React/Tailwind 코드는 **참조일 뿐이다.** 산출물은 vanilla HTML/CSS 단일 파일이고, 클래스는 `.gmd-*`/`.c-*`, 값은 `var(--gmd-*)` 로 번역한다.
+4. `components.md` 에 같은 컴포넌트가 있으면 **그 정의가 이긴다.** Figma 에서 뽑은 수치로 덮어쓰지 않는다.
+5. 다크 토큰 6종은 WCAG AA 때문에 정본 추출값에서 의도적으로 바꾼 값이다(`tokens.css` 다크 블록 주석). Figma 에서 다시 뽑아 덮으면 대비가 깨진다 — 그 6종은 코드가 정본이다.
+
+### 코드 → Figma
+
+`use_figma` 계열을 부르기 전에 `/figma-use` 스킬을 먼저 읽는다. 그 위에 얹히는 규칙:
+
+- **Always library check** — `search_design_system` + 원본 Docs 에서 실제 컴포넌트/변수 **키**를 찾아 `importComponentSetByKeyAsync` / `importVariableByKeyAsync` 로 가져온다. 한 파일 검색에서 안 나온다고 "없음" 단정 금지.
+- **직접 그리지 않는다** — 라이브러리 인스턴스를 쓴다. 자작 변형·근사 박스·유사 컴포넌트 대체 금지.
+- **인스턴스 fill 을 손으로 덮어쓰지 않는다** — 색은 변형(State)·토큰으로 맞춘다.
+- **전부 변수 바인딩** — 색·radius·그림자·간격·테두리를 임의 HEX/값으로 하드코딩하지 않는다(`setBoundVariableForPaint` 등).
+- **컨테이너 스타일은 실제 보유 노드에서 뽑는다** — 변형 루트(투명 래퍼)가 아니라 스타일을 가진 카드 노드.
+
+### 아이콘
+
+두 갈래이고 용도가 다르다 — `design-system/classic/icons/` 107종(`category__camelCase.svg`, 문서·스니펫용)과 `icon-library/` 2,144종(`kebab-case.svg`, 크기·스타일이 폴더: `24/outline` · `16/outline` · `16/fill` · `other`).
+
+모든 글리프는 `fill="currentColor"` / `stroke="currentColor"` 로 정규화돼 있다. **SVG 안에 색을 박지 않는다** — 부모의 `color` 를 상속해 라이트/다크·상태색에 자동 대응한다. 루트 `<svg fill="none">` 은 보존한다. 크기는 마크업의 `width`/`height` 로 제어하고 값은 `--gmd-icon-{sm|md|lg|xl}` = 16/20/24/32 를 쓴다.
+
+### 끝내기 전 실행
+
+| 대상 | 명령 | 통과선 |
+| --- | --- | --- |
+| 기능 산출물(기획서 + 프로토타입) | `pd check --planning <md> --prototype <html>` | Block 0 |
+| 디자인 시스템 자체 | `pd ds-check` | Block 0 (배포 pre-flight) |
+| 미자동 규칙 | `Workflow({name: "pd-rule-gate", args: {paths: [...]}})` | 사용자 승인 후 |
+
+`./run check` 는 인자를 무시하고 최근 패키지만 본다 — 특정 산출물은 `pd check --planning … --prototype …` 로 부른다.
+
+### 3미러
+
+`design-system/classic`(레포 원본) ↔ `GMDSOFT/디자인시스템_공유용/gmdsoft-design-system/`(본 문서가 있는 곳) ↔ jinsmake.com 배포본. **한 곳을 고치면 나머지 두 곳도 같은 차수에 반영한다.**
+
+*2026-08-14 추가 — 본래 `Product-designer/design-system/FIGMA-MCP.md` 로 따로 썼다가 본 문서에 병합했다. 기존 문서를 확인하지 않고 같은 주제를 새로 쓴 것이 원인이다.*

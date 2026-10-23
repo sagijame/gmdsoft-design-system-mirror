@@ -48,6 +48,7 @@ DESIGN.md §9 "Agent Prompt Guide"의 규칙. 어떤 경우에도 어기지 않�
 1. **모든 색상은 토큰에서** — 임의 HEX 금지. 코드/주석에 `token-path #HEX` 페어로 명시 (예: `Foundation/primary/base #135DB5`)
 2. **폰트 사이즈는 8개만** — 10, 12, 14, 16, 18, 20, 22, 28px. 그 외 금지
 3. **스페이싱은 4px 배수만** — 4, 8, 12, 16, 20, 24, 32, 40, 48, 56, 64, 80, 96px
+   - 정렬도 같은 강도로 지킨다: 값은 값 열 왼쪽 끝(세로선)과 항목명 위쪽(가로선)에 맞춘다. 앞에 오는 아바타·아이콘도 그 끝에 붙이고 위쪽으로 맞춘다(DESIGN.md §5 "Alignment — Grid Edge Alignment")
 4. **상호작용 요소는 4상태 필수** — base / hover / pressed / disabled
 5. **앱 셸 비협상** — Title Bar 32px + Side Nav 240px(확장)/56px(축소) + Content Area
 6. **보더 구분**

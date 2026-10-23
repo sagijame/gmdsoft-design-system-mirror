@@ -3,8 +3,8 @@
      크기: 기본(md) / c-empty-state-sm(패널·목록 일부) / c-empty-state-lg(화면 전체 본문).
      제목은 문단이 아니라 호스트 화면 위계에 맞는 heading(h2~h6)으로 쓴다.
      아이콘 path 는 icons/info-circle.svg · icons/search.svg 원본 그대로다 — 새로 그리지 않는다.
-     Action 슬롯의 버튼은 Empty State 소유가 아니다. 이 저장소의 Button 계약(button.css
-     `.gmd-button--outline`)을 쓰며, 다른 배포본에 옮길 때는 그쪽 Button 변형으로 바꾼다. -->
+     Action 슬롯의 버튼은 Empty State 소유가 아니다. 이 저장소의 Button 계약(components.css
+     `.gmd-button.is-secondary`)을 쓰며, 다른 배포본에 옮길 때는 그쪽 Button 변형으로 바꾼다. -->
 
 <!-- 기본(md) — 아이콘 + 제목 + 본문 -->
 <div class="gmd-component c-empty-state">
@@ -34,6 +34,6 @@
   <h4 class="c-empty-state-title">검색 결과가 없습니다</h4>
   <p class="c-empty-state-desc">다른 검색어를 쓰거나 필터를 해제해 보세요.</p>
   <div class="c-empty-state-action">
-    <button type="button" class="gmd-button gmd-button--outline">필터 초기화</button>
+    <button type="button" class="gmd-button is-secondary">필터 초기화</button>
   </div>
 </div>

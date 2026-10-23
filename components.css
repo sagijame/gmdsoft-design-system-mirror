@@ -1,0 +1,2132 @@
+@import url("./tokens.css");
+@import url("./grid.css");   /* 반응형 그리드 유틸리티 — 단일 출처 */
+
+/* Bootstrap식 복붙 소스: 문서용 wrapper 없이 제품 화면에 바로 붙이는 컴포넌트 CSS. */
+.gmd-component,
+.gmd-component * {
+  box-sizing: border-box;
+}
+
+.gmd-component {
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-primary);
+}
+
+.gmd-ico {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: currentColor;
+}
+
+.gmd-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gmd-space-2x);
+  min-height: 36px;
+  padding: var(--gmd-space-2x) var(--gmd-space-4);
+  border: 1px solid var(--gmd-primary-default);
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-primary-default);
+  color: var(--gmd-text-on-primary-fill);   /* index.html .btn-primary 와 같은 짝 */
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  font-weight: var(--gmd-weight-bold);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background var(--gmd-motion-fast) var(--gmd-motion-easing),
+    border-color var(--gmd-motion-fast) var(--gmd-motion-easing),
+    box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+
+.gmd-button:hover {
+  background: var(--gmd-primary-hover);
+  border-color: var(--gmd-primary-hover);
+}
+
+.gmd-button:active {
+  background: var(--gmd-primary-pressed);
+  border-color: var(--gmd-primary-pressed);
+}
+
+.gmd-button:focus-visible {
+  outline: 2px solid var(--gmd-primary-default);
+  outline-offset: 2px;
+}
+
+/* 비활성 채움/라벨은 index.html .btn-primary:disabled 와 같은 정본 짝을 쓴다
+   (채움 primary/subtle · 라벨 button/primary/disabled). 테두리는 정본에 없어 채움과 동색. */
+.gmd-button:disabled,
+.gmd-button[aria-disabled="true"] {
+  background: var(--gmd-primary-subtle);
+  border-color: var(--gmd-primary-subtle);
+  color: var(--gmd-primary-disabled);
+  cursor: not-allowed;
+}
+
+.gmd-button.is-secondary {
+  background: var(--gmd-surface-base);
+  color: var(--gmd-primary-default);
+}
+
+.gmd-button.is-secondary:hover {
+  background: var(--gmd-primary-subtle);
+  border-color: var(--gmd-primary-default);
+  color: var(--gmd-text-on-primary-subtle);   /* 다크 4.40:1 → 5.83:1 — index.html .btn-secondary:hover 와 같은 짝 */
+}
+
+.gmd-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gmd-space-2x);
+  width: 240px;
+}
+
+.gmd-label {
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-12);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-secondary);
+}
+
+.gmd-input {
+  width: 100%;
+  height: 36px;
+  padding: var(--gmd-space-2x) var(--gmd-space-3);
+  border: 1px solid var(--gmd-border-base);
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-surface-base);
+  color: var(--gmd-text-primary);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  line-height: 1.4;
+  transition:
+    border-color var(--gmd-motion-fast) var(--gmd-motion-easing),
+    box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+
+.gmd-input::placeholder {
+  color: var(--gmd-text-tertiary);
+}
+
+.gmd-input:hover {
+  border-color: var(--gmd-primary-default);
+}
+
+.gmd-input:focus {
+  border-color: var(--gmd-primary-default);
+  box-shadow: 0 0 0 3px var(--gmd-primary-subtle);
+  outline: none;
+}
+
+.gmd-input:disabled {
+  background: var(--gmd-background-section);
+  color: var(--gmd-text-disabled);
+  cursor: not-allowed;
+}
+
+.gmd-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gmd-space-2x);
+  min-height: 24px;
+  color: var(--gmd-text-primary);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  cursor: pointer;
+}
+
+.gmd-checkbox input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--gmd-primary-default);
+}
+
+.gmd-checkbox:has(input:disabled) {
+  color: var(--gmd-text-disabled);
+  cursor: not-allowed;
+}
+
+.c-combobox {
+  --c-combobox-width: 200px;
+}
+
+.c-combobox-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gmd-space-2x);
+  width: var(--c-combobox-width);
+  background: var(--gmd-surface-base);
+  border: 1px solid var(--gmd-border-base);
+  border-radius: var(--gmd-radius-sm);
+  padding: var(--gmd-space-2x) var(--gmd-space-3);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-secondary);
+  cursor: pointer;
+  transition:
+    border-color var(--gmd-motion-fast) var(--gmd-motion-easing),
+    box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+
+.c-combobox-trigger:hover {
+  border-color: var(--gmd-primary-default);
+}
+
+.c-combobox-label {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-combobox-chevron,
+.c-combobox-leadicon {
+  flex: none;
+  color: var(--gmd-text-tertiary);
+}
+
+.c-combobox-chevron {
+  transition: transform var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+
+.c-combobox-trigger.c-combobox-open {
+  border-color: var(--gmd-primary-default);
+  box-shadow: 0 0 0 3px var(--gmd-primary-subtle);
+}
+
+.c-combobox-trigger.c-combobox-open .c-combobox-chevron {
+  transform: rotate(180deg);
+}
+
+.c-combobox-field {
+  position: relative;
+  width: var(--c-combobox-width);
+}
+
+.c-combobox-menu {
+  margin-top: var(--gmd-space-1);
+  background: var(--gmd-surface-base);
+  border: 1px solid var(--gmd-border-base);
+  border-radius: var(--gmd-radius-sm);
+  box-shadow: var(--gmd-shadow-lift);
+  padding: var(--gmd-space-1) 0;
+  width: var(--c-combobox-width);
+}
+
+.c-combobox-option {
+  display: flex;
+  align-items: center;
+  gap: var(--gmd-space-2x);
+  padding: var(--gmd-space-2x) var(--gmd-space-3);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-primary);
+  cursor: pointer;
+}
+
+.c-combobox-option:hover {
+  background: var(--gmd-surface-hover);
+}
+
+.c-combobox-option[aria-selected="true"] {
+  color: var(--gmd-primary-default);
+  font-weight: var(--gmd-weight-bold);
+}
+
+.c-combobox-option[aria-disabled="true"] {
+  color: var(--gmd-text-disabled);
+  cursor: not-allowed;
+}
+
+.c-combobox-search {
+  display: flex;
+  align-items: center;
+  gap: var(--gmd-space-2x);
+  margin: var(--gmd-space-1) var(--gmd-space-2x) var(--gmd-space-2x);
+  padding: var(--gmd-space-1) var(--gmd-space-2x);
+  border: 1px solid var(--gmd-border-base);
+  border-radius: var(--gmd-radius-sm);
+  color: var(--gmd-text-tertiary);
+  font-size: var(--gmd-font-size-12);
+}
+
+.c-combobox-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  min-width: 0;
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-12);
+  color: var(--gmd-text-primary);
+}
+
+.c-accordion-item {
+  width: 320px;
+  border: 1px solid var(--gmd-divider);
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-background-card);
+  overflow: hidden;
+}
+
+.c-accordion-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gmd-space-3);
+  width: 100%;
+  padding: var(--gmd-space-3) var(--gmd-space-4);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-primary);
+  text-align: left;
+  transition: background var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+
+.c-accordion-chevron {
+  flex: 0 0 auto;
+  color: var(--gmd-text-tertiary);
+  transition: transform var(--gmd-motion-base) var(--gmd-motion-easing);
+}
+
+.c-accordion-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.c-accordion-header:hover {
+  background: var(--gmd-surface-hover);
+}
+
+.c-accordion-header:focus-visible {
+  outline: 2px solid var(--gmd-primary-default);
+  outline-offset: -2px;
+  border-radius: var(--gmd-radius-md);
+}
+
+.c-accordion-item.c-accordion-open .c-accordion-chevron {
+  transform: rotate(180deg);
+  color: var(--gmd-primary-default);
+}
+
+.c-accordion-item.c-accordion-open .c-accordion-title {
+  color: var(--gmd-primary-default);
+}
+
+.c-accordion-panel {
+  padding: 0 var(--gmd-space-4) var(--gmd-space-4) var(--gmd-space-10);
+  font-size: var(--gmd-font-size-14);
+  font-weight: var(--gmd-weight-regular);
+  color: var(--gmd-text-secondary);
+  line-height: 1.5;
+}
+
+.c-accordion-item.c-accordion-disabled {
+  opacity: .55;
+  background: var(--gmd-background-section);
+}
+
+.c-accordion-item.c-accordion-disabled .c-accordion-header {
+  cursor: not-allowed;
+  color: var(--gmd-text-disabled);
+}
+
+.c-accordion-stack {
+  width: 420px;
+}
+
+.c-accordion-stack .c-accordion-item {
+  width: 100%;
+  border-radius: 0;
+  border-top: 0;
+}
+
+.c-accordion-stack .c-accordion-item:first-child {
+  border-top: 1px solid var(--gmd-border-base);
+  border-top-left-radius: var(--gmd-radius-md);
+  border-top-right-radius: var(--gmd-radius-md);
+}
+
+.c-accordion-stack .c-accordion-item:last-child {
+  border-bottom-left-radius: var(--gmd-radius-md);
+  border-bottom-right-radius: var(--gmd-radius-md);
+}
+
+.c-tree-cbrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gmd-space-2x);
+  width: 100%;
+  max-width: 260px;
+  min-width: 0;
+  height: 32px;
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-primary);
+  white-space: nowrap;
+}
+
+.c-tree-cbrow span:last-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-tree-twig,
+.c-tree-cb,
+.c-tree-ico {
+  flex: 0 0 auto;
+}
+
+.c-tree-twig,
+.c-tree-ico {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gmd-text-tertiary);
+}
+
+.c-tree-ico svg {
+  display: block;
+}
+
+.c-tree-cb {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--gmd-border-base);
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-surface-base);
+  color: var(--gmd-text-on-primary-fill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-tree-cb.is-on {
+  border-color: var(--gmd-primary-default);
+  background: var(--gmd-primary-default);
+}
+
+.c-ribbon-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--gmd-space-2x);
+  width: 253px;
+  height: 50px;
+  padding: var(--gmd-space-3) var(--gmd-space-5);
+  border: none;
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-surface-base);
+  color: var(--gmd-text-secondary);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-16);
+  font-weight: var(--gmd-weight-regular);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--gmd-motion-fast) var(--gmd-motion-easing),
+    color var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+
+.c-ribbon-nav-ico,
+.c-ribbon-nav-chev {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: currentColor;
+}
+
+.c-ribbon-nav-chev {
+  color: var(--gmd-text-tertiary);
+}
+
+.c-ribbon-nav-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-ribbon-nav-item:hover {
+  background: var(--gmd-surface-hover);
+  color: var(--gmd-text-primary);
+}
+
+.c-ribbon-nav-item.is-active,
+.c-ribbon-nav-item[aria-current="page"] {
+  background: var(--gmd-primary-subtle);
+  color: var(--gmd-primary-default);
+  font-weight: var(--gmd-weight-bold);
+}
+
+.c-ribbon-nav-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--gmd-space-1);
+  border-radius: var(--gmd-radius-lg);
+  background: var(--gmd-primary-default);
+  color: var(--gmd-text-on-primary-fill);
+  font-size: var(--gmd-font-size-10);
+  font-weight: var(--gmd-weight-bold);
+  line-height: 1;
+}
+
+.c-ribbon-nav-item.is-nested {
+  padding-left: var(--gmd-space-8);
+}
+
+.c-ribbon-nav-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gmd-space-1);
+  width: 253px;
+}
+
+.c-ribbon-nav-stack.is-dark {
+  background: var(--gmd-text-primary);
+  padding: var(--gmd-space-3);
+  border-radius: var(--gmd-radius-md);
+}
+
+.c-ribbon-nav-stack.is-dark .c-ribbon-nav-item {
+  background: transparent;
+  color: var(--gmd-border-subtle);
+}
+
+.c-ribbon-nav-stack.is-dark .c-ribbon-nav-item.is-active {
+  background: var(--gmd-primary-pressed);
+  color: var(--gmd-text-on-primary-fill);
+}
+
+.c-ribbon-nav-comp {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: var(--gmd-space-6);
+  align-items: stretch;
+  width: 100%;
+  padding: var(--gmd-space-6);
+  border: 1px solid var(--gmd-divider);
+  border-radius: var(--gmd-radius-lg);
+  background: var(--gmd-background-section);
+}
+
+.c-ribbon-nav-comp-col {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--gmd-space-5);
+  min-height: 360px;
+  padding: var(--gmd-space-5);
+  border: 1px solid var(--gmd-border-subtle);
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-background-card);
+  box-shadow: var(--gmd-shadow-soft);
+}
+
+.c-ribbon-nav-comp-col.is-dark {
+  background: var(--gmd-text-primary);
+  border-color: var(--gmd-text-primary);
+}
+
+.c-ribbon-nav-comp-col h4 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-12);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-secondary);
+}
+
+.c-ribbon-nav-comp-col.is-dark h4 {
+  color: var(--gmd-border-subtle);
+}
+
+.c-ribbon-nav-comp-col .c-ribbon-nav-stack,
+.c-ribbon-nav-comp-col .c-ribbon-nav-item {
+  width: 100%;
+}
+
+.c-ribbon-nav-comp-col.is-dark .c-ribbon-nav-stack.is-dark {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.c-ribbon-nav-surface {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gmd-space-3);
+  min-width: 0;
+  padding: var(--gmd-space-4);
+  border: 1px solid var(--gmd-divider);
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-background-base);
+}
+
+.c-ribbon-nav-comp-col.is-dark .c-ribbon-nav-surface {
+  background: var(--gmd-gray-900-100);
+  border-color: var(--gmd-gray-900-300);
+}
+
+.c-ribbon-nav-surface-title {
+  height: 16px;
+  width: 56%;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-border-subtle);
+}
+
+.c-ribbon-nav-surface-line {
+  height: 8px;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-border-subtle);
+  opacity: .72;
+}
+
+.c-ribbon-nav-surface-line.is-short {
+  width: 64%;
+}
+
+.c-ribbon-nav-surface-card {
+  height: 72px;
+  border: 1px solid var(--gmd-divider);
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-background-card);
+}
+
+.c-ribbon-nav-comp-col.is-dark .c-ribbon-nav-surface-title,
+.c-ribbon-nav-comp-col.is-dark .c-ribbon-nav-surface-line {
+  background: var(--gmd-gray-900-400);
+}
+
+.c-ribbon-nav-comp-col.is-dark .c-ribbon-nav-surface-card {
+  background: var(--gmd-gray-900-200);
+  border-color: var(--gmd-gray-900-300);
+}
+
+@media (max-width: 1120px) {
+  .c-ribbon-nav-comp {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .c-ribbon-nav-comp {
+    padding: var(--gmd-space-4);
+  }
+
+  .c-ribbon-nav-comp-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Empty State ───
+ * 콘텐츠가 들어갈 자리를 대신하는 안내. Info Bar 는 관련 내용 '옆'에 붙고, Empty State 는 그 '자리'를 차지한다.
+ * 상호작용 요소가 아니라 컨테이너에 4상태를 두지 않는다 — 상태는 내부 Action(Button/링크)이 갖는다.
+ * 마크업: snippets/empty-state.html */
+.c-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--gmd-space-2x);
+  width: 100%;
+  padding: var(--gmd-space-8) var(--gmd-space-4);
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-secondary);
+}
+
+/* 간격 출처는 gap 한 곳 — 호스트 문서의 p/h 여백을 물려받으면 제목·본문 사이가 아이콘·제목 사이보다
+   벌어져 묶음이 뒤집힌다. 클래스 선택자로 잡아야 host 의 `.content p`(0,1,1) 를 이긴다. */
+.c-empty-state .c-empty-state-icon,
+.c-empty-state .c-empty-state-title,
+.c-empty-state .c-empty-state-desc,
+.c-empty-state .c-empty-state-action {
+  margin: 0;
+}
+
+/* 아이콘 아래만 16px = gap 8 + margin 8. 색은 text-secondary — tertiary 는 section 배경 위에서
+   2.80:1 로 WCAG 비텍스트 3:1 에 미달한다. */
+.c-empty-state .c-empty-state-icon {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  margin-bottom: var(--gmd-space-2x);
+  border-radius: var(--gmd-radius-circle);
+  background: var(--gmd-background-section);
+  color: var(--gmd-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 아이콘 슬롯은 인라인 svg 와 아이콘 스팬(.ico) 두 마크업을 모두 24px 로 정규화한다 —
+   문서 사본은 span.ico, 스니펫은 인라인 svg 를 쓴다. 한쪽만 잡으면 규격이 갈린다. */
+.c-empty-state .c-empty-state-icon > * {
+  width: var(--gmd-icon-lg);
+  height: var(--gmd-icon-lg);
+}
+
+.c-empty-state .c-empty-state-title {
+  font-size: var(--gmd-font-size-16);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-primary);
+}
+
+/* 480px 은 대응 토큰이 없다 — g-container-xs 는 값이 같아도 컨테이너 폭이라 의미가 다르다.
+   본문 최대 폭 토큰 신설은 별건으로 제안 중이다. */
+.c-empty-state .c-empty-state-desc {
+  max-width: 480px;
+  line-height: var(--gmd-line-body-md);
+}
+
+.c-empty-state .c-empty-state-action {
+  margin-top: var(--gmd-space-2x);
+}
+
+.c-empty-state.c-empty-state-sm {
+  padding: var(--gmd-space-6) var(--gmd-space-4);
+}
+
+.c-empty-state.c-empty-state-lg {
+  padding: var(--gmd-space-12) var(--gmd-space-6);
+}
+
+/* ─── Skeleton ───
+ * 화면이 아직 그려지지 않은 최초 진입에 콘텐츠가 들어올 자리를 잡아 두는 판. 진행률 개념이 없어 수치를 붙이지 않는다.
+ * 이미 그려진 화면에서 도는 작업은 Progress·Spinner 가 맡는다 — 가르는 기준은 걸리는 시간이 아니라 기다리는 대상이다.
+ * 마크업: snippets/skeleton.html */
+.c-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--gmd-background-section);
+  border-radius: var(--gmd-radius-sm);
+}
+
+/* sheen 색으로 surface-base 를 못 쓴다 — Dark 에서 --gmd-surface-base 와 --gmd-background-section 이
+   같은 #25282D 라 빛줄기가 사라진다. Light 는 background-card 로 충분하다(#E9ECEF -> #FAF9FD). */
+.c-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--gmd-background-card), transparent);
+  transform: translateX(-100%);
+  animation: c-skeleton-sheen 1.4s var(--gmd-motion-easing) infinite;
+}
+
+@keyframes c-skeleton-sheen {
+  to { transform: translateX(100%); }
+}
+
+/* Dark 은 section(#25282D) 과 card(#2A2D32) 의 차가 5/255 라 빛줄기가 안 보인다. border-subtle 을 섞어
+   한 단 더 밝게 올린다. Light 에서는 border-subtle 이 section 보다 어두워 빛줄기가 그림자로 뒤집힌다. */
+html[data-theme="dark"] .c-skeleton::after {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gmd-border-subtle) 55%, var(--gmd-background-card)), transparent);
+}
+
+/* 판 높이는 대체할 글자의 크기가 아니라 줄 높이에 맞춘다. 폭은 콘텐츠마다 달라 클래스로 정하지 않고 그 자리에서 지정한다. */
+.c-skeleton-line { height: 16px; }
+.c-skeleton-line.is-sm { height: 12px; }
+.c-skeleton-line.is-lg { height: 20px; }
+
+.c-skeleton-block {
+  height: 72px;
+  border-radius: var(--gmd-radius-md);
+}
+
+.c-skeleton-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* 빛줄기는 장식이라 빼도 뜻이 남는다. 판(자리)은 그대로 남는다. */
+.c-skeleton.is-static::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .c-skeleton::after { display: none; }
+}
+
+/* ─── Table ───
+ * 행/열로 놓인 데이터를 스캔·비교·선택하는 판. 업무형 화면의 핵심 출력 컨트롤이다.
+ * Tree 와 가르는 기준은 계층이다 — 항목끼리 상하 관계가 있으면 Tree, 같은 층위를 여러 속성으로
+ * 비교하면 Table 이다. 부속(Pagination · Filter Labels · Hidden Column)은 이 판을 전제로 이미 있다.
+ * 치수·색은 디자인 시스템 v2.12 절대 규칙 #7 고정값을 따른다 —
+ * 헤더 gray-900-100 #F8F9FA · hover primary-subtle #EBF2FA · selected primary-900-100 #D5E5F9 · 행 최소 44px.
+ * 마크업: snippets/table.html */
+
+/* 가로 오버플로는 스크롤로 받는다. 컬럼을 사용 가능 폭 이하로 압축하지 않는 것이 하드 규칙이라
+   (읽기가 무너진다) 폭이 모자라면 줄이지 말고 넘긴다. */
+.c-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--gmd-border-subtle);
+  border-radius: var(--gmd-radius-md);
+  background: var(--gmd-surface-base);
+}
+
+.c-table {
+  /* 선택·눌림 배경만 모드별로 값이 갈린다. 나머지는 전역 토큰이 알아서 뒤집힌다. */
+  --c-table-selected: var(--gmd-primary-900-100);
+  --c-table-pressed:  var(--gmd-primary-900-200);
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-primary);
+  background: var(--gmd-surface-base);
+}
+
+/* caption 은 표의 이름이다. 화면에서 빼더라도 스크린리더에는 남겨야 이 표가 무엇의 목록인지 전해진다 —
+   지울 거면 요소를 없애지 말고 .is-sr-only 로 감춘다. 기본 center 정렬은 표 좌측 기준선과 어긋나 왼쪽으로 돌린다. */
+.c-table-caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 700;
+  color: var(--gmd-text-primary);
+  padding: var(--gmd-space-3) var(--gmd-space-4);
+  border-bottom: 1px solid var(--gmd-divider);
+}
+
+.c-table-caption.is-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 헤더는 회색 판 + Bold. 연한 회색 글자를 쓰지 않는다 — 헤더가 흐려지면 열의 뜻이 먼저 사라진다.
+   text-primary 기준 라이트 14.63:1 / 다크 16.06:1 로 AA 를 크게 넘긴다. */
+.c-table thead th {
+  background: var(--gmd-gray-900-100);
+  color: var(--gmd-text-primary);
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  padding: var(--gmd-space-3) var(--gmd-space-4);
+  border-bottom: 1px solid var(--gmd-divider);
+}
+
+/* 행 높이 44px 는 클릭 타깃 하한이다. 셀 패딩(12/16)만으로도 14px 한 줄이면 채워지지만,
+   빈 셀이나 아이콘만 든 셀에서 무너지지 않게 행 자체에 하한을 건다. */
+.c-table tbody tr { height: 44px; }
+
+.c-table tbody td {
+  padding: var(--gmd-space-3) var(--gmd-space-4);
+  border-bottom: 1px solid var(--gmd-divider);
+  vertical-align: middle;
+}
+
+.c-table tbody tr:last-child td { border-bottom: 0; }
+
+/* 선택 액센트는 좌측 3px 를 항상 자리로 잡아 둔다. 선택될 때 없던 폭이 생기면 행 전체가 밀린다. */
+.c-table tbody td:first-child {
+  box-shadow: inset 3px 0 0 transparent;
+}
+
+/* 행이 고르는 대상일 때만 상호작용 상태를 준다. 읽기 전용 표에 hover 가 붙으면
+   고를 수 있다는 잘못된 신호가 된다. */
+.c-table.is-selectable tbody tr { cursor: pointer; }
+.c-table.is-selectable tbody tr:hover td { background: var(--gmd-primary-subtle); }
+.c-table.is-selectable tbody tr:active td { background: var(--c-table-pressed); }
+
+/* 선택은 배경만으로 알리지 않는다 — 좌측 액센트와 aria-selected 를 함께 건다(절대 규칙 #9).
+   색을 못 보는 경우에도 액센트 막대와 스크린리더 상태로 선택이 전달된다. */
+.c-table tbody tr[aria-selected="true"] td { background: var(--c-table-selected); }
+.c-table tbody tr[aria-selected="true"] td:first-child {
+  box-shadow: inset 3px 0 0 var(--gmd-primary-default);
+}
+
+/* 비활성 행에 text-disabled(#ADB5BD)를 쓰면 section 판 위에서 1.75:1 로 사실상 안 읽힌다.
+   버튼은 라벨이 안 보여도 "못 누른다"만 알면 되지만, 표의 행은 내용 자체가 정보다 —
+   고를 수 없다는 것과 무엇인지 모르게 하는 것은 다르다. 그래서 글자는 secondary 로 유지하고
+   (라이트 6.90:1 / 다크 8.69:1) 못 고른다는 사실은 배경 · aria-disabled · 커서로 전한다. */
+.c-table tbody tr[aria-disabled="true"] td {
+  color: var(--gmd-text-secondary);
+  background: var(--gmd-background-section);
+}
+.c-table.is-selectable tbody tr[aria-disabled="true"] { cursor: default; }
+.c-table.is-selectable tbody tr[aria-disabled="true"]:hover td { background: var(--gmd-background-section); }
+
+/* primary 900 램프는 다크에서 반전되지 않는다(전경용으로 설계돼 50~400 이 밝은 파랑으로 남는다).
+   선택 배경에 라이트 값을 그대로 두면 다크에서 흰 판에 흰 글자가 된다 — 실측 #D1E7F7 위 #F8F9FA.
+   그래서 다크에서만 800 단으로 내린다: #255070 위 #F8F9FA = 8.10:1.
+   hover(#1E3242, 12.53:1) 보다 밝고 파래서 선택이 더 도드라지는 순서도 유지된다.
+
+   진입 경로는 tokens.css 와 같은 둘이다 — 시스템 다크(단 data-theme="light" 강제 시 제외) + 수동 토글.
+   data-theme 한쪽만 걸면 시스템 다크에서 이 규칙이 통째로 빠져 선택 행이 흰 판에 흰 글자로 남는다
+   (2026-09-08 헤드리스 렌더로 실측). 두 블록은 항상 같은 값을 유지한다. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .c-table {
+    --c-table-selected: var(--gmd-primary-900-800);
+    --c-table-pressed:  var(--gmd-primary-900-700);
+  }
+}
+
+:root[data-theme="dark"] .c-table {
+  --c-table-selected: var(--gmd-primary-900-800);
+  --c-table-pressed:  var(--gmd-primary-900-700);
+}
+
+/* 숫자 열은 우측 정렬 + 고정폭 숫자로 자릿수를 맞춘다. 자릿수가 어긋나면 크기 비교가 안 된다. */
+.c-table .is-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 긴 표에서 열 이름을 놓치지 않게 헤더를 고정한다. 래퍼에 높이를 준 경우에만 뜻이 있다. */
+.c-table-wrap.is-sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* 밀도를 올린 변형. 행이 클릭 대상이면 쓰지 않는다 — 44px 타깃 하한을 깨기 때문이다.
+   읽기 전용 조회 표에만 허용한다. */
+.c-table.is-dense tbody tr { height: 36px; }
+.c-table.is-dense thead th,
+.c-table.is-dense tbody td { padding: var(--gmd-space-2x) var(--gmd-space-4); }
+
+/* 행에 그림자를 얹지 않는다(하드 규칙). 깊이는 판 전체가 갖고, 행은 divider 로만 나뉜다. */
+.c-table tbody tr { box-shadow: none; }
+
+/* 정렬 헤더 — 오름차순 · 내림차순. 상태는 th 의 aria-sort 하나로 정한다(ascending | descending | none).
+   누르는 대상은 th 안의 button 이라 키보드로도 정렬을 바꾼다. 아이콘은 Design Kit 아이콘 arrow-up-short ·
+   arrow-down-short(16) 이고, 정렬 안 된 열에서는 숨기되 자리는 남겨 정렬을 켤 때 라벨이 밀리지 않는다.
+   hover 라벨은 text-secondary — Design Kit Table Header State=Hover 와 같은 짝이다. */
+.c-table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gmd-space-1);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  border-radius: var(--gmd-radius-sm);
+}
+.c-table-sort:hover { color: var(--gmd-text-secondary); }
+.c-table-sort:focus-visible { outline: 2px solid var(--gmd-primary-default); outline-offset: 2px; }
+.c-table-sort .ico {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--gmd-text-secondary);
+}
+.c-table th[aria-sort="none"] .c-table-sort .ico,
+.c-table th:not([aria-sort]) .c-table-sort .ico { visibility: hidden; }
+/* 숫자 열(우측 정렬)은 아이콘을 라벨 앞에 둔다 — 뒤에 두면 숨긴 아이콘 자리만큼 라벨이 숫자 끝선에서 떨어진다. */
+.c-table th.is-num .c-table-sort { flex-direction: row-reverse; }
+
+/* ═════════════════════════════════════════════════════════════════════
+ * 컴포넌트 정본 — 문서 사이트(index.html)가 쓰는 클래스(.btn·.badge·.toast·.c-* 등).
+ * 2026-10-07 index.html 인라인 <style> 에서 옮겼다. 사이트와 외부 사용처가 이 파일 하나를 본다.
+ * 위쪽 .gmd-* 는 앞서 만든 복붙용 별칭 층이다.
+ * ═════════════════════════════════════════════════════════════════════ */
+/* ───────────────── 컴포넌트 (classic 토큰) ───────────────── */
+/* Button — Figma Docs/Button(6073:4094) 정합. 위계 4단 + 크기 6단. 기본 md(높이 36). */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--gmd-space-1);
+  border: 1px solid transparent; font-family: var(--gmd-font-body); font-weight: var(--gmd-weight-regular);
+  font-size: var(--gmd-font-size-14); border-radius: var(--gmd-radius-sm); height: 36px; padding: var(--gmd-space-2x) var(--gmd-space-4);
+  /* 폭 규칙(다국어 잘림 정책): min은 Material 88dp, max는 한국어 라벨 200% 팽창 수용 상한 */
+  min-width: var(--gmd-width-button-min); max-width: var(--gmd-width-button-max);
+  box-sizing: border-box; cursor: pointer; transition: background var(--gmd-motion-fast) var(--gmd-motion-easing); }
+/* Text Link는 인라인 성격 — 고정 min-width를 두지 않는다 */
+.btn-text { min-width: 0; }
+/* 위계(Hierarchy): Figma 명칭 Primary / Secondary / Neutral(=tertiary) / Text Link(=text). 클래스명은 사용처 보존 위해 유지. */
+.btn-primary { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
+/* 라이트 hover #3D82D9 위 흰 글자 3.89:1 은 AA 미달이 남는다(2026-10-02 사용자 확정 — 예외로 기록, 값 유지). */
+.btn-primary:hover { background: var(--gmd-primary-hover); }
+.btn-primary:active { background: var(--gmd-primary-pressed); }
+/* 비활성 = 옅은 채움 + 흐린 라벨. 정본은 채움 primary/subtle · 라벨 button/primary/disabled 로,
+   classic 은 이 둘이 뒤바뀌어 채움에 #A8C4D9 가 차고 라벨이 흰색이라 「켜져 있음」 으로 읽혔다.
+   근거: Design Kit Docs/Button State=Disable(6074:124) 실측 — 채움 #EBF2FA · 라벨 #A8C4D9 · 테두리 없음. */
+.btn-primary:disabled { background: var(--gmd-primary-subtle); color: var(--gmd-primary-disabled); cursor: not-allowed; }
+.btn-secondary { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
+/* hover 라벨 = Text/on-primary-subtle. 다크에서 primary-default #549AD8 은 subtle #1E3242 위 4.40:1 이라 primary-hover 값(5.83:1)으로 올린다. */
+.btn-secondary:hover { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); }
+.btn-secondary:active { background: var(--gmd-primary-subtle); border-color: var(--gmd-primary-pressed); color: var(--gmd-primary-pressed); }
+.btn-secondary:disabled { color: var(--gmd-primary-disabled); border-color: var(--gmd-primary-disabled); cursor: not-allowed; }
+/* Neutral 채움 라벨은 Text/on-primary/tertiary(라이트 #E0E0E0 · 다크 #212529). --gmd-text-on-primary 는
+   양 테마 #FFFFFF 고정이라 다크에서 밝은 회색(#ADB5BD) 위 흰 글자 2.07:1 이 됐다.
+   근거: Design Kit Docs/Button Hierarchy=Neutral(6074:39) 네이티브 렌더 실측 — 채움 #495057 · 라벨 #E0E0E0. */
+.btn-tertiary { background: var(--gmd-tertiary); color: var(--gmd-text-on-primary-tertiary); }
+.btn-tertiary:hover { background: var(--gmd-tertiary-hover); }
+.btn-tertiary:active { background: var(--gmd-tertiary-pressed); }
+/* Neutral 비활성은 primary(파랑) 계열을 쓰지 않는다 — 중립 버튼이 비활성에서 파랗게 변하던 문제.
+   Primary 에서 실측한 「채움 subtle + 라벨 disabled」 짝을 tertiary 축에 그대로 적용한다. */
+.btn-tertiary:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-tertiary-disabled); cursor: not-allowed; }
+/* Neutral 외곽선 = Figma Main-Button-primary 의 Hierarchy=Neutral · Border=true.
+   base/disabled 는 정본과 값이 같다 — 배경 --gmd-surface-base, 테두리 --gmd-divider,
+   글자 --gmd-tertiary / disabled 는 --gmd-tertiary-subtle 배경에 --gmd-text-disabled 글자.
+   hover·pressed 는 정본이 오버레이(검정 6% · primary 12%)와 Figma Border colors/border/hover ·
+   border/pressed 를 쓰지만 classic 에 그 토큰이 없어, btn-secondary 와 같은 classic 관행
+   (subtle 배경 + 상태색 테두리·글자)으로 맞췄다.
+   주 동작이 btn-danger 인 warning·error 다이얼로그의 보조 버튼이 주 용도다. */
+.btn-tertiary-outline { background: var(--gmd-surface-base); color: var(--gmd-tertiary); border-color: var(--gmd-divider); }
+.btn-tertiary-outline:hover { background: var(--gmd-tertiary-subtle); border-color: var(--gmd-tertiary-hover); color: var(--gmd-tertiary-hover); }
+.btn-tertiary-outline:active { background: var(--gmd-tertiary-subtle); border-color: var(--gmd-tertiary-pressed); color: var(--gmd-tertiary-pressed); }
+.btn-tertiary-outline:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-text-disabled); border-color: var(--gmd-tertiary-subtle); cursor: not-allowed; }
+/* btn-danger: Button 위계 외 semantic destructive — warning/error Dialog 확인 버튼에만 사용.
+   라벨 = Text/on-error/fill. 다크 #EC6E76 위 흰 글자 2.98:1 → 어두운 글자 5.19:1. 라이트 hover 3.96:1 은 AA 미달이 남는다(사용자 확정). */
+.btn-danger { background: var(--gmd-semantic-error); color: var(--gmd-text-on-error-fill); }
+.btn-danger:hover { background: var(--gmd-semantic-error-hover); }
+.btn-danger:active { background: var(--gmd-semantic-error-pressed); }
+/* Danger 비활성 = 중립 비활성 짝(채움 tertiary-subtle · 라벨 tertiary-disabled). 비활성 위험 동작은 빨강을 남기지 않는다(2026-10-02 사용자 확정). */
+.btn-danger:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-tertiary-disabled); cursor: not-allowed; }
+/* Text Link(Figma 명칭) = .btn-text. */
+.btn-text { background: transparent; color: var(--gmd-primary-default); border-color: transparent; }
+.btn-text:hover { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); }
+.btn-text:active { background: var(--gmd-primary-subtle); color: var(--gmd-primary-pressed); }
+.btn-text:disabled { color: var(--gmd-primary-disabled); cursor: not-allowed; }
+/* 크기(Size) 6단 — Figma Size 섹션(6074:137) 높이 측정값. md(36)가 기본. 패딩은 4px 그리드. */
+.btn-xm { height: 24px; padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); min-width: var(--gmd-width-button-min-compact); }  /* sm-xm */
+.btn-sm { height: 32px; padding: var(--gmd-space-2x) var(--gmd-space-3); font-size: var(--gmd-font-size-12); min-width: var(--gmd-width-button-min-compact); }
+.btn-md { height: 36px; padding: var(--gmd-space-2x) var(--gmd-space-4); font-size: var(--gmd-font-size-14); }  /* 기본 = .btn 기본값 */
+.btn-lg { height: 40px; padding: var(--gmd-space-2x) var(--gmd-space-5); font-size: var(--gmd-font-size-16); }
+.btn-xl { height: 48px; padding: var(--gmd-space-3) var(--gmd-space-6); font-size: var(--gmd-font-size-16); }
+.btn-2lg { height: 52px; padding: var(--gmd-space-3) var(--gmd-space-28px); font-size: var(--gmd-font-size-18); }
+.btn .ico { width: 1em; height: 1em; flex: none; display: inline-flex; }
+/* 처리 중(Processing) — Figma "Processing Button"(6:7037). 라벨 앞 회전 스피너로 처리 중을 알리고 그동안 입력을 막는다.
+   새 크기·새 컴포넌트를 만들지 않고 .btn 위계·크기 + 기존 .c-spinner-ring 을 그대로 조합한다. */
+.btn.is-processing { cursor: progress; pointer-events: none; }
+/* 버튼 안 스피너는 라벨 크기에 맞춰 1em. DS 스피너의 두 톤 링 모양을 그대로 유지하되 색만 currentColor 로 상속 — 트랙은 그 25% 농도, 선행 아크는 풀 농도. 채움형은 on-primary(흰색)·텍스트형은 primary 로 자동 전환(raw HEX 없음). */
+.btn .c-spinner-ring { width: 1em; height: 1em; border-width: 2px; border-color: color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; }
+/* 아이콘만(OnlyIcon) — 라벨 없이 스피너만. 정사각으로 좁히고 좌우 패딩을 없앤다. */
+.btn.is-icon-only { min-width: 0; padding-left: 0; padding-right: 0; aspect-ratio: 1; }
+/* 처리·대기 공통 커서 — Figma "Processing Button"(6:7037) "cursor: progress/wait" 섹션 정본 커서. 처리 중 버튼은 입력을 막으므로(pointer-events:none) 커서는 버튼이 아니라 처리 중인 영역(또는 body)에 건다. hotspot=화살표 끝(4,2), 미지원 브라우저는 progress 로 폴백. */
+.is-cursor-wait, .cursor-wait-demo { cursor: url("assets/loading-cursor.svg") 4 2, progress; }
+
+.input { width: 100%; max-width: 320px; background: var(--gmd-surface-base); border: 1px solid var(--gmd-border-subtle);
+  border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2x) var(--gmd-space-3); font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14); color: var(--gmd-text-primary); transition: border-color var(--gmd-motion-base) var(--gmd-motion-easing); }
+.input::placeholder { color: var(--gmd-text-tertiary); }
+.input:hover:not(:disabled), .input.is-hover { border-color: var(--gmd-border-base); }
+.input:focus-visible, .input.is-focus { outline: none; border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
+.input[aria-invalid="true"], .input.is-error { border-color: var(--gmd-semantic-error); color: var(--gmd-semantic-error); }
+.input.is-success { border-color: var(--gmd-semantic-success); color: var(--gmd-semantic-success); }
+.input:disabled, .input.is-disabled { background: var(--gmd-background-section); color: var(--gmd-text-disabled); cursor: not-allowed; }
+.input-sm { padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); }
+.input-lg { padding: var(--gmd-space-3) var(--gmd-space-3); font-size: var(--gmd-font-size-16); }
+/* 라벨 + 컨트롤 + 도움말 세로 묶음 */
+.field { display: flex; flex-direction: column; gap: var(--gmd-space-1); max-width: 320px; }
+.field-label { font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); }
+.input-help { font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); }
+.input-help.is-error { color: var(--gmd-semantic-error); }
+/* leading/trailing 아이콘·카운터를 얹는 래퍼 */
+.input-wrap { position: relative; display: flex; align-items: center; max-width: 320px; }
+.input-wrap .input { max-width: none; flex: 1; }
+.input-wrap .ico { position: absolute; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--gmd-text-tertiary); pointer-events: none; }
+.input-wrap .ico.lead { left: var(--gmd-space-3); }
+.input-wrap .ico.trail { right: var(--gmd-space-3); }
+.input-wrap.has-lead .input { padding-left: var(--gmd-space-8); }
+.input-wrap.has-trail .input { padding-right: var(--gmd-space-8); }
+.input-counter { position: absolute; right: var(--gmd-space-3); font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); pointer-events: none; }
+.textarea { width: 100%; max-width: 320px; min-height: 88px; resize: vertical; background: var(--gmd-surface-base); border: 1px solid var(--gmd-border-subtle); border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2x) var(--gmd-space-3); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); color: var(--gmd-text-primary); }
+.textarea::placeholder { color: var(--gmd-text-tertiary); }
+.textarea:focus-visible { outline: none; border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
+
+.card { background: var(--gmd-background-card); border: 1px solid transparent; border-radius: var(--gmd-radius-md);
+  padding: var(--gmd-space-6); max-width: 300px;
+  transition: background var(--gmd-motion-base) var(--gmd-motion-easing), box-shadow var(--gmd-motion-base) var(--gmd-motion-easing), border-color var(--gmd-motion-base) var(--gmd-motion-easing); }
+.card-outline { background: var(--gmd-surface-base); border-color: var(--gmd-divider); }
+.card-elevated { background: var(--gmd-surface-base); box-shadow: var(--gmd-shadow-soft); }
+.card:hover, .card.is-hover { background: var(--gmd-surface-hover); }
+.card-elevated:hover, .card-elevated.is-hover { box-shadow: var(--gmd-shadow-lift); }
+.card.is-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
+/* note: Figma Card 본문 13px·eyebrow off-scale 은 Figma off-scale — classic 은 디자인 시스템 정책 고수(본문 14px·eyebrow 12px), 디자인팀 피드백 대상. */
+.card .eyebrow { font-size: var(--gmd-font-size-12); letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--gmd-text-secondary); font-weight: var(--gmd-weight-medium); }
+.card h4 { margin: var(--gmd-space-1) 0 var(--gmd-space-2x); font-size: var(--gmd-font-size-16);
+  font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: var(--gmd-line-body-lg); }
+.card p { margin: 0 0 var(--gmd-space-3); color: var(--gmd-text-secondary); font-size: var(--gmd-font-size-14); }
+.card .card-action { background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--gmd-primary-default); font-weight: var(--gmd-weight-bold); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); }
+.card .card-action:hover { text-decoration: underline; }
+
+/* ── Badge: primary blue 마커/칩 ── */
+.badge { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
+  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
+  background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); line-height: 1; }
+.badge .ico { width: 12px; height: 12px; flex: none; }
+.badge-circle, .badge-square { padding: 0; width: 24px; height: 24px; justify-content: center; }
+.badge-circle { border-radius: 50%; }
+.badge-square { border-radius: var(--gmd-radius-sm); }
+.badge-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill);
+  min-width: 16px; height: 16px; padding: 0 var(--gmd-space-1); display: inline-flex; align-items: center; justify-content: center;
+  font-size: var(--gmd-font-size-10); font-weight: var(--gmd-weight-bold); }
+
+/* ── Tag: 닫기 가능한 라벨(neutral / secondary) ── */
+.tag { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
+  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12);
+  background: var(--gmd-background-card); color: var(--gmd-text-primary); border: 1px solid var(--gmd-divider); }
+.tag:hover, .tag.is-hover { background: var(--gmd-surface-hover); }
+.tag.is-pressed { background: var(--gmd-background-section); }
+.tag.is-disabled { color: var(--gmd-text-disabled); background: var(--gmd-surface-base); cursor: not-allowed; }
+.tag-secondary { background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); border-color: transparent; }
+.tag .close { width: 12px; height: 12px; flex: none; cursor: pointer; color: var(--gmd-text-tertiary); }
+.tag-secondary .close { color: var(--gmd-primary-default); }
+.tag.is-disabled .close { color: var(--gmd-text-disabled); }
+
+/* ── Status: dot + label(배경 없음), dot·텍스트 동일 의미색 ── */
+.status { display: inline-flex; align-items: center; gap: var(--gmd-space-2); font-size: var(--gmd-font-size-12); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+.status-available { color: var(--gmd-semantic-success); }
+.status-busy      { color: var(--gmd-semantic-warning); }
+.status-updating  { color: var(--gmd-primary-default); }
+.status-failed, .status-unavailable { color: var(--gmd-semantic-error); }
+.status-disconnected, .status-deactivated { color: var(--gmd-text-tertiary); }
+
+/* ── Filter: 필터/정렬 칩(상세는 Filter Labels) ── */
+.fchip { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-sm);
+  padding: var(--gmd-space-1) var(--gmd-space-2x); font-size: var(--gmd-font-size-12); cursor: pointer;
+  background: var(--gmd-surface-base); color: var(--gmd-text-primary); border: 1px solid var(--gmd-divider); }
+.fchip.is-active { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); border-color: transparent; }
+.fchip.is-visible { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
+.fchip .ico { width: 12px; height: 12px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+
+/* Toast (semantic) — Figma Toast_semantic 매핑: 색 텍스트 + 1px 동색 보더 + 틴트 배경, 아이콘 없음, radius md, 12px.
+ * error/success 는 의미색 글자, warning/info 는 가독성 위해 본문색(text-primary). */
+.toast { display: inline-block; border: 1px solid; border-radius: var(--gmd-radius-md);
+  padding: var(--gmd-space-4) var(--gmd-space-3); font-size: var(--gmd-font-size-12); line-height: var(--gmd-line-body-sm); }
+.toast-error   { background: var(--gmd-semantic-error-bg);   border-color: var(--gmd-semantic-error);   color: var(--gmd-semantic-error); }
+.toast-success { background: var(--gmd-semantic-success-bg); border-color: var(--gmd-semantic-success); color: var(--gmd-semantic-success); }
+.toast-warning { background: var(--gmd-semantic-warning-bg); border-color: var(--gmd-semantic-warning); color: var(--gmd-text-primary); }
+.toast-info    { background: var(--gmd-semantic-info-bg);    border-color: var(--gmd-semantic-info);    color: var(--gmd-text-primary); }
+/* ── Toast 유형(Type): 흰 카드 + 그림자 + 닫기 ── */
+.toast-card { position: relative; display: flex; gap: var(--gmd-space-3); align-items: flex-start;
+  background: var(--gmd-surface-base); border: 1px solid var(--gmd-divider); border-radius: var(--gmd-radius-md);
+  box-shadow: var(--gmd-shadow-soft); padding: var(--gmd-space-4); padding-right: var(--gmd-space-8); max-width: 440px; }
+.toast-card.simple { align-items: center; max-width: 320px; }
+.toast-card .tc-icon { width: 16px; height: 16px; flex: none; margin-top: var(--gmd-space-1); color: var(--gmd-semantic-success); }
+.toast-card .tc-icon.info { color: var(--gmd-semantic-info); }
+.toast-card .tc-icon.send { color: var(--gmd-primary-default); }
+.toast-card .tc-avatar { width: 32px; height: 32px; border-radius: 50%; flex: none;
+  background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); display: inline-flex; align-items: center; justify-content: center;
+  font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); }
+.toast-card .tc-body { flex: 1; min-width: 0; }
+.toast-card .tc-h { font-size: var(--gmd-font-size-14); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); }
+.toast-card .tc-t { font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); margin-top: var(--gmd-space-1); }
+.toast-card .tc-time { font-size: var(--gmd-font-size-12); color: var(--gmd-primary-default); margin-top: var(--gmd-space-1); }
+.toast-card .tc-close { position: absolute; top: var(--gmd-space-3); right: var(--gmd-space-3); width: 14px; height: 14px; flex: none; color: var(--gmd-text-tertiary); cursor: pointer; }
+.toast-card .tc-actions { display: flex; gap: var(--gmd-space-2x); margin-top: var(--gmd-space-3); }
+.toast-card .tc-nested { display: flex; gap: var(--gmd-space-2x); align-items: flex-start; margin-top: var(--gmd-space-2x); }
+
+/* Figma Docs/Banner(6259:1939) 실측 구조: 세로 stack(gap 32) — [제목줄(아이콘·헤딩·x)] → 본문(전체폭) → 액션. padding 24 · radius 6 */
+.banner { position: relative; display: flex; flex-direction: column; gap: var(--gmd-space-8); border-radius: var(--gmd-radius-6px);
+  padding: var(--gmd-space-6); width: 100%; }
+.banner .desc { display: flex; flex-direction: column; gap: var(--gmd-space-3); }            /* 제목줄↔본문 gap 12 */
+.banner .title-row { display: flex; align-items: center; gap: var(--gmd-space-2x); }          /* 아이콘↔헤딩 gap 8 */
+/* Figma 아이콘: 32px 슬롯 안에 26.67px 원(프레임의 83.34%, inset 8.33%)이 중앙 배치. 슬롯 32 유지·원만 ::before 로 26.67 */
+.banner .title-row .ico { position: relative; width: 32px; height: 32px; flex: none; box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--gmd-text-on-primary); padding: var(--gmd-space-2x); background: none; }
+.banner .title-row .ico::before { content: ""; position: absolute; inset: 0; margin: auto; width: 26.67px; height: 26.67px;
+  border-radius: 50%; background: var(--banner-ico-color, var(--gmd-tertiary)); }
+.banner .title-row .ico svg { position: relative; z-index: 1; }
+.banner .h { font-size: var(--gmd-font-size-16); line-height: 1.375; font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); flex: 1; min-width: 0; }  /* Figma 헤딩 16px Bold·leading 22 */
+.banner .t { font-size: var(--gmd-font-size-14); line-height: 1.43; color: var(--gmd-text-primary); }              /* Figma 본문 14px Regular·leading 20, 전체폭 */
+.banner .close { flex: none; width: 14px; height: 14px; display: inline-flex; color: var(--gmd-text-tertiary); cursor: pointer; }
+/* Figma 액션 = Main-Button-primary: Regular(볼드 아님) · 12px · padding 6/12 · gap 6 (본문과 gap 32는 .banner gap 이 처리) */
+.banner .ba { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--gmd-space-6px);
+  border: none; border-radius: var(--gmd-radius-sm); height: 24px; padding: 0 var(--gmd-space-2x);
+  font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-text-on-primary); cursor: pointer; font-family: var(--gmd-font-body); }
+.banner .ba .ico { width: 12px; height: 12px; padding: 0; border-radius: 0; background: none; color: inherit; margin: 0; }
+.banner-default { background: var(--gmd-background-section); }            .banner-default .ba { background: var(--gmd-tertiary); }
+/* Info 배너 전경 = Figma는 primary(#135DB5) 사용(semantic-info #0288D1 아님). 배경만 semantic-info-bg(#E1F5FE). */
+.banner-info    { background: var(--gmd-semantic-info-bg); }    .banner-info .ico    { --banner-ico-color: var(--gmd-primary-default); }    .banner-info .h    { color: var(--gmd-primary-default); }    .banner-info .ba    { background: var(--gmd-primary-default); }
+.banner-success { background: var(--gmd-semantic-success-bg); } .banner-success .ico { --banner-ico-color: var(--gmd-semantic-success); } .banner-success .h { color: var(--gmd-semantic-success); } .banner-success .ba { background: var(--gmd-semantic-success); }
+.banner-warning { background: var(--gmd-semantic-warning-bg); } .banner-warning .ico { --banner-ico-color: var(--gmd-semantic-warning); } .banner-warning .h { color: var(--gmd-text-primary); }    .banner-warning .ba { background: var(--gmd-semantic-warning); color: var(--gmd-text-on-warning); }
+.banner-danger  { background: var(--gmd-semantic-error-bg); }   .banner-danger .ico  { --banner-ico-color: var(--gmd-semantic-error); }   .banner-danger .h  { color: var(--gmd-semantic-error); }   .banner-danger .ba  { background: var(--gmd-semantic-error); }
+/* Outline = 틴트 bg 유지 + 4px 색 좌측 스트로크 + 얇은 subtle 보더 */
+/* Figma Outline(BannerStroke_X) = Fill 그대로(틴트 배경 유지) + 좌측 3px 라인만. 전체 보더 없음. */
+.banner-outline { border-left: 3px solid var(--gmd-divider); }
+.banner-outline.banner-default { border-left-color: var(--gmd-tertiary); }
+.banner-outline.banner-info { border-left-color: var(--gmd-primary-default); }
+.banner-outline.banner-success { border-left-color: var(--gmd-semantic-success); }
+.banner-outline.banner-warning { border-left-color: var(--gmd-semantic-warning); }
+.banner-outline.banner-danger { border-left-color: var(--gmd-semantic-error); }
+/* 다크 — 틴트 배경이 페이지와 1.1:1 수준으로 묻혀, 토스트와 같은 1px 의미색 경계를 inset ring 으로 부여(레이아웃·outline 좌측 보더 불간섭) */
+html[data-theme="dark"] .banner { box-shadow: inset 0 0 0 1px var(--banner-ring, var(--gmd-border-base)); }
+html[data-theme="dark"] .banner-info    { --banner-ring: var(--gmd-primary-default); }
+html[data-theme="dark"] .banner-success { --banner-ring: var(--gmd-semantic-success); }
+html[data-theme="dark"] .banner-warning { --banner-ring: var(--gmd-semantic-warning); }
+html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-error); }
+
+/* Info Bar — Figma 매핑: 레이아웃 4종(Two/One/Same line · Link on right) + 의미 변형.
+ * 텍스트는 1줄(l1, 보조색/Notice) + 2줄(l2, 볼드 메시지) 구조, 액션은 링크형 버튼. */
+/* Figma Docs/Info Bar(6259:2634) 실측: bg card·border divider·radius 8·padding 20/40/20/20·gap 20 */
+.info-bar { display: flex; align-items: flex-start; gap: var(--gmd-space-5); background: var(--gmd-background-card);
+  border: 1px solid var(--gmd-divider);
+  border-radius: var(--gmd-radius-md); padding: var(--gmd-space-5) var(--gmd-space-10) var(--gmd-space-5) var(--gmd-space-5); font-size: var(--gmd-font-size-14);
+  color: var(--gmd-text-primary); width: 100%; }
+.ib-cap { font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); }
+.info-bar .ico { width: 16px; height: 16px; flex: none; color: var(--gmd-semantic-info); margin-top: var(--gmd-space-2); }
+.info-bar .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--gmd-space-3); }
+.info-bar .l1 { color: var(--gmd-text-secondary); }
+.info-bar .l2 { font-weight: var(--gmd-weight-bold); }
+.info-bar .grow { flex: 1; min-width: 0; }
+.info-bar .actions { display: flex; gap: var(--gmd-space-6); }
+/* Figma 액션 = Main-Button-primary: Regular 400 · 12px · primary 색 (bold/14px 아님) */
+.info-bar .link-btn { background: none; border: none; padding: 0; cursor: pointer;
+  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-primary-default); }
+.info-bar .link { margin-left: auto; color: var(--gmd-primary-default); font-weight: var(--gmd-weight-bold); white-space: nowrap; align-self: center; }
+.info-bar.same-line { align-items: center; }
+.info-bar.same-line .ico { margin-top: 0; }
+.info-bar-success { background: var(--gmd-semantic-success-bg); } .info-bar-success .ico { color: var(--gmd-semantic-success); } .info-bar-success .link-btn { color: var(--gmd-semantic-success); }
+.info-bar-warning { background: var(--gmd-semantic-warning-bg); } .info-bar-warning .ico { color: var(--gmd-semantic-warning); } .info-bar-warning .link-btn { color: var(--gmd-semantic-warning); }
+.info-bar-error   { background: var(--gmd-semantic-error-bg); }   .info-bar-error .ico   { color: var(--gmd-semantic-error); }   .info-bar-error .link-btn { color: var(--gmd-semantic-error); }
+
+.tabs { display: inline-flex; align-items: center; gap: var(--gmd-space-1); }
+.tab { background: transparent; border: none; border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2) var(--gmd-space-3);
+  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
+  color: var(--gmd-text-secondary); cursor: pointer; display: inline-flex; align-items: center; gap: var(--gmd-space-1);
+  transition: color var(--gmd-motion-base) var(--gmd-motion-easing), background var(--gmd-motion-base) var(--gmd-motion-easing); }
+.tab:hover:not(:disabled), .tab.is-hover { color: var(--gmd-primary-default); }
+.tab:disabled, .tab.is-disabled { color: var(--gmd-text-disabled); cursor: not-allowed; }
+.tab .ico { width: 14px; height: 14px; flex: none; }
+.tab .tab-count { background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill);
+  font-size: var(--gmd-font-size-10); font-weight: var(--gmd-weight-bold); padding: 0 var(--gmd-space-1); min-width: 16px; height: 16px;
+  display: inline-flex; align-items: center; justify-content: center; }
+/* Pills — 활성 = 블루 필 */
+.tabs-pills .tab { border-radius: var(--gmd-radius-pill); }
+.tabs-pills .tab[aria-selected="true"] { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
+.tabs-pills .tab[aria-selected="true"] .tab-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); }
+/* Underline — 활성 = 블루 텍스트 + 하단 밑줄 */
+.tabs-underline { gap: var(--gmd-space-5); border-bottom: 1px solid var(--gmd-divider); }
+.tabs-underline .tab { border-radius: 0; padding: var(--gmd-space-2) var(--gmd-space-1); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs-underline .tab[aria-selected="true"] { color: var(--gmd-primary-default); border-bottom-color: var(--gmd-primary-default); }
+/* 크기 sm/md/lg/xl */
+.tab-sm { font-size: var(--gmd-font-size-10); } .tab-md { font-size: var(--gmd-font-size-12); }
+.tab-lg { font-size: var(--gmd-font-size-14); } .tab-xl { font-size: var(--gmd-font-size-16); }
+
+.progress { width: 100%; max-width: 360px; height: 8px; background: var(--gmd-background-section); border-radius: var(--gmd-radius-pill); overflow: hidden; }
+.progress-bar { height: 100%; background: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill); }
+.progress-success .progress-bar { background: var(--gmd-semantic-success); }
+.progress-warning .progress-bar { background: var(--gmd-semantic-warning); }
+.progress-danger  .progress-bar { background: var(--gmd-semantic-error); }
+/* 라벨 위치 */
+.prog-field { display: flex; flex-direction: column; gap: var(--gmd-space-1); width: 340px; max-width: 100%; }
+.prog-field .progress { max-width: none; }
+.prog-labels { display: flex; justify-content: space-between; font-size: var(--gmd-font-size-10); color: var(--gmd-text-tertiary); }
+.prog-side { display: flex; align-items: center; gap: var(--gmd-space-3); width: 380px; max-width: 100%; }
+.prog-side .progress { flex: 1; }
+.prog-side .pct { font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); white-space: nowrap; }
+/* 상태 배지 */
+.prog-status { display: inline-flex; flex-direction: column; align-items: center; gap: var(--gmd-space-1); font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); }
+.prog-status .dot { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; }
+.prog-status.pending .dot    { border: 2px solid var(--gmd-divider); }
+.prog-status.inprogress .dot { border: 2px solid var(--gmd-primary-default); border-top-color: transparent; }
+.prog-status.completed .dot  { background: var(--gmd-semantic-success); color: var(--gmd-text-on-primary); }
+.prog-status.error .dot      { background: var(--gmd-semantic-error); color: var(--gmd-text-on-primary); }
+.prog-status .dot .ico { width: 12px; height: 12px; display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+/* 세로 */
+.progress-v { width: 8px; height: 120px; background: var(--gmd-background-section); border-radius: var(--gmd-radius-pill); position: relative; overflow: hidden; }
+.progress-v .progress-bar { position: absolute; bottom: 0; left: 0; width: 100%; border-radius: var(--gmd-radius-pill); }
+
+/* Indeterminate (진행 중) — 진행률을 모를 때. 그라데이션 세그먼트가 트랙을 무한 반복해 가로지른다(스피너와 같은 무한 루프). */
+.progress.is-indeterminate { position: relative; }
+.progress.is-indeterminate .progress-bar {
+  position: absolute; top: 0; left: 0; width: 40%; height: 100%; border-radius: var(--gmd-radius-pill);
+  background: linear-gradient(90deg, transparent 0%, var(--gmd-primary-default) 45%, var(--gmd-primary-hover) 60%, transparent 100%);
+  animation: prog-indeterminate 1.4s var(--gmd-motion-easing) infinite;
+}
+/* 의미색 indeterminate — 채움 색만 토큰으로 교체 */
+.progress-success .progress.is-indeterminate .progress-bar { background: linear-gradient(90deg, transparent, var(--gmd-semantic-success) 55%, transparent); }
+.progress-warning .progress.is-indeterminate .progress-bar { background: linear-gradient(90deg, transparent, var(--gmd-semantic-warning) 55%, transparent); }
+.progress-danger  .progress.is-indeterminate .progress-bar { background: linear-gradient(90deg, transparent, var(--gmd-semantic-error) 55%, transparent); }
+@keyframes prog-indeterminate { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
+
+/* 흐르는 그라데이션 (Flowing) — 진행률은 확정이되 작업이 활성 중임을 표시. 채움 안에서 밝은→기본→짙은 그라데이션이 한 방향으로 흐른다. */
+.progress-bar.is-flowing {
+  background: linear-gradient(90deg, var(--gmd-primary-pressed), var(--gmd-primary-default), var(--gmd-primary-hover), var(--gmd-primary-default), var(--gmd-primary-pressed));
+  background-size: 200% 100%;
+  animation: prog-flow 2s linear infinite;
+}
+@keyframes prog-flow { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
+/* 빛 sheen (Shimmer) — 채움 위로 밝은 빛줄기가 주기적으로 한 번씩 훑고 지나간다. */
+.progress-bar.is-shimmer { position: relative; overflow: hidden; }
+.progress-bar.is-shimmer::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: translateX(-100%);
+  animation: prog-shimmer 1.6s var(--gmd-motion-easing) infinite;
+}
+@keyframes prog-shimmer { 0% { transform: translateX(-100%); } 55%, 100% { transform: translateX(100%); } }
+
+/* 모션 민감 사용자 — 진행 애니메이션 정지(접근성) */
+@media (prefers-reduced-motion: reduce) {
+  .progress.is-indeterminate .progress-bar { animation: none; left: 0; width: 100%; }
+  .progress-bar.is-flowing { animation: none; }
+  .progress-bar.is-shimmer::after { animation: none; }
+}
+/* Alert 5유형 — 헤더의 원형 subtle 배경 + 의미색 아이콘. Figma Alert(information/confirmation/warning/error/Done) 정합. */
+.alert-icon { width: 40px; height: 40px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--gmd-radius-circle); }
+.alert-icon .ico { width: 24px; height: 24px; }
+.alert-info     { background: var(--gmd-semantic-info-bg);    color: var(--gmd-semantic-info); }
+.alert-confirm  { background: var(--gmd-semantic-info-bg);    color: var(--gmd-semantic-info); }
+.alert-warning  { background: var(--gmd-semantic-warning-bg); color: var(--gmd-semantic-warning); }
+.alert-error    { background: var(--gmd-semantic-error-bg);   color: var(--gmd-semantic-error); }
+.alert-success  { background: var(--gmd-semantic-success-bg); color: var(--gmd-semantic-success); }
+
+/* ===== 워크플로우 생성 컴포넌트 (Figma Docs 미러) ===== */
+/* Checkbox & Radio */
+.c-checkbox-radio-row{display:flex;align-items:flex-end;gap:var(--gmd-space-6);flex-wrap:wrap}
+
+.c-checkbox-radio-field{display:inline-flex;align-items:center;gap:var(--gmd-space-2x);cursor:pointer;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary)}
+.c-checkbox-radio-field[aria-disabled="true"]{cursor:not-allowed;color:var(--gmd-text-disabled)}
+
+/* base control box (checkbox) */
+.c-checkbox-radio-box{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;color:var(--gmd-text-on-primary-fill);transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-checkbox-radio-box svg{opacity:0}
+
+/* checked / indeterminate */
+.c-checkbox-radio-box.is-checked,.c-checkbox-radio-box.is-indeterminate{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default)}
+.c-checkbox-radio-box.is-checked svg,.c-checkbox-radio-box.is-indeterminate svg{opacity:1}
+
+/* hover */
+.c-checkbox-radio-box.is-hover{border-color:var(--gmd-primary-hover)}
+
+/* disabled */
+/* 비활성은 고른 상태와 안 고른 상태를 가른다. 하나로 두면 안 고른 상자에 primary-disabled(#A8C4D9)
+   가 차서 「잠긴 채 켜져 있음」 으로 읽힌다. 안 고른 쪽은 중립 슬롯 채움(bg/slot-disabled)을 쓰고
+   desaturated primary 는 실제로 켜져 있는 쪽에만 남긴다. */
+.c-checkbox-radio-box.is-disabled{background:var(--gmd-background-slot-disabled);border-color:var(--gmd-border-subtle)}
+.c-checkbox-radio-box.is-disabled.is-checked,.c-checkbox-radio-box.is-disabled.is-indeterminate{background:var(--gmd-primary-disabled);border-color:var(--gmd-primary-disabled);color:var(--gmd-text-on-primary)}
+
+/* radio dot */
+.c-checkbox-radio-dot{flex:none;width:18px;height:18px;border:1.5px solid var(--gmd-border-base);border-radius:50%;background:var(--gmd-surface-base);display:inline-flex;align-items:center;justify-content:center;transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-checkbox-radio-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--gmd-primary-default);transform:scale(0);transition:transform var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-checkbox-radio-dot.is-checked{border-color:var(--gmd-primary-default)}
+.c-checkbox-radio-dot.is-checked::after{transform:scale(1)}
+.c-checkbox-radio-dot.is-hover{border-color:var(--gmd-primary-hover)}
+.c-checkbox-radio-dot.is-disabled{border-color:var(--gmd-border-subtle);background:var(--gmd-background-slot-disabled)}
+.c-checkbox-radio-dot.is-disabled.is-checked{border-color:var(--gmd-primary-disabled)}
+.c-checkbox-radio-dot.is-disabled::after{background:var(--gmd-text-disabled)}
+
+/* sizes */
+.c-checkbox-radio-box.is-sm,.c-checkbox-radio-dot.is-sm{width:16px;height:16px}
+.c-checkbox-radio-box.is-lg,.c-checkbox-radio-dot.is-lg{width:22px;height:22px}
+.c-checkbox-radio-dot.is-lg::after{width:10px;height:10px}
+
+/* labelled block */
+.c-checkbox-radio-labelled{display:flex;align-items:flex-start;gap:var(--gmd-space-2x);padding:var(--gmd-space-3);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);width:280px}
+.c-checkbox-radio-labelled .c-checkbox-radio-box,.c-checkbox-radio-labelled .c-checkbox-radio-dot{margin-top:var(--gmd-space-2)}
+.c-checkbox-radio-texts{display:flex;flex-direction:column;gap:var(--gmd-space-1)}
+.c-checkbox-radio-heading{font-size:var(--gmd-font-size-16);color:var(--gmd-text-primary)}
+.c-checkbox-radio-body{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+
+/* composition list */
+.c-checkbox-radio-list{display:flex;flex-direction:column;gap:var(--gmd-space-3);padding:var(--gmd-space-4);border-radius:var(--gmd-radius-md);width:300px}
+.c-checkbox-radio-list.is-light{background:var(--gmd-background-section);border:1px solid var(--gmd-border-subtle)}
+.c-checkbox-radio-item{display:flex;align-items:flex-start;gap:var(--gmd-space-2x)}
+.c-checkbox-radio-item .c-checkbox-radio-box{margin-top:var(--gmd-space-2)}
+.c-combobox-trigger .c-combobox-label{flex:1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.c-combobox-trigger .c-combobox-chevron{flex:none;color:var(--gmd-text-tertiary);transition:transform var(--gmd-motion-fast) var(--gmd-motion-easing);}
+.c-combobox-leadicon{flex:none;color:var(--gmd-text-tertiary);}
+.c-combobox-leadicon.ico,.c-combobox-search .ico{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex:none;color:var(--gmd-text-tertiary);}
+.c-combobox-trigger.c-combobox-sm{padding:var(--gmd-space-1) var(--gmd-space-2x);font-size:var(--gmd-font-size-12);}
+.c-combobox-option .c-combobox-check{flex:none;color:var(--gmd-primary-default);}
+.c-combobox-search input{border:none;outline:none;background:transparent;flex:1;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary);}
+.c-combobox-statelist{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start;}
+.c-combobox-statecell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x);}
+.c-combobox-statebox{width:var(--c-combobox-width);display:flex;align-items:center;justify-content:flex-start;padding:var(--gmd-space-1) var(--gmd-space-3);border-radius:var(--gmd-radius-sm);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);}
+.c-combobox-statebox.is-default{color:var(--gmd-text-primary);}
+.c-combobox-statebox.is-hover{background:var(--gmd-surface-hover);color:var(--gmd-text-primary);}
+.c-combobox-statebox.is-selected{color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);border-left:2px solid var(--gmd-primary-default);}
+.c-combobox-statebox.is-disabled{color:var(--gmd-text-disabled);}
+/* Date&Time Picker */
+.c-datetime-field{position:relative;display:flex;align-items:center;width:240px;height:40px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);color:var(--gmd-text-tertiary);font-size:var(--gmd-font-size-14);transition:border-color var(--gmd-motion-fast) var(--gmd-motion-easing),box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-datetime-field.is-hover{border-color:var(--gmd-text-tertiary);background:var(--gmd-surface-hover)}
+.c-datetime-field.is-focused{border-color:var(--gmd-primary-default);box-shadow:0 0 0 3px var(--gmd-primary-subtle)}
+.c-datetime-field.is-filled{color:var(--gmd-text-primary)}
+.c-datetime-field .c-datetime-fieldlabel{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c-datetime-field .c-datetime-ficon{flex:none;color:var(--gmd-text-tertiary);display:inline-flex}
+.c-datetime-field.is-focused .c-datetime-ficon{color:var(--gmd-primary-default)}
+.c-datetime-floatlabel{position:absolute;top:-7px;left:var(--gmd-space-2x);padding:0 var(--gmd-space-1);background:var(--gmd-surface-base);font-size:var(--gmd-font-size-10);color:var(--gmd-primary-default);line-height:1}
+
+.c-datetime-card{width:264px;border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);box-shadow:var(--gmd-shadow-lift);overflow:hidden;font-size:var(--gmd-font-size-12)}
+.c-datetime-head{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);padding:var(--gmd-space-3) var(--gmd-space-4)}
+.c-datetime-eyebrow{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);letter-spacing:.08em;opacity:.85;margin-bottom:var(--gmd-space-2x)}
+.c-datetime-headtitle{font-size:var(--gmd-font-size-22);font-weight:var(--gmd-weight-bold);line-height:1}
+.c-datetime-headrow{display:flex;align-items:flex-end;justify-content:space-between}
+.c-datetime-headtabs{display:flex;gap:var(--gmd-space-4)}
+.c-datetime-tabbtn{background:none;border:none;color:var(--gmd-text-on-primary);opacity:.6;cursor:pointer;padding:0;display:inline-flex;line-height:0}
+.c-datetime-tabbtn[aria-selected="true"]{opacity:1;border-bottom:2px solid var(--gmd-text-on-primary);padding-bottom:var(--gmd-space-2x)}
+
+.c-datetime-timehead{display:flex;align-items:flex-start;justify-content:space-between}
+.c-datetime-timebig{font-size:var(--gmd-font-size-28);font-weight:var(--gmd-weight-bold);line-height:1;letter-spacing:.02em}
+.c-datetime-timebig .c-datetime-tactive{color:var(--gmd-text-on-primary)}
+.c-datetime-timebig .c-datetime-tmute{opacity:.55}
+.c-datetime-ampm{display:flex;flex-direction:column;gap:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);text-align:right}
+.c-datetime-ampm span{opacity:.55;cursor:pointer}
+.c-datetime-ampm span[aria-selected="true"]{opacity:1}
+
+.c-datetime-monthbar{display:flex;align-items:center;justify-content:space-between;padding:var(--gmd-space-3) var(--gmd-space-4) var(--gmd-space-2x)}
+.c-datetime-monthsel{display:inline-flex;align-items:center;gap:var(--gmd-space-1);background:none;border:none;color:var(--gmd-text-primary);font-size:var(--gmd-font-size-12);cursor:pointer;padding:0}
+.c-datetime-monthsel svg{color:var(--gmd-text-tertiary)}
+.c-datetime-navbtns{display:flex;gap:var(--gmd-space-2x)}
+.c-datetime-iconbtn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:none;border-radius:var(--gmd-radius-sm);background:none;color:var(--gmd-text-secondary);cursor:pointer}
+.c-datetime-iconbtn:hover{background:var(--gmd-surface-hover)}
+
+.c-datetime-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--gmd-space-2);padding:0 var(--gmd-space-3) var(--gmd-space-2x);text-align:center}
+.c-datetime-dow{font-size:var(--gmd-font-size-10);color:var(--gmd-text-tertiary);padding:var(--gmd-space-2x) 0}
+.c-datetime-day{display:flex;align-items:center;justify-content:center;height:28px;border-radius:50%;color:var(--gmd-text-primary);cursor:pointer}
+.c-datetime-day:hover{background:var(--gmd-surface-hover)}
+.c-datetime-day.is-today{border:1px solid var(--gmd-border-base);color:var(--gmd-text-primary)}
+.c-datetime-day.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
+.c-datetime-day.is-disabled{color:var(--gmd-text-disabled);background:var(--gmd-background-section);cursor:not-allowed;pointer-events:none}
+.c-datetime-day.is-mute{color:var(--gmd-text-disabled)}
+
+.c-datetime-ymgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gmd-space-2);padding:var(--gmd-space-3) var(--gmd-space-4)}
+.c-datetime-ymcell{display:flex;align-items:center;justify-content:center;height:36px;border-radius:var(--gmd-radius-lg);color:var(--gmd-text-primary);cursor:pointer;font-size:var(--gmd-font-size-12)}
+.c-datetime-ymcell:hover{background:var(--gmd-surface-hover)}
+.c-datetime-ymcell.is-current{border:1px solid var(--gmd-border-base)}
+.c-datetime-ymcell.is-mute{color:var(--gmd-text-disabled)}
+.c-datetime-ymcell.is-disabled{color:var(--gmd-text-disabled);background:var(--gmd-background-section)}
+
+.c-datetime-clock{position:relative;width:200px;height:200px;margin:var(--gmd-space-4) auto var(--gmd-space-2x);border-radius:50%;background:var(--gmd-primary-subtle)}
+.c-datetime-cnum{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary)}
+.c-datetime-cnum.is-selected{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
+.c-datetime-chand{position:absolute;left:50%;bottom:50%;width:2px;background:var(--gmd-primary-default);transform-origin:bottom center}
+.c-datetime-cdot{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--gmd-primary-default)}
+
+.c-datetime-actions{display:flex;align-items:center;justify-content:space-between;padding:var(--gmd-space-2x) var(--gmd-space-4) var(--gmd-space-3);border-top:1px solid var(--gmd-divider)}
+.c-datetime-actbtn{background:none;border:none;color:var(--gmd-primary-default);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);letter-spacing:.04em;cursor:pointer;padding:var(--gmd-space-1) var(--gmd-space-2x)}
+.c-datetime-actright{display:flex;gap:var(--gmd-space-2x)}
+.c-datetime-row{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start}
+.c-datetime-actbtn{border-radius:var(--gmd-radius-sm)}
+.c-datetime-actbtn:hover{background:var(--gmd-surface-hover)}
+.c-datetime-actbtn:active{background:var(--gmd-surface-pressed)}
+.c-datetime-actbtn:disabled{color:var(--gmd-text-disabled);background:none;cursor:not-allowed}
+/* Date&Time Picker — 기간 선택 (Date Range) */
+.c-datetime-field.is-range{width:280px;gap:var(--gmd-space-2x)}
+.c-datetime-seg{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:var(--gmd-space-1) 0;border-bottom:2px solid transparent}
+.c-datetime-seg.is-active{border-bottom-color:var(--gmd-primary-default)}
+.c-datetime-segsep{flex:none;color:var(--gmd-text-tertiary)}
+.c-datetime-mask{color:var(--gmd-text-tertiary)}
+.c-datetime-field.is-error{border-color:var(--gmd-semantic-error)}
+.c-datetime-field.is-error.is-focused{box-shadow:0 0 0 3px var(--gmd-semantic-error-bg)}
+.c-datetime-help{width:280px;margin-top:var(--gmd-space-1);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+.c-datetime-help.is-error{color:var(--gmd-semantic-error)}
+.c-datetime-card.is-range{width:auto;min-width:264px;display:inline-block;vertical-align:top}
+.c-datetime-headmeta{margin-top:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);opacity:.85}
+.c-datetime-tbd{opacity:.55}
+.c-datetime-rbody{display:flex}
+.c-datetime-presets{display:flex;flex-direction:column;gap:var(--gmd-space-1);width:112px;padding:var(--gmd-space-3) var(--gmd-space-2x);border-right:1px solid var(--gmd-divider)}
+.c-datetime-preset{display:flex;align-items:center;height:28px;padding:0 var(--gmd-space-2x);border:none;border-radius:var(--gmd-radius-sm);background:none;color:var(--gmd-text-primary);font-size:var(--gmd-font-size-12);text-align:left;white-space:nowrap;cursor:pointer}
+.c-datetime-preset:hover{background:var(--gmd-surface-hover)}
+.c-datetime-preset:active{background:var(--gmd-surface-pressed)}
+.c-datetime-preset[aria-pressed="true"]{background:var(--gmd-primary-subtle);color:var(--gmd-text-on-primary-subtle);font-weight:var(--gmd-weight-bold)}
+.c-datetime-preset:disabled{color:var(--gmd-text-disabled);background:none;cursor:not-allowed}
+.c-datetime-months{display:flex}
+.c-datetime-month{width:264px}
+.c-datetime-month + .c-datetime-month{border-left:1px solid var(--gmd-divider)}
+.c-datetime-monthbar.is-split{display:grid;grid-template-columns:24px 1fr 24px;align-items:center;text-align:center}
+.c-datetime-monthname{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
+.c-datetime-hint{padding:0 var(--gmd-space-4) var(--gmd-space-2x);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+/* 기간 격자: 띠가 칸 사이에서 끊기지 않게 가로 간격을 0 으로 두고, 동그라미는 ::before 로 그린다 */
+.c-datetime-grid.is-range{column-gap:0}
+.c-datetime-grid.is-range .c-datetime-day{position:relative;isolation:isolate;border:none;border-radius:0;background:none}
+.c-datetime-grid.is-range .c-datetime-day::before{content:"";position:absolute;top:0;left:50%;width:28px;height:28px;margin-left:-14px;border-radius:50%;z-index:-1}
+.c-datetime-grid.is-range .c-datetime-day:hover::before{background:var(--gmd-surface-hover)}
+.c-datetime-grid.is-range .c-datetime-day.is-today::before{box-shadow:inset 0 0 0 1px var(--gmd-border-base)}
+.c-datetime-grid.is-range .c-datetime-day.is-blank{visibility:hidden;pointer-events:none}
+.c-datetime-grid.is-range .c-datetime-day.is-disabled{color:var(--gmd-text-disabled);cursor:not-allowed;pointer-events:none}
+.c-datetime-grid.is-range .c-datetime-day.is-disabled::before{background:var(--gmd-background-section)}
+.c-datetime-grid.is-range .c-datetime-day.is-in-range{background:var(--gmd-primary-subtle);color:var(--gmd-text-on-primary-subtle)}
+.c-datetime-grid.is-range .c-datetime-day.is-in-range:hover::before{background:none;box-shadow:inset 0 0 0 1px var(--gmd-primary-default)}
+.c-datetime-grid.is-range .c-datetime-day.is-preview{background:var(--gmd-surface-pressed)}
+.c-datetime-grid.is-range .c-datetime-day.is-preview-end{background:linear-gradient(to right,var(--gmd-surface-pressed) 50%,transparent 50%)}
+.c-datetime-grid.is-range .c-datetime-day.is-preview-end::before{box-shadow:inset 0 0 0 1px var(--gmd-primary-default)}
+.c-datetime-grid.is-range .c-datetime-day.is-range-start{background:linear-gradient(to right,transparent 50%,var(--gmd-primary-subtle) 50%)}
+.c-datetime-grid.is-range .c-datetime-day.is-range-end{background:linear-gradient(to right,var(--gmd-primary-subtle) 50%,transparent 50%)}
+.c-datetime-grid.is-range .c-datetime-day.is-range-start.is-range-end{background:none}
+.c-datetime-grid.is-range .c-datetime-day.is-range-start,.c-datetime-grid.is-range .c-datetime-day.is-range-end{color:var(--gmd-text-on-primary-fill);font-weight:var(--gmd-weight-bold)}
+.c-datetime-grid.is-range .c-datetime-day.is-range-start::before,.c-datetime-grid.is-range .c-datetime-day.is-range-end::before{background:var(--gmd-primary-default);box-shadow:none}
+/* 주의 시작·끝 칸에서는 띠 끝을 둥글게 닫는다 (요일 머리 7칸 뒤부터 날짜) */
+.c-datetime-grid.is-range .c-datetime-day:nth-child(7n+1):is(.is-in-range,.is-preview){border-radius:var(--gmd-radius-circle) 0 0 var(--gmd-radius-circle)}
+.c-datetime-grid.is-range .c-datetime-day:nth-child(7n):is(.is-in-range,.is-preview){border-radius:0 var(--gmd-radius-circle) var(--gmd-radius-circle) 0}
+/* Context Menu */
+.c-context-menu-menu{display:inline-flex;flex-direction:column;min-width:164px;padding:var(--gmd-space-2x);background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);gap:var(--gmd-space-1);font-family:var(--gmd-font-body);}
+.c-context-menu-menu--wide{min-width:192px;}
+.c-context-menu-item{display:flex;align-items:center;gap:var(--gmd-space-2x);width:100%;box-sizing:border-box;padding:var(--gmd-space-2x);min-height:24px;border-radius:var(--gmd-radius-sm);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-regular);color:var(--gmd-text-primary);background:transparent;border:none;text-align:left;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing);}
+.c-context-menu-item:hover{background:var(--gmd-surface-hover);}
+.c-context-menu-item--hover{background:var(--gmd-surface-hover);}
+.c-context-menu-item--pressed{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);}
+.c-context-menu-item--disabled{color:var(--gmd-text-disabled);cursor:not-allowed;pointer-events:none;}
+.c-context-menu-item--danger{color:var(--gmd-semantic-error);}
+.c-context-menu-item--selected{color:var(--gmd-primary-default);}
+.c-context-menu-label{flex:1;}
+.c-context-menu-icon{flex:0 0 auto;display:inline-flex;color:var(--gmd-text-tertiary);}
+.c-context-menu-item--selected .c-context-menu-icon{color:var(--gmd-primary-default);}
+.c-context-menu-caret{flex:0 0 auto;display:inline-flex;color:var(--gmd-text-tertiary);margin-left:var(--gmd-space-2x);}
+.c-context-menu-divider{height:1px;margin:var(--gmd-space-1) 0;background:var(--gmd-divider);}
+.c-context-menu-chip{display:inline-flex;align-items:center;min-width:77px;box-sizing:border-box;padding:var(--gmd-space-2x);min-height:24px;border-radius:var(--gmd-radius-sm);font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary);background:var(--gmd-surface-base);font-family:var(--gmd-font-body);}
+.c-context-menu-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);}
+.c-context-menu-compose{display:flex;gap:var(--gmd-space-4);flex-wrap:wrap;}
+.c-context-menu-stage{display:flex;flex-direction:column;gap:var(--gmd-space-2x);align-items:center;justify-content:center;padding:var(--gmd-space-8);border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);min-width:240px;}
+.c-context-menu-stage--light{background:var(--gmd-background-section);}
+/* Spinner */
+.c-spinner-ring{display:inline-block;border-radius:50%;border-style:solid;border-color:var(--gmd-primary-subtle);border-top-color:var(--gmd-primary-default);animation:c-spinner-rotate 0.9s linear infinite;box-sizing:border-box}
+@keyframes c-spinner-rotate{to{transform:rotate(360deg)}}
+.c-spinner-16{width:16px;height:16px;border-width:2px}
+.c-spinner-24{width:24px;height:24px;border-width:2px}
+.c-spinner-32{width:32px;height:32px;border-width:3px}
+.c-spinner-48{width:48px;height:48px;border-width:4px}
+.c-spinner-sizes{display:flex;align-items:flex-end;gap:var(--gmd-space-8)}
+.c-spinner-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.c-spinner-frames{display:flex;gap:var(--gmd-space-8)}
+.c-spinner-static{display:inline-block;width:32px;height:32px;border-radius:50%;border-style:solid;border-width:3px;border-color:var(--gmd-primary-subtle);box-sizing:border-box}
+.c-spinner-f1{border-top-color:var(--gmd-primary-default)}
+.c-spinner-f2{border-right-color:var(--gmd-primary-default)}
+.c-spinner-f3{border-bottom-color:var(--gmd-primary-default)}
+.c-spinner-f4{border-left-color:var(--gmd-primary-default)}
+.c-spinner-box{display:flex;align-items:center;justify-content:center;width:72px;height:72px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);position:relative}
+.c-spinner-marker{position:absolute;top:var(--gmd-space-2x);left:var(--gmd-space-2x);display:flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--gmd-text-primary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold)}
+.c-spinner-surface{display:flex;align-items:center;gap:var(--gmd-space-3);padding:var(--gmd-space-5);border-radius:var(--gmd-radius-md);border:1px solid var(--gmd-border-subtle);min-width:200px}
+.c-spinner-light{background:var(--gmd-background-card);color:var(--gmd-text-secondary)}
+.c-spinner-msg{font-size:var(--gmd-font-size-14)}
+/* Skeleton — 최초 진입 자리표시 전용.
+   sheen 색으로 surface-base 를 못 쓴다 — Dark 에서 --gmd-surface-base 와
+   --gmd-background-section 이 같은 #25282D 라 빛줄기가 사라진다. Light 는
+   background-card 로 충분하고(#E9ECEF -> #FAF9FD), Dark 는 아래에서 따로 올린다. */
+.c-skeleton{background:var(--gmd-background-section);border-radius:var(--gmd-radius-sm);position:relative;overflow:hidden}
+.c-skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--gmd-background-card),transparent);transform:translateX(-100%);animation:c-skeleton-sheen 1.4s var(--gmd-motion-easing) infinite}
+@keyframes c-skeleton-sheen{to{transform:translateX(100%)}}
+/* Dark 은 section(#25282D) 과 card(#2A2D32) 의 차가 5/255 라 빛줄기가 안 보인다.
+   border-subtle 을 섞어 한 단 더 밝게 올린다. Light 에서는 border-subtle 이
+   section 보다 어두워 빛줄기가 그림자로 뒤집히므로 모드별로 나눈다. */
+html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gmd-border-subtle) 55%,var(--gmd-background-card)),transparent)}
+.c-skeleton-line{height:16px}
+.c-skeleton-line.is-sm{height:12px}
+.c-skeleton-line.is-lg{height:20px}
+.c-skeleton-block{height:72px;border-radius:var(--gmd-radius-md)}
+.c-skeleton-circle{width:40px;height:40px;border-radius:50%}
+/* 모션 민감 사용자 — 빛줄기는 장식이므로 끈다. 판(자리)은 그대로 남는다. */
+.c-skeleton.is-static::after{display:none}
+@media (prefers-reduced-motion: reduce){.c-skeleton::after{display:none}}
+/* 문서 예시 레이아웃 — 판이 background-section 이라 surface-base 위에 그대로 놓으면
+   Dark(둘 다 #25282D) 에서 사라진다. 실제 쓰임처럼 카드 위에 올려 보여준다. */
+.c-skeleton-stage{display:flex;width:100%;padding:var(--gmd-space-5);background:var(--gmd-background-card);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-sizing:border-box}
+.c-skeleton-stage.is-col{flex-direction:column}
+.c-skeleton-stack{display:flex;flex-direction:column;gap:var(--gmd-space-3);width:100%;max-width:320px}
+.c-skeleton-row{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;max-width:320px}
+.c-skeleton-row .c-skeleton-stack{gap:var(--gmd-space-2x)}
+.c-skeleton-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.c-skeleton-card{display:flex;flex-direction:column;gap:var(--gmd-space-4);width:100%;max-width:420px;padding:var(--gmd-space-5);background:var(--gmd-background-card);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md)}
+/* TextBox */
+.c-textbox-field { display: flex; flex-direction: column; gap: var(--gmd-space-2x); width: 250px; font-family: var(--gmd-font-body); }
+.c-textbox-field.c-textbox-lg { width: 280px; }
+.c-textbox-field.c-textbox-sm { width: 200px; }
+.c-textbox-label { font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: 1.5; }
+.c-textbox-area { width: 100%; box-sizing: border-box; resize: none; height: 100px; padding: var(--gmd-space-3); border: 1px solid var(--gmd-border-base); border-radius: var(--gmd-radius-md); background: var(--gmd-surface-base); color: var(--gmd-text-primary); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); line-height: 1.5; transition: border-color var(--gmd-motion-fast) var(--gmd-motion-easing), box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing); }
+.c-textbox-area::placeholder { color: var(--gmd-text-tertiary); }
+.c-textbox-area:hover { border-color: var(--gmd-primary-default); }
+.c-textbox-area.c-textbox-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); outline: none; }
+.c-textbox-area.c-textbox-active { border-color: var(--gmd-primary-default); }
+.c-textbox-area.c-textbox-disabled { background: var(--gmd-background-section); border-color: var(--gmd-border-subtle); color: var(--gmd-text-disabled); cursor: not-allowed; }
+.c-textbox-area.c-textbox-disabled::placeholder { color: var(--gmd-text-disabled); }
+.c-textbox-area.c-textbox-success { border-color: var(--gmd-semantic-success); }
+.c-textbox-area.c-textbox-error { border-color: var(--gmd-semantic-error); }
+.c-textbox-area.c-textbox-lg { height: 100px; }
+.c-textbox-area.c-textbox-md { height: 100px; }
+.c-textbox-area.c-textbox-sm { height: 100px; font-size: var(--gmd-font-size-12); }
+.c-textbox-hint { display: flex; align-items: center; gap: var(--gmd-space-1); font-size: var(--gmd-font-size-12); line-height: 1.4; color: var(--gmd-text-secondary); }
+.c-textbox-hint.c-textbox-success { color: var(--gmd-semantic-success); }
+.c-textbox-hint.c-textbox-error { color: var(--gmd-semantic-error); }
+.c-textbox-hint svg { flex: none; width: 12px; height: 12px; }
+.c-textbox-hint-ico { width: 16px; height: 16px; display: inline-flex; color: var(--gmd-semantic-success); }
+/* Slider */
+.c-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--gmd-space-3);
+  width: 100%;
+}
+.c-slider-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 4px;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-border-subtle);
+}
+.c-slider-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-primary-default);
+}
+.c-slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gmd-surface-base);
+  border: 2px solid var(--gmd-primary-default);
+  box-shadow: var(--gmd-shadow-soft);
+  transform: translate(-50%, -50%);
+  transition: box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing),
+    transform var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+.c-slider-label {
+  flex: 0 0 auto;
+  min-width: 36px;
+  text-align: right;
+  font-size: var(--gmd-font-size-12);
+  color: var(--gmd-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+.c-slider--hover .c-slider-thumb {
+  border-color: var(--gmd-primary-hover);
+  box-shadow: var(--gmd-shadow-lift);
+}
+.c-slider--hover .c-slider-fill { background: var(--gmd-primary-hover); }
+.c-slider--pressed .c-slider-thumb {
+  width: 20px;
+  height: 20px;
+  border-color: var(--gmd-primary-pressed);
+  box-shadow: 0 0 0 6px var(--gmd-primary-subtle);
+}
+.c-slider--pressed .c-slider-fill { background: var(--gmd-primary-pressed); }
+.c-slider--disabled {
+  opacity: 1;
+  pointer-events: none;
+}
+.c-slider--disabled .c-slider-fill { background: var(--gmd-primary-disabled); }
+.c-slider--disabled .c-slider-thumb {
+  border-color: var(--gmd-primary-disabled);
+  box-shadow: none;
+}
+.c-slider--disabled .c-slider-label { color: var(--gmd-text-disabled); }
+
+.c-slider-ticks {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0;
+  transform: translateY(-50%);
+}
+.c-slider-tick {
+  position: absolute;
+  top: 50%;
+  width: 2px;
+  height: 8px;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-border-base);
+  transform: translate(-50%, -50%);
+}
+
+.c-slider-vwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gmd-space-3);
+}
+.c-slider-vert {
+  position: relative;
+  width: 4px;
+  height: 240px;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-border-subtle);
+}
+.c-slider-vfill {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-primary-default);
+}
+.c-slider-vthumb {
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gmd-surface-base);
+  border: 2px solid var(--gmd-primary-default);
+  box-shadow: var(--gmd-shadow-soft);
+  transform: translate(-50%, 50%);
+}
+
+.c-slider-range-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: var(--gmd-radius-sm);
+  background: var(--gmd-primary-default);
+}
+.c-slider-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gmd-primary-default);
+  color: var(--gmd-text-on-primary-fill);
+  font-size: var(--gmd-font-size-12);
+  font-weight: var(--gmd-weight-bold);
+}
+/* Tooltip */
+.c-tooltip-stage{display:flex;flex-wrap:wrap;gap:var(--gmd-space-10);align-items:flex-start}
+.c-tooltip-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+
+/* 트리거 아이콘 (info-circle) */
+.c-tooltip-trigger{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;color:var(--gmd-text-tertiary);background:transparent;border:none;border-radius:var(--gmd-radius-sm);cursor:pointer}
+.c-tooltip-trigger.is-focus{color:var(--gmd-primary-default);outline:2px solid var(--gmd-primary-default);outline-offset:2px}
+.c-tooltip-trigger.is-disabled{color:var(--gmd-text-disabled);cursor:not-allowed}
+
+/* 말풍선 본체 */
+.c-tooltip-anchor{position:relative;display:inline-flex;flex-direction:column;align-items:center}
+/* 툴팁 면은 --gmd-tertiary 라 다크에서 밝은 회색으로 뒤집힌다. 글자도 함께 뒤집히는
+   --gmd-text-on-primary-tertiary 를 기본 선언에서 쓴다 — 종전처럼 html[data-theme="dark"]
+   오버라이드로 막으면 시스템 다크(prefers-color-scheme)만 켠 사용자에게 구멍이 남는다. */
+.c-tooltip-bubble{position:relative;background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);font-size:var(--gmd-font-size-10);line-height:1.4;border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-1) var(--gmd-space-2x);white-space:nowrap;box-shadow:var(--gmd-shadow-soft)}
+
+/* 화살표 — 방향별 */
+.c-tooltip-bubble::after{content:"";position:absolute;width:0;height:0;border:6px solid transparent}
+.c-tooltip-bubble.c-tooltip-top::after{top:100%;left:50%;transform:translateX(-50%);border-top-color:var(--gmd-tertiary)}
+.c-tooltip-bubble.c-tooltip-bottom::after{bottom:100%;left:50%;transform:translateX(-50%);border-bottom-color:var(--gmd-tertiary)}
+.c-tooltip-bubble.c-tooltip-left::after{left:100%;top:50%;transform:translateY(-50%);border-left-color:var(--gmd-tertiary)}
+.c-tooltip-bubble.c-tooltip-right::after{right:100%;top:50%;transform:translateY(-50%);border-right-color:var(--gmd-tertiary)}
+
+/* 미니멀 Style 1 — 텍스트 다줄 */
+.c-tooltip-minimal{background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);border-radius:var(--gmd-radius-sm);box-shadow:var(--gmd-shadow-lift);width:240px}
+.c-tooltip-minimal .c-tooltip-body{padding:var(--gmd-space-2x) var(--gmd-space-3);font-size:var(--gmd-font-size-10);line-height:1.5;white-space:normal}
+
+/* 미니멀 Style 2 — 이미지+제목+본문+액션 */
+.c-tooltip-rich{background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);width:240px;overflow:hidden}
+.c-tooltip-rich .c-tooltip-img{margin:var(--gmd-space-3);height:130px;border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-hover);display:flex;align-items:center;justify-content:center;color:var(--gmd-text-tertiary)}
+.c-tooltip-rich .c-tooltip-content{padding:0 var(--gmd-space-3) var(--gmd-space-3)}
+.c-tooltip-rich .c-tooltip-title{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);margin:0 0 var(--gmd-space-2x)}
+.c-tooltip-rich .c-tooltip-text{font-size:var(--gmd-font-size-10);line-height:1.5;color:var(--gmd-text-on-primary-tertiary);margin:0 0 var(--gmd-space-3);white-space:normal}  /* 종전 --gmd-border-subtle 은 다크 3.93 미달. 제목과 본문 위계는 12px Bold 대 10px Regular 가 진다 */
+.c-tooltip-rich .c-tooltip-action{display:inline-flex;align-items:center;gap:var(--gmd-space-1);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-on-primary-tertiary);background:none;border:none;padding:0;cursor:pointer}
+.c-tooltip-pane{flex:1 1 320px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-8) var(--gmd-space-4);display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-3)}
+.c-tooltip-pane .c-tooltip-tag{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.c-tooltip-pane.is-light{background:var(--gmd-background-base)}
+.c-tooltip-targetlabel{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+
+/* Tree */
+.c-tree-panel{border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-4);background:var(--gmd-background-card);width:360px;box-shadow:var(--gmd-shadow-soft)}
+.c-tree{list-style:none;margin:0;padding:0;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14)}
+.c-tree ul{list-style:none;margin:0;padding:0}
+.c-tree-row{display:flex;align-items:center;gap:var(--gmd-space-2x);min-width:0;height:32px;padding:var(--gmd-space-1) var(--gmd-space-2x);border-radius:var(--gmd-radius-sm);color:var(--gmd-text-primary);cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-tree-row:hover{background:var(--gmd-surface-hover)}
+.c-tree-twig{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;color:var(--gmd-text-tertiary);flex:0 0 auto}
+.c-tree-twig.c-tree-leaf{visibility:hidden}
+.c-tree-ico{display:inline-flex;align-items:center;color:var(--gmd-primary-default);flex:0 0 auto}
+.c-tree-lbl{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-tree-indent-1{padding-left:var(--gmd-space-6)}
+.c-tree-indent-2{padding-left:var(--gmd-space-10)}
+.c-tree-row.is-hover{background:var(--gmd-surface-hover)}
+.c-tree-row.is-pressed{background:var(--gmd-primary-subtle)}
+.c-tree-row.is-active{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
+.c-tree-row.is-active .c-tree-ico,.c-tree-row.is-active .c-tree-twig{color:var(--gmd-primary-default)}
+.c-tree-row.is-disabled{color:var(--gmd-text-disabled);cursor:not-allowed}
+.c-tree-row.is-disabled .c-tree-ico,.c-tree-row.is-disabled .c-tree-twig{color:var(--gmd-text-disabled)}
+.c-tree-chip{width:148px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);padding:var(--gmd-space-2x);box-shadow:var(--gmd-shadow-soft)}
+.c-tree-cap{font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.c-tree-cb{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-on-primary-fill);flex:0 0 auto}
+.c-tree-cb.is-on{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default)}
+.c-tree-cbrow{display:flex;align-items:center;gap:var(--gmd-space-2x);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
+/* Ribbon Navigation */
+/* 라벨: Figma Anatomy 는 20px 이나 50px 항목 대비 과해, 밀도 우선 데스크톱 비율로 16px 로 조정(의도적 deviation). 높이 50·아이콘 24 는 Figma 유지. */
+.c-ribbon-nav-item{display:flex;align-items:center;gap:var(--gmd-space-2x);width:253px;height:50px;padding:var(--gmd-space-3) var(--gmd-space-5);border-radius:var(--gmd-radius-md);background:var(--gmd-surface-base);color:var(--gmd-text-secondary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-16);font-weight:var(--gmd-weight-regular);cursor:pointer;border:none;text-align:left;box-sizing:border-box;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),color var(--gmd-motion-fast) var(--gmd-motion-easing);}
+.c-ribbon-nav-item .c-ribbon-nav-ico{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:currentColor;}
+.c-ribbon-nav-item .c-ribbon-nav-ico svg{width:18px;height:18px;}
+.c-ribbon-nav-chev{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;color:var(--gmd-text-tertiary);}
+.c-ribbon-nav-item.is-active .c-ribbon-nav-chev,.c-ribbon-nav-item[aria-current="page"] .c-ribbon-nav-chev{color:var(--gmd-primary-default);}
+/* sm 사이즈 — Figma Sidebar Size 섹션(6124:2171): 행 42px · 아이콘 16 · padding 8/12 · label 16px. md(50)가 기본. */
+.c-ribbon-nav-item.is-sm{height:42px;padding:var(--gmd-space-2x) var(--gmd-space-3);font-size:var(--gmd-font-size-14);}
+.c-ribbon-nav-item.is-sm .c-ribbon-nav-ico{width:16px;height:16px;}
+.c-ribbon-nav-item.is-sm .c-ribbon-nav-ico svg{width:16px;height:16px;}
+.c-ribbon-nav-item.is-sm .c-ribbon-nav-chev{width:16px;height:16px;}
+.c-ribbon-nav-item.is-sm.is-nested{padding-left:var(--gmd-space-6);}
+.c-ribbon-nav-cap{margin-top:var(--gmd-space-2x);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-family:var(--gmd-font-body);}
+/* Popover */
+.c-popover-pop{display:inline-block;width:260px;background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);padding:var(--gmd-space-4);font-family:var(--gmd-font-body)}
+.c-popover-title{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);margin:0 0 var(--gmd-space-3)}
+.c-popover-rows{display:flex;flex-direction:column;gap:var(--gmd-space-2x)}
+.c-popover-row{display:flex;justify-content:space-between;align-items:baseline;gap:var(--gmd-space-2x)}
+.c-popover-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.c-popover-value{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);font-weight:var(--gmd-weight-bold)}
+.c-popover-actions{display:flex;justify-content:flex-end;gap:var(--gmd-space-2x);margin-top:var(--gmd-space-4)}
+.c-popover-action{height:28px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
+.c-popover-status{display:flex;justify-content:space-between;align-items:center;gap:var(--gmd-space-2x);margin-bottom:var(--gmd-space-3)}
+.c-popover-badge{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2) var(--gmd-space-2x)}
+.c-popover-banner{background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2x) var(--gmd-space-3);margin-bottom:var(--gmd-space-3);font-size:var(--gmd-font-size-12);line-height:1.5;color:var(--gmd-semantic-error)}
+.c-popover-divider{height:1px;background:var(--gmd-divider);margin:0 0 var(--gmd-space-3)}
+.c-popover-anchorwrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;padding-top:var(--gmd-space-2x)}
+.c-popover-caret{width:14px;height:14px;background:var(--gmd-surface-base);border-left:1px solid var(--gmd-border-subtle);border-top:1px solid var(--gmd-border-subtle);transform:rotate(45deg);margin-bottom:-7px;z-index:1;box-shadow:var(--gmd-shadow-soft)}
+.c-popover-legtitle{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);margin:0 0 var(--gmd-space-2)}
+.c-popover-legdesc{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);margin:0;line-height:1.5}
+.c-popover-stage{padding:var(--gmd-space-8);border-radius:var(--gmd-radius-md);display:flex;justify-content:center}
+.c-popover-stage-light{background:var(--gmd-background-section)}
+/* Hidden Column */
+.c-hidcol-set{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--gmd-space-6);}
+.c-hidcol-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+.c-hidcol-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);height:24px;max-width:100%;min-width:0;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-control);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);cursor:pointer;}
+.c-hidcol-chip:hover,.c-hidcol-chip.is-hover{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-hover);}
+.c-hidcol-chip:active,.c-hidcol-chip.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-pressed);}
+.c-hidcol-chip[aria-expanded="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);}
+.c-hidcol-chip[data-on="true"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);}
+.c-hidcol-chip:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
+.c-hidcol-chip-ico{width:16px;height:16px;flex:none;}
+.c-hidcol-chip-label{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.c-hidcol-chip-caret{font-size:var(--gmd-font-size-10);}
+.c-hidcol-toggle{display:inline-flex;align-items:center;gap:var(--gmd-space-1);height:24px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-base);color:var(--gmd-text-secondary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);line-height:1;cursor:pointer;}
+.c-hidcol-toggle:hover,.c-hidcol-toggle.is-hover{border-color:var(--gmd-primary-hover);color:var(--gmd-text-primary);}
+.c-hidcol-toggle:active,.c-hidcol-toggle.is-pressed{border-color:var(--gmd-primary-pressed);}
+.c-hidcol-toggle[aria-pressed="true"]{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);font-weight:var(--gmd-weight-bold);}
+.c-hidcol-toggle:disabled{background:var(--gmd-background-section);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed;}
+.c-hidcol-knob{width:12px;height:12px;flex:none;border:1px solid currentColor;border-radius:var(--gmd-radius-sm);}
+.c-hidcol-toggle[aria-pressed="true"] .c-hidcol-knob{background:currentColor;box-shadow:inset 0 0 0 2px var(--gmd-primary-subtle);}
+.c-hidcol-pop{display:inline-block;width:320px;max-width:420px;background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);padding:var(--gmd-space-4);font-family:var(--gmd-font-body);}
+.c-hidcol-pop-top{display:flex;align-items:center;gap:var(--gmd-space-3);margin-bottom:var(--gmd-space-1);}
+.c-hidcol-pop-head{flex:1;min-width:0;font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);}
+.c-hidcol-pop-note{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+.c-hidcol-pop-divider{height:1px;background:var(--gmd-divider);margin:var(--gmd-space-3) 0;}
+.c-hidcol-pop-groups{display:flex;flex-direction:column;gap:var(--gmd-space-3);max-height:168px;overflow:auto;}
+.c-hidcol-pop-group{display:flex;flex-direction:column;gap:var(--gmd-space-1);}
+.c-hidcol-pop-sub{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+.c-hidcol-pop-cols{display:flex;flex-wrap:wrap;gap:var(--gmd-space-1);}
+
+/* Filter Labels */
+.c-filter-labels-set{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--gmd-space-8);}
+.c-filter-labels-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
+
+/* Figma 6144:68 정합: Label = Inter Semi Bold 14px. classic 에 semibold(600) 토큰 없음 → medium(500)으로 근사(Figma semibold≈medium). font-size 14 유지. */
+.c-filter-labels-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);border:1px solid var(--gmd-border-base);border-radius:999px;padding:var(--gmd-space-1) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-medium);line-height:1;background:var(--gmd-surface-base);color:var(--gmd-text-secondary);}
+.c-filter-labels-chip svg{flex:none;}
+.c-filter-labels-label{white-space:nowrap;}
+.c-filter-labels-close{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-right:calc(var(--gmd-space-1) * -1);padding:0;border:0;background:transparent;color:currentColor;cursor:pointer;border-radius:var(--gmd-radius-circle);}
+.c-filter-labels-close:hover{background:color-mix(in srgb,currentColor 12%,transparent);}
+
+.c-filter-labels-gray{background:var(--gmd-surface-hover);border-color:var(--gmd-border-base);color:var(--gmd-text-secondary);}
+.c-filter-labels-blue{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default);}
+.c-filter-labels-success{background:var(--gmd-semantic-success-bg);border-color:var(--gmd-semantic-success);color:var(--gmd-semantic-success);}
+.c-filter-labels-warning{background:var(--gmd-semantic-warning-bg);border-color:var(--gmd-semantic-warning);color:var(--gmd-semantic-warning);}
+.c-filter-labels-error{background:var(--gmd-semantic-error-bg);border-color:var(--gmd-semantic-error);color:var(--gmd-semantic-error);}
+
+.c-filter-labels-pill{border-radius:999px;}
+.c-filter-labels-rounded{border-radius:var(--gmd-radius-sm);}
+.c-filter-labels-square{border-radius:0;}
+
+.c-filter-labels-sm{font-size:var(--gmd-font-size-12);padding:var(--gmd-space-2) var(--gmd-space-2x);}
+.c-filter-labels-lg{font-size:var(--gmd-font-size-14);padding:var(--gmd-space-1) var(--gmd-space-3);}
+
+.c-filter-labels-dot{width:10px;height:10px;border-radius:999px;background:var(--gmd-primary-default);}
+.c-filter-labels-marker{position:absolute;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:var(--gmd-text-primary);color:var(--gmd-text-on-primary);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);}
+.c-filter-labels-m1{top:var(--gmd-space-1);left:var(--gmd-space-1);}
+.c-filter-labels-m2{bottom:var(--gmd-space-1);right:var(--gmd-space-1);}
+.c-filter-labels-m3{bottom:var(--gmd-space-1);left:var(--gmd-space-2x);}
+.c-filter-labels-m4{top:var(--gmd-space-1);right:var(--gmd-space-1);}
+.c-filter-labels-stack{display:flex;flex-wrap:wrap;gap:var(--gmd-space-2x);}
+/* Accordion */
+/* Figma 6252:683 정합: 외곽선 톤을 divider 로 낮춰 item 간 구분선만 남긴다(강한 border-base 외곽선 제거). 컨테이너 배경은 Figma surface/primary = --gmd-background-card. */
+.c-accordion-item{border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);overflow:hidden;width:320px}
+.c-accordion-header{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;padding:var(--gmd-space-3) var(--gmd-space-4);background:transparent;border:0;cursor:pointer;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);text-align:left;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-accordion-chevron{flex:0 0 auto;color:var(--gmd-text-tertiary);transition:transform var(--gmd-motion-base) var(--gmd-motion-easing)}
+.c-accordion-title{flex:1 1 auto}
+.c-accordion-header:hover{background:var(--gmd-surface-hover)}
+.c-accordion-item.c-accordion-hover .c-accordion-header{background:var(--gmd-surface-hover)}
+.c-accordion-item.c-accordion-pressed .c-accordion-header{background:var(--gmd-primary-subtle)}
+.c-accordion-item.c-accordion-focused .c-accordion-header{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:var(--gmd-radius-md)}
+.c-accordion-header:focus-visible{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:var(--gmd-radius-md)}
+.c-accordion-item.c-accordion-open .c-accordion-chevron{transform:rotate(180deg);color:var(--gmd-primary-default)}
+.c-accordion-item.c-accordion-open .c-accordion-title{color:var(--gmd-primary-default)}
+/* 좌패딩: Figma 44px(off-grid) — classic 은 4px 그리드 유지값 40px(--gmd-space-10)으로 둔다(가까운 쪽). */
+.c-accordion-panel{padding:0 var(--gmd-space-4) var(--gmd-space-4) var(--gmd-space-10);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-regular);color:var(--gmd-text-secondary);line-height:1.5}
+.c-accordion-item.c-accordion-disabled{opacity:.55;background:var(--gmd-background-section)}
+.c-accordion-item.c-accordion-disabled .c-accordion-header{cursor:not-allowed;color:var(--gmd-text-disabled)}
+.c-accordion-item.c-accordion-disabled .c-accordion-chevron{color:var(--gmd-text-disabled)}
+.c-accordion-stack{width:420px}
+.c-accordion-stack .c-accordion-item{width:100%;border-radius:0;border-top:0}
+.c-accordion-stack .c-accordion-item:first-child{border-top:1px solid var(--gmd-border-base);border-top-left-radius:var(--gmd-radius-md);border-top-right-radius:var(--gmd-radius-md)}
+.c-accordion-stack .c-accordion-item:last-child{border-bottom-left-radius:var(--gmd-radius-md);border-bottom-right-radius:var(--gmd-radius-md)}
+/* Pagination */
+.c-pagination-row{display:flex;align-items:center;gap:var(--gmd-space-2x);flex-wrap:wrap}
+/* Figma 6253:832 정합: 컨테이너 표면을 Figma surface/primary = --gmd-background-card 로 통일.
+   note: 라벨 13px·radius 6px 는 Figma off-scale — classic 은 디자인 시스템 정책 고수(14px·--gmd-radius-sm 4px), 디자인팀 피드백 대상. */
+.c-pagination-item{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-background-card);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-regular);line-height:1;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing),color var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-pagination-item:hover,.c-pagination-item.is-hover{background:var(--gmd-surface-hover);border-color:var(--gmd-border-base)}
+.c-pagination-item.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default)}
+.c-pagination-item.is-focused{outline:2px solid var(--gmd-primary-default);outline-offset:2px}
+.c-pagination-item.is-active,.c-pagination-item[aria-current="page"]{background:var(--gmd-primary-default);border-color:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-weight:var(--gmd-weight-bold)}
+.c-pagination-item.is-disabled,.c-pagination-item[aria-disabled="true"]{background:var(--gmd-background-card);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed}
+.c-pagination-nav{padding:0;width:32px}
+.c-pagination-nav svg{display:block}
+.c-pagination-ellipsis{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;color:var(--gmd-text-tertiary);font-size:var(--gmd-font-size-14);user-select:none}
+.c-pagination-compose{display:flex;flex-direction:column;gap:var(--gmd-space-3)}
+.c-pagination-compose-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+/* Breadcrumb */
+.c-breadcrumb-nav { display: inline-flex; }
+.c-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--gmd-space-2x);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--gmd-font-body);
+  font-size: var(--gmd-font-size-14);
+}
+.c-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gmd-space-2x);
+}
+.c-breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--gmd-space-2) var(--gmd-space-1);
+  border-radius: var(--gmd-radius-sm);
+  color: var(--gmd-text-secondary);
+  text-decoration: none;
+  font-weight: var(--gmd-weight-regular);
+  transition: color var(--gmd-motion-fast) var(--gmd-motion-easing),
+              background-color var(--gmd-motion-fast) var(--gmd-motion-easing);
+}
+.c-breadcrumb-link:hover {
+  color: var(--gmd-text-primary);
+  background-color: var(--gmd-surface-hover);
+}
+.c-breadcrumb-link:active,
+.c-breadcrumb-link.is-pressed {
+  color: var(--gmd-primary-pressed);
+}
+.c-breadcrumb-link:focus-visible,
+.c-breadcrumb-link.is-focused {
+  outline: none;
+  color: var(--gmd-text-primary);
+  box-shadow: 0 0 0 2px var(--gmd-primary-default);
+}
+/* 마지막 현재 항목 — 링크 아님, 강조 표시 */
+.c-breadcrumb-current {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--gmd-space-2) var(--gmd-space-1);
+  color: var(--gmd-text-primary);
+  font-weight: var(--gmd-weight-bold);
+}
+/* 분리자 — chevron-right, Current 앞에는 없음 */
+/* Figma 6253:726 정합: 구분자 색을 --gmd-text-disabled 로 낮춤. note: 라벨 13px 는 Figma off-scale — classic 은 14px 유지(디자인팀 피드백 대상). */
+.c-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gmd-text-disabled);
+}
+.c-breadcrumb-sep svg { width: 12px; height: 12px; display: block; }
+.c-breadcrumb-badge {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--gmd-primary-subtle);
+  color: var(--gmd-primary-default);
+  font-size: var(--gmd-font-size-12);
+  font-weight: var(--gmd-weight-bold);
+}
+/* 다크 셀 — 본 화면 대비 표현용 */
+/* white-alpha 금지 — 셀 배경(tertiary)이 다크에서 밝게 반전되므로 on-primary 페어를 알파만 낮춰 양 테마 대비 보존 */
+/* Avatar */
+.c-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+  /* 색 7종 — Design Kit Component / Avatar Colors(2026-09-16) 정본. 배경은 각 계열의 밝은 틴트,
+     글자는 같은 계열 원색. 라이트에서만 검정 18% 를 섞어 틴트 위 대비를 올리고 다크는 원색 그대로.
+     새 토큰 없이 기존 v2.12 쌍만 조합한다 — 아래 두 자리 변수는 컴포넌트 안에서만 쓴다. */
+  --c-avatar-bg: var(--gmd-primary-subtle);
+  --c-avatar-base: var(--gmd-primary-default);
+  background: var(--c-avatar-bg);
+  color: color-mix(in srgb, var(--c-avatar-base) 82%, black);
+  font-family: var(--gmd-font-body);
+  font-weight: var(--gmd-weight-bold);
+  line-height: 1;
+  /* Figma 6253:928 정합: 보더 톤을 --gmd-divider 로 낮춤(border-subtle 대체). */
+  box-shadow: inset 0 0 0 1px var(--gmd-divider);
+  user-select: none;
+}
+.c-avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.c-avatar svg { display: block; }
+
+/* 사이즈: Figma sm 24 / md 32 / lg 40 / xl 48 */
+.c-avatar-sm { width: 24px; height: 24px; font-size: var(--gmd-font-size-10); }
+.c-avatar-md { width: 32px; height: 32px; font-size: var(--gmd-font-size-12); }
+.c-avatar-lg { width: 40px; height: 40px; font-size: var(--gmd-font-size-16); }
+.c-avatar-xl { width: 48px; height: 48px; font-size: var(--gmd-font-size-18); }
+
+/* 색 7종 — 계정 식별자로 서버가 한 번 정한다. 사람이 고르지 않는다. */
+.c-avatar-secondary { --c-avatar-bg: var(--gmd-secondary-subtle);    --c-avatar-base: var(--gmd-secondary); }
+.c-avatar-tertiary  { --c-avatar-bg: var(--gmd-tertiary-subtle);     --c-avatar-base: var(--gmd-tertiary); }
+.c-avatar-success   { --c-avatar-bg: var(--gmd-semantic-success-bg); --c-avatar-base: var(--gmd-semantic-success); }
+.c-avatar-warning   { --c-avatar-bg: var(--gmd-semantic-warning-bg); --c-avatar-base: var(--gmd-semantic-warning); }
+.c-avatar-error     { --c-avatar-bg: var(--gmd-semantic-error-bg);   --c-avatar-base: var(--gmd-semantic-error); }
+.c-avatar-info      { --c-avatar-bg: var(--gmd-semantic-info-bg);    --c-avatar-base: var(--gmd-semantic-info); }
+/* 다크는 섞지 않고 원색. 시스템 다크와 수동 토글 두 경로에 모두 건다(한쪽만 걸면 다른 쪽에 구멍). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .c-avatar:not(.c-avatar-icon) { color: var(--c-avatar-base); }
+}
+:root[data-theme="dark"] .c-avatar:not(.c-avatar-icon) { color: var(--c-avatar-base); }
+
+/* Icon 유형: 중립 표면 + 보조 텍스트 색 */
+.c-avatar-icon {
+  background: var(--gmd-surface-hover);
+  color: var(--gmd-text-secondary);
+}
+.c-avatar-sm.c-avatar-icon svg { width: 14px; height: 14px; }
+.c-avatar-md.c-avatar-icon svg { width: 18px; height: 18px; }
+.c-avatar-lg.c-avatar-icon svg { width: 22px; height: 22px; }
+.c-avatar-xl.c-avatar-icon svg { width: 26px; height: 26px; }
+.c-avatar-cap {
+  font-size: var(--gmd-font-size-12);
+  color: var(--gmd-text-tertiary);
+  font-family: var(--gmd-font-body);
+}
+.c-avatar-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border-top: 1px solid var(--gmd-divider);
+}
+.c-avatar-row:first-child { border-top: none; }
+.c-avatar-th {
+  font-size: var(--gmd-font-size-12);
+  font-weight: var(--gmd-weight-bold);
+  color: var(--gmd-text-secondary);
+  text-align: center;
+  padding: var(--gmd-space-3);
+}
+.c-avatar-scale { display: flex; align-items: flex-end; gap: var(--gmd-space-2x); }
+
+/* 그룹(stack): 음수 마진으로 겹침 + 흰 테두리 */
+.c-avatar-stack { display: flex; }
+.c-avatar-stack .c-avatar {
+  box-shadow: 0 0 0 2px var(--gmd-background-card);
+  margin-left: -8px;
+}
+.c-avatar-stack .c-avatar:first-child { margin-left: 0; }
+/* Scrollbar */
+/* Figma 6156:289 정합: track 배경을 Figma surface/primary = --gmd-background-card 로 통일. */
+/* Figma 정합: 트랙 14px(tertiary-subtle 레일), thumb 은 4px inset 한 6px pill(트랙을 꽉 채우지 않음). */
+.c-scrollbar-track{position:relative;width:14px;background:var(--gmd-tertiary-subtle);border-radius:var(--gmd-radius-pill);overflow:hidden}
+.c-scrollbar-track.c-scrollbar-v{height:280px}
+.c-scrollbar-track.c-scrollbar-h{width:280px;height:14px}
+.c-scrollbar-thumb{position:absolute;border-radius:var(--gmd-radius-pill);background:var(--gmd-border-subtle);transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-scrollbar-v .c-scrollbar-thumb{left:var(--gmd-space-1);right:var(--gmd-space-1);top:var(--gmd-space-2x)}
+.c-scrollbar-h .c-scrollbar-thumb{top:var(--gmd-space-1);bottom:var(--gmd-space-1);left:var(--gmd-space-2x)}
+.c-scrollbar-thumb.c-scrollbar-hover{background:var(--gmd-text-tertiary)}
+.c-scrollbar-thumb.c-scrollbar-pressed{background:var(--gmd-text-secondary)}
+.c-scrollbar-thumb.c-scrollbar-disabled{background:var(--gmd-divider)}
+.c-scrollbar-track.c-scrollbar-disabled-track{background:var(--gmd-background-section)}
+.c-scrollbar-track.c-scrollbar-bare{background:transparent}
+.c-scrollbar-row{display:flex;align-items:flex-start;gap:var(--gmd-space-8)}
+.c-scrollbar-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-family:var(--gmd-font-body)}
+.c-scrollbar-mark{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
+.c-scrollbar-legtext{display:flex;flex-direction:column;gap:var(--gmd-space-2)}
+/* Stepper */
+.c-stepper-row{display:flex;align-items:flex-start;gap:var(--gmd-space-3)}
+.c-stepper-h{display:flex;align-items:flex-start;flex:1;min-width:0}
+.c-stepper-node{display:flex;flex-direction:column;gap:var(--gmd-space-2)}
+.c-stepper-badge{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);flex:none}
+.c-stepper-badge-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);border:1px solid var(--gmd-primary-default)}
+.c-stepper-badge-success{background:var(--gmd-semantic-success);color:var(--gmd-text-on-primary);border:1px solid var(--gmd-semantic-success)}
+.c-stepper-badge-error{border:1px solid var(--gmd-semantic-error);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg)}
+.c-stepper-badge-pending{border:1px solid var(--gmd-border-base);color:var(--gmd-text-tertiary);background:var(--gmd-surface-base)}
+.c-stepper-label{display:flex;flex-direction:column;gap:var(--gmd-space-2);min-width:0}
+.c-stepper-head{display:flex;align-items:center;gap:var(--gmd-space-2x)}
+.c-stepper-title{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);line-height:1.3}
+.c-stepper-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);font-weight:var(--gmd-weight-regular)}
+.c-stepper-connector{flex:1;height:1px;background:var(--gmd-divider);margin-top:10px;min-width:24px}
+.c-stepper-connector-active{background:var(--gmd-primary-default);height:2px}
+.c-stepper-arrow{color:var(--gmd-text-tertiary);margin-top:6px}
+
+.c-stepper-bar{display:flex;align-items:center;gap:0;flex:1}
+.c-stepper-bar-badge{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold)}
+.c-stepper-bar-active{background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill)}
+.c-stepper-bar-success{border:2px solid var(--gmd-primary-subtle);background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
+.c-stepper-bar-line{flex:1;height:2px;background:var(--gmd-divider)}
+.c-stepper-bar-line-fill{background:var(--gmd-primary-default)}
+
+.c-stepper-vrow{display:flex;flex-wrap:wrap;gap:var(--gmd-space-8)}
+.c-stepper-v{display:flex;gap:var(--gmd-space-3);width:200px}
+.c-stepper-v-rail{display:flex;flex-direction:column;align-items:center;flex:none}
+.c-stepper-v-line{width:1px;flex:1;background:var(--gmd-divider);min-height:48px;margin-top:var(--gmd-space-2x)}
+.c-stepper-v-body{display:flex;flex-direction:column;gap:var(--gmd-space-2);padding-top:var(--gmd-space-2)}
+.c-stepper-v-title{font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary)}
+.c-stepper-v-desc{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
+
+.c-stepper-input{display:flex;align-items:center;justify-content:space-between;gap:var(--gmd-space-3);width:240px;padding:var(--gmd-space-2x) var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-subtle);font-size:var(--gmd-font-size-14);color:var(--gmd-text-primary)}
+.c-stepper-input svg{color:var(--gmd-text-tertiary)}
+.c-stepper-badge-success-primary{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);border:1px solid var(--gmd-primary-subtle)}
+.c-stepper-track{display:flex;align-items:center}
+.c-stepper-track-dot{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.c-stepper-track-line{flex:1;height:2px}
+.c-stepper-light-success{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default)}
+.c-stepper-light-greensuccess{background:var(--gmd-semantic-success-bg);color:var(--gmd-semantic-success)}
+.c-stepper-light-line-blue{background:var(--gmd-primary-default)}
+.c-stepper-light-line-green{background:var(--gmd-semantic-success)}
+/* Stepper — 라벨형 (Labeled): Step 머리말 + 타이틀 */
+.c-stepper-eyebrow{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);color:var(--gmd-primary-default);line-height:1.3}
+.c-stepper-eyebrow-muted{color:var(--gmd-text-tertiary)}
+.c-stepper-lbl-h{display:flex;align-items:flex-start}
+.c-stepper-lbl-h .c-stepper-head{align-items:flex-start}
+.c-stepper-lbl-text{display:flex;flex-direction:column;gap:var(--gmd-space-1);min-width:0}
+.c-stepper-lbl-col{display:flex;flex-direction:column;gap:0;width:220px}

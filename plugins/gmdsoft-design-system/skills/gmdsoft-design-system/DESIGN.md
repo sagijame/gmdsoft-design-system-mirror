@@ -568,6 +568,16 @@ Base unit: **4px**. Every margin, padding, and gap must be a multiple of 4.
 - **Dashboard grids**: 2, 3, or 4 column layouts using CSS Grid with 16px gap
 - **Split panels**: Common pattern of list (left, 320–400px) + detail (right, fluid) with draggable divider
 
+### Alignment — Grid Edge Alignment
+
+Every element snaps to a shared edge. Nothing floats between lines. Two lines decide where a value starts, and both are hard rules like the 4px grid.
+
+- **Left edge (vertical line)**: In label–value layouts (detail drawers, side panels, forms, key–value lists), every value starts on the value column's left edge. That holds for plain text, chips, links, buttons and avatars alike. When an avatar or icon leads a value, the avatar sits on the edge and the text that follows it is indented by the avatar width + 8px gap.
+- **Top edge (horizontal line)**: A value's first visual element top-aligns with its label's top. For an avatar + multi-line stack (name / email / organization), use `align-items: flex-start`. Never center a 28px avatar against a three-line stack — it drifts below its label and breaks the pair.
+- **Cross point**: Where the two lines meet is the start point of the label–value pair. Label and value are read as one pair because they share that row and that column (Gestalt continuity).
+- **Lists and tables**: Cell content starts on the header text's left edge — header and body cells use the same horizontal padding (16px). A leading avatar in a cell sits on that edge, and the name follows after 8px.
+- **Verify by measuring, not by eye**: the first child of every value has `getBoundingClientRect().left` equal to the value column's left, and `top` equal to its label's top (±1px). Hairline borders aside, a mismatch is a defect.
+
 ### Whitespace Philosophy
 
 - **Density over delight**: Whitespace exists to separate logical groups, not for aesthetic breathing room. Every gap must serve an information hierarchy purpose.
@@ -623,6 +633,7 @@ In Dark mode, shadows become less effective (dark shadow on dark background). De
 - Use `border-variant/divider #DFE0E4` for list separators and table borders
 - Keep the Title Bar (32px) + Side Nav (240/56px) + Content Area shell structure in every screen
 - Use `Foundation/primary/subtle #EBF2FA` for selected/active row backgrounds
+- Snap every value to the value column's left edge and its label's top edge (grid edge alignment, §5) — avatars and icons included
 
 ### Don't
 - Don't invent new colors outside the token system — if a color doesn't exist as a token, don't use it
@@ -638,6 +649,7 @@ In Dark mode, shadows become less effective (dark shadow on dark background). De
 - Don't exceed 12px border-radius on rectangular elements (9999px is for pills only)
 - Don't add decorative elements (textures, patterns, illustrations) — this is industrial software
 - Don't center-align body text — left-align all text except modal/dialog titles
+- Don't vertically center a leading avatar or icon against a multi-line value stack — top-align it with the label
 
 ## 8. Resolution Adaptation
 
