@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GMD Classic v2.13 — 디자인 시스템</title>
+<title>GMD Classic v1.0.0 — 디자인 시스템</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="app-icon/design-system-glass-brush-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="app-icon/design-system-glass-brush-16.png">
@@ -50,6 +50,8 @@ html[data-theme="dark"] .topbar .brand-logo-light { opacity: 0; }
 html[data-theme="dark"] .topbar .brand-logo-dark { opacity: 1; }
 .topbar .ver { font-size: var(--gmd-font-size-12); color: var(--gmd-text-tertiary); }
 .topbar .spacer { flex: 1; }
+.topbar .topbar-link { font-size: var(--gmd-font-size-14); line-height: 20px; color: var(--gmd-text-secondary); }
+.topbar .topbar-link:hover { color: var(--gmd-primary-default); }
 .theme-toggle {
   font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold);
   color: var(--gmd-text-secondary); background: var(--gmd-background-section);
@@ -328,7 +330,8 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
 .anatomy-shot-stage .c-ribbon-nav-cap,
 .anatomy-copy .toast-anatomy-demo,
 .anatomy-copy .c-filter-labels-anatomy-stage,
-.anatomy-copy .c-tree-anatomy-fig {
+.anatomy-copy .c-tree-anatomy-fig,
+.anatomy-copy .anatomy-src {
   display: none !important;
 }
 /* Anatomy 핀 — 그레이스케일(설명용 보조 표식, 제품 의미 컬러와 분리). 드롭 라인은 정확한 좌표를 짚지 못해 제거. */
@@ -1218,8 +1221,6 @@ body:not(.intro-active) .intro-xray { display: none; }
 /* 정적 툴팁 시연 */
 .c-i18n-tipdemo { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gmd-space-1); }
 /* 섹션 타이틀 우측 Figma Design Kit 링크 아이콘 */
-.content section > h2 .figma-link { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-left: var(--gmd-space-2x); border-radius: var(--gmd-radius-sm); color: var(--gmd-text-tertiary); vertical-align: middle; }
-.content section > h2 .figma-link:hover { color: var(--gmd-primary-default); background: var(--gmd-primary-subtle); }
 /* 근거 불렛 리스트 */
 .c-i18n-refs { margin-top: var(--gmd-space-4); padding-top: var(--gmd-space-3); border-top: 1px solid var(--gmd-divider); }
 .c-i18n-refs .note { margin: 0 0 var(--gmd-space-1); font-weight: var(--gmd-weight-bold); }
@@ -1227,6 +1228,8 @@ body:not(.intro-active) .intro-xray { display: none; }
 .c-i18n-refs li { margin-top: var(--gmd-space-1); }
 /* h3 안 상태 뱃지 정렬 */
 #i18n-truncation h3 .badge { vertical-align: middle; margin-left: var(--gmd-space-2x); }
+.pv-uxp-row{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6) var(--gmd-space-8);align-items:flex-start;width:100%}.pv-uxp-item{display:grid;gap:var(--gmd-space-2x);justify-items:start;min-width:240px}.pv-uxp-item.is-wide{flex:1 1 360px}.pv-uxp-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
+.ver-meta{display:flex;flex-wrap:wrap;gap:var(--gmd-space-3);margin:calc(var(--gmd-space-2x) * -1) 0 var(--gmd-space-3);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}.ver-meta a{color:inherit}.ver-meta b{color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold)}.rel-list{margin:var(--gmd-space-2x) 0 var(--gmd-space-4);padding-left:var(--gmd-space-5);font-size:var(--gmd-font-size-14);line-height:24px}.rel-list li+li{margin-top:var(--gmd-space-1)}
 </style>
 </head>
 <body class="intro-active">
@@ -1244,7 +1247,7 @@ body:not(.intro-active) .intro-xray { display: none; }
       <span class="im-logo">
         <img src="gmd-logo-light.png" alt="GMDSOFT" height="28">
       </span>
-      <span class="im-tag">v2.13.3 · 2026.10.23</span>
+      <span class="im-tag">v1.0.0 · 2026.10.26</span>
     </div>
   </div>
   <a class="intro-cue" href="#overview" aria-label="아래로 스크롤">
@@ -1259,8 +1262,9 @@ body:not(.intro-active) .intro-xray { display: none; }
     <img class="brand-logo brand-logo-light" src="gmd-logo-light.png" alt="" width="140" height="22">
     <img class="brand-logo brand-logo-dark" src="gmd-logo-dark.png" alt="" width="140" height="22">
   </span>
-  <span class="ver">Classic v2.13 · Design System</span>
+  <span class="ver">Classic v1.0.0 · Design System</span>
   <span class="spacer"></span>
+  <a class="topbar-link" href="releases.html">릴리스 노트</a>
   <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">다크로 전환</button>
 </header>
 
@@ -1278,7 +1282,11 @@ body:not(.intro-active) .intro-xray { display: none; }
     <a href="#motion">모션 · z-index</a>
     <div class="group">Components</div>
     <a href="#button">Button</a>
+    <a href="#close-button">Close Button</a>
     <a href="#input">Input</a>
+    <a href="#code-input">Code Input</a>
+    <a href="#count-input">Count Input</a>
+    <a href="#readonly-field">Read-only Field</a>
     <a href="#card">Card</a>
     <a href="#badge">Badge</a>
     <a href="#toast">Toast</a>
@@ -1288,8 +1296,13 @@ body:not(.intro-active) .intro-xray { display: none; }
     <a href="#tab">Tab</a>
     <a href="#progress">Progress</a>
     <a href="#modal">Modal</a>
+    <a href="#notification-icon">Notification Icon</a>
+    <a href="#action-bar">Action Bar</a>
     <a href="#checkbox-radio">Checkbox · Radio</a>
+    <a href="#toggle">Toggle</a>
+    <a href="#segmented">Segmented Control</a>
     <a href="#combobox">Combobox</a>
+    <a href="#filter-panel">Filter Panel</a>
     <a href="#datetime">Date &amp; Time</a>
     <a href="#context-menu">Context Menu</a>
     <a href="#spinner">Spinner</a>
@@ -1309,8 +1322,14 @@ body:not(.intro-active) .intro-xray { display: none; }
     <a href="#avatar">Avatar</a>
     <a href="#scrollbar">Scrollbar</a>
     <a href="#stepper">Stepper</a>
+    <div class="group">Templates</div>
+    <a href="#tpl-account-menu">Account Menu</a>
+    <a href="#tpl-titlebar">Window Title Bar</a>
+    <a href="#tpl-web-shell">Web App Shell</a>
+    <a href="#tpl-ai-notice">AI 기본법 고지</a>
     <div class="group">Guidelines</div>
     <a href="#i18n-truncation">다국어 잘림</a>
+    <a href="#i18n-capitalization">다국어 대소문자</a>
     <div class="group">Resources</div>
     <a href="#iconography">아이콘</a>
   </aside>
@@ -1324,7 +1343,7 @@ body:not(.intro-active) .intro-xray { display: none; }
         </video>
         <div class="ov-hero-scrim" aria-hidden="true"></div>
         <div class="ov-hero-text">
-          <span class="ov-hero-kicker">v2.13</span>
+          <span class="ov-hero-kicker">v1.0.0</span>
           <h1>GMD Classic Design System</h1>
           <p class="lead">고밀도 업무형 데스크톱·웹 앱을 위한 제품 UI 시스템입니다. 차분한 blue-gray 토대 위에 컬러, 타입, 간격, 컴포넌트, 아이콘 규칙을 묶어 복잡한 정보를 빠르고 정확하게 다루도록 설계합니다.</p>
           <div class="ov-hero-meta"><span>28 components</span><span>77 color tokens</span><span>Light · Dark</span></div>
@@ -1336,7 +1355,7 @@ body:not(.intro-active) .intro-xray { display: none; }
         <a class="ov-tile" href="#principles"><span class="ov-tile-ico"><span class="ico" data-icon="standard/star"></span></span><h3>디자인 원칙</h3><p>고밀도 업무, 토큰, 레이아웃, 컴포넌트, 아이콘, 의미 전달까지 classic이 따르는 기준.</p><span class="ov-tile-arrow">원칙 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="#color"><span class="ov-tile-ico"><span class="ico" data-icon="formatting/textColor"></span></span><h3>파운데이션</h3><p>색·타이포그래피·간격·레이아웃·radius·그림자·모션 — 모든 컴포넌트의 토대가 되는 토큰.</p><span class="ov-tile-arrow">토큰 보기<span class="ico" data-icon="arrow-right"></span></span></a>
         <a class="ov-tile" href="#button"><span class="ov-tile-ico"><span class="ico" data-icon="tables-cells/insertTable"></span></span><h3>컴포넌트</h3><p>버튼·입력·배너·모달 등 29종 UI 컴포넌트와 상태·구성 요소·조합 예시.</p><span class="ov-tile-arrow">컴포넌트 보기<span class="ico" data-icon="arrow-right"></span></span></a>
-        <a class="ov-tile" href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer"><span class="ov-tile-ico"><span class="ico" data-icon="download"></span></span><h3>토큰 · 리소스</h3><p>Figma v2.12 변수 컬렉션과 Design Kit 리소스. tokens.css는 이 원본을 미러링한 개발 사본.</p><span class="ov-tile-arrow">Figma v2.12 열기<span class="ico" data-icon="arrow-right"></span></span></a>
+        
       </div>
 
       <div class="ov-block" id="principles">
@@ -1384,7 +1403,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 
     <div class="foundation-zone">
     <!-- ───── 컬러 ───── -->
-    <div class="category"><div class="eyebrow">Foundations</div><div class="category-head"><h2>파운데이션</h2><span class="category-meta">7 토큰 그룹</span></div><p>색·타이포그래피·간격·레이아웃·radius·그림자 등 모든 컴포넌트의 토대가 되는 디자인 토큰. 원본은 <a href="https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12" target="_blank" rel="noreferrer">Figma v2.12</a>의 <code>01_GMD_Theme_v2.12</code>이고, <a href="tokens.css">tokens.css</a>는 HTML 문서와 개발 적용을 위한 미러 파일이다.</p></div>
+    <div class="category"><div class="eyebrow">Foundations</div><div class="category-head"><h2>파운데이션</h2><span class="category-meta">7 토큰 그룹</span></div><p>색·타이포그래피·간격·레이아웃·radius·그림자 등 모든 컴포넌트의 토대가 되는 디자인 토큰. 원본은 Figma v2.12의 <code>01_GMD_Theme_v2.12</code>이고, <a href="tokens.css">tokens.css</a>는 HTML 문서와 개발 적용을 위한 미러 파일이다.</p></div>
 
     <section id="color">
       <h2>컬러</h2>
@@ -1590,9 +1609,10 @@ body:not(.intro-active) .intro-xray { display: none; }
           <button class="btn btn-tertiary">Neutral</button>
           <button class="btn btn-tertiary-outline">Neutral (outline)</button>
           <button class="btn btn-text">Text Link</button>
+          <button class="btn btn-text is-bare">Text Link (여백 없음)</button>
           <button class="btn btn-danger">Destructive</button>
         </div>      </div>
-      <p class="note">Figma 위계는 <strong>Primary / Secondary / Neutral / Text Link</strong> 4단. 클래스명 <code>btn-tertiary</code>=Neutral(채움), <code>btn-tertiary-outline</code>=Neutral의 Border 변형(외곽선), <code>btn-text</code>=Text Link로 매핑한다(사용처 보존). <code>btn-danger</code>는 위계가 아닌 <strong>semantic destructive</strong>로, warning/error Dialog의 확인 버튼에만 쓴다. 그 Dialog의 보조 버튼은 파랑 계열(Secondary·Text Link) 대신 <code>btn-tertiary-outline</code>을 쓴다 — 한 다이얼로그에 파랑과 빨강이 같이 놓이는 걸 피한다.</p>
+      <p class="note">Figma 위계는 <strong>Primary / Secondary / Neutral / Text Link</strong> 4단. 클래스명 <code>btn-tertiary</code>=Neutral(채움), <code>btn-tertiary-outline</code>=Neutral의 Border 변형(외곽선), <code>btn-text</code>=Text Link로 매핑한다(사용처 보존). 패널 하단 CLEAR, CANCEL, OK 처럼 글자만 놓는 자리는 <code>btn-text is-bare</code>(여백 없음)를 쓴다 — 높이·패딩·채움 없이 hover·pressed 는 글자색과 밑줄로 나눈다. <code>btn-danger</code>는 위계가 아닌 <strong>semantic destructive</strong>로, warning/error Dialog의 확인 버튼에만 쓴다. 그 Dialog의 보조 버튼은 파랑 계열(Secondary·Text Link) 대신 <code>btn-tertiary-outline</code>을 쓴다 — 한 다이얼로그에 파랑과 빨강이 같이 놓이는 걸 피한다.</p>
       <h3>상태</h3>
       <div class="example"><div class="preview col">
         <div class="preview" style="padding:0">
@@ -1640,14 +1660,14 @@ body:not(.intro-active) .intro-xray { display: none; }
         <button class="btn btn-text is-processing" aria-busy="true"><span class="c-spinner-ring" role="status" aria-label="처리 중"></span>Button</button>
         <button class="btn btn-text is-processing is-icon-only" aria-busy="true" aria-label="처리 중"><span class="c-spinner-ring" role="status"></span></button>
       </div></div>
-      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>(6:7037)의 Primary(Fill)·Text(only) 상태를 따른다. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다. 처리·대기 중 커서는 아래 <strong>로딩 커서</strong> 항을 따른다.</p>
+      <p class="note">처리 중 버튼 — Figma <strong>Processing Button</strong>의 Primary(Fill)·Text(only) 상태를 따른다. 기존 <code>.btn</code> 위계·크기에 <code>.is-processing</code>을 더해 라벨 앞에 <a href="#spinner">Spinner</a>(<code>.c-spinner-ring</code>, 1em)를 넣고 그동안 입력을 막는다(<code>pointer-events:none</code> · <code>aria-busy="true"</code>). 스피너 색은 채움형이면 on-primary(흰색), 텍스트형이면 primary로 <code>currentColor</code> 상속하므로 Light/Dark가 토큰으로 자동 전환된다. 라벨을 빼고 <code>.is-icon-only</code>를 더하면 OnlyIcon이다. 처리·대기 중 커서는 아래 <strong>로딩 커서</strong> 항을 따른다.</p>
 
       <h3>로딩 커서 (cursor: progress / wait)</h3>
       <div class="example"><div class="preview cursor-wait-demo" style="align-items:center;gap:var(--gmd-space-3)">
         <img src="assets/loading-cursor.svg" width="28" height="40" alt="로딩 커서" style="display:block">
         <span style="font-size:var(--gmd-font-size-14);color:var(--gmd-text-secondary)">이 영역 위에 마우스를 올리면 로딩 커서가 나타난다</span>
       </div></div>
-      <p class="note">처리·대기 중 공통 커서 — Figma <strong>Processing Button</strong>(6:7037)의 <code>cursor: progress / wait</code> 섹션 정본 커서(<a href="https://www.figma.com/make/WHOTr9qsg4PHphlrohw52v/Design-Loading-Cursor?t=idxLjaiwULoYnY3h-20&amp;fullscreen=1" target="_blank" rel="noopener">Design-Loading-Cursor</a>)를 <code>assets/loading-cursor.svg</code>로 내보내 적용한다. 화살표 포인터 끝(hotspot 4,2)에 2색 로딩 볼이 붙는다. 처리 중 버튼은 입력을 막으므로(<code>pointer-events:none</code>) 이 커서는 버튼이 아니라 처리 중인 <strong>영역</strong>(또는 <code>body</code>)에 <code>.is-cursor-wait</code>(= <code>cursor: url(assets/loading-cursor.svg) 4 2, progress</code>)로 건다. 커스텀 커서 미지원 브라우저는 OS <code>progress</code> 커서로 폴백된다.</p>
+      <p class="note">처리·대기 중 공통 커서 — Figma <strong>Processing Button</strong>의 <code>cursor: progress / wait</code> 섹션 정본 커서(Design-Loading-Cursor)를 <code>assets/loading-cursor.svg</code>로 내보내 적용한다. 화살표 포인터 끝(hotspot 4,2)에 2색 로딩 볼이 붙는다. 처리 중 버튼은 입력을 막으므로(<code>pointer-events:none</code>) 이 커서는 버튼이 아니라 처리 중인 <strong>영역</strong>(또는 <code>body</code>)에 <code>.is-cursor-wait</code>(= <code>cursor: url(assets/loading-cursor.svg) 4 2, progress</code>)로 건다. 커스텀 커서 미지원 브라우저는 OS <code>progress</code> 커서로 폴백된다.</p>
 
       <h3 class="anatomy-heading">Anatomy</h3>
       <ol class="anatomy-list">
@@ -1669,6 +1689,30 @@ body:not(.intro-active) .intro-xray { display: none; }
         </div>
       </div></div>
     </section>
+
+<section id="close-button"><h2>Close Button</h2>
+<p class="lede">패널, 칩, 배너, 모달을 닫는 아이콘 버튼이다. 아이콘만 보이므로 무엇을 닫는지 <code>aria-label</code> 로 꼭 적는다. 기본은 파랑, 중립 영역은 회색, 지우기처럼 되돌리기 어려운 동작은 빨강을 쓴다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><button type="button" class="c-close " aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-hover" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Hover</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-pressed" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Pressed</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close " aria-label="닫기" disabled><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Disabled</span></div></div>
+</div></div>
+<h3>유형 (Type)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><button type="button" class="c-close " aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Primary</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-neutral" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Neutral</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-danger" aria-label="삭제"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Danger</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-filled" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Filled</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-round" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Round</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-neutral is-round" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">Neutral Round</span></div></div>
+</div></div>
+<h3>크기 (Size)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><button type="button" class="c-close " aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">24 (기본)</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-close is-sm" aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button><span class="c-checkbox-radio-caption">20</span></div></div>
+</div></div>
+<p class="note">아이콘은 16 고정이고 버튼 면만 24와 20 두 가지다. 칩 안 닫기는 16 면에 12 아이콘을 쓴다(<a href="#combobox">Combobox 다중 선택</a>).</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><button type="button" class="c-close " aria-label="닫기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Surface</strong><span class="anatomy-desc">누를 수 있는 면. hover 와 pressed 에서 primary/subtle 면이 깔린다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Icon</strong><span class="anatomy-desc">Design Kit x 아이콘 16. 색은 유형을 따른다.</span></span></li>
+</ol>
+</section>
+
 
     <!-- ───── Input ───── -->
     <section id="input">
@@ -1730,6 +1774,70 @@ body:not(.intro-active) .intro-xray { display: none; }
       </ol>
     </section>
 
+<section id="code-input"><h2>Code Input</h2>
+<p class="lede">인증 번호처럼 자릿수가 정해진 값을 한 칸에 한 글자씩 받는다. 한 칸을 채우면 다음 칸으로 넘어가고, 붙여 넣으면 칸마다 나눠 채운다. 자릿수가 정해지지 않은 숫자는 <a href="#input">Input</a> 을 쓴다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-code-input " role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input " role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value="2"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><span class="c-checkbox-radio-caption">Typing</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input " role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value="2"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value="9"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value="1"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value="3"></div><span class="c-checkbox-radio-caption">Filled</span></div></div>
+</div></div>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div><div class="c-code-input is-error" role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value="2"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value="9"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value="1"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value="3"></div><div class="c-code-input-help is-error">번호가 맞지 않아요. 다시 입력해 주세요.</div></div><span class="c-checkbox-radio-caption">Error</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input is-success" role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value="2"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value="9"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value="1"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value="3"></div><span class="c-checkbox-radio-caption">Success</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input " role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="" disabled autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="" disabled><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value="" disabled><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value="" disabled><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value="" disabled><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value="" disabled></div><span class="c-checkbox-radio-caption">Disabled</span></div></div>
+</div></div>
+<h3>유형과 크기 (Type, Size)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-code-input " role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><span class="c-checkbox-radio-caption">Box 48</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input is-sm" role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><span class="c-checkbox-radio-caption">Box 40</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input is-line" role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><span class="c-checkbox-radio-caption">Line</span></div><div class="c-checkbox-radio-cell"><div class="c-code-input is-line is-sm" role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><span class="c-checkbox-radio-caption">Line 40</span></div></div>
+</div></div>
+<p class="note">칸은 40×48(작게 32×40), 글자 22(작게 18). 오류는 테두리 색과 아래 문구로 함께 알린다. 첫 칸에 <code>autocomplete="one-time-code"</code> 를 둔다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div><div class="c-code-input " role="group" aria-label="인증 번호" data-code><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 1번째 자리" value="4" autocomplete="one-time-code"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 2번째 자리" value="8"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 3번째 자리" value="2"><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 4번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 5번째 자리" value=""><input class="c-code-input-cell" inputmode="numeric" maxlength="1" aria-label="인증 번호 6번째 자리" value=""></div><div class="c-code-input-help">문자로 받은 6자리 번호를 입력해 주세요.</div></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Cell</strong><span class="anatomy-desc">한 글자를 받는 칸. 상태에 따라 테두리 색이 바뀐다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Group</strong><span class="anatomy-desc">칸 묶음. 전체 이름을 aria-label 로 갖는다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Helper text</strong><span class="anatomy-desc">오류나 안내 문구. 오류일 때 semantic/error 색.</span></span></li>
+</ol>
+</section>
+
+<section id="count-input"><h2>Count Input</h2>
+<p class="lede">정해진 범위 안에서 수를 하나씩 늘리거나 줄인다. 가운데 값은 직접 입력도 된다. 최솟값이면 줄이기, 최댓값이면 늘리기 버튼이 꺼진다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-count " data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><div class="c-count is-focus" data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">Focused</span></div><div class="c-checkbox-radio-cell"><div class="c-count " data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기" disabled><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="1" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">최솟값</span></div><div class="c-checkbox-radio-cell"><div class="c-count " data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="10" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기" disabled><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">최댓값</span></div><div class="c-checkbox-radio-cell"><div class="c-count  is-disabled" data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기" disabled><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량" disabled><button type="button" class="c-count-btn" aria-label="수량 늘리기" disabled><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">Disabled</span></div></div>
+</div></div>
+<h3>유형과 크기 (Type, Size)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-count " data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">Border 32</span></div><div class="c-checkbox-radio-cell"><div class="c-count is-md" data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">Border 40</span></div><div class="c-checkbox-radio-cell"><div class="c-count is-plain" data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div><span class="c-checkbox-radio-caption">Plain</span></div></div>
+</div></div>
+<p class="note">높이 32(기본)와 40. 표 셀처럼 테두리가 이미 있는 곳은 Plain 을 쓴다. 범위 밖 값을 직접 넣으면 가장 가까운 끝 값으로 맞춘다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-count " data-count data-min="1" data-max="10"><button type="button" class="c-count-btn" aria-label="수량 줄이기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 8C2 7.72386 2.22386 7.5 2.5 7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H2.5C2.22386 8.5 2 8.27614 2 8Z"/></svg></button><input class="c-count-value" inputmode="numeric" value="3" aria-label="수량"><button type="button" class="c-count-btn" aria-label="수량 늘리기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8.27614 2 8.5 2.22386 8.5 2.5V7.5H13.5C13.7761 7.5 14 7.72386 14 8C14 8.27614 13.7761 8.5 13.5 8.5H8.5V13.5C8.5 13.7761 8.27614 14 8 14C7.72386 14 7.5 13.7761 7.5 13.5V8.5H2.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5H7.5V2.5C7.5 2.22386 7.72386 2 8 2Z"/></svg></button></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Decrease</strong><span class="anatomy-desc">줄이기 버튼 24. Design Kit dash-lg 아이콘.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Value</strong><span class="anatomy-desc">현재 값. 직접 입력할 수 있다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Increase</strong><span class="anatomy-desc">늘리기 버튼 24. Design Kit plus-lg 아이콘.</span></span></li>
+</ol>
+</section>
+
+<section id="readonly-field"><h2>Read-only Field</h2>
+<p class="lede">값은 있지만 이 사용자가 고칠 수 없는 것을 보여 준다. 누를 수 없어 hover, pressed, disabled 상태가 없다. 회색 면은 비활성 입력이 쓰므로 면을 채우지 않는다. 마크업은 <code>dl</code>, <code>dt</code>, <code>dd</code> 이고 <code>input readonly</code> 가 아니다.</p>
+<h3>유형 (Type)</h3>
+<div class="example"><div class="preview">
+<dl class="c-readonly-list" style="grid-template-columns:repeat(3,minmax(0,1fr));width:100%"><div class="c-readonly"><dt class="c-readonly-label">담당자</dt><dd class="c-readonly-value">홍길동 수사관</dd></div><div class="c-readonly is-block"><dt class="c-readonly-label">제출된 답변</dt><dd class="c-readonly-value">의뢰물 인수 시 봉인 상태를 확인했고 훼손은 없었습니다.</dd></div><div class="c-readonly"><dt class="c-readonly-label">검토 의견</dt><dd class="c-readonly-value is-empty">값 없음</dd></div></dl>
+</div></div>
+<p class="note">inline 은 짧은 단일 값(라벨 12 secondary, 값 14 Bold), block 은 여러 줄 인용(왼쪽 2px 줄), empty 는 값이 없을 때(14 Regular secondary).</p>
+<h3>조합 예시 (Composition)</h3>
+<div class="example"><div class="preview">
+<div class="card" style="width:100%;max-width:560px"><h4 style="margin:0 0 var(--gmd-space-4)">의뢰 상세</h4><dl class="c-readonly-list"><div class="c-readonly"><dt class="c-readonly-label">사건번호</dt><dd class="c-readonly-value">2026-형제-1184</dd></div><div class="c-readonly"><dt class="c-readonly-label">담당자</dt><dd class="c-readonly-value">홍길동 수사관</dd></div><div class="c-readonly"><dt class="c-readonly-label">접수일</dt><dd class="c-readonly-value">2026-09-07</dd></div><div class="c-readonly is-block"><dt class="c-readonly-label">의뢰 사유</dt><dd class="c-readonly-value">피의자 휴대전화에서 삭제된 메신저 대화를 복원해 주시기 바랍니다. 기간은 2026년 6월부터 8월까지입니다.</dd></div></dl></div>
+</div></div>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><dl class="c-readonly-list" style="width:360px;margin-left:var(--gmd-space-10)"><div class="c-readonly"><dt class="c-readonly-label">담당자</dt><dd class="c-readonly-value">홍길동 수사관</dd></div><div class="c-readonly is-block"><dt class="c-readonly-label">의뢰 사유</dt><dd class="c-readonly-value">삭제된 메신저 대화를 복원해 주시기 바랍니다.</dd></div></dl></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Label</strong><span class="anatomy-desc">값의 이름. 12 Regular, text/secondary.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Value</strong><span class="anatomy-desc">값. 14 Bold, text/primary. 길면 줄을 바꾼다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Rule</strong><span class="anatomy-desc">block 유형의 왼쪽 2px 줄. 인용 범위를 표시한다.</span></span></li>
+</ol>
+</section>
+
+
     <!-- ───── Card ───── -->
     <section id="card">
       <h2>Card</h2>
@@ -1750,7 +1858,19 @@ body:not(.intro-active) .intro-xray { display: none; }
       </div></div>
       <p class="note">Hover/Pressed는 표면 톤(<code>surface-hover</code> / <code>surface-pressed</code>), Focused는 primary 보더 + subtle ring. 3 Style × 4 State = 12 조합.</p>
 
+
+      <h3>현재 상태 (Current)</h3>
+      <div class="example"><div class="preview">
+<article class="card card-outline" style="width:280px"><span class="eyebrow">CATEGORY</span><h4>Card title</h4><p>Default 상태.</p><button class="card-action">Action</button></article><article class="card card-outline is-current" aria-current="true" style="width:280px"><span class="eyebrow">CATEGORY</span><h4>Card title</h4><p>지금 열려 있는 카드.</p><button class="card-action">Action</button></article>
+</div></div>
+      <p class="note">지금 열려 있는 카드를 2px primary 테두리 <code>.is-current</code> 로 계속 표시한다. 포커스 링(<code>.is-focus</code>)으로 대신하지 않고 <code>aria-current</code> 를 같이 둔다.</p>
+      <h3>헤더 동작 (Header Action)</h3>
+      <div class="example"><div class="preview">
+<article class="card card-outline" style="width:320px"><div class="card-head"><div><span class="eyebrow">WATCHLIST</span><h4>관심 목록</h4></div><div class="card-head-actions"><button type="button" class="c-card-iconbtn" aria-label="관심 목록 설정"><span class="ico" data-icon="actions-tools/cogs"></span></button><button type="button" class="c-card-iconbtn is-hover" aria-label="관심 목록 크게 보기"><span class="ico" data-icon="arrows/fullscreen"></span></button></div></div><p>제목 오른쪽 아이콘 버튼은 카드 블록 자체를 다룬다.</p><button class="card-action">항목 추가</button></article>
+</div></div>
+      <p class="note">제목 오른쪽 고정 자리 <code>.card-head-actions</code> 에 32×32 아이콘 버튼 <code>.c-card-iconbtn</code> 1~3개를 둔다. 설정, 크게 보기처럼 카드 블록을 다루는 동작이고, 본문 내용의 동작은 아래 Action 에 둔다. hover 는 면과 함께 아이콘 색을 primary 로 바꾼다(면 변화만으로는 1.04:1). aria-label 에 대상을 넣고(관심 목록 설정), 카드 전체가 눌리는 카드에는 쓰지 않는다.</p>
       <h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><article class="card card-outline" style="width:280px"><span class="eyebrow">CATEGORY</span><h4>Card title</h4><p>Supporting text describes the card content in one or two short lines.</p><button class="card-action">Action</button></article></div></div>
       <ol class="anatomy-list">
         <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Eyebrow</strong><span class="anatomy-desc">카테고리 라벨. text/secondary 톤으로 카드의 성격을 먼저 알려 준다.</span></span></li>
         <li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Title</strong><span class="anatomy-desc">카드 제목. Bold 16px, text/primary로 카드 목적을 명확히 드러낸다.</span></span></li>
@@ -1822,6 +1942,12 @@ body:not(.intro-active) .intro-xray { display: none; }
       </div></div>
       <p class="note">검색·필터 적용 칩. Default / Hover / Press / Visible 상태. 상세 칩은 <a href="#filter-labels">Filter Labels</a> 참고.</p>
 
+
+      <h3>등급 (Level)</h3>
+      <div class="example"><div class="preview col">
+<div class="pv-uxp-row"><span class="c-badge-level is-high ">높음</span><span class="c-badge-level is-medium ">보통</span><span class="c-badge-level is-low ">낮음</span><span class="c-badge-level is-none ">없음</span></div><div class="pv-uxp-row"><span class="c-badge-level is-high is-sm">높음</span><span class="c-badge-level is-high ">높음</span><span class="c-badge-level is-high is-lg">높음</span></div>
+</div></div>
+      <p class="note">위험도, 우선순위, 심각도처럼 순서가 있는 등급 <code>.c-badge-level</code>. 틴트 면 위에 같은 색 1px 테두리와 글자를 둔다. 틴트 면만으로는 주변 면과 대비가 1.0~1.2:1 이라 테두리가 경계를 맡고, 글자는 base 가 AA 에 못 미쳐 pressed 단계를 쓴다. 누르는 동작이 없어 상태가 없다(거르기는 <a href="#filter-labels">Filter Labels</a>). 등급 글자를 줄여 쓰지 않는다. 높이 24, 32, 40.</p>
       <h3 class="anatomy-heading">Anatomy</h3>
       <ol class="anatomy-list">
         <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Container</strong><span class="anatomy-desc">badge/tag/filter의 외곽 면. 정보 밀도에 따라 pill 또는 sm radius를 쓴다.</span></span></li>
@@ -1862,6 +1988,29 @@ body:not(.intro-active) .intro-xray { display: none; }
       </div></div>
       <p class="note">시맨틱 색을 적용한 상태 토스트(Figma <code>Toast_semantic</code>). 색 텍스트 + 동색 1px 보더 + 틴트 배경, <b>아이콘 없음</b>. error·success는 의미색 글자, warning·info는 가독성 위해 본문색(<code>--gmd-text-primary</code>).</p>
 
+
+      <h3>작업 완료 알림 (Task Result)</h3>
+      <div class="example"><div class="preview">
+<div class="pv-uxp-row">
+    <div class="pv-uxp-item">
+      <div class="c-task-result" role="status">
+        <span class="c-task-result-icon is-success" aria-hidden="true"><svg width="16" height="16"><use href="#i-ok"/></svg></span>
+        <div class="c-task-result-body"><p class="c-task-result-title">분석이 끝났습니다</p><p class="c-task-result-counts">성공 128건, 실패 0건, 건너뜀 0건</p><button class="btn btn-primary btn-sm" type="button">결과 보기</button></div>
+        <button class="c-task-result-close" type="button" aria-label="알림 닫기"><svg width="14" height="14"><use href="#i-close"/></svg></button>
+      </div>
+      <span class="pv-uxp-cap">모두 성공</span>
+    </div>
+    <div class="pv-uxp-item">
+      <div class="c-task-result" role="status">
+        <span class="c-task-result-icon is-warning" aria-hidden="true"><svg width="16" height="16"><use href="#i-warn"/></svg></span>
+        <div class="c-task-result-body"><p class="c-task-result-title">분석이 끝났습니다, 일부 실패</p><p class="c-task-result-counts">성공 123건, 실패 2건, 건너뜀 3건</p><button class="btn btn-primary btn-sm" type="button">결과 보기</button></div>
+        <button class="c-task-result-close" type="button" aria-label="알림 닫기"><svg width="14" height="14"><use href="#i-close"/></svg></button>
+      </div>
+      <span class="pv-uxp-cap">실패, 건너뜀 있음</span>
+    </div>
+  </div>
+</div></div>
+      <p class="note">작업이 끝나면 지금 화면을 그대로 두고 <code>.c-task-result</code> 로 알린다. 성공, 실패, 건너뜀 건수는 0이어도 넣고, 실패나 건너뜀이 있으면 경고 아이콘과 일부 실패를 붙인다. 진행 표시 규칙은 <a href="#progress">Progress</a> 에 있다.</p>
       <h3 class="anatomy-heading">Anatomy</h3>
       <div class="example"><div class="preview">
         <div class="toast-anatomy">
@@ -2210,6 +2359,98 @@ body:not(.intro-active) .intro-xray { display: none; }
       </div></div>
       <p class="note">세로 방향 진행 막대. 좁고 높은 영역(사이드 패널·세로 게이지)에서 아래에서 위로 채워진다.</p>
 
+
+      <h3>작업 진행 표시 규칙 (UX 정책)</h3>
+      <p class="note">오래 걸리는 작업의 진행 표시는 아래 규칙을 따른다. GMDDS UX 정책(진행 표시)으로 확정된 내용이다. 수치는 소수 한 자리에서 내리고 끝나기 전에는 99.9% 까지, 시간은 계산할 수 있을 때만 보이며 소요 시간이 먼저다.</p>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- 진행 UX 정책 아이콘. 모양은 Figma 원본과 같고 색은 currentColor -->
+  <symbol id="i-check" viewBox="0 0 12 12"><path fill="currentColor" d="M8.22722 3.72725C8.44689 3.50758 8.80305 3.50758 9.02272 3.72725C9.2397 3.94423 9.24236 4.29436 9.0307 4.5146L6.03655 8.2573C6.03223 8.2627 6.02761 8.26786 6.02272 8.27275C5.80305 8.49242 5.44689 8.49242 5.22722 8.27275L3.24239 6.28791C3.02272 6.06824 3.02272 5.71209 3.24239 5.49242C3.46206 5.27275 3.81821 5.27275 4.03788 5.49242L5.60802 7.06256L8.21231 3.74408C8.21694 3.73818 8.22192 3.73256 8.22722 3.72725Z"/></symbol>
+  <symbol id="i-excl" viewBox="0 0 12 12"><path fill="currentColor" d="M5.25114 8.25C5.25114 7.83579 5.58693 7.5 6.00114 7.5C6.41536 7.5 6.75114 7.83579 6.75114 8.25C6.75114 8.66421 6.41536 9 6.00114 9C5.58693 9 5.25114 8.66421 5.25114 8.25Z"/><path fill="currentColor" d="M5.32462 3.74628C5.28466 3.34671 5.59843 3 5.99999 3C6.40155 3 6.71532 3.34671 6.67536 3.74628L6.4123 6.37686C6.39112 6.58869 6.21287 6.75 5.99999 6.75C5.78711 6.75 5.60886 6.58869 5.58767 6.37686L5.32462 3.74628Z"/></symbol>
+  <symbol id="i-skip" viewBox="0 0 16 16"><path d="M5 5L7.5 8L5 11M8.5 5L11 8L8.5 11" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 16 16"><path fill="currentColor" d="M8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z"/><path fill="currentColor" d="M10.9697 4.96967C10.9626 4.97674 10.9559 4.98423 10.9498 4.9921L7.4774 9.41674L5.38388 7.32322C5.09098 7.03033 4.61611 7.03033 4.32322 7.32322C4.03032 7.61612 4.03032 8.09099 4.32322 8.38388L6.96966 11.0303C7.26256 11.3232 7.73743 11.3232 8.03032 11.0303C8.03685 11.0238 8.043 11.0169 8.04876 11.0097L12.041 6.01947C12.3232 5.72582 12.3196 5.25897 12.0303 4.96967C11.7374 4.67678 11.2626 4.67678 10.9697 4.96967Z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 16.0031 16"><path fill="currentColor" d="M7.93842 2.0157C7.95578 2.00605 7.97748 2 8.00154 2C8.02561 2 8.04731 2.00605 8.06467 2.0157C8.07966 2.02403 8.09948 2.03926 8.11939 2.07312L14.9763 13.7398C15.012 13.8005 15.0113 13.864 14.9785 13.9231C14.962 13.9528 14.9415 13.9724 14.9238 13.9833C14.909 13.9925 14.8901 14 14.8585 14H1.14459C1.11303 14 1.09404 13.9925 1.07932 13.9833C1.06163 13.9724 1.04106 13.9528 1.02461 13.9231C0.991803 13.864 0.991085 13.8005 1.02675 13.7398L7.8837 2.07312C7.9036 2.03926 7.92343 2.02403 7.93842 2.0157ZM8.98151 1.56642C8.53763 0.811193 7.46546 0.811193 7.02158 1.56642L0.164626 13.2331C-0.292407 14.0107 0.256279 15 1.14459 15H14.8585C15.7468 15 16.2955 14.0107 15.8385 13.2331L8.98151 1.56642Z"/><path fill="currentColor" d="M7.00154 12C7.00154 11.4477 7.44926 11 8.00154 11C8.55383 11 9.00154 11.4477 9.00154 12C9.00154 12.5523 8.55383 13 8.00154 13C7.44926 13 7.00154 12.5523 7.00154 12Z"/><path fill="currentColor" d="M7.0995 5.99504C7.04623 5.46228 7.46459 5 8 5C8.53541 5 8.95377 5.46228 8.9005 5.99504L8.54975 9.50248C8.52151 9.78492 8.28384 10 8 10C7.71616 10 7.47849 9.78492 7.45025 9.50248L7.0995 5.99504Z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 14 14"><path fill="currentColor" d="M3.64645 3.64645C3.84171 3.45118 4.15829 3.45118 4.35355 3.64645L7 6.29289L9.64645 3.64645C9.84171 3.45118 10.1583 3.45118 10.3536 3.64645C10.5488 3.84171 10.5488 4.15829 10.3536 4.35355L7.70711 7L10.3536 9.64645C10.5488 9.84171 10.5488 10.1583 10.3536 10.3536C10.1583 10.5488 9.84171 10.5488 9.64645 10.3536L7 7.70711L4.35355 10.3536C4.15829 10.5488 3.84171 10.5488 3.64645 10.3536C3.45118 10.1583 3.45118 9.84171 3.64645 9.64645L6.29289 7L3.64645 4.35355C3.45118 4.15829 3.45118 3.84171 3.64645 3.64645Z"/></symbol>
+</svg>
+      <div class="example"><div class="preview col">
+<div class="pv-uxp-row">
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"value":34.04,"elapsed":252,"remaining":480}'></div><span class="pv-uxp-cap">진행 중, 34.0%</span></div>
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"value":99.96,"elapsed":760,"phase":"finishing"}'></div><span class="pv-uxp-cap">마무리하는 중, 99.9%에서 멈춤</span></div>
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"value":100,"complete":true,"elapsed":902}'></div><span class="pv-uxp-cap">완료, 100.0%, 빛줄기 없음</span></div>
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"value":3,"elapsed":12,"remaining":null}'></div><span class="pv-uxp-cap">초반, 남은 시간: 계산 중</span></div>
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"value":62,"elapsed":425,"phase":"recalc"}'></div><span class="pv-uxp-cap">다시 계산하는 중, 62.0%에서 멈춤</span></div>
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"value":48.2}'></div><span class="pv-uxp-cap">시간을 계산할 수 없는 작업, 시간 줄 없음</span></div>
+  </div>
+</div></div>
+      <p class="note">진행 필드 <code>.c-pfield</code> 는 라벨 줄(진행률, 수치), 막대 <code>.c-pbar</code>, 단계와 시간 줄로 이루어진다. 칠해진 폭이 24px 이상이고 끝나지 않았을 때만 빛줄기 <code>.is-shimmer</code> 를 붙인다.</p>
+      <h3>흐르는 막대 (Flow)</h3>
+      <div class="example"><div class="preview col">
+<div class="pv-uxp-row">
+    <div class="pv-uxp-item"><div class="c-pbar is-flow"><span class="c-pbar-fill"></span></div><span class="pv-uxp-cap">기본</span></div>
+    <div class="pv-uxp-item"><div class="c-pbar is-flow is-success"><span class="c-pbar-fill"></span></div><span class="pv-uxp-cap">Success</span></div>
+    <div class="pv-uxp-item"><div class="c-pfield" data-pf='{"mode":"flow","waited":12}'></div><span class="pv-uxp-cap">10초 넘음, 준비 중</span></div>
+  </div>
+</div></div>
+      <p class="note">진행 정도를 셀 수 없을 때만 쓴다. 수치는 보이지 않고 10초가 넘으면 준비 중을 함께 보인다. 모션 줄이기에서는 가운데에 멈춘다.</p>
+      <h3>단계 상태와 건너뜀 (Step State)</h3>
+      <div class="example"><div class="preview col">
+<div class="pv-uxp-row">
+    <span class="c-pstate"><span class="c-pbadge is-pending" aria-hidden="true"></span>대기</span>
+    <span class="c-pstate"><span class="c-pbadge is-progress" aria-hidden="true"></span>진행 중</span>
+    <span class="c-pstate"><span class="c-pbadge is-completed" aria-hidden="true"><svg width="12" height="12"><use href="#i-check"/></svg></span>완료</span>
+    <span class="c-pstate"><span class="c-pbadge is-error" aria-hidden="true"><svg width="12" height="12"><use href="#i-excl"/></svg></span>오류</span>
+    <span class="c-pstate"><span class="c-pbadge is-skipped" aria-hidden="true"><svg width="16" height="16"><use href="#i-skip"/></svg></span>건너뜀</span>
+  </div>
+  <div class="pv-uxp-row">
+    <div class="pv-uxp-item is-wide">
+      <ol class="c-step-list" aria-label="분석 단계">
+        <li class="c-step-row"><span class="c-pbadge is-completed" aria-hidden="true"><svg width="12" height="12"><use href="#i-check"/></svg></span><span class="c-step-name"><span>1. 파일 분석</span></span><span class="c-step-status">완료</span></li>
+        <li class="c-step-row is-flagged"><span class="c-pbadge is-skipped" aria-hidden="true"><svg width="16" height="16"><use href="#i-skip"/></svg></span><span class="c-step-name"><span>2. 미디어 데이터 카빙</span><span class="c-step-note">이 단계는 분석되지 않았어요</span></span><span class="c-step-status">건너뜀</span></li>
+        <li class="c-step-row"><span class="c-pbadge is-progress" aria-hidden="true"></span><span class="c-step-name"><span>3. 앱/시스템 분석</span></span><span class="c-step-status">진행 중</span></li>
+        <li class="c-step-row"><span class="c-pbadge is-pending" aria-hidden="true"></span><span class="c-step-name"><span>4. 인덱싱, 마무리</span></span><span class="c-step-status">대기</span></li>
+      </ol>
+      <span class="pv-uxp-cap">단계 목록, 건너뛴 단계를 그대로 남겨요</span>
+    </div>
+    <div class="pv-uxp-item is-wide">
+      <ul class="c-step-list" aria-label="분석 결과">
+        <li class="c-step-summary">성공 2건, 실패 1건, 건너뜀 1건</li>
+        <li class="c-step-row is-flagged"><span class="c-pbadge is-error" aria-hidden="true"><svg width="12" height="12"><use href="#i-excl"/></svg></span><span class="c-step-name"><span>왓츠앱, msgstore.db</span><span class="c-step-note">분석하지 못했어요</span></span><span class="c-step-status">오류</span></li>
+        <li class="c-step-row is-flagged"><span class="c-pbadge is-skipped" aria-hidden="true"><svg width="16" height="16"><use href="#i-skip"/></svg></span><span class="c-step-name"><span>카카오톡, media_store.db</span><span class="c-step-note">이 항목은 분석되지 않았어요</span></span><span class="c-step-status">건너뜀</span></li>
+        <li class="c-step-row"><span class="c-pbadge is-completed" aria-hidden="true"><svg width="12" height="12"><use href="#i-check"/></svg></span><span class="c-step-name"><span>위챗, EnMicroMsg.db</span></span><span class="c-step-status">완료</span></li>
+        <li class="c-step-row"><span class="c-pbadge is-completed" aria-hidden="true"><svg width="12" height="12"><use href="#i-check"/></svg></span><span class="c-step-name"><span>라인, naver_line.sqlite</span></span><span class="c-step-status">완료</span></li>
+      </ul>
+      <span class="pv-uxp-cap">결과 목록, 실패와 건너뜀을 위에 모아 눈에 띄게</span>
+    </div>
+  </div>
+</div></div>
+      <p class="note">상태 배지 <code>.c-pbadge</code> 16px 와 라벨을 같이 쓴다. 건너뛴 항목은 건너뜀 하나로 표기하고 결과 목록에서 실패와 건너뜀은 위에 모아 <code>.is-flagged</code> 로 눈에 띄게 한다.</p>
+      <h3>긴 작업 카드와 목록 (Task)</h3>
+      <div class="example"><div class="preview col">
+<div class="pv-uxp-row">
+    <div class="pv-uxp-item is-wide">
+      <section class="c-task-card" aria-label="증거물 분석 진행">
+        <h4 class="c-task-card-title">증거물 분석</h4>
+        <p class="c-task-card-target">'왓츠앱_위챗_라인_카카오톡.mdf'</p>
+        <div class="c-pfield" data-pf='{"value":34.04,"elapsed":252,"remaining":480}'></div>
+      </section>
+      <span class="pv-uxp-cap">Task Progress Card</span>
+    </div>
+    <div class="pv-uxp-item is-wide">
+      <ul class="c-task-list" aria-label="진행 중인 작업">
+        <li class="c-task-row"><span class="c-task-name">증거물 분석</span><span class="c-pbar is-shimmer" style="--value:99.9%"><span class="c-pbar-fill"></span></span><span class="c-task-meta">99.9%, 마무리하는 중</span></li>
+        <li class="c-task-row"><span class="c-task-name">미디어 인텔리전스</span><span class="c-pbar is-shimmer" style="--value:37%"><span class="c-pbar-fill"></span></span><span class="c-task-meta">37.0%, 약 12분</span></li>
+        <li class="c-task-row"><span class="c-task-name">출처 파일 확인</span><span class="c-pbar is-flow"><span class="c-pbar-fill"></span></span><span class="c-task-meta">준비 중</span></li>
+        <li class="c-task-more">외 2개 작업 진행 중</li>
+      </ul>
+      <span class="pv-uxp-cap">Task List, 외 N개</span>
+    </div>
+  </div>
+</div></div>
+      <p class="note">긴 작업은 화면을 막지 않는 카드 <code>.c-task-card</code> 와 목록 <code>.c-task-list</code> 에 둔다. 다 들어가지 않는 작업도 숨기지 않고 외 N개로 알린다.</p>
+      <h3>진행 상태 배지 (Status Badge)</h3>
+      <div class="example"><div class="preview col">
+<div class="pv-uxp-row"><span class="c-pstatus is-progress" style="--value:30%">30% In Progress</span><span class="c-pstatus is-progress" style="--value:99%">99% In Progress</span><span class="c-pstatus is-progress" style="--value:100%">Checking the Results...</span></div><div class="pv-uxp-row"><span class="c-pstatus is-success">Completed (Success)</span><span class="c-pstatus is-success">Completed (Not Found)</span><span class="c-pstatus is-error">Task Failed</span><span class="c-pstatus is-error">Cannot Proceed</span><span class="c-pstatus is-error">Cancelled</span></div><div class="pv-uxp-row"><span class="c-pstatus is-paused">Paused</span><span class="c-pstatus is-paused"><span class="c-pbadge is-progress" aria-hidden="true"></span>Restarting...</span><span class="c-pstatus is-waiting">Waiting</span></div>
+</div></div>
+      <p class="note">작업 목록의 상태 칸에 쓰는 배지 <code>.c-pstatus</code>. 높이 24, 글자 12 Bold. 진행 중은 배지 안에 채움이 깔리고(<code>--value</code>), 완료는 success, 실패와 취소는 error, 일시 중지와 재시작은 secondary, 대기는 tertiary 면이다. 글자는 색 면 위 AA 를 위해 pressed 단계를 쓴다. Figma 의 높이 26 은 24 로 맞췄다.</p>
       <h3 class="anatomy-heading">Anatomy</h3>
       <ol class="anatomy-list">
         <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Track</strong><span class="anatomy-desc">전체 진행 범위. 배경 토큰으로 남은 구간을 보여준다.</span></span></li>
@@ -2306,6 +2547,48 @@ body:not(.intro-active) .intro-xray { display: none; }
       </div></div>
     </section>
 
+<section id="notification-icon"><h2>Notification Icon</h2>
+<p class="lede">대화 상자와 알림 목록에서 상태를 알리는 원형 아이콘이다. 아이콘만으로 뜻을 전하지 않으므로 제목이나 문구를 같이 둔다. 혼자 쓸 때는 <code>role="img"</code> 와 <code>aria-label</code> 을 단다.</p>
+<h3>유형 (Type)</h3>
+<div class="example"><div class="preview col">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-warning " role="img" aria-label="경고"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-fill" d="M12.03 17.87a.93.93 0 1 0 0-1.86.93.93 0 0 0 0 1.86ZM12.03 13.81c.51 0 .93-.42.93-.93V7.06a.93.93 0 0 0-1.86 0v5.82c0 .51.42.93.93.93Z"/></svg></span><span class="c-checkbox-radio-caption">경고 Subtle</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-error " role="img" aria-label="오류"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" d="M8.5 8.5l7 7M8.5 15.5l7-7"/></svg></span><span class="c-checkbox-radio-caption">오류 Subtle</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-success " role="img" aria-label="완료"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l3.43 3.5L16 8.5"/></svg></span><span class="c-checkbox-radio-caption">완료 Subtle</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-info " role="img" aria-label="안내"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-fill" d="M12 8.06a.53.53 0 1 0 0-1.06.53.53 0 0 0 0 1.06ZM12.5 9.65a.5.5 0 0 0-1 0v5.82a.5.5 0 0 0 1 0V9.65Z"/></svg></span><span class="c-checkbox-radio-caption">안내 Subtle</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-confirm " role="img" aria-label="확인"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-fill" d="M11.5 12.55c.1-.3.25-.5.4-.7.2-.2.4-.4.7-.55.2-.15.4-.25.5-.4.1-.15.25-.3.3-.5.05-.2.1-.35.1-.6 0-.25-.05-.55-.2-.75-.15-.25-.3-.4-.55-.5-.25-.1-.5-.2-.8-.2-.3 0-.55.05-.75.15-.2.1-.45.3-.55.55-.15.25-.25.5-.25.85h-.85c0-.45.1-.85.35-1.2.25-.35.5-.6.85-.8.35-.2.75-.3 1.2-.3.45 0 .9.1 1.25.3.35.2.65.45.85.8.2.35.3.7.3 1.15 0 .45-.1.8-.3 1.1-.2.3-.5.6-.9.85-.25.15-.45.35-.6.5-.15.15-.25.35-.3.55-.05.2-.1.5-.1.8v.2h-.8v-.2c0-.45 0-.8.15-1.1Zm.3 2.55a.65.65 0 1 1 0 1.3.65.65 0 0 1 0-1.3Z"/></svg></span><span class="c-checkbox-radio-caption">확인 Subtle</span></div></div><div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-warning is-high" role="img" aria-label="경고"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-fill" d="M12.03 17.87a.93.93 0 1 0 0-1.86.93.93 0 0 0 0 1.86ZM12.03 13.81c.51 0 .93-.42.93-.93V7.06a.93.93 0 0 0-1.86 0v5.82c0 .51.42.93.93.93Z"/></svg></span><span class="c-checkbox-radio-caption">경고 High</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-error is-high" role="img" aria-label="오류"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" d="M8.5 8.5l7 7M8.5 15.5l7-7"/></svg></span><span class="c-checkbox-radio-caption">오류 High</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-success is-high" role="img" aria-label="완료"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l3.43 3.5L16 8.5"/></svg></span><span class="c-checkbox-radio-caption">완료 High</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-info is-high" role="img" aria-label="안내"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-fill" d="M12 8.06a.53.53 0 1 0 0-1.06.53.53 0 0 0 0 1.06ZM12.5 9.65a.5.5 0 0 0-1 0v5.82a.5.5 0 0 0 1 0V9.65Z"/></svg></span><span class="c-checkbox-radio-caption">안내 High</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-confirm is-high" role="img" aria-label="확인"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-fill" d="M11.5 12.55c.1-.3.25-.5.4-.7.2-.2.4-.4.7-.55.2-.15.4-.25.5-.4.1-.15.25-.3.3-.5.05-.2.1-.35.1-.6 0-.25-.05-.55-.2-.75-.15-.25-.3-.4-.55-.5-.25-.1-.5-.2-.8-.2-.3 0-.55.05-.75.15-.2.1-.45.3-.55.55-.15.25-.25.5-.25.85h-.85c0-.45.1-.85.35-1.2.25-.35.5-.6.85-.8.35-.2.75-.3 1.2-.3.45 0 .9.1 1.25.3.35.2.65.45.85.8.2.35.3.7.3 1.15 0 .45-.1.8-.3 1.1-.2.3-.5.6-.9.85-.25.15-.45.35-.6.5-.15.15-.25.35-.3.55-.05.2-.1.5-.1.8v.2h-.8v-.2c0-.45 0-.8.15-1.1Zm.3 2.55a.65.65 0 1 1 0 1.3.65.65 0 0 1 0-1.3Z"/></svg></span><span class="c-checkbox-radio-caption">확인 High</span></div></div>
+</div></div>
+<p class="note">Subtle 은 의미 색 틴트 원 위에 의미 색 기호, High 는 채운 원 위에 흰 기호다. 안내와 확인의 High 는 primary 원을 쓴다. 기호는 경고 느낌표, 오류 X, 완료 체크, 안내 i, 확인 물음표다.</p>
+<h3>크기 (Size)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-success " role="img" aria-label="완료"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l3.43 3.5L16 8.5"/></svg></span><span class="c-checkbox-radio-caption">24</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-success is-32" role="img" aria-label="완료"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l3.43 3.5L16 8.5"/></svg></span><span class="c-checkbox-radio-caption">32</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-success is-40" role="img" aria-label="완료"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l3.43 3.5L16 8.5"/></svg></span><span class="c-checkbox-radio-caption">40</span></div><div class="c-checkbox-radio-cell"><span class="c-noti-icon is-error is-high is-40" role="img" aria-label="오류"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" d="M8.5 8.5l7 7M8.5 15.5l7-7"/></svg></span><span class="c-checkbox-radio-caption">40 High</span></div></div>
+</div></div>
+<p class="note">24는 목록과 알림, 32는 작은 대화 상자, 40은 큰 대화 상자 머리에 쓴다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><span class="c-noti-icon is-success is-40" role="img" aria-label="완료"><svg viewBox="0 0 24 24"><circle class="ni-bg" cx="12" cy="12" r="10"/><path class="ni-line" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l3.43 3.5L16 8.5"/></svg></span></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Circle</strong><span class="anatomy-desc">틴트 또는 채운 원. 상태 색을 담는다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Glyph</strong><span class="anatomy-desc">상태 기호. Subtle 은 의미 색, High 는 흰색.</span></span></li>
+</ol>
+</section>
+
+<section id="action-bar"><h2>Action Bar</h2>
+<p class="lede">지금 보고 있는 대상 전체를 확정하는 동작을 놓는 자리다. 주 동작은 항상 맨 오른쪽 하나, 보조 동작은 최대 둘이다. 화면 일부나 특정 컨트롤 전용 동작은 넣지 않고, 목록 화면에는 쓰지 않는다(선택한 행의 동작과 겹친다).</p>
+<h3>유형 (Type)</h3>
+<div class="example"><div class="preview col">
+<div style="display:grid;gap:var(--gmd-space-4);width:100%"><div class="c-action-bar" role="group" aria-label="답변 검토"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">기본, 보조 1개와 주 1개</span><div class="c-action-bar" role="group" aria-label="답변 검토 상태 포함"><span class="c-action-bar-start">미검토 2건</span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">왼쪽 보조 정보</span><div class="c-action-bar" role="group" aria-label="답변 검토 보조 2개"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">보류</button><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">보조 2개가 최대</span></div>
+</div></div>
+<p class="note">높이 64(위아래 12, 좌우 24), 위쪽 1px 구분선, 면은 background/base. 버튼은 classic Button 40 을 쓴다(Figma 36 은 컨트롤 높이 규칙으로 맞췄다). 주 동작 라벨은 확인 같은 말 대신 동작을 적는다. Tab 순서는 보조에서 주로 가고, Enter 로 자동 실행하지 않는다. <code>role="group"</code> 과 <code>aria-label</code> 로 무엇을 확정하는지 적는다.</p>
+<h3>조합 예시 (Composition)</h3>
+<div class="example"><div class="preview">
+<article class="card card-outline" style="width:100%;max-width:640px"><h4>문항 1 / 3, 봉인 상태 확인</h4><p>의뢰물 인수 시 봉인 상태를 확인했고 훼손은 없었습니다. 검토자는 이 답변을 읽고 승인하거나 반려한다.</p><div class="c-action-bar" role="group" aria-label="문항 1 검토"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div></article>
+</div></div>
+<p class="note">읽는 흐름의 끝에 결정이 온다. 바는 본문 영역 안에 속하고 옆 패널로 넘어가지 않는다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-action-bar" role="group" aria-label="Anatomy 액션 바" style="width:360px;padding-left:var(--gmd-space-4);padding-right:var(--gmd-space-4)"><span class="c-action-bar-start">미검토 2건</span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Start</strong><span class="anatomy-desc">보조 정보나 되돌리기 어려운 동작 자리. 없어도 된다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Secondary</strong><span class="anatomy-desc">보조 동작 0~2개. 주 동작 왼쪽.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Primary</strong><span class="anatomy-desc">주 동작 하나. 항상 맨 오른쪽.</span></span></li>
+</ol>
+</section>
+
+
 <section id="checkbox-radio">
 <h2>Checkbox &amp; Radio</h2>
       <p class="lede">여러 선택지에서 고르는 컨트롤. 체크박스는 여러 개(0개 포함)를, 라디오는 한 묶음에서 딱 하나를 고른다. 배타적이면 라디오, 자유 다중이면 체크박스다.</p>
@@ -2383,6 +2666,48 @@ body:not(.intro-active) .intro-xray { display: none; }
 </ol>
 </section>
 
+<section id="toggle"><h2>Toggle</h2>
+<p class="lede">켜고 끄면 바로 반영되는 설정에 쓴다. 저장 버튼을 눌러야 반영되는 선택이면 <a href="#checkbox-radio">체크박스</a>를 쓴다. 켜짐과 꺼짐은 색뿐 아니라 손잡이 위치로도 구분된다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><label class="c-toggle "><input type="checkbox" role="switch" class="c-toggle-input"><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">Off</span></span></label><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><label class="c-toggle is-hover"><input type="checkbox" role="switch" class="c-toggle-input"><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">Off</span></span></label><span class="c-checkbox-radio-caption">Hover</span></div><div class="c-checkbox-radio-cell"><label class="c-toggle is-pressed"><input type="checkbox" role="switch" class="c-toggle-input"><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">Off</span></span></label><span class="c-checkbox-radio-caption">Pressed</span></div><div class="c-checkbox-radio-cell"><label class="c-toggle "><input type="checkbox" role="switch" class="c-toggle-input" checked><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">On</span></span></label><span class="c-checkbox-radio-caption">On</span></div><div class="c-checkbox-radio-cell"><label class="c-toggle is-hover"><input type="checkbox" role="switch" class="c-toggle-input" checked><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">On</span></span></label><span class="c-checkbox-radio-caption">On Hover</span></div><div class="c-checkbox-radio-cell"><label class="c-toggle is-disabled"><input type="checkbox" role="switch" class="c-toggle-input" disabled><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">Off</span></span></label><span class="c-checkbox-radio-caption">Disabled</span></div><div class="c-checkbox-radio-cell"><label class="c-toggle is-disabled"><input type="checkbox" role="switch" class="c-toggle-input" checked disabled><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">On</span></span></label><span class="c-checkbox-radio-caption">Disabled On</span></div></div>
+</div></div>
+<h3>크기와 설명 (Size, Description)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><label class="c-toggle "><input type="checkbox" role="switch" class="c-toggle-input" checked><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">자동 로그인</span><span class="c-toggle-desc">다음에 접속할 때 로그인 정보를 기억해요.</span></span></label><label class="c-toggle is-sm"><input type="checkbox" role="switch" class="c-toggle-input"><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">알림 받기</span><span class="c-toggle-desc">분석이 끝나면 알려 줘요.</span></span></label></div>
+</div></div>
+<p class="note">트랙 36×20(작게 28×16), 손잡이 16(작게 12). 라벨 14, 설명 12 secondary. Figma 의 라벨 16 과 간격 14 는 classic 본문 14 와 4px 그리드로 맞췄다. <code>input type="checkbox" role="switch"</code> 를 쓴다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><label class="c-toggle "><input type="checkbox" role="switch" class="c-toggle-input" checked><span class="c-toggle-track"></span><span class="c-toggle-text"><span class="c-toggle-label">자동 로그인</span><span class="c-toggle-desc">다음에 접속할 때 로그인 정보를 기억해요.</span></span></label></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Track</strong><span class="anatomy-desc">꺼짐 border-control, 켜짐 primary/default.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Thumb</strong><span class="anatomy-desc">손잡이. 켜지면 오른쪽으로 움직인다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Label</strong><span class="anatomy-desc">무엇을 켜고 끄는지 적는다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">Description</strong><span class="anatomy-desc">켜면 무엇이 달라지는지 한 문장으로 적는다. 없어도 된다.</span></span></li>
+</ol>
+</section>
+
+<section id="segmented"><h2>Segmented Control</h2>
+<p class="lede">2개에서 5개 사이 선택지 가운데 하나를 고르는 붙은 버튼 묶음이다. 보기 방식, 정렬 기준처럼 누르면 바로 바뀌는 선택에 쓴다. 화면 영역을 나누는 것은 <a href="#tab">Tab</a> 을 쓴다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><div class="c-segmented " role="radiogroup" aria-label="상태 예시 기본" data-segmented><button type="button" role="radio" class="c-segmented-item " aria-checked="false">목록</button><button type="button" role="radio" class="c-segmented-item " aria-checked="true">카드</button></div><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><div class="c-segmented " role="radiogroup" aria-label="상태 예시 hover" data-segmented><button type="button" role="radio" class="c-segmented-item is-hover" aria-checked="false">목록</button><button type="button" role="radio" class="c-segmented-item " aria-checked="true">카드</button></div><span class="c-checkbox-radio-caption">Hover</span></div><div class="c-checkbox-radio-cell"><div class="c-segmented " role="radiogroup" aria-label="상태 예시 pressed" data-segmented><button type="button" role="radio" class="c-segmented-item is-pressed" aria-checked="false">목록</button><button type="button" role="radio" class="c-segmented-item " aria-checked="true">카드</button></div><span class="c-checkbox-radio-caption">Pressed</span></div><div class="c-checkbox-radio-cell"><div class="c-segmented " role="radiogroup" aria-label="상태 예시 disabled" data-segmented><button type="button" role="radio" class="c-segmented-item is-disabled" aria-checked="false" disabled>목록</button><button type="button" role="radio" class="c-segmented-item " aria-checked="true">카드</button></div><span class="c-checkbox-radio-caption">Disabled</span></div></div>
+</div></div>
+<h3>유형과 크기 (Type, Size)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-segmented " role="radiogroup" aria-label="기간 단위" data-segmented><button type="button" role="radio" class="c-segmented-item " aria-checked="false">일</button><button type="button" role="radio" class="c-segmented-item " aria-checked="true">주</button><button type="button" role="radio" class="c-segmented-item " aria-checked="false">월</button><button type="button" role="radio" class="c-segmented-item " aria-checked="false">연</button></div><span class="c-checkbox-radio-caption">텍스트 32</span></div><div class="c-checkbox-radio-cell"><div class="c-segmented is-md" role="radiogroup" aria-label="기간 단위 큰 크기" data-segmented><button type="button" role="radio" class="c-segmented-item " aria-checked="true">일</button><button type="button" role="radio" class="c-segmented-item " aria-checked="false">주</button><button type="button" role="radio" class="c-segmented-item " aria-checked="false">월</button></div><span class="c-checkbox-radio-caption">텍스트 40</span></div><div class="c-checkbox-radio-cell"><div class="c-segmented " role="radiogroup" aria-label="정렬 방향" data-segmented><button type="button" role="radio" class="c-segmented-item " aria-checked="true"><span class="ico" data-icon="arrow-up-short" style="width:16px;height:16px;display:inline-flex"></span>오름차순</button><button type="button" role="radio" class="c-segmented-item " aria-checked="false"><span class="ico" data-icon="arrow-down-short" style="width:16px;height:16px;display:inline-flex"></span>내림차순</button></div><span class="c-checkbox-radio-caption">아이콘 + 텍스트</span></div></div>
+</div></div>
+<p class="note">높이 32(기본)와 40, 모서리는 바깥 양 끝만 4. 고른 칸은 primary/subtle 면과 Bold 로 구분한다. <code>role="radiogroup"</code> 과 칸마다 <code>role="radio"</code>, <code>aria-checked</code> 를 둔다. 아이콘만 있는 칸은 쓰지 않는다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-segmented " role="radiogroup" aria-label="Anatomy 보기 방식" data-segmented><button type="button" role="radio" class="c-segmented-item " aria-checked="false">목록</button><button type="button" role="radio" class="c-segmented-item " aria-checked="true">카드</button><button type="button" role="radio" class="c-segmented-item " aria-checked="false">표</button></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Group</strong><span class="anatomy-desc">선택지 묶음. 무엇을 고르는지 aria-label 로 적는다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Item</strong><span class="anatomy-desc">선택지 하나. 바깥 양 끝만 모서리가 둥글다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Selected</strong><span class="anatomy-desc">고른 칸. primary/subtle 면, primary/pressed 테두리와 글자.</span></span></li>
+</ol>
+</section>
+
+
 <section id="combobox"><h2>Combobox</h2>
       <p class="lede">정해진 목록에서 하나나 여럿을 골라 넣는다. 평소엔 닫혀 있다가 누르면 드롭다운이 펼쳐진다. 선택지가 많으면 검색을, 여러 개 고를 땐 체크박스 유형을 붙인다.</p>
 
@@ -2426,6 +2751,13 @@ body:not(.intro-active) .intro-xray { display: none; }
 </div>
 </div></div>
 
+<h3>다중 선택 (Multi)</h3>
+<div class="example"><div class="preview">
+<div class="c-combobox-statecell"><div class="c-combobox-trigger is-multi" role="combobox" tabindex="0" aria-expanded="false" aria-label="분석 유형"><span class="c-combobox-chips"><span class="c-combobox-chip"><span class="c-combobox-chip-label" title="Analysis">Analysis</span><button type="button" class="c-close " aria-label="Analysis 빼기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button></span><span class="c-combobox-chip"><span class="c-combobox-chip-label" title="Enhancement">Enhancement</span><button type="button" class="c-close " aria-label="Enhancement 빼기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button></span></span><svg class="c-combobox-chevron" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.2 5.2a.7.7 0 0 1 1 0L8 9l3.8-3.8a.7.7 0 1 1 1 1l-4.3 4.3a.7.7 0 0 1-1 0L3.2 6.2a.7.7 0 0 1 0-1z"/></svg></div><span class="c-combobox-caption">Chips</span></div>
+<div class="c-combobox-statecell"><div class="c-combobox-trigger is-multi" role="combobox" tabindex="0" aria-expanded="false" aria-label="분석 유형 넘침"><span class="c-combobox-chips"><span class="c-combobox-chip"><span class="c-combobox-chip-label" title="Analysis">Analysis</span><button type="button" class="c-close " aria-label="Analysis 빼기"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg></button></span><span class="c-combobox-chip-more">+3</span></span><svg class="c-combobox-chevron" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.2 5.2a.7.7 0 0 1 1 0L8 9l3.8-3.8a.7.7 0 1 1 1 1l-4.3 4.3a.7.7 0 0 1-1 0L3.2 6.2a.7.7 0 0 1 0-1z"/></svg></div><span class="c-combobox-caption">Overflow</span></div>
+</div></div>
+<p class="note">고른 값은 칩(높이 24, 글자 12)으로 보여 주고, 칩마다 빼기 버튼을 둔다. 넘치면 남은 개수를 +N 으로 줄인다. 드롭다운 입력(위치, 검색 아이콘)은 위 Icon 유형을 쓰고, 날짜는 <a href="#datetime">Date&amp;Time Picker</a> 입력 필드를 쓴다.</p>
+
 <h3 class="anatomy-heading">Anatomy</h3>
 <ol class="anatomy-list">
 <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Trigger</strong><span class="anatomy-desc">닫힌 상태의 입력 표면. 선택값, placeholder, focus ring을 담는다.</span></span></li>
@@ -2435,6 +2767,27 @@ body:not(.intro-active) .intro-xray { display: none; }
 </ol>
 
 </section>
+
+<section id="filter-panel"><h2>Filter Panel</h2>
+<p class="lede">표 머리글이나 필터 바에서 열어 여러 값을 골라 거르는 패널이다. 고른 값은 Confirm 을 눌러야 적용되고, Reset 은 고른 값을 모두 푼다. 값이 많으면 검색 유형을 쓴다. 적용된 필터는 <a href="#filter-labels">Filter Labels</a> 로 보여 준다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><ul class="c-filter-panel-list" role="group"><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Analysis">Analysis</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Enhancement">Enhancement</span></li></ul><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm" disabled>Reset</button><button type="button" class="btn btn-text btn-sm" disabled>Confirm</button></div></div><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><ul class="c-filter-panel-list" role="group"><li class="c-filter-panel-option is-hover" role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Analysis">Analysis</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Enhancement">Enhancement</span></li></ul><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm">Reset</button><button type="button" class="btn btn-text btn-sm">Confirm</button></div></div><span class="c-checkbox-radio-caption">Hover</span></div><div class="c-checkbox-radio-cell"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><ul class="c-filter-panel-list" role="group"><li class="c-filter-panel-option is-pressed" role="checkbox" aria-checked="true" tabindex="0"><span class="c-checkbox-radio-box is-sm is-checked"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Analysis">Analysis</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Enhancement">Enhancement</span></li></ul><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm">Reset</button><button type="button" class="btn btn-text btn-sm">Confirm</button></div></div><span class="c-checkbox-radio-caption">Pressed</span></div><div class="c-checkbox-radio-cell"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><ul class="c-filter-panel-list" role="group"><li class="c-filter-panel-option " role="checkbox" aria-checked="true" tabindex="0"><span class="c-checkbox-radio-box is-sm is-checked"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Analysis">Analysis</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Enhancement">Enhancement</span></li></ul><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm">Reset</button><button type="button" class="btn btn-text btn-sm">Confirm</button></div></div><span class="c-checkbox-radio-caption">Selected</span></div></div>
+</div></div>
+<h3>검색 유형 (Search)</h3>
+<div class="example"><div class="preview">
+<div style="display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start"><div class="c-checkbox-radio-cell"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><div class="c-filter-panel-search"><div class="input-wrap has-lead"><span class="ico lead" data-icon="search"></span><input class="input input-sm" placeholder="검색" aria-label="필터 값 검색"></div></div><ul class="c-filter-panel-list" role="group"><li class="c-filter-panel-option " role="checkbox" aria-checked="true" tabindex="0"><span class="c-checkbox-radio-box is-sm is-checked"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Analysis">Analysis</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Enhancement">Enhancement</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Extraction">Extraction</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Reporting">Reporting</span></li></ul><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm">Reset</button><button type="button" class="btn btn-text btn-sm">Confirm</button></div></div><span class="c-checkbox-radio-caption">Search</span></div><div class="c-checkbox-radio-cell"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><div class="c-filter-panel-search"><div class="input-wrap has-lead"><span class="ico lead" data-icon="search"></span><input class="input input-sm" placeholder="검색" aria-label="필터 값 검색"></div></div><div class="c-filter-panel-empty">검색 결과가 없어요.</div><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm" disabled>Reset</button><button type="button" class="btn btn-text btn-sm" disabled>Confirm</button></div></div><span class="c-checkbox-radio-caption">결과 없음</span></div></div>
+</div></div>
+<p class="note">패널 폭 220, 모서리 8, shadow-lift. 항목 높이 36, 체크박스 16. 바꾼 것이 없으면 Reset 과 Confirm 은 꺼진다. 항목 글자가 길면 말줄임하고 마우스를 올리면 전체를 보여 준다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-filter-panel" role="dialog" aria-label="분석 유형 필터" data-filter><div class="c-filter-panel-search"><div class="input-wrap has-lead"><span class="ico lead" data-icon="search"></span><input class="input input-sm" placeholder="검색" aria-label="필터 값 검색"></div></div><ul class="c-filter-panel-list" role="group"><li class="c-filter-panel-option " role="checkbox" aria-checked="true" tabindex="0"><span class="c-checkbox-radio-box is-sm is-checked"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Analysis">Analysis</span></li><li class="c-filter-panel-option " role="checkbox" aria-checked="false" tabindex="0"><span class="c-checkbox-radio-box is-sm"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></span><span title="Enhancement">Enhancement</span></li></ul><div class="c-filter-panel-actions"><button type="button" class="btn btn-text btn-sm">Reset</button><button type="button" class="btn btn-text btn-sm">Confirm</button></div></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Search</strong><span class="anatomy-desc">검색 유형에만 있다. 작은 Input 에 검색 아이콘.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Option</strong><span class="anatomy-desc">체크박스와 값. hover surface/hover, 누르는 동안 primary/subtle.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Actions</strong><span class="anatomy-desc">왼쪽 Reset, 오른쪽 Confirm 텍스트 버튼.</span></span></li>
+</ol>
+</section>
+
 
 <section id="datetime"><h2>Date&Time Picker</h2>
       <p class="lede">날짜·시간을 고르는 컨트롤. 필드를 누르면 달력이 떠 연·월을 넘기며 고르고 필요하면 시간까지 잡는다. 날짜는 직접 입력해도 되고 달력에서 골라도 된다. 입력은 칸별 마스크로 형식 오류를 막고, 달력은 입력한 값을 눈으로 확인하게 한다.</p>
@@ -2477,7 +2830,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Default</div>
 </div>
@@ -2494,7 +2847,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day is-selected" aria-selected="true">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Selected</div>
 </div>
@@ -2505,13 +2858,13 @@ body:not(.intro-active) .intro-xray { display: none; }
 <div class="c-datetime-monthbar"><button class="c-datetime-monthsel">June 2023 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/></svg></button><div class="c-datetime-navbtns"><button class="c-datetime-iconbtn" aria-label="이전 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/></svg></button><button class="c-datetime-iconbtn" aria-label="다음 달"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></svg></button></div></div>
 <div class="c-datetime-grid">
 <span class="c-datetime-dow">M</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">W</span><span class="c-datetime-dow">T</span><span class="c-datetime-dow">F</span><span class="c-datetime-dow">S</span><span class="c-datetime-dow">S</span>
-<span class="c-datetime-day is-disabled" aria-disabled="true">29</span><span class="c-datetime-day is-disabled" aria-disabled="true">30</span><span class="c-datetime-day is-disabled" aria-disabled="true">31</span><span class="c-datetime-day">1</span><span class="c-datetime-day">2</span><span class="c-datetime-day">3</span><span class="c-datetime-day">4</span>
-<span class="c-datetime-day">5</span><span class="c-datetime-day">6</span><span class="c-datetime-day is-today">7</span><span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span>
+<span class="c-datetime-day is-mute">29</span><span class="c-datetime-day is-mute">30</span><span class="c-datetime-day is-mute">31</span><span class="c-datetime-day is-disabled" aria-disabled="true">1</span><span class="c-datetime-day is-disabled" aria-disabled="true">2</span><span class="c-datetime-day is-disabled" aria-disabled="true">3</span><span class="c-datetime-day is-disabled" aria-disabled="true">4</span>
+<span class="c-datetime-day is-disabled" aria-disabled="true">5</span><span class="c-datetime-day is-disabled" aria-disabled="true">6</span><span class="c-datetime-day is-today">7</span><span class="c-datetime-day">8</span><span class="c-datetime-day">9</span><span class="c-datetime-day">10</span><span class="c-datetime-day">11</span>
 <span class="c-datetime-day">12</span><span class="c-datetime-day">13</span><span class="c-datetime-day">14</span><span class="c-datetime-day">15</span><span class="c-datetime-day">16</span><span class="c-datetime-day">17</span><span class="c-datetime-day">18</span>
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
-<span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-disabled" aria-disabled="true">1</span><span class="c-datetime-day is-disabled" aria-disabled="true">2</span>
+<span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Disabled dates</div>
 </div>
@@ -2535,7 +2888,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-ymcell">2032</span><span class="c-datetime-ymcell">2033</span><span class="c-datetime-ymcell">2034</span><span class="c-datetime-ymcell">2035</span>
 <span class="c-datetime-ymcell">2036</span><span class="c-datetime-ymcell">2037</span><span class="c-datetime-ymcell">2038</span><span class="c-datetime-ymcell">2039</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Year</div>
 </div>
@@ -2549,7 +2902,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-ymcell">May</span><span class="c-datetime-ymcell">Jun</span><span class="c-datetime-ymcell">Jul</span><span class="c-datetime-ymcell">Aug</span>
 <span class="c-datetime-ymcell">Sep</span><span class="c-datetime-ymcell">Oct</span><span class="c-datetime-ymcell is-current" aria-current="true">Nov</span><span class="c-datetime-ymcell">Dec</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Month</div>
 </div>
@@ -2573,7 +2926,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day is-selected" aria-selected="true">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Date + Time</div>
 </div>
@@ -2597,7 +2950,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-chand" style="height:42%;transform:rotate(0deg)"></span>
 <span class="c-datetime-cdot"></span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Hour</div>
 </div>
@@ -2621,7 +2974,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-chand" style="height:42%;transform:rotate(150deg)"></span>
 <span class="c-datetime-cdot"></span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Minutes</div>
 </div>
@@ -2689,7 +3042,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 </div>
 </div>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Two months + presets</div>
 </div>
@@ -2707,7 +3060,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn" disabled>OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare" disabled>OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Selecting</div>
 </div>
@@ -2723,7 +3076,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Same day</div>
 </div>
@@ -2740,7 +3093,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day is-disabled" aria-disabled="true">26</span><span class="c-datetime-day is-disabled" aria-disabled="true">27</span><span class="c-datetime-day is-disabled" aria-disabled="true">28</span><span class="c-datetime-day is-disabled" aria-disabled="true">29</span><span class="c-datetime-day is-disabled" aria-disabled="true">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
 <div class="c-datetime-hint">Up to 7 days from the start date</div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn" disabled>OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare" disabled>OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Max range</div>
 </div>
@@ -2759,7 +3112,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 
 <h3>조합 예시 (Composition)</h3>
 <div class="example"><div class="preview" style="align-items:flex-start">
-<div style="display:grid;grid-template-columns:minmax(220px,260px) minmax(280px,320px);gap:var(--gmd-space-6);align-items:start">
+<div style="display:grid;grid-template-columns:minmax(220px,260px) 328px;gap:var(--gmd-space-6);align-items:start">
 <div>
 <div class="c-datetime-field is-filled"><span class="c-datetime-fieldlabel">22/06/2023</span><span class="c-datetime-ficon"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg></span></div>
 <div class="c-datetime-caption">Form field</div>
@@ -2775,7 +3128,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day is-selected">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="c-datetime-actbtn">CLEAR</button><div class="c-datetime-actright"><button class="c-datetime-actbtn">CANCEL</button><button class="c-datetime-actbtn">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
 </div>
 </div>
 </div></div>
@@ -4511,6 +4864,102 @@ body:not(.intro-active) .intro-xray { display: none; }
     <div class="guideline-zone">
     <div class="category"><div class="eyebrow">Guidelines</div><div class="category-head"><h2>가이드라인</h2><span class="category-meta">다국어 잘림 정책</span></div><p>컴포넌트를 실제 화면에 조립할 때 따르는 운영 규칙. 글로벌 배포 언어에서 텍스트가 컨트롤보다 길어질 때의 처리 기준을 다룬다.</p></div>
 
+
+<section id="tpl-account-menu"><h2>Account Menu</h2>
+<p class="lede">사용자 계정의 진입점이다. 아바타 트리거를 누르면 프로필, 설정, 로그아웃 같은 계정 동작 메뉴가 열린다. <a href="#avatar">Avatar</a> 와 <a href="#context-menu">Context Menu</a> 를 조합한다.</p>
+<h3>상태 (State)</h3>
+<div class="example"><div class="preview">
+<div class="c-checkbox-radio-row"><div class="c-checkbox-radio-cell"><button type="button" class="c-account-trigger " aria-haspopup="menu" aria-expanded="false" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-md" aria-hidden="true">JD</span></button><span class="c-checkbox-radio-caption">Default</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-account-trigger is-hover" aria-haspopup="menu" aria-expanded="false" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-md" aria-hidden="true">JD</span></button><span class="c-checkbox-radio-caption">Hover</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-account-trigger is-focus" aria-haspopup="menu" aria-expanded="false" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-md" aria-hidden="true">JD</span></button><span class="c-checkbox-radio-caption">Focused</span></div><div class="c-checkbox-radio-cell"><button type="button" class="c-account-trigger " aria-haspopup="menu" aria-expanded="true" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-md" aria-hidden="true">JD</span></button><span class="c-checkbox-radio-caption">Open</span></div></div>
+</div></div>
+<h3>열림과 칩형 (Open, Chip)</h3>
+<div class="example"><div class="preview" style="align-items:flex-start;min-height:440px;gap:var(--gmd-space-10)">
+<div style="width:240px;display:flex;justify-content:flex-end"><div class="c-account" data-account><button type="button" class="c-account-trigger " aria-haspopup="menu" aria-expanded="true" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-md" aria-hidden="true">JD</span></button><div class="c-context-menu-menu c-account-menu" role="menu" aria-label="계정 메뉴"><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8ZM10 5C10 6.10457 9.10457 7 8 7C6.89543 7 6 6.10457 6 5C6 3.89543 6.89543 3 8 3C9.10457 3 10 3.89543 10 5Z" fill="currentColor"/><path d="M14 13C14 14 13 14 13 14H3C3 14 2 14 2 13C2 12 3 9 8 9C13 9 14 12 14 13ZM13 12.9965C12.9986 12.7497 12.8462 12.0104 12.1679 11.3321C11.5156 10.6798 10.2891 10 7.99999 10C5.71088 10 4.48435 10.6798 3.8321 11.3321C3.15375 12.0104 3.00142 12.7497 3 12.9965H13Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">View profile</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8.00004 4.75421C6.20745 4.75421 4.75427 6.20739 4.75427 7.99997C4.75427 9.79256 6.20745 11.2457 8.00004 11.2457C9.79262 11.2457 11.2458 9.79256 11.2458 7.99997C11.2458 6.20739 9.79262 4.75421 8.00004 4.75421ZM5.75427 7.99997C5.75427 6.75967 6.75973 5.75421 8.00004 5.75421C9.24034 5.75421 10.2458 6.75967 10.2458 7.99997C10.2458 9.24027 9.24034 10.2457 8.00004 10.2457C6.75973 10.2457 5.75427 9.24027 5.75427 7.99997Z" fill="currentColor"/><path d="M9.79647 1.34338C9.26853 -0.447793 6.73147 -0.447792 6.20353 1.34338L6.10968 1.66179C5.95246 2.19519 5.34321 2.44755 4.85487 2.18155L4.56336 2.02276C2.9235 1.12953 1.12953 2.9235 2.02276 4.56336L2.18155 4.85487C2.44755 5.34321 2.19519 5.95246 1.66179 6.10968L1.34338 6.20353C-0.447793 6.73147 -0.447792 9.26853 1.34338 9.79647L1.66179 9.89032C2.19519 10.0475 2.44755 10.6568 2.18155 11.1451L2.02276 11.4366C1.12953 13.0765 2.92349 14.8705 4.56335 13.9772L4.85487 13.8185C5.34321 13.5524 5.95246 13.8048 6.10968 14.3382L6.20353 14.6566C6.73147 16.4478 9.26853 16.4478 9.79647 14.6566L9.89032 14.3382C10.0475 13.8048 10.6568 13.5524 11.1451 13.8185L11.4366 13.9772C13.0765 14.8705 14.8705 13.0765 13.9772 11.4366L13.8184 11.1451C13.5524 10.6568 13.8048 10.0475 14.3382 9.89032L14.6566 9.79647C16.4478 9.26853 16.4478 6.73147 14.6566 6.20353L14.3382 6.10968C13.8048 5.95246 13.5524 5.34321 13.8185 4.85487L13.9772 4.56335C14.8705 2.92349 13.0765 1.12953 11.4366 2.02276L11.1451 2.18155C10.6568 2.44755 10.0475 2.19519 9.89032 1.66179L9.79647 1.34338ZM7.16273 1.6261C7.40879 0.791299 8.59121 0.7913 8.83727 1.6261L8.93112 1.94451C9.26845 3.08899 10.5757 3.63046 11.6235 3.05972L11.915 2.90094C12.6793 2.48463 13.5154 3.32074 13.0991 4.08501L12.9403 4.37653C12.3695 5.42433 12.911 6.73155 14.0555 7.06888L14.3739 7.16273C15.2087 7.40879 15.2087 8.59121 14.3739 8.83727L14.0555 8.93112C12.911 9.26845 12.3695 10.5757 12.9403 11.6235L13.0991 11.915C13.5154 12.6793 12.6793 13.5154 11.915 13.0991L11.6235 12.9403C10.5757 12.3695 9.26845 12.911 8.93112 14.0555L8.83727 14.3739C8.59121 15.2087 7.40879 15.2087 7.16273 14.3739L7.06888 14.0555C6.73155 12.911 5.42433 12.3695 4.37653 12.9403L4.08501 13.0991C3.32074 13.5154 2.48463 12.6793 2.90093 11.915L3.05972 11.6235C3.63046 10.5757 3.089 9.26845 1.94452 8.93112L1.6261 8.83727C0.7913 8.59121 0.7913 7.40879 1.6261 7.16273L1.94451 7.06888C3.08899 6.73155 3.63046 5.42433 3.05972 4.37653L2.90094 4.08501C2.48463 3.32074 3.32074 2.48463 4.08501 2.90093L4.37653 3.05972C5.42433 3.63046 6.73155 3.089 7.06888 1.94452L7.16273 1.6261Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Account settings</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 5C8.82843 5 9.5 4.32843 9.5 3.5C9.5 2.67157 8.82843 2 8 2C7.17157 2 6.5 2.67157 6.5 3.5C6.5 4.32843 7.17157 5 8 5Z" fill="currentColor"/><path d="M12 8C12.8284 8 13.5 7.32843 13.5 6.5C13.5 5.67157 12.8284 5 12 5C11.1716 5 10.5 5.67157 10.5 6.5C10.5 7.32843 11.1716 8 12 8Z" fill="currentColor"/><path d="M5.5 7C5.5 7.82843 4.82843 8.5 4 8.5C3.17157 8.5 2.5 7.82843 2.5 7C2.5 6.17157 3.17157 5.5 4 5.5C4.82843 5.5 5.5 6.17157 5.5 7Z" fill="currentColor"/><path d="M6 13C6.82843 13 7.5 12.3284 7.5 11.5C7.5 10.6716 6.82843 10 6 10C5.17157 10 4.5 10.6716 4.5 11.5C4.5 12.3284 5.17157 13 6 13Z" fill="currentColor"/><path d="M16 8C16 11.1506 14.1336 10.585 12.4333 10.0697C11.4196 9.76255 10.4649 9.47326 10 10C9.39725 10.6829 9.52509 11.8186 9.64898 12.9194C9.8264 14.4956 9.99573 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8ZM8 15C8.61107 15 8.6536 14.8286 8.6548 14.8238C8.73287 14.6781 8.77884 14.3595 8.72472 13.7053C8.7108 13.537 8.68822 13.3341 8.66371 13.1137C8.61211 12.6499 8.55193 12.1089 8.5458 11.6516C8.53634 10.9455 8.62926 10.0419 9.25026 9.33827C9.61852 8.92103 10.095 8.75989 10.5217 8.71981C10.9261 8.68181 11.3344 8.74612 11.6815 8.82398C12.0247 8.90097 12.3839 9.00984 12.7068 9.1077L12.7354 9.11639C13.0808 9.22105 13.3925 9.31474 13.6879 9.38175C14.341 9.52985 14.5919 9.46489 14.6793 9.40607C14.7174 9.38043 15 9.16116 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Theme</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8ZM7.5 1.07655C6.83057 1.28128 6.16462 1.89722 5.61275 2.93199C5.43997 3.25594 5.283 3.61363 5.14499 3.99999H7.5V1.07655ZM4.08954 3.99999C4.26796 3.44139 4.48325 2.92479 4.73039 2.4614C4.90911 2.1263 5.10862 1.81241 5.32726 1.52835C4.08119 2.04354 3.01629 2.90813 2.25469 3.99999H4.08954ZM3.50845 7.49999C3.53819 6.62317 3.6457 5.7817 3.82001 4.99999H1.67363C1.30933 5.76687 1.08035 6.61049 1.01758 7.49999H3.50845ZM4.84686 4.99999C4.66006 5.76497 4.54152 6.60778 4.50906 7.49999H7.5V4.99999H4.84686ZM8.5 4.99999V7.49999H11.4909C11.4585 6.60778 11.3399 5.76497 11.1531 4.99999H8.5ZM4.50906 8.49999C4.54152 9.39221 4.66006 10.235 4.84686 11H7.5V8.49999H4.50906ZM8.5 8.49999V11H11.1531C11.3399 10.235 11.4585 9.39221 11.4909 8.49999H8.5ZM5.14499 12C5.283 12.3864 5.43997 12.744 5.61275 13.068C6.16462 14.1028 6.83057 14.7187 7.5 14.9234V12H5.14499ZM5.32726 14.4716C5.10863 14.1876 4.90911 13.8737 4.73039 13.5386C4.48325 13.0752 4.26796 12.5586 4.08954 12H2.25469C3.01629 13.0919 4.08119 13.9565 5.32726 14.4716ZM3.82001 11C3.6457 10.2183 3.53819 9.37682 3.50845 8.49999H1.01758C1.08035 9.3895 1.30933 10.2331 1.67363 11H3.82001ZM10.6727 14.4716C11.9188 13.9565 12.9837 13.0919 13.7453 12H11.9104C11.732 12.5586 11.5167 13.0752 11.2696 13.5386C11.0909 13.8737 10.8914 14.1876 10.6727 14.4716ZM8.5 12V14.9234C9.16942 14.7187 9.83537 14.1028 10.3872 13.068C10.56 12.744 10.717 12.3864 10.855 12H8.5ZM12.18 11H14.3264C14.6907 10.2331 14.9196 9.3895 14.9824 8.49999H12.4915C12.4618 9.37682 12.3543 10.2183 12.18 11ZM14.9824 7.49999C14.9196 6.61049 14.6907 5.76687 14.3264 4.99999H12.18C12.3543 5.7817 12.4618 6.62317 12.4915 7.49999H14.9824ZM11.2696 2.4614C11.5167 2.92479 11.732 3.44139 11.9104 3.99999H13.7453C12.9837 2.90812 11.9188 2.04353 10.6727 1.52835C10.8914 1.81241 11.0909 2.1263 11.2696 2.4614ZM10.855 3.99999C10.717 3.61363 10.56 3.25594 10.3872 2.93199C9.83537 1.89722 9.16942 1.28128 8.5 1.07655V3.99999H10.855Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Language</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="currentColor"/><path d="M5.25512 5.78615C5.24753 5.92237 5.35991 6.03271 5.49635 6.03271H6.32083C6.4589 6.03271 6.56869 5.92013 6.58724 5.78331C6.67619 5.12718 7.12651 4.64893 7.92923 4.64893C8.61478 4.64893 9.24319 4.9917 9.24319 5.81689C9.24319 6.45166 8.86868 6.74365 8.27835 7.18799C7.6055 7.67676 7.0723 8.24805 7.11038 9.1748L7.11335 9.39161C7.11522 9.52833 7.22659 9.63818 7.36333 9.63818H8.17435C8.31242 9.63818 8.42435 9.52625 8.42435 9.38818V9.28271C8.42435 8.56543 8.6973 8.35596 9.43362 7.79736C10.043 7.33398 10.6778 6.81982 10.6778 5.74072C10.6778 4.22998 9.40189 3.5 8.0054 3.5C6.73832 3.5 5.34965 4.09061 5.25512 5.78615ZM6.81204 11.5488C6.81204 12.082 7.23733 12.4756 7.82132 12.4756C8.43069 12.4756 8.84964 12.082 8.84964 11.5488C8.84964 10.9966 8.43069 10.6094 7.82132 10.6094C7.23733 10.6094 6.81204 10.9966 6.81204 11.5488Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Help & support</span></button><div class="c-context-menu-divider" role="separator"></div><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M14 5C14.5523 5 15 5.44772 15 6V11C15 11.5523 14.5523 12 14 12H2C1.44772 12 1 11.5523 1 11V6C1 5.44772 1.44772 5 2 5H14ZM2 4C0.895431 4 0 4.89543 0 6V11C0 12.1046 0.895431 13 2 13H14C15.1046 13 16 12.1046 16 11V6C16 4.89543 15.1046 4 14 4H2Z" fill="currentColor"/><path d="M13 10.25C13 10.1119 13.1119 10 13.25 10H13.75C13.8881 10 14 10.1119 14 10.25V10.75C14 10.8881 13.8881 11 13.75 11H13.25C13.1119 11 13 10.8881 13 10.75V10.25Z" fill="currentColor"/><path d="M13 8.25C13 8.11193 13.1119 8 13.25 8H13.75C13.8881 8 14 8.11193 14 8.25V8.75C14 8.88807 13.8881 9 13.75 9H13.25C13.1119 9 13 8.88807 13 8.75V8.25Z" fill="currentColor"/><path d="M8 8.25C8 8.11193 8.11193 8 8.25 8H8.75C8.88807 8 9 8.11193 9 8.25V8.75C9 8.88807 8.88807 9 8.75 9H8.25C8.11193 9 8 8.88807 8 8.75V8.25Z" fill="currentColor"/><path d="M10 8.25C10 8.11193 10.1119 8 10.25 8H11.75C11.8881 8 12 8.11193 12 8.25V8.75C12 8.88807 11.8881 9 11.75 9H10.25C10.1119 9 10 8.88807 10 8.75V8.25Z" fill="currentColor"/><path d="M11 10.25C11 10.1119 11.1119 10 11.25 10H11.75C11.8881 10 12 10.1119 12 10.25V10.75C12 10.8881 11.8881 11 11.75 11H11.25C11.1119 11 11 10.8881 11 10.75V10.25Z" fill="currentColor"/><path d="M6 8.25C6 8.11193 6.11193 8 6.25 8H6.75C6.88807 8 7 8.11193 7 8.25V8.75C7 8.88807 6.88807 9 6.75 9H6.25C6.11193 9 6 8.88807 6 8.75V8.25Z" fill="currentColor"/><path d="M4 8.25C4 8.11193 4.11193 8 4.25 8H4.75C4.88807 8 5 8.11193 5 8.25V8.75C5 8.88807 4.88807 9 4.75 9H4.25C4.11193 9 4 8.88807 4 8.75V8.25Z" fill="currentColor"/><path d="M2 8.25C2 8.11193 2.11193 8 2.25 8H2.75C2.88807 8 3 8.11193 3 8.25V8.75C3 8.88807 2.88807 9 2.75 9H2.25C2.11193 9 2 8.88807 2 8.75V8.25Z" fill="currentColor"/><path d="M13 6.25C13 6.11193 13.1119 6 13.25 6H13.75C13.8881 6 14 6.11193 14 6.25V6.75C14 6.88807 13.8881 7 13.75 7H13.25C13.1119 7 13 6.88807 13 6.75V6.25Z" fill="currentColor"/><path d="M11 6.25C11 6.11193 11.1119 6 11.25 6H11.75C11.8881 6 12 6.11193 12 6.25V6.75C12 6.88807 11.8881 7 11.75 7H11.25C11.1119 7 11 6.88807 11 6.75V6.25Z" fill="currentColor"/><path d="M9 6.25C9 6.11193 9.11193 6 9.25 6H9.75C9.88807 6 10 6.11193 10 6.25V6.75C10 6.88807 9.88807 7 9.75 7H9.25C9.11193 7 9 6.88807 9 6.75V6.25Z" fill="currentColor"/><path d="M7 6.25C7 6.11193 7.11193 6 7.25 6H7.75C7.88807 6 8 6.11193 8 6.25V6.75C8 6.88807 7.88807 7 7.75 7H7.25C7.11193 7 7 6.88807 7 6.75V6.25Z" fill="currentColor"/><path d="M5 6.25C5 6.11193 5.11193 6 5.25 6H5.75C5.88807 6 6 6.11193 6 6.25V6.75C6 6.88807 5.88807 7 5.75 7H5.25C5.11193 7 5 6.88807 5 6.75V6.25Z" fill="currentColor"/><path d="M2 6.25C2 6.11193 2.11193 6 2.25 6H3.75C3.88807 6 4 6.11193 4 6.25V6.75C4 6.88807 3.88807 7 3.75 7H2.25C2.11193 7 2 6.88807 2 6.75V6.25Z" fill="currentColor"/><path d="M2 10.25C2 10.1119 2.11193 10 2.25 10H2.75C2.88807 10 3 10.1119 3 10.25V10.75C3 10.8881 2.88807 11 2.75 11H2.25C2.11193 11 2 10.8881 2 10.75V10.25Z" fill="currentColor"/><path d="M4 10.25C4 10.1119 4.11193 10 4.25 10H9.75C9.88807 10 10 10.1119 10 10.25V10.75C10 10.8881 9.88807 11 9.75 11H4.25C4.11193 11 4 10.8881 4 10.75V10.25Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Keyboard shortcuts</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M14 1C14.5523 1 15 1.44772 15 2V10C15 10.5523 14.5523 11 14 11H4.41421C3.88378 11 3.37507 11.2107 3 11.5858L1 13.5858V2C1 1.44772 1.44772 1 2 1H14ZM2 0C0.895431 0 0 0.895431 0 2V14.7929C0 15.2383 0.53857 15.4614 0.853553 15.1464L3.70711 12.2929C3.89464 12.1054 4.149 12 4.41421 12H14C15.1046 12 16 11.1046 16 10V2C16 0.895431 15.1046 0 14 0H2Z" fill="currentColor"/><path d="M3 3.5C3 3.22386 3.22386 3 3.5 3H12.5C12.7761 3 13 3.22386 13 3.5C13 3.77614 12.7761 4 12.5 4H3.5C3.22386 4 3 3.77614 3 3.5ZM3 6C3 5.72386 3.22386 5.5 3.5 5.5H12.5C12.7761 5.5 13 5.72386 13 6C13 6.27614 12.7761 6.5 12.5 6.5H3.5C3.22386 6.5 3 6.27614 3 6ZM3 8.5C3 8.22386 3.22386 8 3.5 8H8.5C8.77614 8 9 8.22386 9 8.5C9 8.77614 8.77614 9 8.5 9H3.5C3.22386 9 3 8.77614 3 8.5Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Send feedback</span></button><div class="c-context-menu-divider" role="separator"></div><button class="c-context-menu-item c-context-menu-item--danger" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 12.5C10 12.7761 9.77614 13 9.5 13H1.5C1.22386 13 1 12.7761 1 12.5V3.5C1 3.22386 1.22386 3 1.5 3H9.5C9.77614 3 10 3.22386 10 3.5V5.5C10 5.77614 10.2239 6 10.5 6C10.7761 6 11 5.77614 11 5.5V3.5C11 2.67157 10.3284 2 9.5 2H1.5C0.671574 2 4.29614e-07 2.67157 3.93403e-07 3.5L0 12.5C-3.62117e-08 13.3284 0.671573 14 1.5 14H9.5C10.3284 14 11 13.3284 11 12.5V10.5C11 10.2239 10.7761 10 10.5 10C10.2239 10 10 10.2239 10 10.5V12.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8536 8.35355C16.0488 8.15829 16.0488 7.84171 15.8536 7.64645L12.8536 4.64645C12.6583 4.45118 12.3417 4.45118 12.1464 4.64645C11.9512 4.84171 11.9512 5.15829 12.1464 5.35355L14.2929 7.5H5.5C5.22386 7.5 5 7.72386 5 8C5 8.27614 5.22386 8.5 5.5 8.5H14.2929L12.1464 10.6464C11.9512 10.8417 11.9512 11.1583 12.1464 11.3536C12.3417 11.5488 12.6583 11.5488 12.8536 11.3536L15.8536 8.35355Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Log out</span></button></div></div></div><div style="width:240px;display:flex;justify-content:flex-end"><div class="c-account" data-account><button type="button" class="c-account-trigger is-chip " aria-haspopup="menu" aria-expanded="false" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-sm" aria-hidden="true">JD</span><span class="c-account-name" title="홍길동">홍길동</span><span class="c-account-chev"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.64645 4.64645C1.84171 4.45118 2.15829 4.45118 2.35355 4.64645L8 10.2929L13.6464 4.64645C13.8417 4.45118 14.1583 4.45118 14.3536 4.64645C14.5488 4.84171 14.5488 5.15829 14.3536 5.35355L8.35355 11.3536C8.15829 11.5488 7.84171 11.5488 7.64645 11.3536L1.64645 5.35355C1.45118 5.15829 1.45118 4.84171 1.64645 4.64645Z" fill="currentColor"/></svg></span></button><div class="c-context-menu-menu c-account-menu" hidden role="menu" aria-label="계정 메뉴"><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8ZM10 5C10 6.10457 9.10457 7 8 7C6.89543 7 6 6.10457 6 5C6 3.89543 6.89543 3 8 3C9.10457 3 10 3.89543 10 5Z" fill="currentColor"/><path d="M14 13C14 14 13 14 13 14H3C3 14 2 14 2 13C2 12 3 9 8 9C13 9 14 12 14 13ZM13 12.9965C12.9986 12.7497 12.8462 12.0104 12.1679 11.3321C11.5156 10.6798 10.2891 10 7.99999 10C5.71088 10 4.48435 10.6798 3.8321 11.3321C3.15375 12.0104 3.00142 12.7497 3 12.9965H13Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">View profile</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8.00004 4.75421C6.20745 4.75421 4.75427 6.20739 4.75427 7.99997C4.75427 9.79256 6.20745 11.2457 8.00004 11.2457C9.79262 11.2457 11.2458 9.79256 11.2458 7.99997C11.2458 6.20739 9.79262 4.75421 8.00004 4.75421ZM5.75427 7.99997C5.75427 6.75967 6.75973 5.75421 8.00004 5.75421C9.24034 5.75421 10.2458 6.75967 10.2458 7.99997C10.2458 9.24027 9.24034 10.2457 8.00004 10.2457C6.75973 10.2457 5.75427 9.24027 5.75427 7.99997Z" fill="currentColor"/><path d="M9.79647 1.34338C9.26853 -0.447793 6.73147 -0.447792 6.20353 1.34338L6.10968 1.66179C5.95246 2.19519 5.34321 2.44755 4.85487 2.18155L4.56336 2.02276C2.9235 1.12953 1.12953 2.9235 2.02276 4.56336L2.18155 4.85487C2.44755 5.34321 2.19519 5.95246 1.66179 6.10968L1.34338 6.20353C-0.447793 6.73147 -0.447792 9.26853 1.34338 9.79647L1.66179 9.89032C2.19519 10.0475 2.44755 10.6568 2.18155 11.1451L2.02276 11.4366C1.12953 13.0765 2.92349 14.8705 4.56335 13.9772L4.85487 13.8185C5.34321 13.5524 5.95246 13.8048 6.10968 14.3382L6.20353 14.6566C6.73147 16.4478 9.26853 16.4478 9.79647 14.6566L9.89032 14.3382C10.0475 13.8048 10.6568 13.5524 11.1451 13.8185L11.4366 13.9772C13.0765 14.8705 14.8705 13.0765 13.9772 11.4366L13.8184 11.1451C13.5524 10.6568 13.8048 10.0475 14.3382 9.89032L14.6566 9.79647C16.4478 9.26853 16.4478 6.73147 14.6566 6.20353L14.3382 6.10968C13.8048 5.95246 13.5524 5.34321 13.8185 4.85487L13.9772 4.56335C14.8705 2.92349 13.0765 1.12953 11.4366 2.02276L11.1451 2.18155C10.6568 2.44755 10.0475 2.19519 9.89032 1.66179L9.79647 1.34338ZM7.16273 1.6261C7.40879 0.791299 8.59121 0.7913 8.83727 1.6261L8.93112 1.94451C9.26845 3.08899 10.5757 3.63046 11.6235 3.05972L11.915 2.90094C12.6793 2.48463 13.5154 3.32074 13.0991 4.08501L12.9403 4.37653C12.3695 5.42433 12.911 6.73155 14.0555 7.06888L14.3739 7.16273C15.2087 7.40879 15.2087 8.59121 14.3739 8.83727L14.0555 8.93112C12.911 9.26845 12.3695 10.5757 12.9403 11.6235L13.0991 11.915C13.5154 12.6793 12.6793 13.5154 11.915 13.0991L11.6235 12.9403C10.5757 12.3695 9.26845 12.911 8.93112 14.0555L8.83727 14.3739C8.59121 15.2087 7.40879 15.2087 7.16273 14.3739L7.06888 14.0555C6.73155 12.911 5.42433 12.3695 4.37653 12.9403L4.08501 13.0991C3.32074 13.5154 2.48463 12.6793 2.90093 11.915L3.05972 11.6235C3.63046 10.5757 3.089 9.26845 1.94452 8.93112L1.6261 8.83727C0.7913 8.59121 0.7913 7.40879 1.6261 7.16273L1.94451 7.06888C3.08899 6.73155 3.63046 5.42433 3.05972 4.37653L2.90094 4.08501C2.48463 3.32074 3.32074 2.48463 4.08501 2.90093L4.37653 3.05972C5.42433 3.63046 6.73155 3.089 7.06888 1.94452L7.16273 1.6261Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Account settings</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 5C8.82843 5 9.5 4.32843 9.5 3.5C9.5 2.67157 8.82843 2 8 2C7.17157 2 6.5 2.67157 6.5 3.5C6.5 4.32843 7.17157 5 8 5Z" fill="currentColor"/><path d="M12 8C12.8284 8 13.5 7.32843 13.5 6.5C13.5 5.67157 12.8284 5 12 5C11.1716 5 10.5 5.67157 10.5 6.5C10.5 7.32843 11.1716 8 12 8Z" fill="currentColor"/><path d="M5.5 7C5.5 7.82843 4.82843 8.5 4 8.5C3.17157 8.5 2.5 7.82843 2.5 7C2.5 6.17157 3.17157 5.5 4 5.5C4.82843 5.5 5.5 6.17157 5.5 7Z" fill="currentColor"/><path d="M6 13C6.82843 13 7.5 12.3284 7.5 11.5C7.5 10.6716 6.82843 10 6 10C5.17157 10 4.5 10.6716 4.5 11.5C4.5 12.3284 5.17157 13 6 13Z" fill="currentColor"/><path d="M16 8C16 11.1506 14.1336 10.585 12.4333 10.0697C11.4196 9.76255 10.4649 9.47326 10 10C9.39725 10.6829 9.52509 11.8186 9.64898 12.9194C9.8264 14.4956 9.99573 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8ZM8 15C8.61107 15 8.6536 14.8286 8.6548 14.8238C8.73287 14.6781 8.77884 14.3595 8.72472 13.7053C8.7108 13.537 8.68822 13.3341 8.66371 13.1137C8.61211 12.6499 8.55193 12.1089 8.5458 11.6516C8.53634 10.9455 8.62926 10.0419 9.25026 9.33827C9.61852 8.92103 10.095 8.75989 10.5217 8.71981C10.9261 8.68181 11.3344 8.74612 11.6815 8.82398C12.0247 8.90097 12.3839 9.00984 12.7068 9.1077L12.7354 9.11639C13.0808 9.22105 13.3925 9.31474 13.6879 9.38175C14.341 9.52985 14.5919 9.46489 14.6793 9.40607C14.7174 9.38043 15 9.16116 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Theme</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8ZM7.5 1.07655C6.83057 1.28128 6.16462 1.89722 5.61275 2.93199C5.43997 3.25594 5.283 3.61363 5.14499 3.99999H7.5V1.07655ZM4.08954 3.99999C4.26796 3.44139 4.48325 2.92479 4.73039 2.4614C4.90911 2.1263 5.10862 1.81241 5.32726 1.52835C4.08119 2.04354 3.01629 2.90813 2.25469 3.99999H4.08954ZM3.50845 7.49999C3.53819 6.62317 3.6457 5.7817 3.82001 4.99999H1.67363C1.30933 5.76687 1.08035 6.61049 1.01758 7.49999H3.50845ZM4.84686 4.99999C4.66006 5.76497 4.54152 6.60778 4.50906 7.49999H7.5V4.99999H4.84686ZM8.5 4.99999V7.49999H11.4909C11.4585 6.60778 11.3399 5.76497 11.1531 4.99999H8.5ZM4.50906 8.49999C4.54152 9.39221 4.66006 10.235 4.84686 11H7.5V8.49999H4.50906ZM8.5 8.49999V11H11.1531C11.3399 10.235 11.4585 9.39221 11.4909 8.49999H8.5ZM5.14499 12C5.283 12.3864 5.43997 12.744 5.61275 13.068C6.16462 14.1028 6.83057 14.7187 7.5 14.9234V12H5.14499ZM5.32726 14.4716C5.10863 14.1876 4.90911 13.8737 4.73039 13.5386C4.48325 13.0752 4.26796 12.5586 4.08954 12H2.25469C3.01629 13.0919 4.08119 13.9565 5.32726 14.4716ZM3.82001 11C3.6457 10.2183 3.53819 9.37682 3.50845 8.49999H1.01758C1.08035 9.3895 1.30933 10.2331 1.67363 11H3.82001ZM10.6727 14.4716C11.9188 13.9565 12.9837 13.0919 13.7453 12H11.9104C11.732 12.5586 11.5167 13.0752 11.2696 13.5386C11.0909 13.8737 10.8914 14.1876 10.6727 14.4716ZM8.5 12V14.9234C9.16942 14.7187 9.83537 14.1028 10.3872 13.068C10.56 12.744 10.717 12.3864 10.855 12H8.5ZM12.18 11H14.3264C14.6907 10.2331 14.9196 9.3895 14.9824 8.49999H12.4915C12.4618 9.37682 12.3543 10.2183 12.18 11ZM14.9824 7.49999C14.9196 6.61049 14.6907 5.76687 14.3264 4.99999H12.18C12.3543 5.7817 12.4618 6.62317 12.4915 7.49999H14.9824ZM11.2696 2.4614C11.5167 2.92479 11.732 3.44139 11.9104 3.99999H13.7453C12.9837 2.90812 11.9188 2.04353 10.6727 1.52835C10.8914 1.81241 11.0909 2.1263 11.2696 2.4614ZM10.855 3.99999C10.717 3.61363 10.56 3.25594 10.3872 2.93199C9.83537 1.89722 9.16942 1.28128 8.5 1.07655V3.99999H10.855Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Language</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="currentColor"/><path d="M5.25512 5.78615C5.24753 5.92237 5.35991 6.03271 5.49635 6.03271H6.32083C6.4589 6.03271 6.56869 5.92013 6.58724 5.78331C6.67619 5.12718 7.12651 4.64893 7.92923 4.64893C8.61478 4.64893 9.24319 4.9917 9.24319 5.81689C9.24319 6.45166 8.86868 6.74365 8.27835 7.18799C7.6055 7.67676 7.0723 8.24805 7.11038 9.1748L7.11335 9.39161C7.11522 9.52833 7.22659 9.63818 7.36333 9.63818H8.17435C8.31242 9.63818 8.42435 9.52625 8.42435 9.38818V9.28271C8.42435 8.56543 8.6973 8.35596 9.43362 7.79736C10.043 7.33398 10.6778 6.81982 10.6778 5.74072C10.6778 4.22998 9.40189 3.5 8.0054 3.5C6.73832 3.5 5.34965 4.09061 5.25512 5.78615ZM6.81204 11.5488C6.81204 12.082 7.23733 12.4756 7.82132 12.4756C8.43069 12.4756 8.84964 12.082 8.84964 11.5488C8.84964 10.9966 8.43069 10.6094 7.82132 10.6094C7.23733 10.6094 6.81204 10.9966 6.81204 11.5488Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Help & support</span></button><div class="c-context-menu-divider" role="separator"></div><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M14 5C14.5523 5 15 5.44772 15 6V11C15 11.5523 14.5523 12 14 12H2C1.44772 12 1 11.5523 1 11V6C1 5.44772 1.44772 5 2 5H14ZM2 4C0.895431 4 0 4.89543 0 6V11C0 12.1046 0.895431 13 2 13H14C15.1046 13 16 12.1046 16 11V6C16 4.89543 15.1046 4 14 4H2Z" fill="currentColor"/><path d="M13 10.25C13 10.1119 13.1119 10 13.25 10H13.75C13.8881 10 14 10.1119 14 10.25V10.75C14 10.8881 13.8881 11 13.75 11H13.25C13.1119 11 13 10.8881 13 10.75V10.25Z" fill="currentColor"/><path d="M13 8.25C13 8.11193 13.1119 8 13.25 8H13.75C13.8881 8 14 8.11193 14 8.25V8.75C14 8.88807 13.8881 9 13.75 9H13.25C13.1119 9 13 8.88807 13 8.75V8.25Z" fill="currentColor"/><path d="M8 8.25C8 8.11193 8.11193 8 8.25 8H8.75C8.88807 8 9 8.11193 9 8.25V8.75C9 8.88807 8.88807 9 8.75 9H8.25C8.11193 9 8 8.88807 8 8.75V8.25Z" fill="currentColor"/><path d="M10 8.25C10 8.11193 10.1119 8 10.25 8H11.75C11.8881 8 12 8.11193 12 8.25V8.75C12 8.88807 11.8881 9 11.75 9H10.25C10.1119 9 10 8.88807 10 8.75V8.25Z" fill="currentColor"/><path d="M11 10.25C11 10.1119 11.1119 10 11.25 10H11.75C11.8881 10 12 10.1119 12 10.25V10.75C12 10.8881 11.8881 11 11.75 11H11.25C11.1119 11 11 10.8881 11 10.75V10.25Z" fill="currentColor"/><path d="M6 8.25C6 8.11193 6.11193 8 6.25 8H6.75C6.88807 8 7 8.11193 7 8.25V8.75C7 8.88807 6.88807 9 6.75 9H6.25C6.11193 9 6 8.88807 6 8.75V8.25Z" fill="currentColor"/><path d="M4 8.25C4 8.11193 4.11193 8 4.25 8H4.75C4.88807 8 5 8.11193 5 8.25V8.75C5 8.88807 4.88807 9 4.75 9H4.25C4.11193 9 4 8.88807 4 8.75V8.25Z" fill="currentColor"/><path d="M2 8.25C2 8.11193 2.11193 8 2.25 8H2.75C2.88807 8 3 8.11193 3 8.25V8.75C3 8.88807 2.88807 9 2.75 9H2.25C2.11193 9 2 8.88807 2 8.75V8.25Z" fill="currentColor"/><path d="M13 6.25C13 6.11193 13.1119 6 13.25 6H13.75C13.8881 6 14 6.11193 14 6.25V6.75C14 6.88807 13.8881 7 13.75 7H13.25C13.1119 7 13 6.88807 13 6.75V6.25Z" fill="currentColor"/><path d="M11 6.25C11 6.11193 11.1119 6 11.25 6H11.75C11.8881 6 12 6.11193 12 6.25V6.75C12 6.88807 11.8881 7 11.75 7H11.25C11.1119 7 11 6.88807 11 6.75V6.25Z" fill="currentColor"/><path d="M9 6.25C9 6.11193 9.11193 6 9.25 6H9.75C9.88807 6 10 6.11193 10 6.25V6.75C10 6.88807 9.88807 7 9.75 7H9.25C9.11193 7 9 6.88807 9 6.75V6.25Z" fill="currentColor"/><path d="M7 6.25C7 6.11193 7.11193 6 7.25 6H7.75C7.88807 6 8 6.11193 8 6.25V6.75C8 6.88807 7.88807 7 7.75 7H7.25C7.11193 7 7 6.88807 7 6.75V6.25Z" fill="currentColor"/><path d="M5 6.25C5 6.11193 5.11193 6 5.25 6H5.75C5.88807 6 6 6.11193 6 6.25V6.75C6 6.88807 5.88807 7 5.75 7H5.25C5.11193 7 5 6.88807 5 6.75V6.25Z" fill="currentColor"/><path d="M2 6.25C2 6.11193 2.11193 6 2.25 6H3.75C3.88807 6 4 6.11193 4 6.25V6.75C4 6.88807 3.88807 7 3.75 7H2.25C2.11193 7 2 6.88807 2 6.75V6.25Z" fill="currentColor"/><path d="M2 10.25C2 10.1119 2.11193 10 2.25 10H2.75C2.88807 10 3 10.1119 3 10.25V10.75C3 10.8881 2.88807 11 2.75 11H2.25C2.11193 11 2 10.8881 2 10.75V10.25Z" fill="currentColor"/><path d="M4 10.25C4 10.1119 4.11193 10 4.25 10H9.75C9.88807 10 10 10.1119 10 10.25V10.75C10 10.8881 9.88807 11 9.75 11H4.25C4.11193 11 4 10.8881 4 10.75V10.25Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Keyboard shortcuts</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M14 1C14.5523 1 15 1.44772 15 2V10C15 10.5523 14.5523 11 14 11H4.41421C3.88378 11 3.37507 11.2107 3 11.5858L1 13.5858V2C1 1.44772 1.44772 1 2 1H14ZM2 0C0.895431 0 0 0.895431 0 2V14.7929C0 15.2383 0.53857 15.4614 0.853553 15.1464L3.70711 12.2929C3.89464 12.1054 4.149 12 4.41421 12H14C15.1046 12 16 11.1046 16 10V2C16 0.895431 15.1046 0 14 0H2Z" fill="currentColor"/><path d="M3 3.5C3 3.22386 3.22386 3 3.5 3H12.5C12.7761 3 13 3.22386 13 3.5C13 3.77614 12.7761 4 12.5 4H3.5C3.22386 4 3 3.77614 3 3.5ZM3 6C3 5.72386 3.22386 5.5 3.5 5.5H12.5C12.7761 5.5 13 5.72386 13 6C13 6.27614 12.7761 6.5 12.5 6.5H3.5C3.22386 6.5 3 6.27614 3 6ZM3 8.5C3 8.22386 3.22386 8 3.5 8H8.5C8.77614 8 9 8.22386 9 8.5C9 8.77614 8.77614 9 8.5 9H3.5C3.22386 9 3 8.77614 3 8.5Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Send feedback</span></button><div class="c-context-menu-divider" role="separator"></div><button class="c-context-menu-item c-context-menu-item--danger" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 12.5C10 12.7761 9.77614 13 9.5 13H1.5C1.22386 13 1 12.7761 1 12.5V3.5C1 3.22386 1.22386 3 1.5 3H9.5C9.77614 3 10 3.22386 10 3.5V5.5C10 5.77614 10.2239 6 10.5 6C10.7761 6 11 5.77614 11 5.5V3.5C11 2.67157 10.3284 2 9.5 2H1.5C0.671574 2 4.29614e-07 2.67157 3.93403e-07 3.5L0 12.5C-3.62117e-08 13.3284 0.671573 14 1.5 14H9.5C10.3284 14 11 13.3284 11 12.5V10.5C11 10.2239 10.7761 10 10.5 10C10.2239 10 10 10.2239 10 10.5V12.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8536 8.35355C16.0488 8.15829 16.0488 7.84171 15.8536 7.64645L12.8536 4.64645C12.6583 4.45118 12.3417 4.45118 12.1464 4.64645C11.9512 4.84171 11.9512 5.15829 12.1464 5.35355L14.2929 7.5H5.5C5.22386 7.5 5 7.72386 5 8C5 8.27614 5.22386 8.5 5.5 8.5H14.2929L12.1464 10.6464C11.9512 10.8417 11.9512 11.1583 12.1464 11.3536C12.3417 11.5488 12.6583 11.5488 12.8536 11.3536L15.8536 8.35355Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Log out</span></button></div></div></div>
+</div></div>
+<p class="note">트리거는 40(아바타 32), 칩형은 높이 40에 아바타 24, 이름, 셰브런이다. 칩형은 웹 서비스 헤더에서 쓴다(2026-09-28 헤더 규격). 메뉴는 오른쪽 정렬로 트리거 아래 8px 에 열린다. 로그아웃처럼 되돌리기 어려운 동작은 구분선 아래 맨 끝에 오류 색으로 둔다. 메뉴에 계정과 상관없는 제품 기능을 섞지 않는다. Figma 의 트리거 48(아바타 40)은 헤더 컨트롤 40 규격에 맞췄다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-account" style="flex-direction:column;align-items:flex-end;gap:var(--gmd-space-2x);width:240px"><button type="button" class="c-account-trigger " aria-haspopup="menu" aria-expanded="true" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-md" aria-hidden="true">JD</span></button><div class="c-context-menu-menu c-account-menu" role="menu" aria-label="계정 메뉴 Anatomy" style="position:static"><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8ZM10 5C10 6.10457 9.10457 7 8 7C6.89543 7 6 6.10457 6 5C6 3.89543 6.89543 3 8 3C9.10457 3 10 3.89543 10 5Z" fill="currentColor"/><path d="M14 13C14 14 13 14 13 14H3C3 14 2 14 2 13C2 12 3 9 8 9C13 9 14 12 14 13ZM13 12.9965C12.9986 12.7497 12.8462 12.0104 12.1679 11.3321C11.5156 10.6798 10.2891 10 7.99999 10C5.71088 10 4.48435 10.6798 3.8321 11.3321C3.15375 12.0104 3.00142 12.7497 3 12.9965H13Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">View profile</span></button><button class="c-context-menu-item" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8.00004 4.75421C6.20745 4.75421 4.75427 6.20739 4.75427 7.99997C4.75427 9.79256 6.20745 11.2457 8.00004 11.2457C9.79262 11.2457 11.2458 9.79256 11.2458 7.99997C11.2458 6.20739 9.79262 4.75421 8.00004 4.75421ZM5.75427 7.99997C5.75427 6.75967 6.75973 5.75421 8.00004 5.75421C9.24034 5.75421 10.2458 6.75967 10.2458 7.99997C10.2458 9.24027 9.24034 10.2457 8.00004 10.2457C6.75973 10.2457 5.75427 9.24027 5.75427 7.99997Z" fill="currentColor"/><path d="M9.79647 1.34338C9.26853 -0.447793 6.73147 -0.447792 6.20353 1.34338L6.10968 1.66179C5.95246 2.19519 5.34321 2.44755 4.85487 2.18155L4.56336 2.02276C2.9235 1.12953 1.12953 2.9235 2.02276 4.56336L2.18155 4.85487C2.44755 5.34321 2.19519 5.95246 1.66179 6.10968L1.34338 6.20353C-0.447793 6.73147 -0.447792 9.26853 1.34338 9.79647L1.66179 9.89032C2.19519 10.0475 2.44755 10.6568 2.18155 11.1451L2.02276 11.4366C1.12953 13.0765 2.92349 14.8705 4.56335 13.9772L4.85487 13.8185C5.34321 13.5524 5.95246 13.8048 6.10968 14.3382L6.20353 14.6566C6.73147 16.4478 9.26853 16.4478 9.79647 14.6566L9.89032 14.3382C10.0475 13.8048 10.6568 13.5524 11.1451 13.8185L11.4366 13.9772C13.0765 14.8705 14.8705 13.0765 13.9772 11.4366L13.8184 11.1451C13.5524 10.6568 13.8048 10.0475 14.3382 9.89032L14.6566 9.79647C16.4478 9.26853 16.4478 6.73147 14.6566 6.20353L14.3382 6.10968C13.8048 5.95246 13.5524 5.34321 13.8185 4.85487L13.9772 4.56335C14.8705 2.92349 13.0765 1.12953 11.4366 2.02276L11.1451 2.18155C10.6568 2.44755 10.0475 2.19519 9.89032 1.66179L9.79647 1.34338ZM7.16273 1.6261C7.40879 0.791299 8.59121 0.7913 8.83727 1.6261L8.93112 1.94451C9.26845 3.08899 10.5757 3.63046 11.6235 3.05972L11.915 2.90094C12.6793 2.48463 13.5154 3.32074 13.0991 4.08501L12.9403 4.37653C12.3695 5.42433 12.911 6.73155 14.0555 7.06888L14.3739 7.16273C15.2087 7.40879 15.2087 8.59121 14.3739 8.83727L14.0555 8.93112C12.911 9.26845 12.3695 10.5757 12.9403 11.6235L13.0991 11.915C13.5154 12.6793 12.6793 13.5154 11.915 13.0991L11.6235 12.9403C10.5757 12.3695 9.26845 12.911 8.93112 14.0555L8.83727 14.3739C8.59121 15.2087 7.40879 15.2087 7.16273 14.3739L7.06888 14.0555C6.73155 12.911 5.42433 12.3695 4.37653 12.9403L4.08501 13.0991C3.32074 13.5154 2.48463 12.6793 2.90093 11.915L3.05972 11.6235C3.63046 10.5757 3.089 9.26845 1.94452 8.93112L1.6261 8.83727C0.7913 8.59121 0.7913 7.40879 1.6261 7.16273L1.94451 7.06888C3.08899 6.73155 3.63046 5.42433 3.05972 4.37653L2.90094 4.08501C2.48463 3.32074 3.32074 2.48463 4.08501 2.90093L4.37653 3.05972C5.42433 3.63046 6.73155 3.089 7.06888 1.94452L7.16273 1.6261Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Account settings</span></button><div class="c-context-menu-divider" role="separator"></div><button class="c-context-menu-item c-context-menu-item--danger" role="menuitem"><span class="c-context-menu-icon"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 12.5C10 12.7761 9.77614 13 9.5 13H1.5C1.22386 13 1 12.7761 1 12.5V3.5C1 3.22386 1.22386 3 1.5 3H9.5C9.77614 3 10 3.22386 10 3.5V5.5C10 5.77614 10.2239 6 10.5 6C10.7761 6 11 5.77614 11 5.5V3.5C11 2.67157 10.3284 2 9.5 2H1.5C0.671574 2 4.29614e-07 2.67157 3.93403e-07 3.5L0 12.5C-3.62117e-08 13.3284 0.671573 14 1.5 14H9.5C10.3284 14 11 13.3284 11 12.5V10.5C11 10.2239 10.7761 10 10.5 10C10.2239 10 10 10.2239 10 10.5V12.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15.8536 8.35355C16.0488 8.15829 16.0488 7.84171 15.8536 7.64645L12.8536 4.64645C12.6583 4.45118 12.3417 4.45118 12.1464 4.64645C11.9512 4.84171 11.9512 5.15829 12.1464 5.35355L14.2929 7.5H5.5C5.22386 7.5 5 7.72386 5 8C5 8.27614 5.22386 8.5 5.5 8.5H14.2929L12.1464 10.6464C11.9512 10.8417 11.9512 11.1583 12.1464 11.3536C12.3417 11.5488 12.6583 11.5488 12.8536 11.3536L15.8536 8.35355Z" fill="currentColor"/></svg></span><span class="c-context-menu-label">Log out</span></button></div></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Trigger</strong><span class="anatomy-desc">메뉴를 여는 아바타 버튼. 키보드 포커스를 받는다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Menu panel</strong><span class="anatomy-desc">Context Menu 패널. 오른쪽 정렬로 아래에 열린다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Menu item</strong><span class="anatomy-desc">아이콘 16 + 라벨.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">Divider</strong><span class="anatomy-desc">동작 묶음을 나누는 선.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">5</span><span><strong class="anatomy-term">Destructive action</strong><span class="anatomy-desc">로그아웃. 오류 색, 맨 끝.</span></span></li>
+</ol>
+</section>
+
+<section id="tpl-titlebar"><h2>Window Title Bar</h2>
+<p class="lede">데스크톱 앱 창 맨 위 표시줄이다. 앱 아이콘, 제목, 창 제어 버튼(최소화, 최대화 또는 이전 크기, 닫기)으로 이루어진다. 높이는 앱 셸 규격 <code>--gmd-titlebar-height</code>(32)이다.</p>
+<h3>유형 (Type)</h3>
+<div class="example"><div class="preview col">
+<div style="display:grid;gap:var(--gmd-space-4);width:100%"><div class="c-titlebar " style="width:100%"><span class="c-titlebar-icon"><img src="app-icon/design-system-glass-brush-16.png" alt=""></span><span class="c-titlebar-title" title="MD-PRODUCT">MD-PRODUCT</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn " aria-label="최소화"><svg viewBox="17 12 16 16" aria-hidden="true"><path d="M31 19H19V20H31V19Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn " aria-label="이전 크기로"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19 16H29V20V26H19V16ZM20 17V25H28V17H20Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 13H32V23H29V22H31V14H23V16.5H22V13Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn is-close " aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">Window, 활성</span><div class="c-titlebar is-inactive" style="width:100%"><span class="c-titlebar-icon"><img src="app-icon/design-system-glass-brush-16.png" alt=""></span><span class="c-titlebar-title" title="MD-PRODUCT">MD-PRODUCT</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn " aria-label="최소화"><svg viewBox="17 12 16 16" aria-hidden="true"><path d="M31 19H19V20H31V19Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn " aria-label="이전 크기로"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19 16H29V20V26H19V16ZM20 17V25H28V17H20Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 13H32V23H29V22H31V14H23V16.5H22V13Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn is-close " aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">Window, 비활성(다른 창에 포커스)</span><div style="max-width:480px"><div class="c-titlebar " style="width:100%"><span class="c-titlebar-title" title="옵션 설정">옵션 설정</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn is-close " aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div></div><span class="c-checkbox-radio-caption" style="text-align:left">Popup, 닫기만</span></div>
+</div></div>
+<h3>제어 버튼 상태 (Control State)</h3>
+<div class="example"><div class="preview col">
+<div style="display:grid;gap:var(--gmd-space-4);width:100%;max-width:480px"><div class="c-titlebar " style="width:100%"><span class="c-titlebar-icon"><img src="app-icon/design-system-glass-brush-16.png" alt=""></span><span class="c-titlebar-title" title="MD-PRODUCT">MD-PRODUCT</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn is-hover" aria-label="최소화"><svg viewBox="17 12 16 16" aria-hidden="true"><path d="M31 19H19V20H31V19Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn " aria-label="이전 크기로"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19 16H29V20V26H19V16ZM20 17V25H28V17H20Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 13H32V23H29V22H31V14H23V16.5H22V13Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn is-close " aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">최소화 Hover</span><div class="c-titlebar " style="width:100%"><span class="c-titlebar-icon"><img src="app-icon/design-system-glass-brush-16.png" alt=""></span><span class="c-titlebar-title" title="MD-PRODUCT">MD-PRODUCT</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn is-pressed" aria-label="최소화"><svg viewBox="17 12 16 16" aria-hidden="true"><path d="M31 19H19V20H31V19Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn " aria-label="이전 크기로"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19 16H29V20V26H19V16ZM20 17V25H28V17H20Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 13H32V23H29V22H31V14H23V16.5H22V13Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn is-close " aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">최소화 Pressed</span><div class="c-titlebar " style="width:100%"><span class="c-titlebar-icon"><img src="app-icon/design-system-glass-brush-16.png" alt=""></span><span class="c-titlebar-title" title="MD-PRODUCT">MD-PRODUCT</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn " aria-label="최소화"><svg viewBox="17 12 16 16" aria-hidden="true"><path d="M31 19H19V20H31V19Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn " aria-label="이전 크기로"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19 16H29V20V26H19V16ZM20 17V25H28V17H20Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 13H32V23H29V22H31V14H23V16.5H22V13Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn is-close is-hover" aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">닫기 Hover</span></div>
+</div></div>
+<p class="note">면은 seed, 버튼 hover 는 seed-hover, pressed 는 seed-pressed, 닫기 hover 는 semantic/error. 버튼은 48×32, 아이콘 16. 제목은 12 Bold, 길면 말줄임하고 마우스를 올리면 전체를 보여 준다. 최대화 상태에서는 이전 크기 아이콘을 쓴다. Figma 의 높이 40(seed_h40)과 버튼 50 은 앱 셸 규격 32와 4px 그리드로 맞췄고, 비활성 색은 Figma 의 별도 변수 대신 classic 토큰을 쓴다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div style="width:400px"><div class="c-titlebar " style="width:100%"><span class="c-titlebar-icon"><img src="app-icon/design-system-glass-brush-16.png" alt=""></span><span class="c-titlebar-title" title="MD-PRODUCT">MD-PRODUCT</span><div class="c-titlebar-controls"><button type="button" class="c-titlebar-btn " aria-label="최소화"><svg viewBox="17 12 16 16" aria-hidden="true"><path d="M31 19H19V20H31V19Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn " aria-label="이전 크기로"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19 16H29V20V26H19V16ZM20 17V25H28V17H20Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 13H32V23H29V22H31V14H23V16.5H22V13Z" fill="currentColor"/></svg></button><button type="button" class="c-titlebar-btn is-close " aria-label="닫기"><svg viewBox="17 12 16 16" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M24.3396 20L20 15.6604L20.6604 15L25 19.3396L29.3396 15L30 15.6604L25.6604 20L30 24.3396L29.3396 25L25 20.6604L20.6604 25L20 24.3396L24.3396 20Z" fill="currentColor"/></svg></button></div></div></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">App icon</strong><span class="anatomy-desc">앱 아이콘 16.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Title</strong><span class="anatomy-desc">앱 또는 문서 이름. 12 Bold, 말줄임.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Control buttons</strong><span class="anatomy-desc">최소화, 최대화 또는 이전 크기, 닫기. 48×32.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">Background</strong><span class="anatomy-desc">seed 면. 비활성이면 background/section.</span></span></li>
+</ol>
+</section>
+
+<section id="tpl-web-shell"><h2>Web App Shell</h2>
+<p class="lede">웹 서비스의 공통 틀이다. 위 헤더 64와 아래 푸터 40이 모든 화면을 감싸고, 그 사이에 사이드 내비게이션(펼침 240, 접힘 56)과 본문이 놓인다. 데스크톱 앱 셸(제목 표시줄 32)과 다르다.</p>
+<h3>헤더 (Header)</h3>
+<div class="example"><div class="preview col">
+<div style="width:100%;border:1px solid var(--gmd-divider)"><header class="c-webhead"><img class="c-webhead-logo" src="gmd-logo-light.png" alt="GMDSOFT"><span class="c-webhead-name">대시보드</span><div class="input-wrap has-lead c-webhead-search"><span class="ico lead" data-icon="search"></span><input class="input" placeholder="통합 검색" aria-label="통합 검색"></div><div class="c-webhead-end"><button type="button" class="c-webhead-iconbtn" aria-label="알림"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 16C9.10457 16 10 15.1046 10 14H6C6 15.1046 6.89543 16 8 16Z" fill="currentColor"/><path d="M8 1.91825L7.20281 2.07925C5.37552 2.44829 4.00002 4.06463 4.00002 6C4.00002 6.62782 3.86566 8.19725 3.54116 9.74216C3.38006 10.5091 3.16454 11.3076 2.87809 12H13.1219C12.8355 11.3076 12.62 10.5091 12.4589 9.74216C12.1344 8.19724 12 6.62782 12 6C12 4.06462 10.6245 2.44827 8.7972 2.07924L8 1.91825ZM14.2193 12C14.4426 12.4474 14.7015 12.801 15 13H1C1.29853 12.801 1.55745 12.4474 1.7807 12C2.67922 10.1994 3.00002 6.87916 3.00002 6C3.00002 3.57934 4.7202 1.56045 7.00484 1.09904C7.00164 1.06646 7 1.03342 7 1C7 0.447715 7.44772 0 8 0C8.55228 0 9 0.447715 9 1C9 1.03342 8.99836 1.06646 8.99516 1.09903C11.2798 1.56042 13 3.57932 13 6C13 6.87916 13.3208 10.1994 14.2193 12Z" fill="currentColor"/></svg></button><button type="button" class="c-account-trigger is-chip " aria-haspopup="menu" aria-expanded="false" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-sm" aria-hidden="true">JD</span><span class="c-account-name" title="홍길동">홍길동</span><span class="c-account-chev"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.64645 4.64645C1.84171 4.45118 2.15829 4.45118 2.35355 4.64645L8 10.2929L13.6464 4.64645C13.8417 4.45118 14.1583 4.45118 14.3536 4.64645C14.5488 4.84171 14.5488 5.15829 14.3536 5.35355L8.35355 11.3536C8.15829 11.5488 7.84171 11.5488 7.64645 11.3536L1.64645 5.35355C1.45118 5.15829 1.45118 4.84171 1.64645 4.64645Z" fill="currentColor"/></svg></span></button></div></header></div>
+</div></div>
+<p class="note">높이 64(아래 헤어라인 1px 포함), 좌우 24. 왼쪽은 로고와 지금 화면 이름(14 Bold), 오른쪽은 통합 검색(40), 알림 벨(40), 계정 칩(40, 아바타 24)이다. 검색과 벨 사이 16, 벨과 계정 사이 8로 알림과 계정을 한 묶음으로 보인다.</p>
+<h3>푸터 (Footer)</h3>
+<div class="example"><div class="preview col">
+<div style="width:100%;border:1px solid var(--gmd-divider)"><footer class="c-webfoot"><span>© GMDSOFT Co., Ltd. All rights reserved.</span><nav class="c-webfoot-links" aria-label="서비스 정보"><a href="#tpl-web-shell">도움말</a><a href="#tpl-web-shell">문의</a><a href="#tpl-web-shell">개인정보 처리방침</a></nav></footer></div>
+</div></div>
+<p class="note">높이 40, 좌우 24. 왼쪽 저작권, 오른쪽 서비스 정보 링크를 16 간격으로 둔다. 구분자 문자를 쓰지 않는다. 이동은 사이드 내비게이션이 맡으므로 푸터에 내비게이션을 두지 않는다. 푸터는 언제나 화면 바닥에 붙고, 스크롤 끝에 붙는 흐름 배치로 두지 않는다.</p>
+<h3>조합 예시 (Composition)</h3>
+<div class="example"><div class="preview col">
+<div class="c-webshell" style="min-height:420px;width:100%;border:1px solid var(--gmd-divider)"><header class="c-webhead"><img class="c-webhead-logo" src="gmd-logo-light.png" alt="GMDSOFT"><span class="c-webhead-name">대시보드</span><div class="input-wrap has-lead c-webhead-search"><span class="ico lead" data-icon="search"></span><input class="input" placeholder="통합 검색" aria-label="통합 검색"></div><div class="c-webhead-end"><button type="button" class="c-webhead-iconbtn" aria-label="알림"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M8 16C9.10457 16 10 15.1046 10 14H6C6 15.1046 6.89543 16 8 16Z" fill="currentColor"/><path d="M8 1.91825L7.20281 2.07925C5.37552 2.44829 4.00002 4.06463 4.00002 6C4.00002 6.62782 3.86566 8.19725 3.54116 9.74216C3.38006 10.5091 3.16454 11.3076 2.87809 12H13.1219C12.8355 11.3076 12.62 10.5091 12.4589 9.74216C12.1344 8.19724 12 6.62782 12 6C12 4.06462 10.6245 2.44827 8.7972 2.07924L8 1.91825ZM14.2193 12C14.4426 12.4474 14.7015 12.801 15 13H1C1.29853 12.801 1.55745 12.4474 1.7807 12C2.67922 10.1994 3.00002 6.87916 3.00002 6C3.00002 3.57934 4.7202 1.56045 7.00484 1.09904C7.00164 1.06646 7 1.03342 7 1C7 0.447715 7.44772 0 8 0C8.55228 0 9 0.447715 9 1C9 1.03342 8.99836 1.06646 8.99516 1.09903C11.2798 1.56042 13 3.57932 13 6C13 6.87916 13.3208 10.1994 14.2193 12Z" fill="currentColor"/></svg></button><button type="button" class="c-account-trigger is-chip " aria-haspopup="menu" aria-expanded="false" aria-label="홍길동 계정 메뉴"><span class="c-avatar c-avatar-sm" aria-hidden="true">JD</span><span class="c-account-name" title="홍길동">홍길동</span><span class="c-account-chev"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.64645 4.64645C1.84171 4.45118 2.15829 4.45118 2.35355 4.64645L8 10.2929L13.6464 4.64645C13.8417 4.45118 14.1583 4.45118 14.3536 4.64645C14.5488 4.84171 14.5488 5.15829 14.3536 5.35355L8.35355 11.3536C8.15829 11.5488 7.84171 11.5488 7.64645 11.3536L1.64645 5.35355C1.45118 5.15829 1.45118 4.84171 1.64645 4.64645Z" fill="currentColor"/></svg></span></button></div></header><nav class="c-webnav" aria-label="사이드 내비게이션"><div style="padding:var(--gmd-space-4);font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)">사이드 내비게이션 240</div></nav><main class="c-webmain"><div style="height:100%;min-height:200px;border:1px dashed var(--gmd-divider);border-radius:var(--gmd-radius-md);display:grid;place-items:center;font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)">본문, 여백 24</div></main><footer class="c-webfoot"><span>© GMDSOFT Co., Ltd. All rights reserved.</span><nav class="c-webfoot-links" aria-label="서비스 정보"><a href="#tpl-web-shell">도움말</a><a href="#tpl-web-shell">문의</a><a href="#tpl-web-shell">개인정보 처리방침</a></nav></footer></div>
+</div></div>
+<p class="note">Figma Docs 의 헤더 컨트롤 48과 아바타 32는 2026-09-28 헤더 규격(컨트롤 40, 아바타 24)으로 바뀌었다. 점선은 영역을 보여 주는 문서용 표시다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-webshell" style="min-height:240px;width:440px;grid-template-columns:72px 1fr;font-size:0"><header class="c-webhead" style="padding:0 var(--gmd-space-3)"><img class="c-webhead-logo" src="gmd-logo-light.png" alt="GMDSOFT" style="height:12px"><span class="c-webhead-name" style="font-size:var(--gmd-font-size-12)">대시보드</span></header><nav class="c-webnav" aria-label="사이드 내비게이션 축소 예시"></nav><main class="c-webmain"></main><footer class="c-webfoot" style="font-size:var(--gmd-font-size-10)"><span>© GMDSOFT</span></footer></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Header</strong><span class="anatomy-desc">64. 로고, 화면 이름, 검색, 알림, 계정.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Side navigation</strong><span class="anatomy-desc">펼침 240, 접힘 56.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">3</span><span><strong class="anatomy-term">Content</strong><span class="anatomy-desc">본문. 여백 24.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">4</span><span><strong class="anatomy-term">Footer</strong><span class="anatomy-desc">40. 저작권과 서비스 정보 링크. 화면 바닥 고정.</span></span></li>
+</ol>
+</section>
+
+<section id="tpl-ai-notice"><h2>AI 기본법 고지</h2>
+<p class="lede">AI 기본법 투명성 확보 의무를 지키기 위한 표시 묶음이다. AI 결과 화면의 라벨, 저장 파일 워터마크, 제품 개요의 운용 고지 배너, 표기를 적용하지 못했을 때의 내보내기 실패 알림으로 이루어진다. 출처는 MD-VIDEO 적용 사례(Confluence 1331003397)다.</p>
+<h3>결과 라벨과 워터마크 (AI Label, Watermark)</h3>
+<div class="example"><div class="preview">
+<div class="pv-uxp-row"><div class="pv-uxp-item"><span class="c-ai-label">AI Generated</span><span class="pv-uxp-cap">AI 라벨</span></div><div class="pv-uxp-item"><div class="c-ai-media" style="width:240px;height:150px"><span class="c-ai-label">AI Generated</span></div><span class="pv-uxp-cap">결과 화면, 왼쪽 위 라벨</span></div><div class="pv-uxp-item"><div class="c-ai-media" style="width:240px;height:150px"><span class="c-ai-label is-watermark">AI Generated · MD-VIDEO</span></div><span class="pv-uxp-cap">저장 파일, 오른쪽 아래 워터마크</span></div></div>
+</div></div>
+<p class="note">라벨 문구는 영문 AI Generated 로 고정한다. 결과 화면에 늘 보이고 끌 수 없다. 저장, 내보내기, 클립보드 복사한 파일에는 오른쪽 아래에 제품 이름이 붙은 워터마크를 넣는다. 라벨 글자는 10 Bold(Figma 8은 최소 글자 크기 10으로 맞췄다).</p>
+<h3>운용 고지 배너 (Notice Banner)</h3>
+<div class="example"><div class="preview col">
+<div style="display:grid;gap:var(--gmd-space-4);width:100%;max-width:640px"><div class="banner banner-info"><div class="desc"><div class="title-row"><span class="ico" data-icon="info-i"></span><div class="h">본 제품은 일부 기능에서 인공지능 기술을 사용합니다.</div></div><div class="t">AI 기반 기능의 결과물은 원본 데이터와 다를 수 있으며, 결과물에는 AI 생성 사실이 명시됩니다.</div></div></div><div class="banner banner-info"><div class="desc"><div class="title-row"><span class="ico" data-icon="info-i"></span><div class="h">Some features of MD-VIDEO use AI technology.</div></div><div class="t">AI-generated results may differ from the original data, and AI-generated content is indicated in the results.</div></div></div></div>
+</div></div>
+<p class="note"><a href="#banner">Banner</a> Info 를 닫기와 동작 버튼 없이 쓴다. 국문과 영문 두 가지, 위치는 사용설명서와 제품 개요다.</p>
+<h3>내보내기 실패 알림 (Export Failed)</h3>
+<div class="example"><div class="preview" style="background:var(--gmd-background-section)">
+<div class="modal-demo"><header><div class="mtitle"><span class="alert-icon alert-warning"><span class="ico" data-icon="exclamation-triangle"></span></span><h4>결과를 내보낼 수 없음</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header><p class="body">AI 생성 표기를 적용할 수 없어 2개 중 2개의 파일을 내보낼 수 없습니다. 내보내기를 다시 시도해 주세요.</p><div class="read-box" style="margin:0 var(--gmd-space-6) var(--gmd-space-4);padding:var(--gmd-space-3);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-sm);background:var(--gmd-background-base);font-size:var(--gmd-font-size-14)">AI 워터마크를 추가하지 못했습니다.<br>- 결과_001.png<br>- 결과_002.png</div><div class="actions"><button class="btn btn-primary">확인</button></div></div>
+</div></div>
+<p class="note">워터마크를 넣지 못하면 파일을 내보내지 않고 <a href="#modal">Modal</a> 경고로 알린다. 실패한 파일 이름을 목록으로 보여 준다. 영문 제목은 File Cannot Be Exported 다.</p>
+<h3 class="anatomy-heading">Anatomy</h3>
+<div class="example anatomy-src"><div class="preview"><div class="c-ai-media" style="width:320px;height:180px"><span class="c-ai-label">AI Generated</span><span class="c-ai-label is-watermark">AI Generated · MD-VIDEO</span></div></div></div>
+<ol class="anatomy-list">
+<li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">AI label</strong><span class="anatomy-desc">결과 화면 왼쪽 위 라벨. 영문 고정, 끌 수 없다.</span></span></li>
+<li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Watermark</strong><span class="anatomy-desc">저장 파일 오른쪽 아래. 제품 이름 포함.</span></span></li>
+</ol>
+</section>
+
     <section id="i18n-truncation">
       <h2>다국어 잘림 (Truncation)</h2>
       <p class="lede">같은 의미라도 언어에 따라 길이가 다르다. 독일어·러시아어 같은 언어에서는 짧은 단어가 2~3배까지 길어진다. 모든 잘림을 막을 수는 없으므로 기준은 하나다 — 잘리더라도 <strong>전체 내용을 확인할 방법이 항상 있어야 한다</strong>.</p>
@@ -4668,6 +5117,20 @@ body:not(.intro-active) .intro-xray { display: none; }
         </ul>
       </div>
     </section>
+
+<section id="i18n-capitalization"><h2>다국어 대소문자 표기</h2>
+<p class="lede">영문(en-US) UI 문구의 대소문자 표기를 컴포넌트 유형별로 맞춘다. 프로젝트와 컴포넌트마다 표기가 달라 로컬라이제이션과 QA 이슈가 생겨서 정했다. 출처는 GMDSOFT TW Confluence 「UI 컴포넌트별 대소문자 표기 규칙」이다.</p>
+<h3>유형별 표기 (By Component)</h3>
+<table class="tbl"><thead><tr><th>컴포넌트 유형</th><th>표기</th><th>예시</th></tr></thead><tbody><tr><td>버튼 (Button)</td><td>Sentence case</td><td>Save changes, Add filter</td></tr><tr><td>메뉴 (Menu)</td><td>Title case</td><td>File, Edit, View</td></tr><tr><td>다이얼로그 제목 (Dialog title)</td><td>Title case</td><td>Delete Item</td></tr><tr><td>다이얼로그 본문 (Dialog body)</td><td>Sentence case</td><td>This action cannot be undone.</td></tr><tr><td>토글, 스위치 (Toggle)</td><td>Sentence case</td><td>Show hidden files</td></tr><tr><td>드롭다운 항목 (Dropdown item)</td><td>Sentence 또는 Title case</td><td>All types / All Types</td></tr><tr><td>탭 (Tab)</td><td>Title case</td><td>Overview, Details</td></tr><tr><td>테이블 헤더 (Table header)</td><td>Title 또는 Sentence case(조직 선택)</td><td>File Name / File name</td></tr><tr><td>리본바, 툴바 항목 (Ribbon)</td><td>Title case</td><td>New Case</td></tr><tr><td>상태 배지 (Status badge)</td><td>Sentence case</td><td>In progress</td></tr></tbody></table>
+<p class="note">Title case 는 주요 단어의 첫 글자를 대문자로, Sentence case 는 첫 단어와 고유명사만 대문자로 쓴다. 두 가지가 함께 적힌 항목은 제품 안에서 한쪽으로 통일한다.</p>
+<h3>스타일 분류 (Style)</h3>
+<div class="example"><div class="preview" style="align-items:flex-start;gap:var(--gmd-space-10)"><div><strong>Title case</strong><ul style="margin:var(--gmd-space-2x) 0 0;padding-left:var(--gmd-space-5);font-size:var(--gmd-font-size-14);line-height:24px"><li>알림창 제목</li><li>버튼 이름(텍스트 버튼, 마우스를 올리면 영역이 보이는 버튼)</li><li>툴팁으로 이름을 알려 주는 아이콘</li><li>리본바</li><li>키 값(접근 일시 등)</li></ul></div><div><strong>Sentence case</strong><ul style="margin:var(--gmd-space-2x) 0 0;padding-left:var(--gmd-space-5);font-size:var(--gmd-font-size-14);line-height:24px"><li>컨텍스트 메뉴</li><li>알림창 본문</li><li>버튼이 아닌 옵션 이름</li><li>툴팁</li><li>도움(힌트) 문구</li><li>탭 이름</li><li>진행 메시지</li><li>입력 필드 Placeholder</li><li>Empty State 제목과 본문</li></ul></div></div></div>
+<p class="note">위 분류와 유형별 표가 갈리는 탭 이름은 유형별 표(Title case)를 따른다. Figma 원문에도 두 기준이 함께 있어 확인이 필요하다.</p>
+<h3>Do / Don't</h3>
+<table class="tbl"><thead><tr><th>유형</th><th>Do</th><th>Don't</th></tr></thead><tbody><tr><td>버튼</td><td>Save changes</td><td style="color:var(--gmd-semantic-error)">Save Changes</td></tr><tr><td>메뉴</td><td>File Manager</td><td style="color:var(--gmd-semantic-error)">File manager</td></tr><tr><td>다이얼로그 제목</td><td>Delete Item</td><td style="color:var(--gmd-semantic-error)">Delete item</td></tr><tr><td>다이얼로그 본문</td><td>This file will be permanently deleted.</td><td style="color:var(--gmd-semantic-error)">This File Will Be Permanently Deleted.</td></tr><tr><td>탭</td><td>Flight Logs</td><td style="color:var(--gmd-semantic-error)">Flight logs</td></tr><tr><td>상태 배지</td><td>In progress</td><td style="color:var(--gmd-semantic-error)">In Progress</td></tr><tr><td>컨텍스트 메뉴</td><td>Retry task</td><td style="color:var(--gmd-semantic-error)">Retry Task</td></tr><tr><td>툴팁</td><td>Show details</td><td style="color:var(--gmd-semantic-error)">Show Details</td></tr></tbody></table>
+<p class="note">국문 문구에는 해당하지 않는다. 버튼과 메뉴처럼 짧은 이름도 표에 따라 쓰고, 한 화면 안에서 섞지 않는다.</p>
+</section>
+
 <style>
 /* ── 아이콘 라이브러리 섹션 ── */
 #iconography .icl-toolbar{display:flex;flex-wrap:wrap;gap:var(--gmd-space-4);align-items:center;margin:var(--gmd-space-8) 0 var(--gmd-space-6)}
@@ -4694,6 +5157,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 .icl-name{font-size:10px;line-height:1.3;color:var(--gmd-text-tertiary);text-align:center;word-break:break-all}
 .icl-empty{color:var(--gmd-text-tertiary);font-size:14px;padding:24px 0}
 </style>
+
     <section id="iconography">
       <div class="sec-head"><h2>아이콘 라이브러리</h2><p class="sec-sub">Figma MD-UX <code>Icon Export</code> 추출 · 전 아이콘 <code>currentColor</code> 상속. 이름으로 검색하거나 그룹으로 거른다.</p></div>
       <div class="icl-toolbar">
@@ -4707,7 +5171,7 @@ body:not(.intro-active) .intro-xray { display: none; }
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v2.13 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.10.23 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v1.0.0 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.10.26 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>
@@ -4881,7 +5345,7 @@ function enhanceAnatomyBoards() {
     modal: ['.modal-demo @ 0.06 0.1', '.modal-demo h4', '.modal-demo .body', '.modal-demo .alert-icon, .modal-demo .ico'],
     'checkbox-radio': ['.c-checkbox-radio-box', '.c-checkbox-radio-dot, .c-checkbox-radio-box svg', '.c-checkbox-radio-heading', '.c-checkbox-radio-body'],
     combobox: ['.c-combobox-trigger', '.c-combobox-leadicon, .c-combobox-search .ico', '.c-combobox-menu, .c-combobox-comp', '.c-combobox-chevron'],
-    datetime: ['.c-datetime-card @ 0.5 0.04', '.c-datetime-head', '.c-datetime-grid, .c-datetime-clock, .c-datetime-row', '.c-datetime-actions, .c-datetime-actbtn'],
+    datetime: ['.c-datetime-card @ 0.5 0.04', '.c-datetime-head', '.c-datetime-grid, .c-datetime-clock, .c-datetime-row', '.c-datetime-actions'],
     'context-menu': ['.c-context-menu-menu @ 0.5 0.08', '.c-context-menu-label'],
     spinner: ['.c-spinner-ring, .spinner, [class*="spinner"]'],
     /* Sheen 은 ::after 라 핀을 걸 노드가 없다 — button·badge 처럼 같은 판의 다른 지점에 세운다. */
@@ -4898,6 +5362,19 @@ function enhanceAnatomyBoards() {
     breadcrumb: ['.c-breadcrumb-item, .c-breadcrumb-link', '.c-breadcrumb-sep, svg', '.c-breadcrumb-current, [aria-current="page"]'],
     avatar: ['.c-avatar @ 0.5 0.04', '.c-avatar', '.c-avatar @ 0.85 0.85'],
     scrollbar: ['.c-scrollbar-track, [class*="track"]', '.c-scrollbar-thumb, [class*="thumb"]'],
+    'close-button': ['.c-close @ 0.5 -0.9', '.c-close svg @ 0.5 2.4'],
+    'code-input': ['.c-code-input-cell @ 0.5 -0.5', '.c-code-input @ 1.06 0.5', '.c-code-input-help @ 1.06 0.5'],
+    'count-input': ['.c-count-btn @ 0.5 -0.9', '.c-count-value @ 0.5 2.1', '.c-count-btn:last-child @ 0.5 -0.9'],
+    'readonly-field': ['.c-readonly-label @ -0.06 0.5', '.c-readonly-value @ -0.06 0.5', '.c-readonly.is-block .c-readonly-value @ -0.06 0.5'],
+    toggle: ['.c-toggle-track @ 0.2 -0.9', '.c-toggle-track @ 0.75 2.0', '.c-toggle-label @ 1.15 0.5', '.c-toggle-desc @ 1.06 0.5'],
+    segmented: ['.c-segmented @ -0.08 0.5', '.c-segmented-item:first-child @ 0.5 2.1', '.c-segmented-item[aria-checked="true"] @ 0.5 -0.9'],
+    'filter-panel': ['.c-filter-panel-search @ 1.08 0.5', '.c-filter-panel-option @ 1.08 0.5', '.c-filter-panel-actions @ 1.08 0.5'],
+    'notification-icon': ['.c-noti-icon @ -0.45 0.3', '.c-noti-icon @ 1.45 0.6'],
+    'action-bar': ['.c-action-bar-start @ 0.3 -0.6', '.btn-secondary @ 0.5 -0.6', '.btn-primary @ 0.5 -0.6'],
+    'tpl-account-menu': ['.c-account-trigger @ -0.3 0.5', '.c-account-menu @ -0.1 0.1', '.c-context-menu-item @ 1.1 0.5', '.c-context-menu-divider @ 1.1 0.5', '.c-context-menu-item--danger @ 1.1 0.5'],
+    'tpl-titlebar': ['.c-titlebar-icon @ 0.5 2.4', '.c-titlebar-title @ 0.3 2.4', '.c-titlebar-controls @ 0.5 2.4', '.c-titlebar @ 0.5 -0.6'],
+    'tpl-web-shell': ['.c-webhead @ 0.6 0.5', '.c-webnav @ 0.5 0.5', '.c-webmain @ 0.5 0.5', '.c-webfoot @ 0.6 0.5'],
+    'tpl-ai-notice': ['.c-ai-label:not(.is-watermark) @ 1.2 0.5', '.c-ai-label.is-watermark @ -0.15 0.5'],
     stepper: ['.c-stepper-anatomy-fig .c-stepper-badge-num', '.c-stepper-anatomy-fig .c-stepper-node-icon', '.c-stepper-anatomy-fig .c-stepper-title', '.c-stepper-anatomy-fig .c-stepper-cap', '.c-stepper-anatomy-fig .c-stepper-connector']
   };
 
@@ -5324,64 +5801,7 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
   h2.prepend(a);
 });
 </script>
-<script>
-/* ── 섹션 타이틀 → Figma Design Kit 링크. 노드 id가 비어 있으면 파일 루트로 연다 ── */
-(function(){
-  const FIGMA_FILE = 'https://www.figma.com/design/Z1ug6AJn88Qcpt9dseua3e/GMD-Design-Kit-v2.12';
-  // 섹션 id → Figma 문서 프레임 딥링크 (id + 프레임 이름 — 툴팁에 사용). 비면 파일 루트.
-  const FIGMA_NODES = {
-    color:        { id:'6052:45339', name:'Color (Design-Kit format)' },
-    typography:   { id:'6052:45651', name:'Typography (Design-Kit format)' },
-    spacing:      { id:'6052:44298', name:'Spacing (Design-Kit format)' },
-    radius:       { id:'', name:'' },
-    shadow:       { id:'6052:45811', name:'Shadow (Design-Kit format)' },
-    motion:       { id:'', name:'' },
-    button:       { id:'6073:4094', name:'Docs / Button' },
-    input:        { id:'6105:5081', name:'Docs / Input' },
-    card:         { id:'6253:1049', name:'Docs / Card' },
-    badge:        { id:'6260:3082', name:'Docs / Badge' },
-    toast:        { id:'6129:51',   name:'Docs / Toast' },
-    banner:       { id:'6344:6',    name:'Docs / Banner & Info Bar' },
-    infobar:      { id:'6344:6',    name:'Docs / Banner & Info Bar' },
-    tab:          { id:'6118:536',  name:'Docs / Tab' },
-    progress:     { id:'6139:429',  name:'Docs / Progress Bar' },
-    modal:        { id:'6133:2779', name:'Docs / Modal' },
-    'checkbox-radio': { id:'6112:582', name:'Docs / Checkbox & Radio' },
-    combobox:     { id:'6092:2566', name:'Docs / Combobox' },
-    datetime:     { id:'6100:219',  name:'Docs / Date&Time Picker' },
-    'context-menu': { id:'6098:544', name:'Docs / Context Menu' },
-    spinner:      { id:'6153:19',   name:'Docs / Spinner' },
-    textbox:      { id:'6109:59',   name:'Docs / TextBox' },
-    slider:       { id:'6152:568',  name:'Docs / Slider' },
-    tooltip:      { id:'6127:91',   name:'Docs / Tooltip' },
-    tree:         { id:'6472:691',  name:'Docs / Tree' },
-    'ribbon-nav': { id:'6124:1845', name:'Docs / Sidebar' },
-    popover:      { id:'6137:5',    name:'Docs / Popover' },
-    'filter-labels': { id:'6144:68', name:'Docs / Filter Labels' },
-    accordion:    { id:'6252:683',  name:'Docs / Accordion' },
-    pagination:   { id:'6253:832',  name:'Docs / Pagination' },
-    breadcrumb:   { id:'6253:726',  name:'Docs / Breadcrumb' },
-    avatar:       { id:'6253:928',  name:'Docs / Avatar' },
-    scrollbar:    { id:'6156:289',  name:'Docs / Scrollbar' },
-    stepper:      { id:'6169:580',  name:'Docs / Stepper' }
-  };
-  document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
-    const sid = h2.closest('section').id;
-    if (!(sid in FIGMA_NODES)) return;
-    const node = FIGMA_NODES[sid];
-    const a = document.createElement('a');
-    a.href = node.id ? `${FIGMA_FILE}?node-id=${node.id.replace(':', '-')}` : FIGMA_FILE;
-    a.className = 'figma-link';
-    a.target = '_blank';
-    a.rel = 'noreferrer';
-    const desc = node.name ? `Figma에서 ${node.name} 열기` : 'Figma Design Kit 열기';
-    a.title = desc;
-    a.setAttribute('aria-label', desc);
-    a.innerHTML = '<svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M5.5 1.5h2.5v3.5H5.5a1.75 1.75 0 1 1 0-3.5zM5.5 5.75h2.5v3.5H5.5a1.75 1.75 0 1 1 0-3.5zM5.5 10h2.5v1.75A1.75 1.75 0 1 1 5.5 10zM8.75 1.5h1.75a1.75 1.75 0 1 1 0 3.5H8.75V1.5zM10.5 5.75a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5z"/></svg>';
-    h2.appendChild(a);
-  });
-})();
-</script>
+
 <script>
 /* ── 다국어 잘림 데모: 언어 전환 — 같은 키의 문자열을 5개 언어로 바꿔 잘림 동작을 비교한다 ── */
 (function(){
@@ -5470,6 +5890,104 @@ document.querySelectorAll('.content section[id] > h2').forEach(h2 => {
     sec.dataset.sz=on?'24':'16'; sizeBtn.textContent=on?'24px':'16px'; sizeBtn.classList.toggle('is-on',!on);
   });
   apply();
+})();
+</script>
+<script>
+/* 입력 계열 예시 동작: Segmented, Code Input, Count Input, Filter Panel (docs v1.0.0) */
+(function () {
+  document.querySelectorAll('[data-segmented]').forEach(function (g) {
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('.c-segmented-item'); if (!b || b.disabled) return;
+      g.querySelectorAll('.c-segmented-item').forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+    });
+    g.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var items = Array.prototype.filter.call(g.querySelectorAll('.c-segmented-item'), function (x) { return !x.disabled; });
+      var i = items.indexOf(document.activeElement); if (i < 0) return;
+      var n = items[(i + (e.key === 'ArrowRight' ? 1 : items.length - 1)) % items.length];
+      n.focus(); n.click(); e.preventDefault();
+    });
+  });
+  document.querySelectorAll('[data-code]').forEach(function (g) {
+    var cells = Array.prototype.slice.call(g.querySelectorAll('.c-code-input-cell'));
+    cells.forEach(function (c, i) {
+      c.addEventListener('input', function () { c.value = c.value.replace(/\D/g, '').slice(-1); if (c.value && cells[i + 1]) cells[i + 1].focus(); });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !c.value && cells[i - 1]) cells[i - 1].focus(); });
+      c.addEventListener('paste', function (e) {
+        var t = (e.clipboardData.getData('text') || '').replace(/\D/g, ''); if (!t) return; e.preventDefault();
+        for (var k = 0; k < t.length && cells[i + k]; k++) cells[i + k].value = t[k];
+        (cells[Math.min(i + t.length, cells.length - 1)]).focus();
+      });
+    });
+  });
+  document.querySelectorAll('[data-count]').forEach(function (g) {
+    var v = g.querySelector('.c-count-value'), bs = g.querySelectorAll('.c-count-btn'), mn = +g.dataset.min, mx = +g.dataset.max;
+    if (g.classList.contains('is-disabled')) return;
+    function set(n) { n = Math.min(mx, Math.max(mn, isNaN(n) ? mn : n)); v.value = n; bs[0].disabled = n <= mn; bs[1].disabled = n >= mx; }
+    bs[0].addEventListener('click', function () { set(+v.value - 1); });
+    bs[1].addEventListener('click', function () { set(+v.value + 1); });
+    v.addEventListener('change', function () { set(parseInt(v.value, 10)); });
+  });
+  document.querySelectorAll('[data-filter]').forEach(function (p) {
+    var opts = p.querySelectorAll('.c-filter-panel-option'), btns = p.querySelectorAll('.c-filter-panel-actions .btn');
+    var start = Array.prototype.map.call(opts, function (o) { return o.getAttribute('aria-checked'); }).join();
+    function sync() { var now = Array.prototype.map.call(opts, function (o) { return o.getAttribute('aria-checked'); }).join(); btns.forEach(function (b) { b.disabled = now === start && start.indexOf('true') < 0; }); }
+    opts.forEach(function (o) {
+      function flip() { if (o.getAttribute('aria-disabled') === 'true') return; var on = o.getAttribute('aria-checked') !== 'true'; o.setAttribute('aria-checked', on); o.querySelector('.c-checkbox-radio-box').classList.toggle('is-checked', on); sync(); }
+      o.addEventListener('click', flip);
+      o.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); } });
+    });
+    if (btns[0]) btns[0].addEventListener('click', function () { opts.forEach(function (o) { o.setAttribute('aria-checked', 'false'); o.querySelector('.c-checkbox-radio-box').classList.remove('is-checked'); }); sync(); });
+  });
+})();
+</script>
+<script>
+/* 진행 UX 정책 표시 규칙(GMDDS 와 같다): 입력값만 넘기고 표시는 이 규칙으로 계산한다 */
+(function () {
+  var pct = function (v, done) { var p = Math.floor(v * 10) / 10; return done ? 100 : Math.min(p, 99.9); };
+  var dur = function (s) { s = Math.max(0, Math.round(s)); var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + "시간 " : "") + (h || m ? m + "분 " : "") + x + "초"; };
+  var approx = function (s) { return s >= 60 ? "약 " + Math.ceil(s / 60) + "분" : "약 " + Math.max(1, Math.round(s)) + "초"; };
+  function shimmer(bar, off) { var f = bar.querySelector(".c-pbar-fill"); bar.classList.toggle("is-shimmer", !off && f.getBoundingClientRect().width >= 24); }
+  function render(el, o) {
+    var flow = o.mode === "flow", done = !!o.complete, p = flow ? 0 : pct(o.value || 0, done);
+    var phase = done ? '<span class="c-pfield-phase is-done">완료</span>' : o.phase === "finishing" ? '<span class="c-pfield-phase">마무리하는 중</span>' : o.phase === "recalc" ? '<span class="c-pfield-phase">다시 계산하는 중</span>' : (flow && o.waited > 10 ? '<span class="c-pfield-phase">준비 중</span>' : "");
+    var spent = o.elapsed != null ? "소요 시간 " + dur(o.elapsed) : "";
+    var left = (!flow && !done && !o.phase && "remaining" in o) ? (o.remaining == null ? "남은 시간: 계산 중" : "남은 시간 " + approx(o.remaining)) : "";
+    var a = phase || spent, b = phase ? spent : left;
+    el.innerHTML = (flow ? "" : '<div class="c-pfield-label"><span>진행률</span><span>' + p.toFixed(1) + '%</span></div>') +
+      '<div class="c-pbar' + (flow ? " is-flow" : "") + (done ? " is-success" : "") + '" style="--value:' + p + '%" role="progressbar" aria-label="진행률" aria-valuemin="0" aria-valuemax="100"' + (flow ? "" : ' aria-valuenow="' + p + '"') + '><span class="c-pbar-fill"></span></div>' +
+      '<div class="c-pfield-meta">' + (a || b ? "<span>" + a + "</span><span>" + b + "</span>" : "") + "</div>";
+    shimmer(el.querySelector(".c-pbar"), done || flow);
+  }
+  document.querySelectorAll("[data-pf]").forEach(function (el) { render(el, JSON.parse(el.getAttribute("data-pf"))); });
+  document.querySelectorAll(".c-task-row .c-pbar:not(.is-flow)").forEach(function (b) { shimmer(b, false); });
+})();
+</script>
+<script>
+/* 계정 메뉴 예시: 트리거로 열고 닫는다. 바깥을 누르거나 Esc 로 닫는다 */
+(function () {
+  document.querySelectorAll('[data-account]').forEach(function (box) {
+    var t = box.querySelector('.c-account-trigger'), m = box.querySelector('.c-account-menu');
+    function set(open) { m.hidden = !open; t.setAttribute('aria-expanded', String(open)); }
+    t.addEventListener('click', function () { set(m.hidden); });
+    document.addEventListener('mousedown', function (e) { if (!box.contains(e.target) && !m.hidden) set(false); });
+    box.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); t.focus(); } });
+  });
+})();
+</script>
+<script>
+/* 버전 표시: 섹션마다 처음 실린 버전과 마지막으로 바뀐 버전. 바뀐 섹션에만 data-since, data-updated 를 적고 나머지는 docs 기준 버전을 쓴다 */
+(function () {
+  var BASE = "v1.0.0";
+  document.querySelectorAll(".content section[id]").forEach(function (sec) {
+    if (sec.hasAttribute("data-no-ver") || sec.id === "overview") return;
+    var h = sec.querySelector(":scope > h2"); if (!h) return;
+    var since = sec.getAttribute("data-since") || BASE, upd = sec.getAttribute("data-updated") || since;
+    var p = document.createElement("p"); p.className = "ver-meta";
+    p.innerHTML = '<span>처음 실린 버전 <b>' + since + '</b></span><span>마지막 변경 <a href="releases.html"><b>' + upd + '</b></a></span>';
+    var next = h.nextElementSibling;
+    h.parentNode.insertBefore(p, next);
+  });
 })();
 </script>
 </body>
