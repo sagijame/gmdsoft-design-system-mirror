@@ -154,8 +154,8 @@
   --gmd-radius-md: 8px;       /* 큰 카드 (Figma md) */
   --gmd-radius-lg: 12px;      /* 모달 컨테이너 (Figma lg) */
   --gmd-radius-xl: 16px;      /* 대형 컨테이너·시트 (Figma xl) */
-  --gmd-radius-circle: 999px; /* 원형·풀 라운드 (Figma circle) */
-  --gmd-radius-pill: 999px;   /* 텍스트 Badge·Tag·Status 칩 (= circle 별칭) */
+  --gmd-radius-circle: 9999px; /* 원형·풀 라운드 (Figma circle) */
+  --gmd-radius-pill: 9999px;  /* 텍스트 Badge·Tag·Status 칩 (= circle 별칭) */
 
   /* ── 타이포 — Inter 1순위 + Pretendard 폴백 ───────────────── */
   --gmd-font-body: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -370,9 +370,7 @@
  * Dark mode — 값의 정본은 Figma MD-UX 01_GMD_Theme_v2.12 다크 모드.
  * 시스템 prefers-color-scheme 자동 + [data-theme="dark"] 수동 토글. 두 다크 블록 동일 유지 필수.
  * 정본과 다른 값(tokens/compare-figma.mjs 가 잡는다). 정본 수정 안건으로 올리고, 바뀌면 정본 값으로 되돌린다:
- *   text-tertiary #6C757D→#8F979F (정본은 바탕 위 3.92:1 로 AA 미달)
- *   semantic-error #E85A63→#EC6E76 (정본은 카드 위 4.42:1)
- *   text-on-error-fill #FFFFFF→#212529 (흰 글자가 error 채움 위 3.46:1). text-on-primary-fill 은 정본 Text/on-primary/fill 과 같다
+ *   (text-tertiary · semantic-error · text-on-error-fill 은 2026-11-02 정본을 이 값으로 고쳐 맞췄다)
  *   border-base #2E3136→#6C757D (정본 값이면 hover 테두리가 컨트롤 기본 테두리보다 어두워진다. 결정 대기)
  * 컨트롤 경계 3:1 은 border-control 이 맡는다. border-subtle, divider 는 장식용이라 정본 값 그대로 둔다.
  * ───────────────────────────────────────────────────────────────────── */
