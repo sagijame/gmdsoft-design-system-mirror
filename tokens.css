@@ -139,7 +139,7 @@
   --gmd-gray-900: #1D1D1D;
 
   /* ── 오버레이 ─────────────────────────────────────────────── */
-  --gmd-overlay-scrim:       #000000;
+  --gmd-overlay-scrim:       #00000080;   /* Background colors/bg/overlay/scrim — 모달 배경 막. 라이트 50% · 다크 80% */
 
   /* ── 그림자 — 무채색 알파. 짧고 정확 ─────────────────────── */
   --gmd-shadow-soft:  0 2px 8px rgba(0, 0, 0, 0.06);
@@ -372,7 +372,7 @@
  * 정본과 다른 값(tokens/compare-figma.mjs 가 잡는다). 정본 수정 안건으로 올리고, 바뀌면 정본 값으로 되돌린다:
  *   text-tertiary #6C757D→#8F979F (정본은 바탕 위 3.92:1 로 AA 미달)
  *   semantic-error #E85A63→#EC6E76 (정본은 카드 위 4.42:1)
- *   text-on-primary-fill, text-on-error-fill #FFFFFF→#212529 (흰 글자가 채움 위 3.22:1, 3.46:1)
+ *   text-on-error-fill #FFFFFF→#212529 (흰 글자가 error 채움 위 3.46:1). text-on-primary-fill 은 정본 Text/on-primary/fill 과 같다
  *   border-base #2E3136→#6C757D (정본 값이면 hover 테두리가 컨트롤 기본 테두리보다 어두워진다. 결정 대기)
  * 컨트롤 경계 3:1 은 border-control 이 맡는다. border-subtle, divider 는 장식용이라 정본 값 그대로 둔다.
  * ───────────────────────────────────────────────────────────────────── */
@@ -405,6 +405,8 @@
     --gmd-semantic-info-bg:    #1A2A33;
 
     /* 배경/표면 — 어두운 cool 톤 */
+    --gmd-overlay-scrim:       #000000CC;
+
     --gmd-background-base:     #141416;
     --gmd-background-section:  #1E1E21;
     --gmd-background-card:     #252529;
@@ -509,6 +511,9 @@
   --gmd-semantic-warning-bg: #451A03;
   --gmd-semantic-error-bg:   #331F20;
   --gmd-semantic-info-bg:    #1A2A33;
+
+  --gmd-overlay-scrim:       #000000CC;
+
 
   --gmd-background-base:     #141416;
   --gmd-background-section:  #1E1E21;
