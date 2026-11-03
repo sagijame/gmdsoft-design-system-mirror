@@ -1153,7 +1153,7 @@ html[data-theme="dark"] .c-skeleton::after {
 .toast-card .tc-nested { display: flex; gap: var(--gmd-space-2x); align-items: flex-start; margin-top: var(--gmd-space-2x); }
 
 /* Figma Docs/Banner 실측 구조: 세로 stack(gap 32) — [제목줄(아이콘·헤딩·x)] → 본문(전체폭) → 액션. padding 24 · radius 6 */
-.banner { position: relative; display: flex; flex-direction: column; gap: var(--gmd-space-8); border-radius: var(--gmd-radius-6px);
+.banner { position: relative; display: flex; flex-direction: column; gap: var(--gmd-space-8); border-radius: var(--gmd-radius-md);
   padding: var(--gmd-space-6); width: 100%; }
 .banner .desc { display: flex; flex-direction: column; gap: var(--gmd-space-3); }            /* 제목줄↔본문 gap 12 */
 .banner .title-row { display: flex; align-items: center; gap: var(--gmd-space-2x); }          /* 아이콘↔헤딩 gap 8 */

@@ -150,7 +150,6 @@
    *   none 0 / sm 4 / md 8 / lg 12 / xl 16 / circle full. pill 은 circle 별칭(하위호환). */
   --gmd-radius-none: 0px;     /* 각진 모서리 (Figma none) */
   --gmd-radius-sm: 4px;       /* 입력·버튼·아이콘 뱃지 기본 (Figma sm) */
-  --gmd-radius-6px: 6px;      /* Banner 전용 (Figma rounded-6, sm/md 사이 예외값) */
   --gmd-radius-md: 8px;       /* 큰 카드 (Figma md) */
   --gmd-radius-lg: 12px;      /* 모달 컨테이너 (Figma lg) */
   --gmd-radius-xl: 16px;      /* 대형 컨테이너·시트 (Figma xl) */
