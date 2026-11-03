@@ -84,7 +84,7 @@ DESIGN.md §9 "Agent Prompt Guide"의 규칙. 어떤 경우에도 어기지 않�
 ## 폰트
 
 - Family: `Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif`
-- Weight: Regular(400) / Bold(700) — 그 외 금지
+- Weight: Regular(400) / Medium(500) / Bold(700) — 그 외 금지. Medium 은 배지 · 칩 · 태그 · 필드 라벨 같은 작은 라벨용(2026-11-03 Figma 정본 `font/weight/Medium`)
 - Scale: h1 28 / h2 22 / h3 20 / h4 18 / bodyLg 16 / bodyMd 14 / bodySm 12 / caption 10
 - Letter-spacing 양수 금지 (0 또는 음수만)
 

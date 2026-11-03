@@ -281,7 +281,7 @@ Each semantic color provides `base`, `hover`, `pressed`, and `background` varian
 ### Principles
 - **Eight sizes only**: 10, 12, 14, 16, 18, 20, 22, 28px. No intermediate values (13px, 15px, 24px are forbidden). This constraint prevents visual noise in data-heavy screens.
 - **14px as the workhorse**: The majority of interface text — table cells, form labels, descriptions, navigation items — lives at 14px. This is the size optimized for Windows desktop viewing distance (~60cm).
-- **Weight restraint**: Only Regular (400) and Bold (700) are used. No light, medium, or semibold weights. This binary weight system creates clear emphasis without subtlety that gets lost on Windows ClearType rendering.
+- **Weight restraint**: Only Regular (400), Medium (500) and Bold (700) are used. No light or semibold weights. Medium is for compact labels (badges, chips, tags, field labels) where Bold is too heavy at 12px; body text stays Regular and emphasis stays Bold. (2026-11-03: Medium 500 added to the Figma canon as `font/weight/Medium`.)
 - **Line height consistency**: Line heights are set as absolute pixel values (not ratios) to ensure precise vertical rhythm in the 4px grid system.
 - **Letter-spacing 금지**: `letter-spacing`을 양수(0px 초과)로 설정하지 않는다. 기본값(0) 또는 음수(타이트닝)만 허용한다. uppercase 라벨, 캡션 등 어떤 상황에서도 자간을 벌리지 않는다.
 
@@ -638,7 +638,7 @@ In Dark mode, shadows become less effective (dark shadow on dark background). De
 ### Don't
 - Don't invent new colors outside the token system — if a color doesn't exist as a token, don't use it
 - Don't use font sizes outside the 8 permitted values (no 13px, 15px, 24px, 36px)
-- Don't use font weights other than 400 (Regular) and 700 (Bold)
+- Don't use font weights other than 400 (Regular), 500 (Medium) and 700 (Bold)
 - Don't use positive `letter-spacing` — keep it at 0 or negative only, no exceptions for uppercase labels or captions
 - Don't add shadows to flat elements like table rows or list items — borders define their edges
 - Don't use gradients for backgrounds or buttons — solid token colors only
