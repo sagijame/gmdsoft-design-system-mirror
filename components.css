@@ -1008,6 +1008,28 @@ html[data-theme="dark"] .c-skeleton::after {
 .btn-danger:active { background: var(--gmd-semantic-error-pressed); }
 /* Danger 비활성 = 중립 비활성 짝(채움 tertiary-subtle · 라벨 tertiary-disabled). 비활성 위험 동작은 빨강을 남기지 않는다(2026-10-02 사용자 확정). */
 .btn-danger:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-tertiary-disabled); cursor: not-allowed; }
+/* Semantic 버튼 나머지 = Figma Main-Button-Semantic 의 Semantic=success · warning, Border=true(외곽선), Non Padding(글자만).
+   색은 classic 토큰(MD-UX 01_GMD_Theme_v2.12 미러)을 쓴다. Design Kit 사본의 warning 값(#F0B400 계열)은 정본과 달라 따르지 않는다.
+   success 채움 라벨: Figma 는 Text/on-primary/tertiary(#E0E0E0, 3.49:1 AA 미달)라 on-primary-fill(라이트 흰 4.61:1 · 다크 어두운 글자 5.14:1)로 바꿨다.
+   warning 채움 hover 는 classic hover 토큰이 더 어두워져 어두운 글자 3.07:1(라이트) — 결정 대기. warning 은 밝은 노랑이라 글자·외곽선 글자에 pressed 단계를 쓴다(Figma 와 같은 방식).
+   비활성은 Danger 와 같은 중립 짝 — 비활성에 의미 색을 남기지 않는다. */
+.btn-success { background: var(--gmd-semantic-success); color: var(--gmd-text-on-primary-fill); }
+.btn-success:hover { background: var(--gmd-semantic-success-hover); }
+.btn-success:active { background: var(--gmd-semantic-success-pressed); }
+.btn-warning { background: var(--gmd-semantic-warning); color: var(--gmd-text-on-warning); }
+.btn-warning:hover { background: var(--gmd-semantic-warning-hover); }
+.btn-warning:active { background: var(--gmd-semantic-warning-pressed); }
+.btn-success:disabled, .btn-warning:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-tertiary-disabled); cursor: not-allowed; }
+.btn-danger-outline  { background: var(--gmd-surface-base); color: var(--gmd-semantic-error);   border-color: var(--gmd-semantic-error); }
+.btn-success-outline { background: var(--gmd-surface-base); color: var(--gmd-semantic-success); border-color: var(--gmd-semantic-success); }
+.btn-warning-outline { background: var(--gmd-surface-base); color: var(--gmd-semantic-warning-pressed); border-color: var(--gmd-semantic-warning-pressed); }
+.btn-danger-outline:hover  { background: var(--gmd-semantic-error-bg);   color: var(--gmd-semantic-error-hover);   border-color: var(--gmd-semantic-error-hover); }
+.btn-success-outline:hover { background: var(--gmd-semantic-success-bg); color: var(--gmd-semantic-success-hover); border-color: var(--gmd-semantic-success-hover); }
+.btn-warning-outline:hover { background: var(--gmd-semantic-warning-bg); color: var(--gmd-semantic-warning-pressed); border-color: var(--gmd-semantic-warning-hover); }
+.btn-danger-outline:active  { background: var(--gmd-semantic-error-bg);   color: var(--gmd-semantic-error-pressed);   border-color: var(--gmd-semantic-error-pressed); }
+.btn-success-outline:active { background: var(--gmd-semantic-success-bg); color: var(--gmd-semantic-success-pressed); border-color: var(--gmd-semantic-success-pressed); }
+.btn-warning-outline:active { background: var(--gmd-semantic-warning-bg); color: var(--gmd-semantic-warning-pressed); border-color: var(--gmd-semantic-warning-pressed); }
+.btn-danger-outline:disabled, .btn-success-outline:disabled, .btn-warning-outline:disabled { background: var(--gmd-tertiary-subtle); color: var(--gmd-text-disabled); border-color: var(--gmd-tertiary-subtle); cursor: not-allowed; }
 /* Text Link(Figma 명칭) = .btn-text. */
 .btn-text { background: transparent; color: var(--gmd-primary-default); border-color: transparent; }
 .btn-text:hover { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); }
@@ -1018,6 +1040,19 @@ html[data-theme="dark"] .c-skeleton::after {
 .btn-text.is-bare:hover { background: transparent; color: var(--gmd-primary-hover); text-decoration: underline; }
 .btn-text.is-bare:active { background: transparent; color: var(--gmd-primary-pressed); text-decoration: underline; }
 .btn-text.is-bare:disabled { background: transparent; color: var(--gmd-primary-disabled); text-decoration: none; }
+/* 의미 색 글자 버튼 = Figma Main-Button-Semantic 의 Non Padding. btn-text 에 is-danger · is-success · is-warning 을 더한다. */
+.btn-text.is-danger  { color: var(--gmd-semantic-error); }
+.btn-text.is-success { color: var(--gmd-semantic-success); }
+.btn-text.is-warning { color: var(--gmd-semantic-warning-pressed); }
+.btn-text.is-danger:hover  { background: var(--gmd-semantic-error-bg);   color: var(--gmd-semantic-error-hover); }
+.btn-text.is-success:hover { background: var(--gmd-semantic-success-bg); color: var(--gmd-semantic-success-hover); }
+.btn-text.is-warning:hover { background: var(--gmd-semantic-warning-bg); color: var(--gmd-semantic-warning-pressed); }
+.btn-text.is-danger:active  { background: var(--gmd-semantic-error-bg);   color: var(--gmd-semantic-error-pressed); }
+.btn-text.is-success:active { background: var(--gmd-semantic-success-bg); color: var(--gmd-semantic-success-pressed); }
+.btn-text.is-warning:active { background: var(--gmd-semantic-warning-bg); color: var(--gmd-semantic-warning-pressed); }
+.btn-text.is-bare.is-danger:hover, .btn-text.is-bare.is-success:hover, .btn-text.is-bare.is-warning:hover,
+.btn-text.is-bare.is-danger:active, .btn-text.is-bare.is-success:active, .btn-text.is-bare.is-warning:active { background: transparent; }
+.btn-text.is-danger:disabled, .btn-text.is-success:disabled, .btn-text.is-warning:disabled { background: transparent; color: var(--gmd-text-disabled); }
 .btn-text.is-bare:focus-visible { outline: 2px solid var(--gmd-primary-default); outline-offset: 2px; }
 /* 크기(Size) 6단 — Figma Size 섹션 높이 측정값. md(36)가 기본. 패딩은 4px 그리드. */
 .btn-xm { height: 24px; padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); min-width: var(--gmd-width-button-min-compact); }  /* sm-xm */
