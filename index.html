@@ -344,8 +344,8 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
   width: 24px;
   height: 24px;
   border-radius: var(--gmd-radius-circle);
-  background: var(--gmd-text-secondary);
-  color: var(--gmd-text-on-primary);
+  background: var(--gmd-text-primary);
+  color: var(--gmd-surface-base);   /* 번호 표식: 무채색 유지, 라이트,다크 모두 대비 확보(다크에서 text-secondary 위 흰 글자 2.46:1 이었다) */
   font-size: var(--gmd-font-size-12);
   font-weight: var(--gmd-weight-bold);
   box-shadow: 0 0 0 3px var(--gmd-surface-base), var(--gmd-shadow-soft);
@@ -369,7 +369,7 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
 }
 .anatomy-list { display: grid; gap: var(--gmd-space-3); margin: var(--gmd-space-3) 0 0; padding: 0; list-style: none; }
 .anatomy-item { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--gmd-space-3); padding: var(--gmd-space-3); border: 1px solid var(--gmd-divider); border-radius: var(--gmd-radius-sm); background: var(--gmd-surface-base); }
-.anatomy-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: var(--gmd-radius-circle); background: var(--gmd-text-secondary); color: var(--gmd-text-on-primary); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); }
+.anatomy-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: var(--gmd-radius-circle); background: var(--gmd-text-primary); color: var(--gmd-surface-base); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); }
 .anatomy-term { display: block; margin-bottom: var(--gmd-space-1); color: var(--gmd-text-primary); font-size: var(--gmd-font-size-14); font-weight: var(--gmd-weight-bold); }
 .anatomy-desc { display: block; color: var(--gmd-text-secondary); font-size: var(--gmd-font-size-12); line-height: 1.5; }
 .c-context-menu-anatomy-list,
@@ -773,7 +773,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 .c-textbox-anatomy { display: flex; flex-wrap: wrap; gap: var(--gmd-space-8); align-items: flex-start; }
 .c-textbox-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--gmd-space-3); max-width: 420px; }
 .c-textbox-legend li { display: flex; gap: var(--gmd-space-3); font-size: var(--gmd-font-size-12); color: var(--gmd-text-secondary); line-height: 1.5; }
-.c-textbox-num { flex: none; width: 20px; height: 20px; border-radius: 999px; background: var(--gmd-text-secondary); color: var(--gmd-text-on-primary); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); display: flex; align-items: center; justify-content: center; }
+.c-textbox-num { flex: none; width: 20px; height: 20px; border-radius: 999px; background: var(--gmd-text-primary); color: var(--gmd-surface-base); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); display: flex; align-items: center; justify-content: center; }
 .c-textbox-legend strong { color: var(--gmd-text-primary); font-weight: var(--gmd-weight-bold); }
 
 .c-slider-anatomy {
@@ -875,7 +875,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 .c-tree-legend{list-style:none;margin:var(--gmd-space-3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--gmd-space-3)}
 .c-tree-legend li{display:flex;gap:var(--gmd-space-2x);align-items:flex-start;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
 .c-tree-legend b{color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold);font-size:var(--gmd-font-size-14);display:block;margin-bottom:var(--gmd-space-2)}
-.c-tree-comp{display:grid;grid-template-columns:repeat(2,minmax(300px,1fr));gap:var(--gmd-space-6);width:100%}
+.c-tree-comp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--gmd-space-6);width:100%}
 .c-tree-comp > div{display:flex;flex-direction:column;gap:var(--gmd-space-2x);padding:var(--gmd-space-5);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-section)}
 .c-tree-comp .c-tree-panel{width:100%;box-shadow:none}
 .c-ribbon-nav-comp{display:grid;grid-template-columns:minmax(320px,1fr);gap:var(--gmd-space-6);align-items:stretch;width:100%;max-width:720px;padding:var(--gmd-space-6);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-lg);background:var(--gmd-background-section);}
@@ -1145,8 +1145,8 @@ body:not(.intro-active) .intro-xray { display: none; }
   height: 24px;
   flex: 0 0 24px;
   border-radius: var(--gmd-radius-circle);
-  background: var(--gmd-text-secondary);
-  color: var(--gmd-text-on-primary);
+  background: var(--gmd-text-primary);
+  color: var(--gmd-surface-base);   /* 번호 표식: 무채색 유지, 라이트,다크 모두 대비 확보(다크에서 text-secondary 위 흰 글자 2.46:1 이었다) */
   font-family: var(--gmd-font-body);
   font-size: var(--gmd-font-size-12);
   font-weight: var(--gmd-weight-bold);
