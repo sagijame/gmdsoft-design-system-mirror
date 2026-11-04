@@ -5366,7 +5366,7 @@ function enhanceAnatomyBoards() {
        핀이 서로 다른 인스턴스로 흩어진다. 5개 구성요소를 모두 가진 것은 lg 뿐이다. */
     'empty-state': ['.c-empty-state @ 0.06 0.5', '.c-empty-state-icon', '.c-empty-state-title', '.c-empty-state-desc', '.c-empty-state-action'],
     tab: ['[role="tab"]:not([aria-selected="true"]), .tab @ 0.5 0.15', '[aria-selected="true"], .tab @ 0.6 0.5', '[aria-selected="true"], .tab @ 0.5 0.94'],
-    progress: ['.progress, [class*="progress"]', '.progress-bar, [class*="bar"]', '.prog-labels, [class*="label"]'],
+    progress: ['.progress, [class*="progress"] @ 0.95 0.5', '.progress-bar, [class*="bar"]', '.prog-labels, [class*="label"]'],
     modal: ['.modal-demo @ 0.06 0.1', '.modal-demo h4', '.modal-demo .body', '.modal-demo .alert-icon, .modal-demo .ico'],
     'checkbox-radio': ['.c-checkbox-radio-box', '.c-checkbox-radio-dot, .c-checkbox-radio-box svg', '.c-checkbox-radio-heading', '.c-checkbox-radio-body'],
     combobox: ['.c-combobox-trigger', '.c-combobox-leadicon, .c-combobox-search .ico', '.c-combobox-menu, .c-combobox-comp', '.c-combobox-chevron'],
@@ -5435,7 +5435,8 @@ function enhanceAnatomyBoards() {
       // 엔트리 문법: '셀렉터' 또는 '셀렉터 @ fx fy' (fx/fy = 대상 박스 내 상대 좌표)
       const entry = targets[index] || '';
       const [selector, offset] = entry.split(' @ ');
-      const [fx, fy] = (offset || '0.5 0.5').split(' ').map(Number);
+      // 위치를 따로 적지 않은 핀은 대상의 왼쪽 위 모서리에 둔다. 가운데에 두면 대상 안의 글자를 덮는다
+      const [fx, fy] = (offset || '0 0').split(' ').map(Number);
       const target = queryTarget(stage, selector);
       if (target) {
         centerPinOnTarget(pin, target, stage, fx, fy);
@@ -5445,6 +5446,38 @@ function enhanceAnatomyBoards() {
         pin.style.top = fallback[1];
         pin.dataset.qa = selector ? 'fallback-missing-target' : 'fallback-no-selector';
       }
+    });
+    // 핀 자리 다듬기: 정한 자리가 글자나 앞 핀과 겹치면 대상 바깥(위, 왼쪽, 오른쪽, 아래, 모서리) 가운데
+    // 글자와도 앞 핀과도 겹치지 않고 그림 안에 드는 첫 자리로 옮긴다. 마땅한 자리가 없으면 그대로 둔다
+    const stageRect = stage.getBoundingClientRect();
+    const textRects = [];
+    const walker = document.createTreeWalker(stage, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const t = walker.currentNode;
+      if (!t.textContent.trim() || t.parentElement.closest('.anatomy-pin')) continue;
+      const range = document.createRange(); range.selectNodeContents(t);
+      for (const rc of range.getClientRects()) textRects.push(rc);
+    }
+    const placed = [];
+    const clear = (x, y, half) => x - half >= stageRect.left && x + half <= stageRect.right && y - half >= stageRect.top && y + half <= stageRect.bottom
+      && !textRects.some(t => x - half + 2 < t.right && t.left < x + half - 2 && y - half + 2 < t.bottom && t.top < y + half - 2)
+      && !placed.some(([px, py]) => Math.abs(px - x) < half * 2 + 4 && Math.abs(py - y) < half * 2 + 4);
+    pins.forEach((pin, index) => {
+      const pr = pin.getBoundingClientRect(), half = pr.width / 2;
+      let spot = [pr.left + half, pr.top + half];
+      const [selector] = (targets[index] || '').split(' @ ');
+      const target = queryTarget(stage, selector);
+      if (!clear(spot[0], spot[1], half) && target) {
+        const t = target.getBoundingClientRect(), g = half + 6, cx = t.left + t.width / 2, cy = t.top + t.height / 2;
+        const spots = [[cx, t.top - g], [t.left - g, cy], [t.right + g, cy], [cx, t.bottom + g], [t.left - g, t.top - g], [t.right + g, t.top - g], [t.left + half, t.top - g], [t.right - half, t.top - g]];
+        const free = spots.find(([x, y]) => clear(x, y, half));
+        if (free) {
+          spot = free;
+          pin.style.left = `${((free[0] - stageRect.left) / stageRect.width) * 100}%`;
+          pin.style.top = `${((free[1] - stageRect.top) / stageRect.height) * 100}%`;
+        }
+      }
+      placed.push(spot);
     });
     board.dataset.pinQa = pins.filter(pin => pin.dataset.qa === 'targeted').length === pinCount ? 'pass' : 'fallback';
   }
