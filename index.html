@@ -291,14 +291,13 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--gmd-space-8) var(--gmd-space-5) var(--gmd-space-5);
+  padding: var(--gmd-space-10);   /* 번호 표식이 그림 바깥 네 변에 설 자리 */
   pointer-events: none;
 }
 .anatomy-shot-stage > .preview,
 .anatomy-shot-stage > .anatomy-shot-preview {
   width: 100%;
-  max-height: 280px;
-  overflow: hidden;
+  overflow: visible;
   padding: var(--gmd-space-4) !important;
   margin: 0 !important;
   border: 0 !important;
@@ -322,6 +321,14 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
 .anatomy-shot-stage .c-context-menu-anatomy-list,
 .anatomy-shot-stage .c-tree-num,
 .anatomy-shot-stage .c-avatar-pin,
+.anatomy-shot-stage .c-popover-pin,
+.anatomy-shot-stage .c-popover-num,
+.anatomy-shot-stage .c-slider-badge,
+.anatomy-shot-stage .c-breadcrumb-badge,
+.anatomy-shot-stage .c-stepper-anatomy-dot,
+.anatomy-shot-stage .c-textbox-num,
+.anatomy-shot-stage .c-tooltip-num,
+.anatomy-shot-stage .c-scrollbar-mark,
 .anatomy-shot-stage .c-spinner-marker,
 .anatomy-shot-stage .c-pagination-caption,
 .anatomy-shot-stage .c-combobox-caption,
@@ -334,7 +341,7 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
 .anatomy-copy .anatomy-src {
   display: none !important;
 }
-/* Anatomy 핀 — 그레이스케일(설명용 보조 표식, 제품 의미 컬러와 분리). 드롭 라인은 정확한 좌표를 짚지 못해 제거. */
+/* Anatomy 핀 — 그레이스케일(설명용 보조 표식, 제품 의미 컬러와 분리). 그림 바깥에 세우고 가는 선(.anatomy-leaders)으로 가리키는 지점까지 잇는다. */
 .anatomy-pin {
   position: absolute;
   z-index: 4;
@@ -351,6 +358,9 @@ html[data-theme="dark"] .back-top:hover { background: var(--gmd-surface-hover); 
   box-shadow: 0 0 0 3px var(--gmd-surface-base), var(--gmd-shadow-soft);
   transform: translate(-50%, -50%);
 }
+.anatomy-leaders { position: absolute; inset: 0; z-index: 3; overflow: visible; pointer-events: none; }
+.anatomy-leaders line { stroke: var(--gmd-text-primary); stroke-width: 1; }
+.anatomy-leaders circle { fill: var(--gmd-surface-base); stroke: var(--gmd-text-primary); stroke-width: 1.5; }
 .anatomy-copy {
   min-width: 0;
   display: flex;
@@ -1606,13 +1616,14 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="preview">
           <button class="btn btn-primary">Primary</button>
           <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-secondary-outline">Secondary (outline)</button>
           <button class="btn btn-tertiary">Neutral</button>
           <button class="btn btn-tertiary-outline">Neutral (outline)</button>
           <button class="btn btn-text">Text Link</button>
           <button class="btn btn-text is-bare">Text Link (여백 없음)</button>
           <button class="btn btn-danger">Destructive</button>
         </div>      </div>
-      <p class="note">Figma 위계는 <strong>Primary / Secondary / Neutral / Text Link</strong> 4단. 클래스명 <code>btn-tertiary</code>=Neutral(채움), <code>btn-tertiary-outline</code>=Neutral의 Border 변형(외곽선), <code>btn-text</code>=Text Link로 매핑한다(사용처 보존). 패널 하단 CLEAR, CANCEL, OK 처럼 글자만 놓는 자리는 <code>btn-text is-bare</code>(여백 없음)를 쓴다 — 높이·패딩·채움 없이 hover·pressed 는 글자색과 밑줄로 나눈다. <code>btn-danger</code>는 위계가 아닌 <strong>semantic destructive</strong>로, warning/error Dialog의 확인 버튼에만 쓴다. 그 Dialog의 보조 버튼은 파랑 계열(Secondary·Text Link) 대신 <code>btn-tertiary-outline</code>을 쓴다 — 한 다이얼로그에 파랑과 빨강이 같이 놓이는 걸 피한다.</p>
+      <p class="note">Figma 위계는 <strong>Primary / Secondary / Neutral / Text Link</strong> 4단. 클래스명 <code>btn-secondary</code>=Secondary(연한 채움), <code>btn-secondary-outline</code>=Secondary의 Border 변형(흰 면 + 파란 테두리), <code>btn-tertiary</code>=Neutral(채움), <code>btn-tertiary-outline</code>=Neutral의 Border 변형(외곽선), <code>btn-text</code>=Text Link로 매핑한다(사용처 보존). 패널 하단 CLEAR, CANCEL, OK 처럼 글자만 놓는 자리는 <code>btn-text is-bare</code>(여백 없음)를 쓴다 — 높이·패딩·채움 없이 hover·pressed 는 글자색과 밑줄로 나눈다. <code>btn-danger</code>는 위계가 아닌 <strong>semantic destructive</strong>로, warning/error Dialog의 확인 버튼에만 쓴다. 그 Dialog의 보조 버튼은 파랑 계열(Secondary·Text Link) 대신 <code>btn-tertiary-outline</code>을 쓴다 — 한 다이얼로그에 파랑과 빨강이 같이 놓이는 걸 피한다.</p>
       <h3>상태</h3>
       <div class="example"><div class="preview col">
         <div class="preview" style="padding:0">
@@ -1997,8 +2008,8 @@ body:not(.intro-active) .intro-xray { display: none; }
       <h3>유형 (Type)</h3>
       <div class="example"><div class="preview col" style="gap:var(--gmd-space-4)">
         <div class="toast-card"><span class="ico tc-icon" data-icon="check-circle"></span><div class="tc-body"><div class="tc-t" style="margin:0;color:var(--gmd-text-primary)">Set yourself free.</div></div><span class="ico tc-close" data-icon="x"></span></div>
-        <div class="toast-card"><span class="tc-avatar">N</span><div class="tc-body"><div class="tc-h">Heading</div><div class="tc-t">새 댓글이 등록되었습니다. 내용을 확인하고 답글을 남기세요.</div><div class="tc-actions"><button class="btn btn-secondary btn-sm"><span class="ico" data-icon="home"></span>Reply<span class="ico" data-icon="arrow-right"></span></button></div></div><span class="ico tc-close" data-icon="x"></span></div>
-        <div class="toast-card"><span class="ico tc-icon info" data-icon="info-circle"></span><div class="tc-body"><div class="tc-h">Heading</div><div class="tc-t">새 댓글이 등록되었습니다. 내용을 확인하고 답글을 남기세요.</div><div class="tc-actions"><button class="btn btn-secondary btn-sm">Not Now</button><button class="btn btn-primary btn-sm">Update</button></div></div><span class="ico tc-close" data-icon="x"></span></div>
+        <div class="toast-card"><span class="tc-avatar">N</span><div class="tc-body"><div class="tc-h">Heading</div><div class="tc-t">새 댓글이 등록되었습니다. 내용을 확인하고 답글을 남기세요.</div><div class="tc-actions"><button class="btn btn-primary btn-sm"><span class="ico" data-icon="home"></span>Reply<span class="ico" data-icon="arrow-right"></span></button></div></div><span class="ico tc-close" data-icon="x"></span></div>
+        <div class="toast-card"><span class="ico tc-icon info" data-icon="info-circle"></span><div class="tc-body"><div class="tc-h">Heading</div><div class="tc-t">새 댓글이 등록되었습니다. 내용을 확인하고 답글을 남기세요.</div><div class="tc-actions"><button class="btn btn-secondary-outline btn-sm">Not Now</button><button class="btn btn-primary btn-sm">Update</button></div></div><span class="ico tc-close" data-icon="x"></span></div>
         <div class="toast-card"><div class="tc-body"><div class="tc-h">New Notification</div><div class="tc-nested"><span class="tc-avatar">H</span><div><div class="tc-t" style="margin:0"><b style="color:var(--gmd-text-primary)">Heading</b> commented on your photo</div><div class="tc-time">a few ago</div></div></div></div><span class="ico tc-close" data-icon="x"></span></div>
         <div class="toast-card simple"><span class="ico tc-icon send" data-icon="send"></span><div class="tc-body"><div class="tc-t" style="margin:0;color:var(--gmd-text-primary)">Message sent successfully.</div></div></div>
       </div></div>
@@ -2046,7 +2057,7 @@ body:not(.intro-active) .intro-xray { display: none; }
               <div class="tc-body">
                 <div class="tc-h"><span class="anatomy-num">2</span>Heading</div>
                 <div class="tc-t"><span class="anatomy-num">3</span>새 댓글이 등록되었습니다. 내용을 확인하고 답글을 남기세요.</div>
-                <div class="tc-actions"><button class="btn btn-secondary btn-sm">Not Now</button><button class="btn btn-primary btn-sm"><span class="anatomy-num">4</span>Update</button></div>
+                <div class="tc-actions"><button class="btn btn-secondary-outline btn-sm">Not Now</button><button class="btn btn-primary btn-sm"><span class="anatomy-num">4</span>Update</button></div>
               </div>
               <span class="ico tc-close" data-icon="x"></span>
             </div>
@@ -2215,7 +2226,7 @@ body:not(.intro-active) .intro-xray { display: none; }
             <span class="c-empty-state-icon" aria-hidden="true"><span class="ico" data-icon="search"></span></span>
             <h4 class="c-empty-state-title">검색 결과가 없습니다</h4>
             <p class="c-empty-state-desc">다른 검색어를 쓰거나 필터를 해제해 보세요.</p>
-            <div class="c-empty-state-action"><button class="btn btn-secondary btn-sm">필터 초기화</button></div>
+            <div class="c-empty-state-action"><button class="btn btn-secondary-outline btn-sm">필터 초기화</button></div>
           </div>
           <span class="ib-cap">lg · padding 48/24 — 화면 전체 본문</span>
         </div>
@@ -2499,12 +2510,12 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-warning"><span class="ico" data-icon="exclamation-triangle"></span></span><h4>Alert Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">저장하지 않은 변경 사항이 있습니다. 계속하면 변경 내용이 사라집니다.</p>
-          <div class="actions"><button class="btn btn-secondary">Close</button><button class="btn btn-primary">Primary</button></div>
+          <div class="actions"><button class="btn btn-secondary-outline">Close</button><button class="btn btn-primary">Primary</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><h4>Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">일반 콘텐츠를 담는 기본 모달.</p>
-          <div class="actions"><button class="btn btn-secondary">Close</button><button class="btn btn-primary">Primary</button></div>
+          <div class="actions"><button class="btn btn-secondary-outline">Close</button><button class="btn btn-primary">Primary</button></div>
         </div>
       </div></div>
       <p class="note">Alert는 경고 확인(아이콘 강조), Basic은 일반 콘텐츠, Dialog는 폼·상호작용을 담는다. min-width 400px, min-height 200px 기준. 다단계 입력 Dialog는 <a href="#stepper">Stepper</a>와 함께 구성한다.</p>
@@ -2549,7 +2560,7 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo">
           <header><div class="mtitle"><h4>Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">취소·확인 양자택일.</p>
-          <div class="actions"><button class="btn btn-secondary">Close</button><button class="btn btn-primary">Primary</button></div>
+          <div class="actions"><button class="btn btn-secondary-outline">Close</button><button class="btn btn-primary">Primary</button></div>
         </div>
       </div></div>
       <p class="note">하단 액션 버튼 수. 1버튼은 단일 확인(보조 옵션은 좌측), 2버튼은 취소·확인. 액션은 디자인 시스템 Button 재사용.</p>
@@ -2567,7 +2578,7 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo" style="max-width:480px">
           <header><div class="mtitle"><span class="alert-icon alert-confirm"><span class="ico" data-icon="info-circle"></span></span><h4>프로젝트 권한 변경</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">선택한 멤버의 편집 권한을 변경합니다. 적용 후에는 즉시 공유 설정에 반영됩니다.</p>
-          <div class="actions"><button class="btn btn-secondary">취소</button><button class="btn btn-primary">변경 적용</button></div>
+          <div class="actions"><button class="btn btn-secondary-outline">취소</button><button class="btn btn-primary">변경 적용</button></div>
         </div>
       </div></div>
     </section>
@@ -2596,16 +2607,16 @@ body:not(.intro-active) .intro-xray { display: none; }
 <p class="lede">지금 보고 있는 대상 전체를 확정하는 동작을 놓는 자리다. 주 동작은 항상 맨 오른쪽 하나, 보조 동작은 최대 둘이다. 화면 일부나 특정 컨트롤 전용 동작은 넣지 않고, 목록 화면에는 쓰지 않는다(선택한 행의 동작과 겹친다).</p>
 <h3>유형 (Type)</h3>
 <div class="example"><div class="preview col">
-<div style="display:grid;gap:var(--gmd-space-4);width:100%"><div class="c-action-bar" role="group" aria-label="답변 검토"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">기본, 보조 1개와 주 1개</span><div class="c-action-bar" role="group" aria-label="답변 검토 상태 포함"><span class="c-action-bar-start">미검토 2건</span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">왼쪽 보조 정보</span><div class="c-action-bar" role="group" aria-label="답변 검토 보조 2개"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">보류</button><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">보조 2개가 최대</span></div>
+<div style="display:grid;gap:var(--gmd-space-4);width:100%"><div class="c-action-bar" role="group" aria-label="답변 검토"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary-outline">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">기본, 보조 1개와 주 1개</span><div class="c-action-bar" role="group" aria-label="답변 검토 상태 포함"><span class="c-action-bar-start">미검토 2건</span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary-outline">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">왼쪽 보조 정보</span><div class="c-action-bar" role="group" aria-label="답변 검토 보조 2개"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary-outline">보류</button><button type="button" class="btn btn-secondary-outline">반려</button><button type="button" class="btn btn-primary">승인</button></div></div><span class="c-checkbox-radio-caption" style="text-align:left">보조 2개가 최대</span></div>
 </div></div>
 <p class="note">높이 64(위아래 12, 좌우 24), 위쪽 1px 구분선, 면은 background/base. 버튼은 classic Button 40 을 쓴다(Figma 36 은 컨트롤 높이 규칙으로 맞췄다). 주 동작 라벨은 확인 같은 말 대신 동작을 적는다. Tab 순서는 보조에서 주로 가고, Enter 로 자동 실행하지 않는다. <code>role="group"</code> 과 <code>aria-label</code> 로 무엇을 확정하는지 적는다.</p>
 <h3>조합 예시 (Composition)</h3>
 <div class="example"><div class="preview">
-<article class="card card-outline" style="width:100%;max-width:640px"><h4>문항 1 / 3, 봉인 상태 확인</h4><p>의뢰물 인수 시 봉인 상태를 확인했고 훼손은 없었습니다. 검토자는 이 답변을 읽고 승인하거나 반려한다.</p><div class="c-action-bar" role="group" aria-label="문항 1 검토"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div></article>
+<article class="card card-outline" style="width:100%;max-width:640px"><h4>문항 1 / 3, 봉인 상태 확인</h4><p>의뢰물 인수 시 봉인 상태를 확인했고 훼손은 없었습니다. 검토자는 이 답변을 읽고 승인하거나 반려한다.</p><div class="c-action-bar" role="group" aria-label="문항 1 검토"><span class="c-action-bar-start"></span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary-outline">반려</button><button type="button" class="btn btn-primary">승인</button></div></div></article>
 </div></div>
 <p class="note">읽는 흐름의 끝에 결정이 온다. 바는 본문 영역 안에 속하고 옆 패널로 넘어가지 않는다.</p>
 <h3 class="anatomy-heading">Anatomy</h3>
-<div class="example anatomy-src"><div class="preview"><div class="c-action-bar" role="group" aria-label="Anatomy 액션 바" style="width:360px;padding-left:var(--gmd-space-4);padding-right:var(--gmd-space-4)"><span class="c-action-bar-start">미검토 2건</span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary">반려</button><button type="button" class="btn btn-primary">승인</button></div></div></div></div>
+<div class="example anatomy-src"><div class="preview"><div class="c-action-bar" role="group" aria-label="Anatomy 액션 바" style="width:360px;padding-left:var(--gmd-space-4);padding-right:var(--gmd-space-4)"><span class="c-action-bar-start">미검토 2건</span><div class="c-action-bar-end"><button type="button" class="btn btn-secondary-outline">반려</button><button type="button" class="btn btn-primary">승인</button></div></div></div></div>
 <ol class="anatomy-list">
 <li class="anatomy-item"><span class="anatomy-num">1</span><span><strong class="anatomy-term">Start</strong><span class="anatomy-desc">보조 정보나 되돌리기 어려운 동작 자리. 없어도 된다.</span></span></li>
 <li class="anatomy-item"><span class="anatomy-num">2</span><span><strong class="anatomy-term">Secondary</strong><span class="anatomy-desc">보조 동작 0~2개. 주 동작 왼쪽.</span></span></li>
@@ -2855,7 +2866,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Default</div>
 </div>
@@ -2872,7 +2883,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day is-selected" aria-selected="true">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Selected</div>
 </div>
@@ -2889,7 +2900,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Disabled dates</div>
 </div>
@@ -2913,7 +2924,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-ymcell">2032</span><span class="c-datetime-ymcell">2033</span><span class="c-datetime-ymcell">2034</span><span class="c-datetime-ymcell">2035</span>
 <span class="c-datetime-ymcell">2036</span><span class="c-datetime-ymcell">2037</span><span class="c-datetime-ymcell">2038</span><span class="c-datetime-ymcell">2039</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Year</div>
 </div>
@@ -2927,7 +2938,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-ymcell">May</span><span class="c-datetime-ymcell">Jun</span><span class="c-datetime-ymcell">Jul</span><span class="c-datetime-ymcell">Aug</span>
 <span class="c-datetime-ymcell">Sep</span><span class="c-datetime-ymcell">Oct</span><span class="c-datetime-ymcell is-current" aria-current="true">Nov</span><span class="c-datetime-ymcell">Dec</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Month</div>
 </div>
@@ -2951,7 +2962,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day is-selected" aria-selected="true">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Date + Time</div>
 </div>
@@ -2975,7 +2986,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-chand" style="height:42%;transform:rotate(0deg)"></span>
 <span class="c-datetime-cdot"></span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Hour</div>
 </div>
@@ -2999,7 +3010,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-chand" style="height:42%;transform:rotate(150deg)"></span>
 <span class="c-datetime-cdot"></span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Minutes</div>
 </div>
@@ -3067,7 +3078,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 </div>
 </div>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Two months + presets</div>
 </div>
@@ -3085,7 +3096,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare" disabled>OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm" disabled>OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Selecting</div>
 </div>
@@ -3101,7 +3112,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Same day</div>
 </div>
@@ -3118,7 +3129,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day is-disabled" aria-disabled="true">26</span><span class="c-datetime-day is-disabled" aria-disabled="true">27</span><span class="c-datetime-day is-disabled" aria-disabled="true">28</span><span class="c-datetime-day is-disabled" aria-disabled="true">29</span><span class="c-datetime-day is-disabled" aria-disabled="true">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
 <div class="c-datetime-hint">Up to 7 days from the start date</div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare" disabled>OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm" disabled>OK</button></div></div>
 </div>
 <div class="c-datetime-caption">Max range</div>
 </div>
@@ -3153,7 +3164,7 @@ body:not(.intro-active) .intro-xray { display: none; }
 <span class="c-datetime-day">19</span><span class="c-datetime-day">20</span><span class="c-datetime-day">21</span><span class="c-datetime-day is-selected">22</span><span class="c-datetime-day">23</span><span class="c-datetime-day">24</span><span class="c-datetime-day">25</span>
 <span class="c-datetime-day">26</span><span class="c-datetime-day">27</span><span class="c-datetime-day">28</span><span class="c-datetime-day">29</span><span class="c-datetime-day">30</span><span class="c-datetime-day is-mute">1</span><span class="c-datetime-day is-mute">2</span>
 </div>
-<div class="c-datetime-actions"><button class="btn btn-text is-bare">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text is-bare">CANCEL</button><button class="btn btn-text is-bare">OK</button></div></div>
+<div class="c-datetime-actions"><button class="btn btn-text btn-sm">CLEAR</button><div class="c-datetime-actright"><button class="btn btn-text btn-sm">CANCEL</button><button class="btn btn-text btn-sm">OK</button></div></div>
 </div>
 </div>
 </div></div>
@@ -5068,7 +5079,7 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="c-i18n-resize" style="width:360px">
           <div class="c-i18n-wrapbox">
             <p data-i18n="boardGuide">보드에 파일을 추가하면 분석을 시작할 수 있습니다.</p>
-            <button class="btn btn-secondary btn-sm" type="button" data-i18n="startAnalysis">분석 시작</button>
+            <button class="btn btn-secondary-outline btn-sm" type="button" data-i18n="startAnalysis">분석 시작</button>
           </div>
           <p class="c-i18n-hint">오른쪽 아래 모서리를 드래그해 컨트롤을 줄여보세요</p>
         </div>
@@ -5196,7 +5207,7 @@ body:not(.intro-active) .intro-xray { display: none; }
     </div>
 
     <p class="note" style="margin-top:var(--gmd-space-12);padding-top:var(--gmd-space-4);border-top:1px solid var(--gmd-divider)">
-      GMDSOFT Design Kit · Classic v1.0.0 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.11.04 · &copy; GMDSOFT. All rights reserved.
+      GMDSOFT Design Kit · Classic v1.0.0 · Figma v2.12 / Dark v2.13 · MD-UX 프로젝트 미러링 문서 · 갱신 2026.11.05 · &copy; GMDSOFT. All rights reserved.
     </p>
   </main>
 </div>
@@ -5358,31 +5369,31 @@ function enhanceAnatomyBoards() {
     button: ['.btn @ 0.5 0.08', '.btn @ 0.65 0.62', '.ico'],
     input: ['label, .field-label, .input-label', '.input-wrap, input, textarea, .input', '.ico, .input-counter', '.input-help, .helper, .note'],
     card: ['.card .eyebrow', '.card h4, .card-title', '.card p, .card-body', '.card .card-action, .card .btn'],
-    badge: ['.badge @ 0.08 0.5', '.badge @ 0.7 0.5', '.badge-count, .badge-circle'],
-    toast: ['.toast-card, .tc', '.tc-h, .toast-title', '.tc-t, .toast-body', '.tc-actions, .btn'],
-    banner: ['.banner @ 0.03 0.5', '.banner .title-row, .banner .t', '.banner .desc, .banner p', '.banner .close, .banner .btn, .banner a'],
+    badge: ['.badge @ 0 0.5', '.badge @ 0.35 0.5', '.badge-count'],
+    toast: ['.tc-icon, .tc-avatar', '.tc-h', '.tc-t', '.tc-actions'],
+    banner: ['.banner @ 0 0.88', '.banner .title-row, .banner .t', '.banner .t @ 0 0.5', '.banner .ba'],
     infobar: ['.info-bar, [class*="infobar"] @ 0.5 0.06', '.ico, svg', '.body, .grow, .l2', '.actions, .link, .btn'],
     /* 대표 인스턴스는 lg 데모(.c-empty-state-anatomy-fig) 하나로 고정한다 — 크기 데모 3종이 함께 복제되면
        핀이 서로 다른 인스턴스로 흩어진다. 5개 구성요소를 모두 가진 것은 lg 뿐이다. */
-    'empty-state': ['.c-empty-state @ 0.06 0.5', '.c-empty-state-icon', '.c-empty-state-title', '.c-empty-state-desc', '.c-empty-state-action'],
-    tab: ['[role="tab"]:not([aria-selected="true"]), .tab @ 0.5 0.15', '[aria-selected="true"], .tab @ 0.6 0.5', '[aria-selected="true"], .tab @ 0.5 0.94'],
-    progress: ['.progress, [class*="progress"] @ 0.95 0.5', '.progress-bar, [class*="bar"]', '.prog-labels, [class*="label"]'],
+    'empty-state': ['.c-empty-state @ 0.06 0.5', '.c-empty-state-icon', '.c-empty-state-title', '.c-empty-state-desc @ 0 0.5', '.c-empty-state-action'],
+    tab: ['[role="tab"][aria-selected="false"]', '[role="tab"][aria-selected="true"]', '[role="tab"][aria-selected="true"] @ 0.5 1'],
+    progress: ['.progress @ 0.85 0.5', '.progress-bar', '.prog-labels'],
     modal: ['.modal-demo @ 0.06 0.1', '.modal-demo h4', '.modal-demo .body', '.modal-demo .alert-icon, .modal-demo .ico'],
     'checkbox-radio': ['.c-checkbox-radio-box', '.c-checkbox-radio-dot, .c-checkbox-radio-box svg', '.c-checkbox-radio-heading', '.c-checkbox-radio-body'],
-    combobox: ['.c-combobox-trigger', '.c-combobox-leadicon, .c-combobox-search .ico', '.c-combobox-menu, .c-combobox-comp', '.c-combobox-chevron'],
-    datetime: ['.c-datetime-card @ 0.5 0.04', '.c-datetime-head', '.c-datetime-grid, .c-datetime-clock, .c-datetime-row', '.c-datetime-actions'],
+    combobox: ['.c-combobox-field .c-combobox-trigger', '.c-combobox-leadicon', '.c-combobox-menu', '.c-combobox-chevron'],
+    datetime: ['.c-datetime-field', '.c-datetime-head', '.c-datetime-grid, .c-datetime-clock, .c-datetime-row', '.c-datetime-actions', '.c-datetime-presets'],
     'context-menu': ['.c-context-menu-menu @ 0.5 0.08', '.c-context-menu-label'],
     spinner: ['.c-spinner-ring, .spinner, [class*="spinner"]'],
     /* Sheen 은 ::after 라 핀을 걸 노드가 없다 — button·badge 처럼 같은 판의 다른 지점에 세운다. */
     skeleton: ['.c-skeleton-anatomy-fig .c-skeleton @ 0.08 0.5', '.c-skeleton-anatomy-fig .c-skeleton @ 0.62 0.5'],
     textbox: ['.c-textbox-area', '.c-textbox-label', '.c-textbox-hint @ 0.18 0.5', '.c-textbox-hint-ico'],
-    slider: ['.c-slider-anatomy-fig .c-slider-track @ 0.08 0.5', '.c-slider-anatomy-fig .c-slider-fill', '.c-slider-anatomy-fig .c-slider-thumb', '.c-slider-anatomy-fig .c-slider-label', '.c-slider-anatomy-fig .c-slider-tick:nth-child(3)'],
+    slider: ['.c-slider-anatomy-fig .c-slider-track @ 0.92 0.5', '.c-slider-anatomy-fig .c-slider-fill', '.c-slider-anatomy-fig .c-slider-thumb', '.c-slider-anatomy-fig .c-slider-label', '.c-slider-anatomy-fig .c-slider-tick:nth-child(3)'],
     tooltip: ['.c-tooltip-rich, .c-tooltip-bubble @ 0.5 0.06', '.c-tooltip-title', '.c-tooltip-text', '.c-tooltip-img'],
-    tree: ['.c-tree-row @ 0.92 0.5', '.c-tree-lbl @ 0.5 2.2', '.c-tree-ico @ 0.5 2.2'],
+    tree: ['.c-tree-row @ 1 0.5', '.c-tree-lbl', '.c-tree-ico'],
     'ribbon-nav': ['.c-ribbon-nav-item @ 0.5 0.08', '.c-ribbon-nav-ico', '.c-ribbon-nav-label', '.c-ribbon-nav-badge, .c-ribbon-nav-chev'],
     popover: ['.c-popover-pop @ 0.06 0.12', '.c-popover-title', '.c-popover-rows, .c-popover-row', '.c-popover-action, .btn'],
-    'filter-labels': ['.c-filter-labels-chip @ 0.08 -0.9', '.c-filter-labels-label @ 0.5 2.4', '.c-filter-labels-chip > svg @ 0.5 2.4', '.c-filter-labels-close @ 0.5 -0.9'],
-    accordion: ['.c-accordion-chevron, svg', '.c-accordion-title, h4', '.c-accordion-panel, p', '.c-accordion-item @ 0.5 0.97'],
+    'filter-labels': ['.c-filter-labels-chip @ 0 0.5', '.c-filter-labels-chip @ 0.5 0.5', '.c-filter-labels-chip > svg', '.c-filter-labels-close'],
+    accordion: ['.c-accordion-chevron, svg', '.c-accordion-title, h4', '.c-accordion-panel, p', '.c-accordion-item @ 0.5 1'],
     pagination: ['.c-pagination-nav', '.c-pagination-item:not(.c-pagination-nav)', '.c-pagination-item.is-active', '.c-pagination-ellipsis'],
     breadcrumb: ['.c-breadcrumb-item, .c-breadcrumb-link', '.c-breadcrumb-sep, svg', '.c-breadcrumb-current, [aria-current="page"]'],
     avatar: ['.c-avatar @ 0.5 0.04', '.c-avatar', '.c-avatar @ 0.85 0.85'],
@@ -5395,12 +5406,28 @@ function enhanceAnatomyBoards() {
     segmented: ['.c-segmented @ -0.08 0.5', '.c-segmented-item:first-child @ 0.5 2.1', '.c-segmented-item[aria-checked="true"] @ 0.5 -0.9'],
     'filter-panel': ['.c-filter-panel-search @ 1.08 0.5', '.c-filter-panel-option @ 1.08 0.5', '.c-filter-panel-actions @ 1.08 0.5'],
     'notification-icon': ['.c-noti-icon @ -0.45 0.3', '.c-noti-icon @ 1.45 0.6'],
-    'action-bar': ['.c-action-bar-start @ 0.3 -0.6', '.btn-secondary @ 0.5 -0.6', '.btn-primary @ 0.5 -0.6'],
+    'action-bar': ['.c-action-bar-start @ 0.3 -0.6', '.btn-secondary-outline @ 0.5 -0.6', '.btn-primary @ 0.5 -0.6'],
     'tpl-account-menu': ['.c-account-trigger @ -0.3 0.5', '.c-account-menu @ -0.1 0.1', '.c-context-menu-item @ 1.1 0.5', '.c-context-menu-divider @ 1.1 0.5', '.c-context-menu-item--danger @ 1.1 0.5'],
     'tpl-titlebar': ['.c-titlebar-icon @ 0.5 2.4', '.c-titlebar-title @ 0.3 2.4', '.c-titlebar-controls @ 0.5 2.4', '.c-titlebar @ 0.5 -0.6'],
     'tpl-web-shell': ['.c-webhead @ 0.6 0.5', '.c-webnav @ 0.5 0.5', '.c-webmain @ 0.5 0.5', '.c-webfoot @ 0.6 0.5'],
     'tpl-ai-notice': ['.c-ai-label:not(.is-watermark) @ 1.2 0.5', '.c-ai-label.is-watermark @ -0.15 0.5'],
     stepper: ['.c-stepper-anatomy-fig .c-stepper-badge-num', '.c-stepper-anatomy-fig .c-stepper-node-icon', '.c-stepper-anatomy-fig .c-stepper-title', '.c-stepper-anatomy-fig .c-stepper-cap', '.c-stepper-anatomy-fig .c-stepper-connector']
+  };
+
+  /* 대표 인스턴스: 여러 상태를 한꺼번에 복제하면 그림이 잘리고 핀이 엉뚱한 인스턴스로 간다.
+     섹션 안에서 아래 셀렉터의 첫 요소만 골라 그림에 둔다(여러 개면 위에서 아래로 나란히). */
+  const shotPick = {
+    accordion: ['.c-accordion-item.c-accordion-open'],
+    banner: ['.banner:has(.title-row .ico):has(.ba)'],
+    infobar: ['.info-bar:has(.actions)'],
+    modal: ['.modal-demo:has(.ico)'],
+    combobox: ['.c-combobox-field:has(.c-combobox-menu)', '.c-combobox-trigger:has(.c-combobox-leadicon)'],
+    datetime: ['.c-datetime-field.is-range.is-filled', '.c-datetime-card.is-range:has(.c-datetime-presets)'],
+    breadcrumb: ['.c-breadcrumb-nav'],
+    toast: ['.toast-card:has(.tc-h):has(.tc-actions)'],
+    progress: ['div:has(> .progress > .progress-bar[style*="50%"]):has(> .prog-labels)'],
+    badge: ['.badge:has(.badge-count)'],
+    tab: ['.tabs:not(.tabs-pills)']
   };
 
   // fx/fy: 대상 박스 안의 상대 좌표(0~1). 기본 0.5(중앙) — Container 핀은 테두리 쪽으로 비켜 세워 자식 핀과 겹치지 않게 한다.
@@ -5427,59 +5454,99 @@ function enhanceAnatomyBoards() {
     return selectors.reduce((score, selector) => score + (queryTarget(preview, selector) ? 1 : 0), 0);
   }
 
+  function fitShot(stage) {
+    const pv = stage.querySelector('.anatomy-shot-preview');
+    if (!pv) return;
+    pv.style.zoom = '';
+    // 번호가 설 자리(양옆 40px)를 남기고 맞춘다
+    const over = (pv.scrollWidth + 48) / Math.max(1, pv.clientWidth);
+    if (over > 1.01) pv.style.zoom = String(Math.max(0.5, 1 / over));
+  }
+
   function positionPins(board, sectionId, pinCount) {
     const stage = board.querySelector('.anatomy-shot-stage');
+    fitShot(stage);
     const targets = targetMap[sectionId] || [];
     const pins = [...board.querySelectorAll('.anatomy-pin')];
-    pins.forEach((pin, index) => {
-      // 엔트리 문법: '셀렉터' 또는 '셀렉터 @ fx fy' (fx/fy = 대상 박스 내 상대 좌표)
-      const entry = targets[index] || '';
-      const [selector, offset] = entry.split(' @ ');
-      // 위치를 따로 적지 않은 핀은 대상의 왼쪽 위 모서리에 둔다. 가운데에 두면 대상 안의 글자를 덮는다
-      const [fx, fy] = (offset || '0 0').split(' ').map(Number);
-      const target = queryTarget(stage, selector);
-      if (target) {
-        centerPinOnTarget(pin, target, stage, fx, fy);
-      } else {
-        const fallback = fallbackPinPositions[index] || fallbackPinPositions.at(-1);
-        pin.style.left = fallback[0];
-        pin.style.top = fallback[1];
-        pin.dataset.qa = selector ? 'fallback-missing-target' : 'fallback-no-selector';
-      }
+    const sr = stage.getBoundingClientRect();
+    const pv = stage.querySelector('.anatomy-shot-preview');
+    // 그림(대표 인스턴스) 테두리: 미리보기 안 실제 요소들의 합집합
+    let box = null;
+    (pv ? [...pv.children] : []).forEach(el => {
+      const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+      box = box ? { l: Math.min(box.l, r.left), t: Math.min(box.t, r.top), r: Math.max(box.r, r.right), b: Math.max(box.b, r.bottom) } : { l: r.left, t: r.top, r: r.right, b: r.bottom };
     });
-    // 핀 자리 다듬기: 정한 자리가 글자나 앞 핀과 겹치면 대상 바깥(위, 왼쪽, 오른쪽, 아래, 모서리) 가운데
-    // 글자와도 앞 핀과도 겹치지 않고 그림 안에 드는 첫 자리로 옮긴다. 마땅한 자리가 없으면 그대로 둔다
-    const stageRect = stage.getBoundingClientRect();
+    if (!box) box = { l: sr.left + 40, t: sr.top + 40, r: sr.right - 40, b: sr.bottom - 40 };
+    // 번호는 그림 바깥 가장 가까운 변에 세우고, 가는 선으로 가리키는 지점까지 잇는다(구조 예시 표준 표기)
+    const NS = 'http://www.w3.org/2000/svg';
+    stage.querySelector('.anatomy-leaders')?.remove();
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'anatomy-leaders');
+    svg.setAttribute('width', sr.width); svg.setAttribute('height', sr.height);
+    stage.appendChild(svg);
     const textRects = [];
     const walker = document.createTreeWalker(stage, NodeFilter.SHOW_TEXT);
     while (walker.nextNode()) {
       const t = walker.currentNode;
       if (!t.textContent.trim() || t.parentElement.closest('.anatomy-pin')) continue;
       const range = document.createRange(); range.selectNodeContents(t);
-      for (const rc of range.getClientRects()) textRects.push(rc);
+      for (const rc of range.getClientRects()) if (rc.width && rc.height) textRects.push(rc);
     }
-    const placed = [];
-    const clear = (x, y, half) => x - half >= stageRect.left && x + half <= stageRect.right && y - half >= stageRect.top && y + half <= stageRect.bottom
-      && !textRects.some(t => x - half + 2 < t.right && t.left < x + half - 2 && y - half + 2 < t.bottom && t.top < y + half - 2)
-      && !placed.some(([px, py]) => Math.abs(px - x) < half * 2 + 4 && Math.abs(py - y) < half * 2 + 4);
+    const segHitsRect = (x1, y1, x2, y2, r) => {
+      // 선분을 12등분해 글자 사각형 안을 지나는지 본다(가는 선이라 충분하다)
+      for (let i = 1; i < 12; i += 1) { const x = x1 + (x2 - x1) * i / 12, y = y1 + (y2 - y1) * i / 12; if (x > r.left && x < r.right && y > r.top && y < r.bottom) return true; }
+      return false;
+    };
+    const GAP = 20, STEP = 28, placed = [];
+    const free = (x, y) => !placed.some(([px, py]) => Math.abs(px - x) < STEP && Math.abs(py - y) < STEP);
+    const inside = (x, y) => x - 12 >= sr.left + 2 && x + 12 <= sr.right - 2 && y - 12 >= sr.top + 2 && y + 12 <= sr.bottom - 2;
+    let ok = 0;
     pins.forEach((pin, index) => {
-      const pr = pin.getBoundingClientRect(), half = pr.width / 2;
-      let spot = [pr.left + half, pr.top + half];
-      const [selector] = (targets[index] || '').split(' @ ');
+      const entry = targets[index] || '';
+      const [selector, offset] = entry.split(' @ ');
+      const clamp = v => Math.max(0, Math.min(1, v));
+      const [fx, fy] = (offset || '0.5 0.5').split(' ').map(Number).map(clamp);
       const target = queryTarget(stage, selector);
-      if (!clear(spot[0], spot[1], half) && target) {
-        const t = target.getBoundingClientRect(), g = half + 6, cx = t.left + t.width / 2, cy = t.top + t.height / 2;
-        const spots = [[cx, t.top - g], [t.left - g, cy], [t.right + g, cy], [cx, t.bottom + g], [t.left - g, t.top - g], [t.right + g, t.top - g], [t.left + half, t.top - g], [t.right - half, t.top - g]];
-        const free = spots.find(([x, y]) => clear(x, y, half));
-        if (free) {
-          spot = free;
-          pin.style.left = `${((free[0] - stageRect.left) / stageRect.width) * 100}%`;
-          pin.style.top = `${((free[1] - stageRect.top) / stageRect.height) * 100}%`;
+      let ax, ay;
+      if (target) {
+        const t = target.getBoundingClientRect();
+        ax = t.left + t.width * fx; ay = t.top + t.height * fy; ok += 1; pin.dataset.qa = 'targeted';
+      } else {
+        const fb = fallbackPinPositions[index] || fallbackPinPositions.at(-1);
+        ax = sr.left + sr.width * parseFloat(fb[0]) / 100; ay = sr.top + sr.height * parseFloat(fb[1]) / 100;
+        pin.dataset.qa = selector ? 'fallback-missing-target' : 'fallback-no-selector';
+      }
+      // 변 후보: 가까운 변부터. 같은 자리에 앞 번호가 있으면 변을 따라 비켜 선다
+      const sides = [
+        ['t', ay - box.t], ['b', box.b - ay], ['l', ax - box.l], ['r', box.r - ax]
+      ];
+      // 자리 고르기: 선이 글자를 가로지르지 않는 자리 > 곧은 선(변을 따라 덜 비킨 자리) > 짧은 선 순으로 고른다
+      // 선이 글자 위를 지나는 길이(표본 수). 가리키는 글자 자체도 세서, 글자를 가로로 긋는 자리보다 세로로 짧게 닿는 자리를 고른다
+      const own = textRects.filter(r => ax >= r.left - 1 && ax <= r.right + 1 && ay >= r.top - 1 && ay <= r.bottom + 1);
+      const others = (x, y) => textRects.filter(r => !own.includes(r) && segHitsRect(x, y, ax, ay, r)).length;
+      const ownLen = (x, y) => { let n = 0; for (let i = 1; i < 24; i += 1) { const px = x + (ax - x) * i / 24, py = y + (ay - y) * i / 24; if (own.some(r => px > r.left && px < r.right && py > r.top && py < r.bottom)) n += 1; } return n; };
+      let spot = null, best = Infinity;
+      for (let k = 0; k < 13; k += 1) {
+        const d = (k % 2 ? 1 : -1) * Math.ceil(k / 2) * STEP;
+        for (const [side, dist] of sides) {
+          const x = side === 't' || side === 'b' ? ax + d : side === 'l' ? box.l - GAP : box.r + GAP;
+          const y = side === 'l' || side === 'r' ? ay + d : side === 't' ? box.t - GAP : box.b + GAP;
+          if (!free(x, y) || !inside(x, y)) continue;
+          const score = others(x, y) * 1000 + ownLen(x, y) * 15 + Math.abs(d) * 6 + dist;
+          if (score < best) { best = score; spot = [x, y]; }
         }
       }
       placed.push(spot);
+      pin.style.left = `${((spot[0] - sr.left) / sr.width) * 100}%`;
+      pin.style.top = `${((spot[1] - sr.top) / sr.height) * 100}%`;
+      const line = document.createElementNS(NS, 'line');
+      line.setAttribute('x1', spot[0] - sr.left); line.setAttribute('y1', spot[1] - sr.top);
+      line.setAttribute('x2', ax - sr.left); line.setAttribute('y2', ay - sr.top);
+      const dot = document.createElementNS(NS, 'circle');
+      dot.setAttribute('cx', ax - sr.left); dot.setAttribute('cy', ay - sr.top); dot.setAttribute('r', 3);
+      svg.append(line, dot);
     });
-    board.dataset.pinQa = pins.filter(pin => pin.dataset.qa === 'targeted').length === pinCount ? 'pass' : 'fallback';
+    board.dataset.pinQa = ok === pinCount ? 'pass' : 'fallback';
   }
 
   document.querySelectorAll('.content section .anatomy-heading').forEach(heading => {
@@ -5534,6 +5601,9 @@ function enhanceAnatomyBoards() {
         const sliderFig = clone.querySelector('.c-slider-anatomy-fig');
         if (sliderFig) clone.replaceChildren(sliderFig);
       }
+      const picks = (shotPick[sectionId] || []).map(sel => section.querySelector(sel)).filter(Boolean);
+      if (picks.length) clone.replaceChildren(...picks.map(el => el.cloneNode(true)));
+      clone.querySelectorAll(listSelectors).forEach(el => el.remove());
       clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
       clone.querySelectorAll('[aria-describedby],[aria-controls],[for]').forEach(el => {
         el.removeAttribute('aria-describedby');

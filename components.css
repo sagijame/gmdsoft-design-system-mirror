@@ -70,15 +70,25 @@
   cursor: not-allowed;
 }
 
-.gmd-button.is-secondary {
-  background: var(--gmd-surface-base);
-  color: var(--gmd-primary-default);
+.gmd-button.is-secondary {   /* Secondary = 연한 채움 (.btn-secondary 와 같은 짝) */
+  background: var(--gmd-primary-subtle);
+  border-color: var(--gmd-primary-subtle);
+  color: var(--gmd-text-on-primary-subtle);
 }
 
 .gmd-button.is-secondary:hover {
-  background: var(--gmd-primary-subtle);
   border-color: var(--gmd-primary-default);
-  color: var(--gmd-text-on-primary-subtle);   /* 다크 4.40:1 → 5.83:1 — index.html .btn-secondary:hover 와 같은 짝 */
+}
+
+.gmd-button.is-secondary.is-outline {   /* Secondary 외곽선 (.btn-secondary-outline 과 같은 짝) */
+  background: var(--gmd-surface-base);
+  border-color: var(--gmd-primary-default);
+  color: var(--gmd-primary-default);
+}
+
+.gmd-button.is-secondary.is-outline:hover {
+  background: var(--gmd-primary-subtle);
+  color: var(--gmd-text-on-primary-subtle);   /* 다크 4.40:1 → 5.83:1 */
 }
 
 .gmd-field {
@@ -976,11 +986,17 @@ html[data-theme="dark"] .c-skeleton::after {
    classic 은 이 둘이 뒤바뀌어 채움에 #A8C4D9 가 차고 라벨이 흰색이라 「켜져 있음」 으로 읽혔다.
    근거: Design Kit Docs/Button State=Disable 실측 — 채움 #EBF2FA · 라벨 #A8C4D9 · 테두리 없음. */
 .btn-primary:disabled { background: var(--gmd-primary-subtle); color: var(--gmd-primary-disabled); cursor: not-allowed; }
-.btn-secondary { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
-/* hover 라벨 = Text/on-primary-subtle. 다크에서 primary-default #549AD8 은 subtle #1E3242 위 4.40:1 이라 primary-hover 값(5.83:1)으로 올린다. */
-.btn-secondary:hover { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); }
-.btn-secondary:active { background: var(--gmd-primary-subtle); border-color: var(--gmd-primary-pressed); color: var(--gmd-primary-pressed); }
-.btn-secondary:disabled { color: var(--gmd-primary-disabled); border-color: var(--gmd-primary-disabled); cursor: not-allowed; }
+/* Secondary = 연한 채움(Figma Main-Button-primary Hierarchy=Secondary · Border=false,): 채움·테두리 primary/subtle, 라벨 파랑.
+   라벨은 Text/on-primary-subtle — 다크에서 primary-default 는 subtle 위 4.40:1 이라 이 토큰(5.83:1)을 쓴다. */
+.btn-secondary { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); border-color: var(--gmd-primary-subtle); }
+.btn-secondary:hover { border-color: var(--gmd-primary-default); }
+.btn-secondary:active { border-color: var(--gmd-primary-pressed); color: var(--gmd-primary-pressed); }
+.btn-secondary:disabled { background: var(--gmd-primary-subtle); color: var(--gmd-primary-disabled); border-color: var(--gmd-primary-subtle); cursor: not-allowed; }
+/* Secondary 외곽선 = Hierarchy=Secondary · Border=true: 흰 면 + 파란 테두리. 다이얼로그·토스트의 보조 버튼(닫기, 나중에)에 쓴다. */
+.btn-secondary-outline { background: var(--gmd-surface-base); color: var(--gmd-primary-default); border-color: var(--gmd-primary-default); }
+.btn-secondary-outline:hover { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); }
+.btn-secondary-outline:active { background: var(--gmd-primary-subtle); border-color: var(--gmd-primary-pressed); color: var(--gmd-primary-pressed); }
+.btn-secondary-outline:disabled { color: var(--gmd-primary-disabled); border-color: var(--gmd-primary-disabled); cursor: not-allowed; }
 /* Neutral 채움 라벨은 Text/on-primary/tertiary(라이트 #E0E0E0 · 다크 #212529). --gmd-text-on-primary 는
    양 테마 #FFFFFF 고정이라 다크에서 밝은 회색(#ADB5BD) 위 흰 글자 2.07:1 이 됐다.
    근거: Design Kit Docs/Button Hierarchy=Neutral 네이티브 렌더 실측 — 채움 #495057 · 라벨 #E0E0E0. */
@@ -1111,17 +1127,19 @@ html[data-theme="dark"] .c-skeleton::after {
 .card.is-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
 /* note: Figma Card 본문 13px·eyebrow off-scale 은 Figma off-scale — classic 은 디자인 시스템 정책 고수(본문 14px·eyebrow 12px), 디자인팀 피드백 대상. */
 .card .eyebrow { font-size: var(--gmd-font-size-12); letter-spacing: 0.5px; text-transform: uppercase;
-  color: var(--gmd-text-secondary); font-weight: var(--gmd-weight-medium); }
+  color: var(--gmd-text-secondary); font-weight: var(--gmd-weight-regular); }
 .card h4 { margin: var(--gmd-space-1) 0 var(--gmd-space-2x); font-size: var(--gmd-font-size-16);
   font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: var(--gmd-line-body-lg); }
 .card p { margin: 0 0 var(--gmd-space-3); color: var(--gmd-text-secondary); font-size: var(--gmd-font-size-14); }
-.card .card-action { background: none; border: none; padding: 0; cursor: pointer;
-  color: var(--gmd-primary-default); font-weight: var(--gmd-weight-bold); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); }
-.card .card-action:hover { text-decoration: underline; }
+.card .card-action { display: inline-flex; align-items: center; height: 32px; padding: 0 var(--gmd-space-3); border: 0; border-radius: var(--gmd-radius-sm);
+  background: transparent; cursor: pointer; color: var(--gmd-primary-default); font-weight: var(--gmd-weight-regular); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); }
+/* Figma Card 액션 = Text Link 버튼(Main-Button-primary 71x30, 14 Regular, 패딩 8/14). 높이는 4px 격자로 32 */
+.card .card-action:hover { background: var(--gmd-primary-subtle); color: var(--gmd-text-on-primary-subtle); }
+.card .card-action:active { background: var(--gmd-primary-subtle); color: var(--gmd-primary-pressed); }
 
 /* ── Badge: primary blue 마커/칩 ── */
 .badge { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
-  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
+  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold);   /* Figma SemiBold -> 규칙상 700 */
   background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); line-height: 1; }
 .badge .ico { width: 12px; height: 12px; flex: none; }
 .badge-circle, .badge-square { padding: 0; width: 24px; height: 24px; justify-content: center; }
@@ -1207,12 +1225,12 @@ html[data-theme="dark"] .c-skeleton::after {
   border: none; border-radius: var(--gmd-radius-sm); height: 24px; padding: 0 var(--gmd-space-2x);
   font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-text-on-primary); cursor: pointer; font-family: var(--gmd-font-body); }
 .banner .ba .ico { width: 12px; height: 12px; padding: 0; border-radius: 0; background: none; color: inherit; margin: 0; }
-.banner-default { background: var(--gmd-background-section); }            .banner-default .ba { background: var(--gmd-tertiary); }
+.banner-default { background: var(--gmd-background-section); }            .banner-default .ba { background: var(--gmd-tertiary); color: var(--gmd-text-on-primary-tertiary); }
 /* Info 배너 전경 = Figma는 primary(#135DB5) 사용(semantic-info #0288D1 아님). 배경만 semantic-info-bg(#E1F5FE). */
-.banner-info    { background: var(--gmd-semantic-info-bg); }    .banner-info .ico    { --banner-ico-color: var(--gmd-primary-default); }    .banner-info .h    { color: var(--gmd-primary-default); }    .banner-info .ba    { background: var(--gmd-primary-default); }
-.banner-success { background: var(--gmd-semantic-success-bg); } .banner-success .ico { --banner-ico-color: var(--gmd-semantic-success); } .banner-success .h { color: var(--gmd-semantic-success); } .banner-success .ba { background: var(--gmd-semantic-success); }
+.banner-info    { background: var(--gmd-semantic-info-bg); }    .banner-info .ico    { --banner-ico-color: var(--gmd-primary-default); }    .banner-info .h    { color: var(--gmd-primary-default); }    .banner-info .ba    { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
+.banner-success { background: var(--gmd-semantic-success-bg); } .banner-success .ico { --banner-ico-color: var(--gmd-semantic-success); } .banner-success .h { color: var(--gmd-semantic-success); } .banner-success .ba { background: var(--gmd-semantic-success); color: var(--gmd-text-on-primary-fill); }
 .banner-warning { background: var(--gmd-semantic-warning-bg); } .banner-warning .ico { --banner-ico-color: var(--gmd-semantic-warning); } .banner-warning .h { color: var(--gmd-text-primary); }    .banner-warning .ba { background: var(--gmd-semantic-warning); color: var(--gmd-text-on-warning); }
-.banner-danger  { background: var(--gmd-semantic-error-bg); }   .banner-danger .ico  { --banner-ico-color: var(--gmd-semantic-error); }   .banner-danger .h  { color: var(--gmd-semantic-error); }   .banner-danger .ba  { background: var(--gmd-semantic-error); }
+.banner-danger  { background: var(--gmd-semantic-error-bg); }   .banner-danger .ico  { --banner-ico-color: var(--gmd-semantic-error); }   .banner-danger .h  { color: var(--gmd-semantic-error); }   .banner-danger .ba  { background: var(--gmd-semantic-error); color: var(--gmd-text-on-error-fill); }
 /* Outline = 틴트 bg 유지 + 4px 색 좌측 스트로크 + 얇은 subtle 보더 */
 /* Figma Outline(BannerStroke_X) = Fill 그대로(틴트 배경 유지) + 좌측 3px 라인만. 전체 보더 없음. */
 .banner-outline { border-left: 3px solid var(--gmd-divider); }
@@ -1245,7 +1263,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 /* Figma 액션 = Main-Button-primary: Regular 400 · 12px · primary 색 (bold/14px 아님) */
 .info-bar .link-btn { background: none; border: none; padding: 0; cursor: pointer;
   font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-primary-default); }
-.info-bar .link { margin-left: auto; color: var(--gmd-primary-default); font-weight: var(--gmd-weight-bold); white-space: nowrap; align-self: center; }
+.info-bar .link { margin-left: auto; color: var(--gmd-primary-default); font-weight: var(--gmd-weight-regular); white-space: nowrap; align-self: center; }
 .info-bar.same-line { align-items: center; }
 .info-bar.same-line .ico { margin-top: 0; }
 .info-bar-success { background: var(--gmd-semantic-success-bg); } .info-bar-success .ico { color: var(--gmd-semantic-success); } .info-bar-success .link-btn { color: var(--gmd-semantic-success); }
@@ -1254,7 +1272,7 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 
 .tabs { display: inline-flex; align-items: center; gap: var(--gmd-space-1); }
 .tab { background: transparent; border: none; border-radius: var(--gmd-radius-sm); padding: var(--gmd-space-2) var(--gmd-space-3);
-  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
+  font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); font-weight: var(--gmd-weight-regular);   /* Figma Tab 14 Regular */
   color: var(--gmd-text-secondary); cursor: pointer; display: inline-flex; align-items: center; gap: var(--gmd-space-1);
   transition: color var(--gmd-motion-base) var(--gmd-motion-easing), background var(--gmd-motion-base) var(--gmd-motion-easing); }
 .tab:hover:not(:disabled), .tab.is-hover { color: var(--gmd-primary-default); }
@@ -1482,10 +1500,11 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-datetime-chand{position:absolute;left:50%;bottom:50%;width:2px;background:var(--gmd-primary-default);transform-origin:bottom center}
 .c-datetime-cdot{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--gmd-primary-default)}
 
-.c-datetime-actions{display:flex;align-items:center;justify-content:space-between;padding:var(--gmd-space-5) var(--gmd-space-6) var(--gmd-space-6)}
-/* 하단 버튼 = Text Link 여백 없음(.btn.btn-text.is-bare). Figma Datepicker footer 의 대문자 글자 링크. Figma 12.8px·자간 1.6px 은 글자 8단계·양수 자간 금지로 12px·0 에 맞췄다 */
-.c-datetime-actions .btn-text.is-bare{font-size:var(--gmd-font-size-12);line-height:var(--gmd-line-body-sm);text-transform:uppercase}
-.c-datetime-actright{display:flex;gap:var(--gmd-space-5)}
+.c-datetime-actions{display:flex;align-items:center;justify-content:space-between;padding:var(--gmd-space-3) var(--gmd-space-3) var(--gmd-space-4)}
+/* 하단 버튼 = Button 컴포넌트 Text Link sm(.btn.btn-text.btn-sm, 높이 32·글자 12). Figma Datepicker footer 의 버튼 영역(높이 40 프레임)과 같은 누르는 면.
+   버튼 자체 좌우 여백(12)이 있으므로 줄 좌우 여백은 12로 줄여 글자 시작점을 본문(24)에 맞춘다. Figma 12.8px·자간 1.6px 은 글자 8단계·양수 자간 금지로 12px·0 */
+.c-datetime-actright{display:flex;gap:var(--gmd-space-2x)}
+.c-datetime-actions .btn{min-width:0}   /* Figma OK 버튼 폭 40: 짧은 라벨에 최소 폭(64)을 걸지 않는다 */
 .c-datetime-row{display:flex;flex-wrap:wrap;gap:var(--gmd-space-6);align-items:flex-start}
 /* Date&Time Picker — 기간 선택 (Date Range) */
 .c-datetime-field.is-range{width:280px;gap:var(--gmd-space-2x)}
@@ -2099,14 +2118,16 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 /* 툴팁 면은 --gmd-tertiary 라 다크에서 밝은 회색으로 뒤집힌다. 글자도 함께 뒤집히는
    --gmd-text-on-primary-tertiary 를 기본 선언에서 쓴다 — 종전처럼 html[data-theme="dark"]
    오버라이드로 막으면 시스템 다크(prefers-color-scheme)만 켠 사용자에게 구멍이 남는다. */
-.c-tooltip-bubble{position:relative;background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);font-size:var(--gmd-font-size-10);line-height:1.4;border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-1) var(--gmd-space-2x);white-space:nowrap;box-shadow:var(--gmd-shadow-soft)}
+/* 기본 툴팁 = Figma Tooltip 방향·상태 표본: 라이트 #E9ECEF 면 + 검은 글자, 다크 #3A3A3D 면 + 밝은 글자(테마를 따른다).
+   Minimal Style 1·2(.c-tooltip-minimal · .c-tooltip-rich)는 Figma 도 어두운 면이라 그대로 둔다. */
+.c-tooltip-bubble{position:relative;background:var(--gmd-background-tertiary);color:var(--gmd-text-primary);box-shadow:var(--gmd-shadow-soft);font-size:var(--gmd-font-size-10);line-height:1.4;border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-1) var(--gmd-space-2x);white-space:nowrap;box-shadow:var(--gmd-shadow-soft)}
 
 /* 화살표 — 방향별 */
 .c-tooltip-bubble::after{content:"";position:absolute;width:0;height:0;border:6px solid transparent}
-.c-tooltip-bubble.c-tooltip-top::after{top:100%;left:50%;transform:translateX(-50%);border-top-color:var(--gmd-tertiary)}
-.c-tooltip-bubble.c-tooltip-bottom::after{bottom:100%;left:50%;transform:translateX(-50%);border-bottom-color:var(--gmd-tertiary)}
-.c-tooltip-bubble.c-tooltip-left::after{left:100%;top:50%;transform:translateY(-50%);border-left-color:var(--gmd-tertiary)}
-.c-tooltip-bubble.c-tooltip-right::after{right:100%;top:50%;transform:translateY(-50%);border-right-color:var(--gmd-tertiary)}
+.c-tooltip-bubble.c-tooltip-top::after{top:100%;left:50%;transform:translateX(-50%);border-top-color:var(--gmd-background-tertiary)}
+.c-tooltip-bubble.c-tooltip-bottom::after{bottom:100%;left:50%;transform:translateX(-50%);border-bottom-color:var(--gmd-background-tertiary)}
+.c-tooltip-bubble.c-tooltip-left::after{left:100%;top:50%;transform:translateY(-50%);border-left-color:var(--gmd-background-tertiary)}
+.c-tooltip-bubble.c-tooltip-right::after{right:100%;top:50%;transform:translateY(-50%);border-right-color:var(--gmd-background-tertiary)}
 
 /* 미니멀 Style 1 — 텍스트 다줄 */
 .c-tooltip-minimal{background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);border-radius:var(--gmd-radius-sm);box-shadow:var(--gmd-shadow-lift);width:240px}
@@ -2114,9 +2135,10 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 
 /* 미니멀 Style 2 — 이미지+제목+본문+액션 */
 .c-tooltip-rich{background:var(--gmd-tertiary);color:var(--gmd-text-on-primary-tertiary);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);width:240px;overflow:hidden}
+.c-tooltip-rich.c-tooltip-top::after{border-top-color:var(--gmd-tertiary)}.c-tooltip-rich.c-tooltip-bottom::after{border-bottom-color:var(--gmd-tertiary)}.c-tooltip-rich.c-tooltip-left::after{border-left-color:var(--gmd-tertiary)}.c-tooltip-rich.c-tooltip-right::after{border-right-color:var(--gmd-tertiary)}   /* 어두운 면 툴팁의 꼬리는 면과 같은 색 */
 .c-tooltip-rich .c-tooltip-img{margin:var(--gmd-space-3);height:130px;border-radius:var(--gmd-radius-sm);background:var(--gmd-surface-hover);display:flex;align-items:center;justify-content:center;color:var(--gmd-text-tertiary)}
 .c-tooltip-rich .c-tooltip-content{padding:0 var(--gmd-space-3) var(--gmd-space-3)}
-.c-tooltip-rich .c-tooltip-title{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);margin:0 0 var(--gmd-space-2x)}
+.c-tooltip-rich .c-tooltip-title{font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-on-primary-tertiary);margin:0 0 var(--gmd-space-2x)}  /* 색을 안 주면 문서의 p 색(text-secondary)을 받아 말풍선 바탕에 묻혔다(다크 1.18) */
 .c-tooltip-rich .c-tooltip-text{font-size:var(--gmd-font-size-10);line-height:1.5;color:var(--gmd-text-on-primary-tertiary);margin:0 0 var(--gmd-space-3);white-space:normal}  /* 종전 --gmd-border-subtle 은 다크 3.93 미달. 제목과 본문 위계는 12px Bold 대 10px Regular 가 진다 */
 .c-tooltip-rich .c-tooltip-action{display:inline-flex;align-items:center;gap:var(--gmd-space-1);font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-on-primary-tertiary);background:none;border:none;padding:0;cursor:pointer}
 .c-tooltip-pane{flex:1 1 320px;border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-8) var(--gmd-space-4);display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-3)}
@@ -2214,7 +2236,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-filter-labels-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
 
 /* Figma 정합: Label = Inter Semi Bold 14px. classic 에 semibold(600) 토큰 없음 → medium(500)으로 근사(Figma semibold≈medium). font-size 14 유지. */
-.c-filter-labels-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);border:1px solid var(--gmd-border-base);border-radius:999px;padding:var(--gmd-space-1) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-medium);line-height:1;background:var(--gmd-surface-base);color:var(--gmd-text-secondary);}
+.c-filter-labels-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);border:1px solid var(--gmd-border-base);border-radius:999px;padding:var(--gmd-space-1) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);line-height:1;background:var(--gmd-surface-base);color:var(--gmd-text-secondary);}
 .c-filter-labels-chip svg{flex:none;}
 .c-filter-labels-label{white-space:nowrap;}
 .c-filter-labels-close{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-right:calc(var(--gmd-space-1) * -1);padding:0;border:0;background:transparent;color:currentColor;cursor:pointer;border-radius:var(--gmd-radius-circle);}

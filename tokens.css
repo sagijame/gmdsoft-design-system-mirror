@@ -49,6 +49,7 @@
   /* ── 배경 (background) — cool light ──────────────────────── */
   --gmd-background-base:     #F8F9FA;
   --gmd-background-section:  #E9ECEF;
+  --gmd-background-tertiary: #E9ECEF;   /* Background colors/background_reference/tertiary — 툴팁 말풍선 */
   --gmd-background-card:     #FAF9FD;
   --gmd-background-surface-primary: #FAF9FD;
   --gmd-background-slot-active:     #FFFFFF;
@@ -406,6 +407,7 @@
 
     --gmd-background-base:     #141416;
     --gmd-background-section:  #1E1E21;
+    --gmd-background-tertiary: #3A3A3D;   /* Background colors/background_reference/tertiary — 툴팁 말풍선 */
     --gmd-background-card:     #252529;
     --gmd-background-surface-primary: #1E1E21;
     --gmd-background-slot-active:     #1E1E21;
@@ -514,6 +516,7 @@
 
   --gmd-background-base:     #141416;
   --gmd-background-section:  #1E1E21;
+  --gmd-background-tertiary: #3A3A3D;   /* Background colors/background_reference/tertiary — 툴팁 말풍선 */
   --gmd-background-card:     #252529;
   --gmd-background-surface-primary: #1E1E21;
   --gmd-background-slot-active:     #1E1E21;
