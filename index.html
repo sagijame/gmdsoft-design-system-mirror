@@ -751,7 +751,7 @@ body:not(.intro-active) .intro-xray { display: none; }
    svg 는 버튼을 그대로 채운다 — 안쪽 여백은 아이콘 지오메트리(58% 채움)가 이미 갖고 있어, 여기서 또 줄이면 글리프가 9px 로 되돌아간다(실측). */
 .modal-demo .x { background: none; border: none; color: var(--gmd-text-tertiary); cursor: pointer; width: 24px; height: 24px; flex: none; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
 .modal-demo .x:hover { color: var(--gmd-text-primary); }
-.modal-demo .actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--gmd-space-2x); margin-top: var(--gmd-space-6); }
+.modal-demo .actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--gmd-space-4); margin-top: var(--gmd-space-6); }   /* Figma 모달 버튼 간격 16 */
 .modal-demo .actions.between { justify-content: space-between; }
 .c-checkbox-radio-cell{display:flex;flex-direction:column;align-items:center;gap:var(--gmd-space-2x)}
 .c-checkbox-radio-caption{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
@@ -2510,12 +2510,12 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-warning"><span class="ico" data-icon="exclamation-triangle"></span></span><h4>Alert Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">저장하지 않은 변경 사항이 있습니다. 계속하면 변경 내용이 사라집니다.</p>
-          <div class="actions"><button class="btn btn-secondary-outline">Close</button><button class="btn btn-primary">Primary</button></div>
+          <div class="actions"><button class="btn btn-lg btn-secondary-outline">Close</button><button class="btn btn-lg btn-primary">Primary</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><h4>Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">일반 콘텐츠를 담는 기본 모달.</p>
-          <div class="actions"><button class="btn btn-secondary-outline">Close</button><button class="btn btn-primary">Primary</button></div>
+          <div class="actions"><button class="btn btn-lg btn-secondary-outline">Close</button><button class="btn btn-lg btn-primary">Primary</button></div>
         </div>
       </div></div>
       <p class="note">Alert는 경고 확인(아이콘 강조), Basic은 일반 콘텐츠, Dialog는 폼·상호작용을 담는다. min-width 400px, min-height 200px 기준. 다단계 입력 Dialog는 <a href="#stepper">Stepper</a>와 함께 구성한다.</p>
@@ -2525,27 +2525,27 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-info"><span class="ico" data-icon="info-circle"></span></span><h4>안내</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">변경 사항이 정상적으로 저장되었습니다.</p>
-          <div class="actions"><button class="btn btn-tertiary-outline">닫기</button><button class="btn btn-primary">확인</button></div>
+          <div class="actions"><button class="btn btn-lg btn-tertiary-outline">닫기</button><button class="btn btn-lg btn-primary">확인</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-confirm"><span class="ico" data-icon="info-circle"></span></span><h4>확인</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">이 항목을 목록에 추가할까요?</p>
-          <div class="actions"><button class="btn btn-tertiary-outline">닫기</button><button class="btn btn-primary">확인</button></div>
+          <div class="actions"><button class="btn btn-lg btn-tertiary-outline">닫기</button><button class="btn btn-lg btn-primary">확인</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-warning"><span class="ico" data-icon="exclamation-triangle"></span></span><h4>주의</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">저장하지 않은 변경 사항이 있습니다. 계속하면 변경 내용이 사라집니다.</p>
-          <div class="actions"><button class="btn btn-tertiary-outline">취소</button><button class="btn btn-danger">계속</button></div>
+          <div class="actions"><button class="btn btn-lg btn-tertiary-outline">취소</button><button class="btn btn-lg btn-danger">계속</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-error"><span class="ico" data-icon="x"></span></span><h4>오류</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">요청을 처리하지 못했습니다. 잠시 후 다시 시도하세요.</p>
-          <div class="actions"><button class="btn btn-tertiary-outline">닫기</button><button class="btn btn-danger">삭제</button></div>
+          <div class="actions"><button class="btn btn-lg btn-tertiary-outline">닫기</button><button class="btn btn-lg btn-danger">삭제</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><span class="alert-icon alert-success"><span class="ico" data-icon="check"></span></span><h4>완료</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">파일이 성공적으로 내보내졌습니다.</p>
-          <div class="actions"><button class="btn btn-tertiary-outline">폴더 열기</button><button class="btn btn-primary">완료</button></div>
+          <div class="actions"><button class="btn btn-lg btn-tertiary-outline">폴더 열기</button><button class="btn btn-lg btn-primary">완료</button></div>
         </div>
       </div></div>
       <p class="note">5유형 — <strong>information</strong>(파랑 i)·<strong>confirmation</strong>(파랑 i)·<strong>warning</strong>(노랑 △)·<strong>error</strong>(빨강 ✕)·<strong>Done</strong>(녹색 ✓). 헤더는 원형 subtle 배경의 의미색 아이콘 + 제목(Bold 20) + 닫기 X. 버튼 조합 — <strong>보조 동작은 5유형 모두 Neutral 외곽선(<code>btn-tertiary-outline</code>)으로 통일한다</strong>. 주 동작이 <code>btn-danger</code>인 warning·error에서 보조버튼이 Secondary·Text Link(둘 다 primary 파랑)면 한 다이얼로그에 파랑과 빨강이 같이 놓여 의미색이 충돌한다. 채움형 Neutral(<code>btn-tertiary</code>)은 시각 무게가 주 버튼과 비슷해져 보조 위치에 쓰지 않는다. info/confirmation = 닫기(neutral)+확인(primary), warning = 취소(neutral)+계속(<code>btn-danger</code>), error = 닫기(neutral)+삭제(<code>btn-danger</code>), Done = 폴더 열기(neutral)+완료(primary). 의미색 토큰: info <code>#0288D1</code> · success <code>#2E8544</code> · warning <code>#D97706</code> · error <code>#D42A34</code>, 배경은 각 <code>--gmd-semantic-*-bg</code>.</p>
@@ -2555,12 +2555,12 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo">
           <header><div class="mtitle"><h4>Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">단일 확인 액션.</p>
-          <div class="actions between"><label style="display:inline-flex;align-items:center;gap:var(--gmd-space-1);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)"><input type="checkbox"> Remember Me</label><button class="btn btn-primary">Primary</button></div>
+          <div class="actions between"><label style="display:inline-flex;align-items:center;gap:var(--gmd-space-1);font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)"><input type="checkbox"> Remember Me</label><button class="btn btn-lg btn-primary">Primary</button></div>
         </div>
         <div class="modal-demo">
           <header><div class="mtitle"><h4>Modal title</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">취소·확인 양자택일.</p>
-          <div class="actions"><button class="btn btn-secondary-outline">Close</button><button class="btn btn-primary">Primary</button></div>
+          <div class="actions"><button class="btn btn-lg btn-secondary-outline">Close</button><button class="btn btn-lg btn-primary">Primary</button></div>
         </div>
       </div></div>
       <p class="note">하단 액션 버튼 수. 1버튼은 단일 확인(보조 옵션은 좌측), 2버튼은 취소·확인. 액션은 디자인 시스템 Button 재사용.</p>
@@ -2578,7 +2578,7 @@ body:not(.intro-active) .intro-xray { display: none; }
         <div class="modal-demo" style="max-width:480px">
           <header><div class="mtitle"><span class="alert-icon alert-confirm"><span class="ico" data-icon="info-circle"></span></span><h4>프로젝트 권한 변경</h4></div><button class="x" data-icon="x" aria-label="닫기"></button></header>
           <p class="body">선택한 멤버의 편집 권한을 변경합니다. 적용 후에는 즉시 공유 설정에 반영됩니다.</p>
-          <div class="actions"><button class="btn btn-secondary-outline">취소</button><button class="btn btn-primary">변경 적용</button></div>
+          <div class="actions"><button class="btn btn-lg btn-secondary-outline">취소</button><button class="btn btn-lg btn-primary">변경 적용</button></div>
         </div>
       </div></div>
     </section>

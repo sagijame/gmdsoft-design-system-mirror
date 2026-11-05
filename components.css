@@ -1118,7 +1118,7 @@ html[data-theme="dark"] .c-skeleton::after {
 .textarea:focus-visible { outline: none; border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
 
 .card { background: var(--gmd-background-card); border: 1px solid transparent; border-radius: var(--gmd-radius-md);
-  padding: var(--gmd-space-6); max-width: 300px;
+  padding: var(--gmd-space-5); max-width: 300px;   /* Figma Card 패딩 20 */
   transition: background var(--gmd-motion-base) var(--gmd-motion-easing), box-shadow var(--gmd-motion-base) var(--gmd-motion-easing), border-color var(--gmd-motion-base) var(--gmd-motion-easing); }
 .card-outline { background: var(--gmd-surface-base); border-color: var(--gmd-divider); }
 .card-elevated { background: var(--gmd-surface-base); box-shadow: var(--gmd-shadow-soft); }
@@ -1142,7 +1142,7 @@ html[data-theme="dark"] .c-skeleton::after {
   padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
   background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); line-height: 1; }
 .badge .ico { width: 12px; height: 12px; flex: none; }
-.badge-circle, .badge-square { padding: 0; width: 24px; height: 24px; justify-content: center; }
+.badge-circle, .badge-square { padding: 0; width: 32px; height: 32px; justify-content: center; }   /* Figma Icon Circle Only 32 */
 .badge-circle { border-radius: 50%; }
 .badge-square { border-radius: var(--gmd-radius-sm); }
 .badge-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill);
@@ -1152,7 +1152,7 @@ html[data-theme="dark"] .c-skeleton::after {
 /* ── Tag: 닫기 가능한 라벨(neutral / secondary) ── */
 .tag { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
   padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12);
-  background: var(--gmd-background-card); color: var(--gmd-text-primary); border: 1px solid var(--gmd-divider); }
+  background: var(--gmd-background-card); color: var(--gmd-text-primary); border: 1px solid transparent; }   /* Figma Tag: 테두리 없음 */
 .tag:hover, .tag.is-hover { background: var(--gmd-surface-hover); }
 .tag.is-pressed { background: var(--gmd-background-section); }
 .tag.is-disabled { color: var(--gmd-text-disabled); background: var(--gmd-surface-base); cursor: not-allowed; }
@@ -1188,12 +1188,12 @@ html[data-theme="dark"] .c-skeleton::after {
 .toast-info    { background: var(--gmd-semantic-info-bg);    border-color: var(--gmd-semantic-info);    color: var(--gmd-text-primary); }
 /* ── Toast 유형(Type): 흰 카드 + 그림자 + 닫기 ── */
 .toast-card { position: relative; display: flex; gap: var(--gmd-space-3); align-items: flex-start;
-  background: var(--gmd-surface-base); border: 1px solid var(--gmd-divider); border-radius: var(--gmd-radius-md);
-  box-shadow: var(--gmd-shadow-soft); padding: var(--gmd-space-4); padding-right: var(--gmd-space-8); max-width: 440px; }
+  background: var(--gmd-surface-base); border: 0; border-radius: var(--gmd-radius-md);
+  box-shadow: var(--gmd-shadow-lift); padding: var(--gmd-space-4); padding-right: var(--gmd-space-8); max-width: 440px; }   /* Figma Toast: 테두리 없이 그림자(level-4)만. 가까운 토큰 shadow-lift */
 .toast-card.simple { align-items: center; max-width: 320px; }
-.toast-card .tc-icon { width: 16px; height: 16px; flex: none; margin-top: var(--gmd-space-1); color: var(--gmd-semantic-success); }
-.toast-card .tc-icon.info { color: var(--gmd-semantic-info); }
-.toast-card .tc-icon.send { color: var(--gmd-primary-default); }
+.toast-card .tc-icon { width: 24px; height: 24px; padding: var(--gmd-space-1); box-sizing: border-box; border-radius: 50%; flex: none; color: var(--gmd-semantic-success); background: var(--gmd-semantic-success-bg); }   /* Figma 아이콘 24, 옅은 원 */
+.toast-card .tc-icon.info { color: var(--gmd-semantic-info); background: var(--gmd-semantic-info-bg); }
+.toast-card .tc-icon.send { color: var(--gmd-primary-default); background: var(--gmd-primary-subtle); }
 .toast-card .tc-avatar { width: 32px; height: 32px; border-radius: 50%; flex: none;
   background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); display: inline-flex; align-items: center; justify-content: center;
   font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); }
@@ -1201,7 +1201,7 @@ html[data-theme="dark"] .c-skeleton::after {
 .toast-card .tc-h { font-size: var(--gmd-font-size-14); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); }
 .toast-card .tc-t { font-size: var(--gmd-font-size-14); color: var(--gmd-text-secondary); margin-top: var(--gmd-space-1); }
 .toast-card .tc-time { font-size: var(--gmd-font-size-12); color: var(--gmd-primary-default); margin-top: var(--gmd-space-1); }
-.toast-card .tc-close { position: absolute; top: var(--gmd-space-3); right: var(--gmd-space-3); width: 14px; height: 14px; flex: none; color: var(--gmd-text-tertiary); cursor: pointer; }
+.toast-card .tc-close { position: absolute; top: var(--gmd-space-3); right: var(--gmd-space-3); width: 20px; height: 20px; flex: none; color: var(--gmd-text-tertiary); cursor: pointer; }   /* Figma 닫기 20 */
 .toast-card .tc-actions { display: flex; gap: var(--gmd-space-2x); margin-top: var(--gmd-space-3); }
 .toast-card .tc-nested { display: flex; gap: var(--gmd-space-2x); align-items: flex-start; margin-top: var(--gmd-space-2x); }
 
@@ -1219,13 +1219,15 @@ html[data-theme="dark"] .c-skeleton::after {
 .banner .title-row .ico svg { position: relative; z-index: 1; }
 .banner .h { font-size: var(--gmd-font-size-16); line-height: 1.375; font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); flex: 1; min-width: 0; }  /* Figma 헤딩 16px Bold·leading 22 */
 .banner .t { font-size: var(--gmd-font-size-14); line-height: 1.43; color: var(--gmd-text-primary); }              /* Figma 본문 14px Regular·leading 20, 전체폭 */
-.banner .close { flex: none; width: 14px; height: 14px; display: inline-flex; color: var(--gmd-text-tertiary); cursor: pointer; }
+.banner .close { flex: none; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--gmd-radius-sm); color: var(--gmd-text-tertiary); cursor: pointer; }   /* Figma 닫기 = 28 누르는 면 + 12 아이콘 */
+.banner .close svg { width: 12px; height: 12px; }
+.banner .close:hover { background: var(--gmd-surface-hover); }
 /* Figma 액션 = Main-Button-primary: Regular(볼드 아님) · 12px · padding 6/12 · gap 6 (본문과 gap 32는 .banner gap 이 처리) */
 .banner .ba { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--gmd-space-6px);
-  border: none; border-radius: var(--gmd-radius-sm); height: 24px; padding: 0 var(--gmd-space-2x);
+  border: none; border-radius: var(--gmd-radius-sm); height: 32px; padding: 0 var(--gmd-space-3);   /* Figma 30h·패딩 6/12 → 4px 격자로 32 */
   font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-regular); color: var(--gmd-text-on-primary); cursor: pointer; font-family: var(--gmd-font-body); }
 .banner .ba .ico { width: 12px; height: 12px; padding: 0; border-radius: 0; background: none; color: inherit; margin: 0; }
-.banner-default { background: var(--gmd-background-section); }            .banner-default .ba { background: var(--gmd-tertiary); color: var(--gmd-text-on-primary-tertiary); }
+.banner-default { background: var(--gmd-background-card); }   /* Figma Banner Default 면 = bg/card */            .banner-default .ba { background: var(--gmd-tertiary); color: var(--gmd-text-on-primary-tertiary); }
 /* Info 배너 전경 = Figma는 primary(#135DB5) 사용(semantic-info #0288D1 아님). 배경만 semantic-info-bg(#E1F5FE). */
 .banner-info    { background: var(--gmd-semantic-info-bg); }    .banner-info .ico    { --banner-ico-color: var(--gmd-primary-default); }    .banner-info .h    { color: var(--gmd-primary-default); }    .banner-info .ba    { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
 .banner-success { background: var(--gmd-semantic-success-bg); } .banner-success .ico { --banner-ico-color: var(--gmd-semantic-success); } .banner-success .h { color: var(--gmd-semantic-success); } .banner-success .ba { background: var(--gmd-semantic-success); color: var(--gmd-text-on-primary-fill); }
@@ -1278,11 +1280,11 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .tab:hover:not(:disabled), .tab.is-hover { color: var(--gmd-primary-default); }
 .tab:disabled, .tab.is-disabled { color: var(--gmd-text-disabled); cursor: not-allowed; }
 .tab .ico { width: 14px; height: 14px; flex: none; }
-.tab .tab-count { background: var(--gmd-primary-subtle); color: var(--gmd-primary-default); border-radius: var(--gmd-radius-pill);
+.tab .tab-count { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill);   /* Figma 카운트 = primary 채움 */ border-radius: var(--gmd-radius-pill);
   font-size: var(--gmd-font-size-10); font-weight: var(--gmd-weight-bold); padding: 0 var(--gmd-space-1); min-width: 16px; height: 16px;
   display: inline-flex; align-items: center; justify-content: center; }
 /* Pills — 활성 = 블루 필 */
-.tabs-pills .tab { border-radius: var(--gmd-radius-pill); }
+.tabs-pills .tab { border-radius: 0; }   /* Figma Tab-pills 직각 */
 .tabs-pills .tab[aria-selected="true"] { background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); }
 .tabs-pills .tab[aria-selected="true"] .tab-count { background: var(--gmd-text-on-primary); color: var(--gmd-primary-default); }
 /* Underline — 활성 = 블루 텍스트 + 하단 밑줄 */
@@ -1878,9 +1880,9 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-ai-media > .c-ai-label.is-watermark{top:auto;left:auto;right:var(--gmd-space-2x);bottom:var(--gmd-space-2x)}
 
 /* Context Menu */
-.c-context-menu-menu{display:inline-flex;flex-direction:column;min-width:164px;padding:var(--gmd-space-2x);background:var(--gmd-surface-base);border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);gap:var(--gmd-space-1);font-family:var(--gmd-font-body);}
+.c-context-menu-menu{display:inline-flex;flex-direction:column;min-width:164px;padding:var(--gmd-space-2x);background:var(--gmd-background-card);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);box-shadow:var(--gmd-shadow-lift);gap:var(--gmd-space-1);font-family:var(--gmd-font-body);}
 .c-context-menu-menu--wide{min-width:192px;}
-.c-context-menu-item{display:flex;align-items:center;gap:var(--gmd-space-2x);width:100%;box-sizing:border-box;padding:var(--gmd-space-2x);min-height:24px;border-radius:var(--gmd-radius-sm);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-regular);color:var(--gmd-text-primary);background:transparent;border:none;text-align:left;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing);}
+.c-context-menu-item{display:flex;align-items:center;gap:var(--gmd-space-2x);width:100%;box-sizing:border-box;padding:var(--gmd-space-1) var(--gmd-space-4);min-height:24px;border-radius:var(--gmd-radius-sm);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-regular);color:var(--gmd-text-primary);background:transparent;border:none;text-align:left;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing);}
 .c-context-menu-item:hover{background:var(--gmd-surface-hover);}
 .c-context-menu-item--hover{background:var(--gmd-surface-hover);}
 .c-context-menu-item--pressed{background:var(--gmd-primary-subtle);color:var(--gmd-primary-default);}
@@ -1950,8 +1952,8 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-textbox-field.c-textbox-lg { width: 280px; }
 .c-textbox-field.c-textbox-sm { width: 200px; }
 .c-textbox-label { font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: 1.5; }
-.c-textbox-area { width: 100%; box-sizing: border-box; resize: none; height: 100px; padding: var(--gmd-space-3); border: 1px solid var(--gmd-border-control); border-radius: var(--gmd-radius-md); background: var(--gmd-surface-base); color: var(--gmd-text-primary); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); line-height: 1.5; transition: border-color var(--gmd-motion-fast) var(--gmd-motion-easing), box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing); }
-.c-textbox-area::placeholder { color: var(--gmd-text-tertiary); }
+.c-textbox-area { width: 100%; box-sizing: border-box; resize: none; height: 100px; padding: var(--gmd-space-3); border: 1px solid var(--gmd-border-control); border-radius: var(--gmd-radius-sm); background: var(--gmd-surface-base); color: var(--gmd-text-primary); font-family: var(--gmd-font-body); font-size: var(--gmd-font-size-14); line-height: 1.5; transition: border-color var(--gmd-motion-fast) var(--gmd-motion-easing), box-shadow var(--gmd-motion-fast) var(--gmd-motion-easing); }
+.c-textbox-area::placeholder { color: var(--gmd-text-disabled); }   /* Figma placeholder = default/disabled */
 .c-textbox-area:hover { border-color: var(--gmd-primary-default); }
 .c-textbox-area.c-textbox-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); outline: none; }
 .c-textbox-area.c-textbox-active { border-color: var(--gmd-primary-default); }
@@ -2147,10 +2149,10 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-tooltip-targetlabel{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
 
 /* Tree */
-.c-tree-panel{border:1px solid var(--gmd-border-subtle);border-radius:var(--gmd-radius-md);padding:var(--gmd-space-4);background:var(--gmd-background-card);width:360px;box-shadow:var(--gmd-shadow-soft)}
+.c-tree-panel{border:1px solid var(--gmd-divider);border-radius:0;padding:var(--gmd-space-3);background:var(--gmd-background-card);width:360px}
 .c-tree{list-style:none;margin:0;padding:0;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14)}
 .c-tree ul{list-style:none;margin:0;padding:0}
-.c-tree-row{display:flex;align-items:center;gap:var(--gmd-space-2x);min-width:0;height:32px;padding:var(--gmd-space-1) var(--gmd-space-2x);border-radius:var(--gmd-radius-sm);color:var(--gmd-text-primary);cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-tree-row{display:flex;align-items:center;gap:var(--gmd-space-2x);min-width:0;height:32px;padding:var(--gmd-space-1) var(--gmd-space-2x);border-radius:var(--gmd-radius-sm);color:var(--gmd-text-secondary);cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
 .c-tree-row:hover{background:var(--gmd-surface-hover)}
 .c-tree-twig{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;color:var(--gmd-text-tertiary);flex:0 0 auto}
 .c-tree-twig.c-tree-leaf{visibility:hidden}
@@ -2189,11 +2191,11 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-popover-rows{display:flex;flex-direction:column;gap:var(--gmd-space-2x)}
 .c-popover-row{display:flex;justify-content:space-between;align-items:baseline;gap:var(--gmd-space-2x)}
 .c-popover-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary)}
-.c-popover-value{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary);font-weight:var(--gmd-weight-bold)}
+.c-popover-value{font-size:var(--gmd-font-size-12);color:var(--gmd-text-primary);font-weight:var(--gmd-weight-bold)}
 .c-popover-actions{display:flex;justify-content:flex-end;gap:var(--gmd-space-2x);margin-top:var(--gmd-space-4)}
 .c-popover-action{height:28px;padding:0 var(--gmd-space-3);border:1px solid var(--gmd-primary-default);border-radius:var(--gmd-radius-sm);background:var(--gmd-primary-default);color:var(--gmd-text-on-primary-fill);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-12);font-weight:var(--gmd-weight-bold)}
 .c-popover-status{display:flex;justify-content:space-between;align-items:center;gap:var(--gmd-space-2x);margin-bottom:var(--gmd-space-3)}
-.c-popover-badge{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-semantic-error);background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2) var(--gmd-space-2x)}
+.c-popover-badge{font-size:var(--gmd-font-size-10);font-weight:var(--gmd-weight-bold);color:var(--gmd-semantic-error);background:transparent;border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2) var(--gmd-space-2x)}
 .c-popover-banner{background:var(--gmd-semantic-error-bg);border-radius:var(--gmd-radius-sm);padding:var(--gmd-space-2x) var(--gmd-space-3);margin-bottom:var(--gmd-space-3);font-size:var(--gmd-font-size-12);line-height:1.5;color:var(--gmd-semantic-error)}
 .c-popover-divider{height:1px;background:var(--gmd-divider);margin:0 0 var(--gmd-space-3)}
 .c-popover-anchorwrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;padding-top:var(--gmd-space-2x)}
@@ -2264,15 +2266,15 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-filter-labels-stack{display:flex;flex-wrap:wrap;gap:var(--gmd-space-2x);}
 /* Accordion */
 /* Figma 정합: 외곽선 톤을 divider 로 낮춰 item 간 구분선만 남긴다(강한 border-base 외곽선 제거). 컨테이너 배경은 Figma surface/primary = --gmd-background-card. */
-.c-accordion-item{border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-md);background:var(--gmd-background-card);overflow:hidden;width:320px}
-.c-accordion-header{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;padding:var(--gmd-space-3) var(--gmd-space-4);background:transparent;border:0;cursor:pointer;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);text-align:left;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-accordion-item{border:0;border-bottom:1px solid var(--gmd-divider);border-radius:0;background:var(--gmd-background-surface-primary);overflow:hidden;width:320px}
+.c-accordion-header{display:flex;align-items:center;gap:var(--gmd-space-3);width:100%;padding:var(--gmd-space-4);background:transparent;border:0;cursor:pointer;font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);color:var(--gmd-text-primary);text-align:left;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing)}
 .c-accordion-chevron{flex:0 0 auto;color:var(--gmd-text-tertiary);transition:transform var(--gmd-motion-base) var(--gmd-motion-easing)}
 .c-accordion-title{flex:1 1 auto}
 .c-accordion-header:hover{background:var(--gmd-surface-hover)}
 .c-accordion-item.c-accordion-hover .c-accordion-header{background:var(--gmd-surface-hover)}
 .c-accordion-item.c-accordion-pressed .c-accordion-header{background:var(--gmd-primary-subtle)}
-.c-accordion-item.c-accordion-focused .c-accordion-header{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:var(--gmd-radius-md)}
-.c-accordion-header:focus-visible{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:var(--gmd-radius-md)}
+.c-accordion-item.c-accordion-focused .c-accordion-header{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:0}
+.c-accordion-header:focus-visible{outline:2px solid var(--gmd-primary-default);outline-offset:-2px;border-radius:0}
 .c-accordion-item.c-accordion-open .c-accordion-chevron{transform:rotate(180deg);color:var(--gmd-primary-default)}
 .c-accordion-item.c-accordion-open .c-accordion-title{color:var(--gmd-primary-default)}
 /* 좌패딩: Figma 44px(off-grid) — classic 은 4px 그리드 유지값 40px(--gmd-space-10)으로 둔다(가까운 쪽). */
@@ -2288,7 +2290,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-pagination-row{display:flex;align-items:center;gap:var(--gmd-space-2x);flex-wrap:wrap}
 /* Figma 정합: 컨테이너 표면을 Figma surface/primary = --gmd-background-card 로 통일.
    note: 라벨 13px·radius 6px 는 Figma off-scale — classic 은 디자인 시스템 정책 고수(14px·--gmd-radius-sm 4px), 디자인팀 피드백 대상. */
-.c-pagination-item{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-border-base);border-radius:var(--gmd-radius-sm);background:var(--gmd-background-card);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-regular);line-height:1;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing),color var(--gmd-motion-fast) var(--gmd-motion-easing)}
+.c-pagination-item{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 var(--gmd-space-2x);border:1px solid var(--gmd-divider);border-radius:var(--gmd-radius-sm);background:var(--gmd-background-card);color:var(--gmd-text-primary);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-regular);line-height:1;cursor:pointer;transition:background var(--gmd-motion-fast) var(--gmd-motion-easing),border-color var(--gmd-motion-fast) var(--gmd-motion-easing),color var(--gmd-motion-fast) var(--gmd-motion-easing)}
 .c-pagination-item:hover,.c-pagination-item.is-hover{background:var(--gmd-surface-hover);border-color:var(--gmd-border-base)}
 .c-pagination-item.is-pressed{background:var(--gmd-primary-subtle);border-color:var(--gmd-primary-default);color:var(--gmd-primary-default)}
 .c-pagination-item.is-focused{outline:2px solid var(--gmd-primary-default);outline-offset:2px}
@@ -2296,7 +2298,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-pagination-item.is-disabled,.c-pagination-item[aria-disabled="true"]{background:var(--gmd-background-card);border-color:var(--gmd-border-subtle);color:var(--gmd-text-disabled);cursor:not-allowed}
 .c-pagination-nav{padding:0;width:32px}
 .c-pagination-nav svg{display:block}
-.c-pagination-ellipsis{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;color:var(--gmd-text-tertiary);font-size:var(--gmd-font-size-14);user-select:none}
+.c-pagination-ellipsis{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;color:var(--gmd-text-primary);font-size:var(--gmd-font-size-14);user-select:none}
 .c-pagination-compose{display:flex;flex-direction:column;gap:var(--gmd-space-3)}
 .c-pagination-compose-label{font-size:var(--gmd-font-size-12);color:var(--gmd-text-secondary)}
 /* Breadcrumb */
