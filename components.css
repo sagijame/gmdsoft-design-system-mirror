@@ -1719,8 +1719,8 @@ html[data-theme="dark"] .banner-danger  { --banner-ring: var(--gmd-semantic-erro
 .c-pbadge.is-error     { background: var(--gmd-semantic-error); }
 .c-pbadge.is-skipped   { background: var(--gmd-semantic-neutral); }
 .c-pbadge.is-pending   { border: 1px dashed var(--gmd-border-control); }
-.c-pbadge.is-progress  { border: 2px solid var(--gmd-primary-default); border-top-color: transparent; animation: c-pbadge-spin 1s linear infinite; }
-@keyframes c-pbadge-spin { to { transform: rotate(360deg); } }
+.c-pbadge.is-progress  { border: 2px solid var(--gmd-primary-900-200); border-right-color: var(--gmd-primary-900-500); transform: rotate(45deg); animation: c-pbadge-spin 0.9s linear infinite; }   /* Figma Design Kit Progress / In progress = Spinner-Round 인스턴스(node): 트랙 Foundation Colors/primary 900/200 #ACCDF2 + 오른쪽 아래 1/4 구간 primary 900/500 #135DB5, 두께 2px. 회전 속도는 Spinner 0.9초. 이전 트랙 없는 3/4 고리는 Figma 와 달랐다(2026-11-05) */
+@keyframes c-pbadge-spin { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
 @media (prefers-reduced-motion: reduce) { .c-pbadge.is-progress { animation: none; } }
 
 /* ── 긴 작업 진행 카드 ────────────────────────────────────────── */
