@@ -1127,7 +1127,7 @@ html[data-theme="dark"] .c-skeleton::after {
 .card.is-focus { border-color: var(--gmd-primary-default); box-shadow: 0 0 0 3px var(--gmd-primary-subtle); }
 /* note: Figma Card 본문 13px·eyebrow off-scale 은 Figma off-scale — classic 은 디자인 시스템 정책 고수(본문 14px·eyebrow 12px), 디자인팀 피드백 대상. */
 .card .eyebrow { font-size: var(--gmd-font-size-12); letter-spacing: 0.5px; text-transform: uppercase;
-  color: var(--gmd-text-secondary); font-weight: var(--gmd-weight-regular); }
+  color: var(--gmd-text-secondary); font-weight: var(--gmd-weight-medium); }
 .card h4 { margin: var(--gmd-space-1) 0 var(--gmd-space-2x); font-size: var(--gmd-font-size-16);
   font-weight: var(--gmd-weight-bold); color: var(--gmd-text-primary); line-height: var(--gmd-line-body-lg); }
 .card p { margin: 0 0 var(--gmd-space-3); color: var(--gmd-text-secondary); font-size: var(--gmd-font-size-14); }
@@ -1139,7 +1139,7 @@ html[data-theme="dark"] .c-skeleton::after {
 
 /* ── Badge: primary blue 마커/칩 ── */
 .badge { display: inline-flex; align-items: center; gap: var(--gmd-space-1); border-radius: var(--gmd-radius-pill);
-  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-bold);   /* Figma SemiBold -> 규칙상 700 */
+  padding: var(--gmd-space-1) var(--gmd-space-3); font-size: var(--gmd-font-size-12); font-weight: var(--gmd-weight-medium);
   background: var(--gmd-primary-default); color: var(--gmd-text-on-primary-fill); line-height: 1; }
 .badge .ico { width: 12px; height: 12px; flex: none; }
 .badge-circle, .badge-square { padding: 0; width: 24px; height: 24px; justify-content: center; }
@@ -2236,7 +2236,7 @@ html[data-theme="dark"] .c-skeleton::after{background:linear-gradient(90deg,tran
 .c-filter-labels-cap{font-size:var(--gmd-font-size-12);color:var(--gmd-text-tertiary);}
 
 /* Figma 정합: Label = Inter Semi Bold 14px. classic 에 semibold(600) 토큰 없음 → medium(500)으로 근사(Figma semibold≈medium). font-size 14 유지. */
-.c-filter-labels-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);border:1px solid var(--gmd-border-base);border-radius:999px;padding:var(--gmd-space-1) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-bold);line-height:1;background:var(--gmd-surface-base);color:var(--gmd-text-secondary);}
+.c-filter-labels-chip{display:inline-flex;align-items:center;gap:var(--gmd-space-1);border:1px solid var(--gmd-border-base);border-radius:999px;padding:var(--gmd-space-1) var(--gmd-space-3);font-family:var(--gmd-font-body);font-size:var(--gmd-font-size-14);font-weight:var(--gmd-weight-medium);line-height:1;background:var(--gmd-surface-base);color:var(--gmd-text-secondary);}
 .c-filter-labels-chip svg{flex:none;}
 .c-filter-labels-label{white-space:nowrap;}
 .c-filter-labels-close{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-right:calc(var(--gmd-space-1) * -1);padding:0;border:0;background:transparent;color:currentColor;cursor:pointer;border-radius:var(--gmd-radius-circle);}
